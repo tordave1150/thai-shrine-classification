@@ -11,7 +11,11 @@ function SD($v){ $m=Mean $v; [math]::Sqrt((($v | ForEach-Object {([double]$_-$m)
 function Put($path,$content){ [IO.File]::WriteAllText($path,($content -join "`n"),[Text.UTF8Encoding]::new($false)) }
 function Table($headers,$rows){
  $s=[Collections.Generic.List[string]]::new();$s.Add('| '+($headers -join ' | ')+' |');$s.Add('| '+(($headers|ForEach-Object{'---'}) -join ' | ')+' |')
- foreach($row in $rows){$s.Add('| '+($row -join ' | ')+' |')};$s -join "`n"
+ foreach($row in $rows){
+  $cells=@($row)
+  if($cells.Count-ne$headers.Count){throw "Table row has $($cells.Count) cells; expected $($headers.Count): $row"}
+  $s.Add('| '+(($cells|ForEach-Object{([string]$_).Replace('|','\|')}) -join ' | ')+' |')
+ };$s -join "`n"
 }
 $reg=Get-Content (Join-Path $out 'run_registry.json') -Raw|ConvertFrom-Json
 $selection=Get-Content (Join-Path $out 'selection.json') -Raw|ConvertFrom-Json
@@ -89,21 +93,8 @@ foreach($src in $copy.Keys){Copy-Item -LiteralPath (Join-Path $out $src) -Destin
 foreach($a in $archs){$r=$runs|Where-Object{$_.architecture-eq$a -and $_.mode-eq'full' -and $_.seed-eq42};Copy-Item (Join-Path $r.run_dir 'confusion_matrix_normalized.png') (Join-Path $assets "confusion_${a}_full_seed42.png")}
 $ref=$runs|Where-Object{$_.architecture-eq'mobilenet_v3_large' -and $_.mode-eq'partial' -and $_.seed-eq42}
 Copy-Item (Join-Path $ref.run_dir 'confusion_matrix_normalized.png') (Join-Path $assets 'confusion_reference_seed42.png')
-# All-seed curves: real stopping lengths, no padding or artificial averaging.
-foreach($metric in @('macro_f1','acc','loss')){
- $svg=[Collections.Generic.List[string]]::new();$svg.Add('<svg xmlns="http://www.w3.org/2000/svg" width="1230" height="1420" viewBox="0 0 1230 1420"><rect width="1230" height="1420" fill="white"/>')
- $svg.Add("<text x='30' y='28' font-family='sans-serif' font-size='20'>All 75 final runs: $metric | solid=train, dashed=validation</text>")
- $colors=@('#125c9e','#d26900','#29834a','#9a4aa2','#b23c3c');$seeds=@(42,123,456,789,1024)
- for($s=0;$s-lt5;$s++){$svg.Add("<text x='$(30+$s*220)' y='56' fill='$($colors[$s])' font-family='sans-serif' font-size='14'>seed $($seeds[$s])</text>")}
- $ymax=1.0;if($metric-eq'loss'){$all=@($histories.Values|ForEach-Object{$_}|ForEach-Object{[double]$_.train_loss;[double]$_.val_loss});$ymax=[math]::Ceiling(($all|Measure-Object -Maximum).Maximum*10)/10}
- for($ai=0;$ai-lt5;$ai++){for($mi=0;$mi-lt3;$mi++){
-  $x0=55+$mi*405;$y0=110+$ai*260;$w=345;$h=190
-  $svg.Add("<text x='$x0' y='$($y0-12)' font-family='sans-serif' font-size='14'>$($display[$archs[$ai]]) / $($modes[$mi])</text>")
-  foreach($frac in @(0,.5,1)){$yy=$y0+$h-$h*$frac;$label=F ($ymax*$frac) 'F2';$svg.Add("<path d='M $x0 $yy h $w' stroke='#ddd'/><text x='$($x0-36)' y='$($yy+4)' font-family='sans-serif' font-size='10'>$label</text>")}
-  $svg.Add("<path d='M $x0 $y0 v $h h $w' fill='none' stroke='#444'/><text x='$x0' y='$($y0+$h+17)' font-size='11'>epoch 1</text><text x='$($x0+$w-45)' y='$($y0+$h+17)' font-size='11'>30</text>")
-  for($s=0;$s-lt5;$s++){$r=$runs|Where-Object{$_.architecture-eq$archs[$ai]-and$_.mode-eq$modes[$mi]-and$_.seed-eq$seeds[$s]};foreach($part in @('train','val')){$key=$part+'_'+$metric;$points=foreach($v in $histories[$r.identity]){$xx=$x0+([int]$v.epoch-1)/29*$w;$yy=$y0+$h-([double]$v.$key)/$ymax*$h;"$(F $xx 'F2'),$(F $yy 'F2')"};$dash=if($part-eq'val'){"stroke-dasharray='5,3'"}else{''};$svg.Add("<polyline points='$($points -join ' ')' fill='none' stroke='$($colors[$s])' stroke-width='1.3' opacity='.8' $dash/>")}}
- }};$svg.Add('</svg>');Put (Join-Path $assets "all_seed_${metric}.svg") $svg
-}
+# Use the user's existing mean ± SD plots; do not regenerate training curves.
+& (Join-Path $PSScriptRoot 'copy_learning_curves.ps1')
 # Audit EDA distribution SVG (actual properties, not inferred brightness).
 $props=@(Import-Csv (Join-Path $out 'dataset_audit/image_properties.csv'))
 $svg=[Collections.Generic.List[string]]::new();$svg.Add('<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="640" viewBox="0 0 1100 640"><rect width="1100" height="640" fill="white"/><text x="30" y="30" font-family="sans-serif" font-size="20">Image properties | n=560 | audit of canonical dataset</text>')

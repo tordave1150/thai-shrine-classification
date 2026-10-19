@@ -29,9 +29,9 @@
 
 ## 3. Recursive inventory และ run-level evidence map
 
-[evidence_inventory.csv](evidence_inventory.csv) เก็บpath,bytes,extension,scope,architecture,seedและevidencekindของไฟล์โครงการที่ตรวจ (ไม่รวมinstalledruntime,bytecode,.gitและโฟลเดอร์reportที่สร้างเอง) snapshotประมาณ3,894files; จำนวนอาจเปลี่ยนเมื่อเพิ่มเอกสารโดยไม่เปลี่ยนผลการทดลอง
+ไฟล์ `report/evidence_inventory.csv` ใน workspace เก็บ path, bytes, extension, scope, architecture, seed และชนิดหลักฐานของไฟล์ที่ตรวจ ไม่รวม installed runtime, bytecode, `.git` และโฟลเดอร์รายงาน Snapshot เดิมมีประมาณ 3,894 ไฟล์ จำนวนอาจเปลี่ยนเมื่อเพิ่มเอกสารหรือกราฟ
 
-[run_evidence_map.csv](run_evidence_map.csv) ระบุrunidentity/stage/architecture/mode/seed/status/split/metricnames/raw-vs-summaryและrunpathครบ150runs เพื่อเชื่อมper-file inventoryกับความหมายทางการทดลอง Image filesที่ไม่ใช่resultsยังคงมีclass/pathในsource manifestและsplit
+ไฟล์ `report/run_evidence_map.csv` ใน workspace ระบุ identity, stage, architecture, mode, seed, status และ run path ครบ 150 runs ส่วน [learning_curve_sources.json](learning_curve_sources.json) ที่แนบในรายงานระบุ histories และ SHA256 ของทั้ง 75 final runs รวมถึงกราฟที่นำมาใช้
 
 ## 4. Map รายงานกับหลักฐาน
 
@@ -53,7 +53,7 @@ Pathในตารางนี้relativeต่อworkspace root; `r` หมา
 | 4 lock/reference/seeds | outputs_modes_v3_td/selection.json | Referenceเลือกvalidationก่อนtest |
 | 4 runtime/AMP | outputs_modes_v3_td/environment.json; final r/config.json | Actualruntime; AMPfalse |
 | 5/6 rawtestmetrics | final r/test_predictions.csv, run_metrics.json, test_metrics.json | Rawpersamplepredictions85/run; 75matchedruns |
-| 6 learningcurves | final r/history.csv | All75runs; actualepochs; noforwardfill |
+| 6 learning curves | final r/history.csv; outputs_modes_v3_td/final/curves/; report/learning_curve_sources.json | 75 runs; mean และ sample SD ต่อ epoch เฉพาะ runs ที่ยังมีข้อมูล ไม่มี forward fill; จำนวน runs ต่อ epoch อยู่ใน learning_curve_epoch_counts.csv |
 | 6 pairedstats | outputs_modes_v3_td/final/statistical_tests.csv; report/verified_statistics.csv | 28+30hypotheses; n5; joinseedID |
 | 6 perclass | final r/test_predictions.csv; report/verified_per_class_summary.csv | RecomputedP/R/F1support; sampleSD |
 | 6 confusionmatrices | final r/confusion_matrix_normalized.png | RepresentativeFull5modelsseed42 + validationreferenceseed42 |
@@ -70,7 +70,9 @@ Pathในตารางนี้relativeต่อworkspace root; `r` หมา
 | image_properties.svg | Histogramคำนวณจากlatestdataset_audit/image_properties.csv;560images;overflowlastbin |
 | imagenet_baseline.png | Copiedunchangedจากlatestbaseline/pretrained_examples.png;ResNet50 |
 | tuning_lr.png, tuning_weight_decay.png | Copiedlatesttuning/tuning_validation_scatter.png และweight_decay_validation_scatter.png |
-| all_seed_loss.svg, all_seed_acc.svg, all_seed_macro_f1.svg | 75history.csv; fivearchitecture rows × threemodecolumns;5seedcolors;solidtrain/dashedvalidation |
+| learning_curves/<architecture>/mean_sd_grid.png | คัดลอกโดยไม่แก้ไขจาก outputs_modes_v3_td/final/curves/<architecture>/mean_sd_grid.png ครบ 5 สถาปัตยกรรม; loss/accuracy ของ Full, Frozen, Partial |
+| learning_curves/mobilenet_v3_large/partial/mean_sd_curves.png | คัดลอกจากคู่โมเดลอ้างอิง; loss, accuracy และ Macro F1 |
+| learning_curves/all_pairs_grid.png | คัดลอก overview ทั้ง 15 คู่; ลิงก์ภาพขนาดเต็มใน README |
 | pair_accuracy.png, pair_macro_f1.png | Copiedlatestreport_assets/;15pairmean/SD |
 | confusion_*_full_seed42.png | finalr/confusion_matrix_normalized.png ของarchitectureนั้น/full/42 |
 | confusion_reference_seed42.png | finalmobilenet_v3_large/partial/42/confusion_matrix_normalized.png |
@@ -79,7 +81,9 @@ Pathในตารางนี้relativeต่อworkspace root; `r` หมา
 | reference_reliability.png | latestconfidence/reliability_mobilenet_v3_large_partial_seed42.png |
 | training_gaps.png | latestdiagnostics/training_gaps.png; supplementalasset |
 
-`report/qa/` เป็นrasterpreviewsสำหรับตรวจSVG ไม่ใช่ผลทดลองใหม่ รูปต้นทางทั้งหมดไม่ถูกแก้ไข รูปที่สร้างเพิ่มมีเพียงEDAและall-seedcurvesจากตัวเลขที่บันทึกไว้แล้ว
+กราฟ learning curves ชุดปัจจุบันมี 7 ไฟล์ คัดลอกแบบ byte-identical และตรวจ SHA256 เทียบต้นทางแล้ว แต่ละคู่เริ่มจาก 5 seeds; หลัง early stopping จำนวนที่ใช้เฉลี่ยลดลงตามข้อมูลที่เหลือ Script ต้นทางใช้ `nanmean` และ `nanstd(ddof=1)` และแทน SD ด้วย 0 เมื่อเหลือ run เดียว ซึ่งเป็นวิธีแสดงผล ไม่ใช่หลักฐานว่าความแปรปรวนเป็นศูนย์ ดูจำนวน runs จริงใน [learning_curve_epoch_counts.csv](learning_curve_epoch_counts.csv)
+
+SVG `all_seed_loss.svg`, `all_seed_acc.svg`, `all_seed_macro_f1.svg` และ previews ใน `report/qa/` มาจากรายงานฉบับก่อน README ปัจจุบันเปลี่ยนมาใช้กราฟ mean ± SD แล้ว รูปต้นทางใน output ไม่ถูกแก้ไข และไม่ได้รัน Python เพื่อสร้างกราฟใหม่
 
 ## 6. Reference documents และขอบเขตคำขอ
 

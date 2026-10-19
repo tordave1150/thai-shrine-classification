@@ -9,9 +9,9 @@
 - ตรวจgroupsplitoverlapจากsplits.csv=0; ไม่ถือว่าครอบคลุมsource/sessionleakageที่ไม่ทราบ
 - Pairedseedjoinsตรงกันและไม่พบduplicatehypotheses; independentlyrecomputedt/rawpและHolm28+30comparisons
 - เพิ่มCohen'sd_zและ95%CIของpairedmeanโดยไม่เลือกcomparisonfamiliesใหม่จากผลtest
-- ตรวจรูปSVGใหม่ว่าXMLparseได้,renderด้วยNode/sharpและดูภาพจริงสำหรับloss/F1/EDA; Accuracyใช้renderer/axesโครงสร้างเดียวกันและXMLผ่าน กราฟชุดเดิมคัดลอกโดยไม่ดัดแปลง
+- Learning curves ปัจจุบันใช้ PNG mean ± SD ที่มีอยู่แล้ว คัดลอก 7 ไฟล์และตรวจ SHA256 ตรงกับต้นทาง ตรวจ run directories ตรงกับ registry ทั้ง 15 คู่ คู่ละ 5 seeds และบันทึกจำนวน runs ที่มีข้อมูลในแต่ละ epoch ไว้แล้ว
 - READMEมีหัวข้อหลัก7ส่วนตามลำดับ,unitsของAccuracyเป็น%และF1/P/Rเป็น0–1,ระบุmode/seed/aggregationไว้ใต้รูป และไม่สรุปว่าnon-significant=equal
-- MainREADMEและreport_sourceใช้relativeassetpaths;ไม่มีPDFและไม่มีการpublishGitHubแทนผู้ใช้
+- README และ report_source ใช้ relative paths สำหรับ GitHub; ตรวจจำนวนคอลัมน์ครบทุกแถวทั้ง 17 ตาราง และไม่พบ local links ที่ขาดไฟล์
 
 ## ผลตรวจตัวเลข
 
@@ -27,6 +27,14 @@
 วิธีverificationใช้PowerShellอ่านsavedCSVs/JSONs ไม่มีPython/tests/smoke/trainingใหม่ สำหรับn=5(df4)คำนวณtwo-sidedStudentttailอย่างอิสระด้วย `u=|t|/sqrt(t²+4); p=.5(1-u)²(u+2)` แล้วปรับHolmภายในfamily;CIใช้tcritical2.776445105 เป็น**unadjusted95%CI** ไม่ใช่simultaneousCI
 
 ผลตรวจmachine-readable: [verification.json](verification.json) และ [verified_statistics.csv](verified_statistics.csv)
+
+## การปรับ README และ learning curves
+
+- เปลี่ยนจาก SVG ที่แสดงเส้นแยก seeds เป็นกราฟ mean ± SD แยก 5 สถาปัตยกรรม พร้อมกราฟ loss/accuracy/Macro F1 ของโมเดลอ้างอิงและลิงก์ overview
+- กราฟอิง available runs ในแต่ละ epoch หลัง early stopping จึงอาจเหลือน้อยกว่า 5 seeds โดยแต่ละคู่มีครบห้า seeds ถึง epoch ที่ระบุใน [source map](learning_curve_sources.json) การวาด SD=0 เมื่อเหลือ run เดียวไม่ใช่ sample SD ที่คำนวณได้ และแจ้งไว้ใน README แล้ว
+- แก้ตารางสัดส่วนข้อมูลที่มี `%` แยกเป็นอีกคอลัมน์ ตารางสถิติที่ comparison แตกเป็นหลาย cells และตารางรายคลาสที่ค่ารวมอยู่ cell เดียว แก้การจัดกลุ่ม expression ในตัวสร้างตารางและเพิ่มการตรวจจำนวน cells ก่อนเขียนไฟล์
+- ย่อตารางสูตรชนะให้อ้าง trial ในตาราง search configurations และปรับภาษาเนื้อหารายงาน โดยคงค่าผลทดลองและข้อสรุปทางสถิติเดิม
+- การปรับรอบนี้ใช้การอ่านไฟล์ผลเดิมและตรวจเอกสารด้วย PowerShell ไม่ได้รัน Python, training หรือชุดทดสอบโค้ด
 
 ## ข้อจำกัด/สิ่งที่ยังไม่ยืนยัน
 
@@ -52,4 +60,4 @@
 
 ## วิธีทำซ้ำเฉพาะหลักฐานรายงาน
 
-เมื่อมีrawoutputsอยู่ในworkspaceเดิม สามารถใช้PowerShell `./report/write_report.ps1` เพื่อคำนวณverification/assets/tablesใหม่ โดยไม่ใช้Python/training MainREADMEข้อความอธิบายถูกเก็บไว้และอัปเดตเฉพาะgeneratedtableblocks ก่อนpublishต้องcommitREADMEและโฟลเดอร์reportรวมassetsด้วย ไม่จำเป็นต้องcommitcheckpointsหรือW&Bbinaryfiles
+เมื่อมี raw outputs ใน workspace เดิม ใช้ PowerShell `./report/write_report.ps1` เพื่อคำนวณหลักฐานและอัปเดต generated table blocks โดยเก็บข้อความใน README ไว้ ตัวสร้างรายงานเรียก `copy_learning_curves.ps1` เพื่อคัดลอก PNG ที่มีอยู่แล้ว พร้อมสร้าง source map และจำนวน runs ต่อ epoch; ต้องมีรูปต้นทางครบก่อนใช้คำสั่งนี้ การเผยแพร่ README ต้องรวมรูปและไฟล์ประกอบที่ลิงก์ไว้ด้วย
