@@ -9,9 +9,9 @@
 - ตรวจgroupsplitoverlapจากsplits.csv=0; ไม่ถือว่าครอบคลุมsource/sessionleakageที่ไม่ทราบ
 - Pairedseedjoinsตรงกันและไม่พบduplicatehypotheses; independentlyrecomputedt/rawpและHolm28+30comparisons
 - เพิ่มCohen'sd_zและ95%CIของpairedmeanโดยไม่เลือกcomparisonfamiliesใหม่จากผลtest
-- Learning curves ปัจจุบันใช้ PNG mean ± SD ที่มีอยู่แล้ว คัดลอก 7 ไฟล์และตรวจ SHA256 ตรงกับต้นทาง ตรวจ run directories ตรงกับ registry ทั้ง 15 คู่ คู่ละ 5 seeds และบันทึกจำนวน runs ที่มีข้อมูลในแต่ละ epoch ไว้แล้ว
+- README ฉบับล่าสุดแสดง box plots ของ selected checkpoints แทน mean ± SD temporal curves ที่อ่านยาก; ยังเก็บลิงก์ภาพ temporal curves และ source map เดิมไว้
 - READMEมีหัวข้อหลัก7ส่วนตามลำดับ,unitsของAccuracyเป็น%และF1/P/Rเป็น0–1,ระบุmode/seed/aggregationไว้ใต้รูป และไม่สรุปว่าnon-significant=equal
-- README และ report_source ใช้ relative paths สำหรับ GitHub; ตรวจจำนวนคอลัมน์ครบทุกแถวทั้ง 17 ตาราง และไม่พบ local links ที่ขาดไฟล์
+- README และ report_source ใช้ relative paths สำหรับ GitHub; ตาราง generated blocks เดิมผ่านการตรวจจำนวนคอลัมน์ และตรวจลิงก์ local ของฉบับล่าสุดอีกครั้งหลังเพิ่ม SVG
 
 ## ผลตรวจตัวเลข
 
@@ -28,19 +28,24 @@
 
 ผลตรวจmachine-readable: [verification.json](verification.json) และ [verified_statistics.csv](verified_statistics.csv)
 
-## การปรับ README และ learning curves
+## การปรับ README และกราฟล่าสุด
 
-- เปลี่ยนจาก SVG ที่แสดงเส้นแยก seeds เป็นกราฟ mean ± SD แยก 5 สถาปัตยกรรม พร้อมกราฟ loss/accuracy/Macro F1 ของโมเดลอ้างอิงและลิงก์ overview
-- กราฟอิง available runs ในแต่ละ epoch หลัง early stopping จึงอาจเหลือน้อยกว่า 5 seeds โดยแต่ละคู่มีครบห้า seeds ถึง epoch ที่ระบุใน [source map](learning_curve_sources.json) การวาด SD=0 เมื่อเหลือ run เดียวไม่ใช่ sample SD ที่คำนวณได้ และแจ้งไว้ใน README แล้ว
+- สร้างกราฟล่าสุดด้วย [generate_latest_figures.js](generate_latest_figures.js) จาก 75 tuning trials, 75 final runs, 6,375 test predictions และ audit 560 ภาพ; ไม่รัน Python, tests หรือ training
+- Box plots แสดง validation Macro F1 และ best epoch ของแต่ละ final seed ส่วน mean ± SD curves เป็น supplementary link; การหยุดฝึกต่าง epoch ทำให้จำนวน available runs ในภาพเส้นช่วงท้ายต่างกัน
+- Confusion matrices ของทุก 15 คู่เป็นเปอร์เซ็นต์ต่อ true-class row แล้วคำนวณ mean/sample SD ข้าม 5 seeds มีสเกลสี 0–100 เดียวกัน สีแยกตาม mode และ [ค่ารายช่อง](confusion_mean_sd.csv)
+- สี/สัญลักษณ์ในกราฟ mode คงที่: Frozen น้ำเงิน/วงกลม, Partial แดง/สี่เหลี่ยม, Full เขียว/ข้าวหลามตัด ส่วนสีของคลาสใช้เฉพาะ EDA
+- ข้อมูล [brightness](derived_brightness.csv) คำนวณจากภาพต้นฉบับ 560 ภาพด้วย Sharp, EXIF-aware decode และ Rec.709 luminance; ไม่เอาตัวเลขจากภาพตัวอย่างของผู้ใช้
+- เพิ่มขั้นตอนเลือก reference ก่อน Grad-CAM, confidence/calibration และระบุสถานะ ablation ที่ยังไม่รันอย่างชัดเจน
+- เพิ่มภาพ padding ขนาดใหญ่จากภาพ train จริงหนึ่งภาพ และกริด augmentation 4 คลาส × 5 ภาพจาก canonical train split; เก็บ IDs, SHA256, seeds และพารามิเตอร์ใน [preprocessing_preview_sources.json](preprocessing_preview_sources.json) โดยระบุใน README ว่าเป็นภาพสาธิตที่สร้างใหม่ ไม่ใช่ minibatch ใน log
 - แก้ตารางสัดส่วนข้อมูลที่มี `%` แยกเป็นอีกคอลัมน์ ตารางสถิติที่ comparison แตกเป็นหลาย cells และตารางรายคลาสที่ค่ารวมอยู่ cell เดียว แก้การจัดกลุ่ม expression ในตัวสร้างตารางและเพิ่มการตรวจจำนวน cells ก่อนเขียนไฟล์
 - ย่อตารางสูตรชนะให้อ้าง trial ในตาราง search configurations และปรับภาษาเนื้อหารายงาน โดยคงค่าผลทดลองและข้อสรุปทางสถิติเดิม
-- การปรับรอบนี้ใช้การอ่านไฟล์ผลเดิมและตรวจเอกสารด้วย PowerShell ไม่ได้รัน Python, training หรือชุดทดสอบโค้ด
+- การปรับรอบนี้ใช้ PowerShell อ่านผลเดิมและ Node.js สร้างกราฟ/ตรวจลิงก์ ไม่ได้รัน Python, training หรือชุดทดสอบโค้ด
 
 ## ข้อจำกัด/สิ่งที่ยังไม่ยืนยัน
 
 1. **[TODO — source evidence not found]** PDF guideline/exampleต้นฉบับ ไม่มีในโครงการที่ค้น จึงใช้7sectionorderจากinstructionMDและคำขอล่าสุดที่ให้MarkdownแทนPDF ไม่อ้างว่าตรวจPDFแล้ว
 2. **[TODO — source evidence not found]** Collection/scraperprotocollogที่บอกquery/date/manual-vs-scrapedแต่ละภาพและlicenseครบทุกภาพ ไม่มีหลักฐานพอ รายงานใช้URLmetadataที่มีจริงและระบุunknown112ภาพ
-3. **[TODO — source evidence not found]** Brightnessdistribution ไม่มีbrightnessvaluesในauditที่ใช้ ไม่สร้างค่าที่ไม่มีหลักฐาน;แทนด้วยwidth/height/aspect/filesizeplots
+3. Brightness values ไม่อยู่ใน audit เดิม จึงคำนวณใหม่จากภาพต้นฉบับด้วยวิธีที่บันทึกใน `generate_latest_figures.js` และเก็บค่ารายภาพไว้ใน `derived_brightness.csv`; ไม่ตีความเป็นผลของการฝึก
 4. Cross-modelGrad-CAMบนmatchedsamplesทั้ง5architecturesไม่มี มีreferenceCAM/eyeballจริงเท่านั้น ไม่สร้างattentioncomparisonขึ้นเองและไม่รันcheckpointinferenceเพิ่ม
 5. กลุ่มduplicateที่ยืนยันไม่ข้ามsplit แต่unknownsources/undetectednear-duplicates/samesessionยังอาจมีอยู่ ภาพมีtexts/watermarksและtestsplitนี้เคยถูกดูในงานก่อนหน้า จึงยังเป็นexploratoryfixed-splitfollow-up
 6. ECEใช้summary/binlogsที่มีอยู่ ไม่ได้recomputeprobabilitycalibration/testlossหรือweightedtrainlossในการตรวจซ้ำรอบรายงานนี้ ไม่ได้redecode/hashcheckpointsทุกไฟล์ใหม่

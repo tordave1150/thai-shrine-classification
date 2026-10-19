@@ -12,7 +12,7 @@ $manifest=Get-Content (Join-Path $out 'source_manifest.json') -Raw|ConvertFrom-J
 foreach($g in ($manifest.images|Group-Object source_domain|Sort-Object Count -Descending|Select-Object -First 10)){$name=if($g.Name){$g.Name}else{'Unknown'};$rr.Add(@($name,$g.Count))}
 Insert DOMAINS (Table @('Source domain','จำนวนภาพ') $rr)
 $classThai=@{san_phraphrom='ศาลพระพรหม';san_phraphum='ศาลพระภูมิ';san_tayay='ศาลตายาย';tee_ju_eia='ศาลตี่จู้เอี๊ยะ'}
-$rr.Clear();foreach($c in $classes){$n=@($split|Where-Object label -eq $c).Count;$rr.Add(@($c,$classThai[$c],$n,((F (100*$n/560) 'F2')+'%')))};Insert CLASS_COUNTS (Table @('Class','ประเภทศาล','จำนวนภาพ','สัดส่วน') $rr)
+$rr.Clear();foreach($c in $classes){$n=@($split|Where-Object label -eq $c).Count;$rr.Add(@($c,$classThai[$c],$n,(F (100*$n/560) 'F2')))};Insert CLASS_COUNTS (Table @('Class','ประเภทศาล','จำนวนภาพ','สัดส่วน (%)') $rr)
 $rr.Clear();foreach($s in @('train','validation','test')){$group=@($split|Where-Object split -eq $s);$row=@($s,$group.Count);foreach($c in $classes){$row+=@($group|Where-Object label -eq $c).Count};$rr.Add($row)};Insert SPLIT_TABLE (Table @('Split','Total','พระพรหม','พระภูมิ','ตายาย','ตี่จู้') $rr)
 $archRows=@(
  @('ResNet50','Residual blocks; fc→Linear(in_features,4)','ไม่มี head dropout เพิ่ม','Residual connections ช่วยการฝึก backbone ลึก; มีparametersมากกว่าMobileNetในโมเดลที่บันทึก'),
@@ -41,7 +41,7 @@ Insert DYNAMICS_TABLE (Table @('Architecture','Mode','Mean best epoch','Mean sto
 $dense=$dynamics|Where-Object{$_.architecture-eq'densenet121'-and$_.mode-eq'full'}
 Insert DYNAMICS_TEXT "สำหรับ DenseNet121/Full ทั้ง5histories มี mean train F1 ณ checkpoint=$(F $dense.mean_train_f1_at_best), validation F1=$(F $dense.mean_val_f1_at_best), mean best/stop epochs=$(F $dense.mean_best_epoch 'F1')/$(F $dense.mean_stop_epoch 'F1') และ late-divergence ตามนิยามข้างต้น $($dense.late_divergence_runs)/5 runs จึงมีหลักฐานการแยกตัวช่วงท้ายในบางseed ไม่ควรสรุป underfitting จากoverallscoreเพียงอย่างเดียว ดูเส้นlossและvalidationplateauประกอบทุกseed"
 $dynamics|Export-Csv (Join-Path $PSScriptRoot 'verified_training_dynamics.csv') -NoTypeInformation -Encoding utf8
-$rr.Clear();foreach($v in (Import-Csv (Join-Path $out 'eyeball/eyeball_cases.csv'))){$rr.Add(@($v.image_id,$v.true_label,$v.predicted_label,(F $v.confidence),$v.imagenet_label))};Insert CASE_TABLE (Table @('Image ID','True','Fine-tuned prediction','Confidence','ImageNet top1') $rr)
+$rr.Clear();foreach($v in (Import-Csv (Join-Path $out 'eyeball/eyeball_cases.csv'))){$rr.Add(@($v.image_id,$v.true_label,$v.predicted_label,(F $v.confidence),$v.imagenet_label))};Insert CASE_TABLE (Table @('Image ID','True','Fine-tuned prediction','Confidence (0–1)','ImageNet top1') $rr)
 $errors=@{};foreach($id in $testIDs){$errors[$id]=[pscustomobject]@{image_id=$id;true_label=($split|Where-Object image_id -eq $id).label;wrong_all75=0;wrong_reference5=0;wrong_resnetfull5=0}}
 foreach($r in $runs){foreach($p in (Import-Csv (Join-Path $r.run_dir 'test_predictions.csv'))){if($p.true_label-ne$p.predicted_label){$e=$errors[$p.image_id];$e.wrong_all75++;if($r.architecture-eq'mobilenet_v3_large'-and$r.mode-eq'partial'){$e.wrong_reference5++};if($r.architecture-eq'resnet50'-and$r.mode-eq'full'){$e.wrong_resnetfull5++}}}}
 $errorRows=@($errors.Values|Sort-Object wrong_all75 -Descending);$errorRows|Export-Csv (Join-Path $PSScriptRoot 'error_frequency.csv') -NoTypeInformation -Encoding utf8

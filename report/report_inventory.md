@@ -56,7 +56,7 @@ Pathในตารางนี้relativeต่อworkspace root; `r` หมา
 | 6 learning curves | final r/history.csv; outputs_modes_v3_td/final/curves/; report/learning_curve_sources.json | 75 runs; mean และ sample SD ต่อ epoch เฉพาะ runs ที่ยังมีข้อมูล ไม่มี forward fill; จำนวน runs ต่อ epoch อยู่ใน learning_curve_epoch_counts.csv |
 | 6 pairedstats | outputs_modes_v3_td/final/statistical_tests.csv; report/verified_statistics.csv | 28+30hypotheses; n5; joinseedID |
 | 6 perclass | final r/test_predictions.csv; report/verified_per_class_summary.csv | RecomputedP/R/F1support; sampleSD |
-| 6 confusionmatrices | final r/confusion_matrix_normalized.png | RepresentativeFull5modelsseed42 + validationreferenceseed42 |
+| 6 confusionmatrices | final r/test_predictions.csv; report/confusion_mean_sd.csv | ทุก 15 คู่: per-seed row percentages → mean/sample SD ข้าม 5 seeds; fixed 0–100 colour scale |
 | 6 calibration | outputs_modes_v3_td/confidence/run_metrics.csv, pair_summary.csv, bin_metrics.csv | Logged10binECE; calibrationไม่ได้recomputeในreportverification |
 | 6 CAM/eyeball | outputs_modes_v3_td/gradcam/selected_cases.csv; eyeball/eyeball_cases.csv | Referenceonly/seed42;8selectedimages |
 | 6 repeatederrors | report/error_frequency.csv | คำนวณจาก75predictionCSVs; countnotindependenttrials |
@@ -66,6 +66,8 @@ Pathในตารางนี้relativeต่อworkspace root; `r` หมา
 
 | Report asset | Original evidence / generation |
 |---|---|
+| latest/*.svg | README ฉบับปัจจุบัน: สร้างจาก saved logs/predictions/audit ด้วย `generate_latest_figures.js` และระบุ SHA256 ใน `latest_figure_sources.json` |
+| latest/padding_large.png, latest/augmentation_train_5_per_class.png | ตัวอย่างประกอบจาก original images ใน canonical train split สร้างด้วย `generate_preprocessing_examples.js`; แหล่งภาพและค่าการแปลงอยู่ใน `preprocessing_preview_sources.json` ไม่ใช่ภาพแนบหรือ logged training minibatch |
 | sample_grid.png, class_distribution.png, preprocessing.png | Copiedunchangedจากlatestdataset_audit/ (preprocessingต้นทางpreprocessing_examples.png) |
 | image_properties.svg | Histogramคำนวณจากlatestdataset_audit/image_properties.csv;560images;overflowlastbin |
 | imagenet_baseline.png | Copiedunchangedจากlatestbaseline/pretrained_examples.png;ResNet50 |
@@ -81,9 +83,13 @@ Pathในตารางนี้relativeต่อworkspace root; `r` หมา
 | reference_reliability.png | latestconfidence/reliability_mobilenet_v3_large_partial_seed42.png |
 | training_gaps.png | latestdiagnostics/training_gaps.png; supplementalasset |
 
-กราฟ learning curves ชุดปัจจุบันมี 7 ไฟล์ คัดลอกแบบ byte-identical และตรวจ SHA256 เทียบต้นทางแล้ว แต่ละคู่เริ่มจาก 5 seeds; หลัง early stopping จำนวนที่ใช้เฉลี่ยลดลงตามข้อมูลที่เหลือ Script ต้นทางใช้ `nanmean` และ `nanstd(ddof=1)` และแทน SD ด้วย 0 เมื่อเหลือ run เดียว ซึ่งเป็นวิธีแสดงผล ไม่ใช่หลักฐานว่าความแปรปรวนเป็นศูนย์ ดูจำนวน runs จริงใน [learning_curve_epoch_counts.csv](learning_curve_epoch_counts.csv)
+กราฟ learning curves เดิมที่ใช้เป็นหลักฐานประกอบมี 7 ไฟล์ คัดลอกแบบ byte-identical และตรวจ SHA256 เทียบต้นทางแล้ว แต่ละคู่เริ่มจาก 5 seeds; หลัง early stopping จำนวนที่ใช้เฉลี่ยลดลงตามข้อมูลที่เหลือ Script ต้นทางใช้ `nanmean` และ `nanstd(ddof=1)` และแทน SD ด้วย 0 เมื่อเหลือ run เดียว ซึ่งเป็นวิธีแสดงผล ไม่ใช่หลักฐานว่าความแปรปรวนเป็นศูนย์ ดูจำนวน runs จริงใน [learning_curve_epoch_counts.csv](learning_curve_epoch_counts.csv)
 
-SVG `all_seed_loss.svg`, `all_seed_acc.svg`, `all_seed_macro_f1.svg` และ previews ใน `report/qa/` มาจากรายงานฉบับก่อน README ปัจจุบันเปลี่ยนมาใช้กราฟ mean ± SD แล้ว รูปต้นทางใน output ไม่ถูกแก้ไข และไม่ได้รัน Python เพื่อสร้างกราฟใหม่
+SVG `all_seed_loss.svg`, `all_seed_acc.svg`, `all_seed_macro_f1.svg` และ previews ใน `report/qa/` เป็นหลักฐานรองจากรายงานฉบับก่อน README ปัจจุบันใช้ box plots ของ checkpoint และกราฟเปรียบเทียบ modes ใน `report/report_assets/latest/`; mean ± SD temporal curves เดิมยังเข้าถึงได้ทางลิงก์ รูปต้นทางใน output ไม่ถูกแก้ไข และไม่ได้รัน Python เพื่อสร้างกราฟใหม่
+
+กราฟใน `report/report_assets/latest/` สร้างด้วย [generate_latest_figures.js](generate_latest_figures.js): class/dimension/colour จาก `outputs_modes_v3_td/dataset_audit/image_properties.csv`; brightness จากภาพต้นฉบับทั้ง 560 ภาพและ [derived_brightness.csv](derived_brightness.csv); sweep จาก `tuning/all_trials.csv`; mode comparison/box plots จาก `final/run_metrics.csv`; confusion 15 คู่จาก `final/**/test_predictions.csv`; calibration จาก `confidence/bin_metrics.csv` SHA256 ของ CSV ต้นทางอยู่ใน [latest_figure_sources.json](latest_figure_sources.json) ไม่มีภาพแนบตัวอย่างของผู้ใช้เป็น source data
+
+ภาพตัวอย่าง preprocessing สองภาพสร้างจาก original train files แยกจากผล measured runs โดยใช้ neutral letterbox ที่ขนาด 224 ตามโค้ด และแสดง augmentation ตามช่วงค่าที่กำหนดใน `shrine_classifier/training.py` การเรนเดอร์ตัวอย่างใช้ JavaScript จึงไม่อ้างว่าเป็น output แบบ bit-identical จาก torchvision หรือเป็นภาพที่ log ระหว่างฝึก ดู source IDs และ parameters ใน [preprocessing_preview_sources.json](preprocessing_preview_sources.json)
 
 ## 6. Reference documents และขอบเขตคำขอ
 

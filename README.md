@@ -16,12 +16,12 @@ MobileNetV3-Large/Partial ได้รับเลือกเป็นโมเ
 
 <!-- generated:CLASS_COUNTS -->
 
-| Class | ประเภทศาล | จำนวนภาพ | สัดส่วน |
+| Class | ประเภทศาล | จำนวนภาพ | สัดส่วน (%) |
 | --- | --- | ---: | ---: |
-| san_phraphrom | ศาลพระพรหม | 103 | 18.39% |
-| san_phraphum | ศาลพระภูมิ | 124 | 22.14% |
-| san_tayay | ศาลตายาย | 133 | 23.75% |
-| tee_ju_eia | ศาลตี่จู้เอี๊ยะ | 200 | 35.71% |
+| san_phraphrom | ศาลพระพรหม | 103 | 18.39 |
+| san_phraphum | ศาลพระภูมิ | 124 | 22.14 |
+| san_tayay | ศาลตายาย | 133 | 23.75 |
+| tee_ju_eia | ศาลตี่จู้เอี๊ยะ | 200 | 35.71 |
 
 <!-- /generated:CLASS_COUNTS -->
 
@@ -52,13 +52,21 @@ MobileNetV3-Large/Partial ได้รับเลือกเป็นโมเ
 
 *ภาพที่ 1 ตัวอย่างข้อมูล แสดงความแตกต่างของรูปทรง มุมมอง ฉากหลัง และระยะถ่าย*
 
-![จำนวนภาพแต่ละคลาส](report/report_assets/class_distribution.png)
+![จำนวนภาพแต่ละคลาสจาก audit ล่าสุด](report/report_assets/latest/class_distribution.svg)
 
 *ภาพที่ 2 การกระจายจำนวนภาพทั้งสี่คลาส*
 
-![การกระจายขนาดและสัดส่วนภาพ](report/report_assets/image_properties.svg)
+![ขนาดภาพและสัดส่วนภาพแยกคลาส](report/report_assets/latest/image_dimensions.svg)
 
-*ภาพที่ 3 การกระจายความกว้าง ความสูง อัตราส่วนกว้างต่อสูง และขนาดไฟล์ จากข้อมูล audit ของ 560 ภาพ ช่วงสุดท้ายของ histogram รวมค่าที่เกินขอบแกน*
+*ภาพที่ 3 ขนาดภาพต้นฉบับและอัตราส่วนกว้างต่อสูงจาก audit 560 ภาพ เส้นทแยงหมายถึงภาพจัตุรัส สีในส่วนสำรวจข้อมูลแทนประเภทศาล ไม่ใช่ mode การฝึก*
+
+![โหมดสีจริงของภาพต้นฉบับ](report/report_assets/latest/colour_modes.svg)
+
+*ภาพที่ 4 โหมดสีที่ถอดรหัสได้จริง ทั้งภาพรวมและแยกประเภทศาล ทำให้เห็นว่าภาพส่วนน้อยต้องผ่านการจัดการ alpha, palette หรือ CMYK*
+
+![ความสว่างของภาพต้นฉบับ](report/report_assets/latest/brightness.svg)
+
+*ภาพที่ 5 ค่าเฉลี่ยความสว่าง 0–255 ของภาพต้นฉบับ 560 ภาพ คำนวณหลังหมุนตาม EXIF และผสม alpha กับพื้นกลาง โดยใช้ Rec.709 luminance กล่องแสดง IQR/มัธยฐานและปลายเส้นแสดงค่าต่ำสุด–สูงสุด กราฟนี้สำรวจข้อมูล ไม่ใช่ผลของโมเดล*
 
 ภาพมีขนาดแตกต่างกัน 206 แบบ ความกว้างอยู่ระหว่าง 145–4,032 พิกเซล และความสูง 225–4,214 พิกเซล ผล audit บันทึกโหมดสี RGB 543 ภาพ, RGBA 9 ภาพ, CMYK 3 ภาพ และ palette 5 ภาพ ส่วนรูปแบบที่ถอดรหัสได้จริงเป็น JPEG 526 ภาพ, PNG 22 ภาพ, WEBP 11 ภาพ และ GIF 1 ภาพ จึงต้องจัดการรูปแบบและโหมดสีให้สอดคล้องกันก่อนเข้าโมเดล
 
@@ -88,9 +96,9 @@ MobileNetV3-Large/Partial ได้รับเลือกเป็นโมเ
 
 ขั้นแรกถอดรหัสภาพ หมุนตาม EXIF และแปลงเป็น RGB โดยผสมส่วนโปร่งใสกับสีพื้นกลาง จากนั้น resize ด้วย LANCZOS โดยรักษาอัตราส่วนเดิม ให้ด้านยาวพอดีกับกรอบ 224 × 224 พิกเซล แล้ววางภาพกึ่งกลางบนพื้น RGB `(124,116,104)` วิธีนี้รักษาสัดส่วนของศาลโดยไม่ยืดภาพให้เป็นสี่เหลี่ยม
 
-![ตัวอย่าง preprocessing](report/report_assets/preprocessing.png)
+![ตัวอย่างภาพต้นฉบับและ neutral padding ขนาดใหญ่](report/report_assets/latest/padding_large.png)
 
-*ภาพที่ 4 ตัวอย่างก่อนและหลัง preprocessing พื้นที่ว่างรอบภาพเกิดจากการรักษาสัดส่วนเดิม*
+*ภาพที่ 6 ภาพ `san_phraphrom_0001` จากชุด train: ภาพต้นฉบับ 960 × 720 เทียบกับภาพ 224 × 224 ที่รักษาสัดส่วนแล้ววางกึ่งกลางบนพื้น RGB (124,116,104) ด้านขวาขยายขนาดเพื่อให้อ่านรายละเอียดได้ พื้นที่เพิ่มเป็นสีเทากลาง ไม่ใช่การเติมสีดำหรือ edge-replicate ตามภาพตัวอย่างที่แนบมา*
 
 ทำ augmentation เฉพาะชุด train ตามค่าต่อไปนี้
 
@@ -105,6 +113,10 @@ MobileNetV3-Large/Partial ได้รับเลือกเป็นโมเ
 | Random Erasing | Probability 0.05, area 0.02–0.08 |
 
 ใช้สีพื้นกลางเติมพื้นที่จากการแปลงเชิงเรขาคณิตและ erasing แล้วแปลงเป็น tensor และ normalize ด้วย ImageNet mean `(0.485,0.456,0.406)` และ standard deviation `(0.229,0.224,0.225)` ส่วน validation และ test ใช้ preprocessing แบบคงที่
+
+![ตัวอย่าง augmentation จากภาพชุด train คลาสละห้าภาพ](report/report_assets/latest/augmentation_train_5_per_class.png)
+
+*ภาพที่ 7 ตัวอย่างภาพ train ที่ผ่าน neutral letterbox และการแปลงตามช่วงค่าในตาราง คลาสละ 5 ภาพ เลือกจาก canonical train split โดยไม่ใช้ validation/test ภาพนี้สร้างใหม่เพื่ออธิบายนโยบาย augmentation ด้วย seed คงที่ ไม่ใช่ minibatch ที่บันทึกไว้ระหว่างการฝึก และการเรนเดอร์ JavaScript อาจต่างระดับพิกเซลจาก torchvision ดู [image IDs และค่าการแปลงรายภาพ](report/preprocessing_preview_sources.json)*
 
 DataLoader สุ่มลำดับเฉพาะ train ใช้ `num_workers=0` และ `drop_last=False` เพื่อใช้ภาพครบทุก batch คำนวณ class weights จากจำนวนภาพ train ด้วยสูตร `390 / (4 × จำนวนภาพในคลาส)` ได้ `[1.392857, 1.095506, 1.071429, 0.696429]` ตามลำดับคลาสในตารางแรก
 
@@ -156,7 +168,7 @@ Partial ของ ResNet50 ใช้ `layer4`; DenseNet121 ใช้ `denseblock
 
 ![ผล ImageNet baseline](report/report_assets/imagenet_baseline.png)
 
-*ภาพที่ 5 ป้ายกำกับและ confidence ของ ResNet50/ImageNet ก่อนปรับ classifier ใช้ประกอบการอธิบาย transfer learning ไม่ได้นำมาคำนวณ accuracy ของโจทย์สี่คลาส*
+*ภาพที่ 8 ป้ายกำกับและ confidence ของ ResNet50/ImageNet ก่อนปรับ classifier ใช้ประกอบการอธิบาย transfer learning ไม่ได้นำมาคำนวณ accuracy ของโจทย์สี่คลาส*
 
 ## 4) Training method
 
@@ -180,11 +192,9 @@ Partial ของ ResNet50 ใช้ `layer4`; DenseNet121 ใช้ `denseblock
 
 ค่าที่สุ่มได้จริงประกอบด้วย Adam 4 ชุดและ AdamW 1 ชุด จึงยังไม่มีผลของ SGD ในการทดลองนี้ การสุ่มเพียง 5 ชุดช่วยจำกัดงบ แต่ครอบคลุม search space ได้เพียงบางส่วน
 
-![Validation F1 เทียบ learning rate](report/report_assets/tuning_lr.png)
+![ความสัมพันธ์ของ learning rate และ weight decay กับ validation Macro F1](report/report_assets/latest/tuning_response.svg)
 
-![Validation F1 เทียบ weight decay](report/report_assets/tuning_weight_decay.png)
-
-*ภาพที่ 6–7 Validation Macro F1 ของ checkpoint ที่เลือกในแต่ละ trial แกน x เป็น log scale และใช้สัญลักษณ์แยก mode จุดในกราฟรวมหลายสถาปัตยกรรม โดย optimizer และ batch size อาจต่างกันด้วย*
+*ภาพที่ 9 จุดทั้ง 75 จุดมาจาก tuning trials ที่บันทึกจริง แกน x เป็น log scale; Frozen = น้ำเงิน/วงกลม, Partial = แดง/สี่เหลี่ยม, Full = เขียว/ข้าวหลามตัด สีและสัญลักษณ์นี้ใช้เหมือนกันทุกกราฟเปรียบเทียบ mode ความสัมพันธ์ที่เห็นยังมีผลจากสถาปัตยกรรม optimizer และ batch size ที่ต่างกัน การทดลองรอบนี้ไม่ได้ sweep dropout*
 
 ### 4.2 เงื่อนไขการฝึกและการเลือก checkpoint
 
@@ -233,7 +243,7 @@ MobileNetV3-Large/Partial ได้รับเลือกเป็น **โม
 
 สภาพแวดล้อมที่บันทึกไว้คือ Windows, Python 3.13.5, PyTorch 2.13.0+cu130, torchvision 0.28.0+cu130, CUDA 13.0 และ RTX 5060 ปิด AMP และตั้ง deterministic algorithms แบบ `warn_only` ผลจึงอาจต่างกันได้เมื่อเปลี่ยน hardware หรือ library version
 
-บันทึกการทดลองใน W&B project [thai-shrine-classifier-td](https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td) รายงานนี้อ้างอิงไฟล์ผลในเครื่องเป็นหลัก; registry ระบุ online ครบ 150 runs แต่ยังไม่ได้ตรวจความครบถ้วนของ cloud artifacts ทุกชิ้น
+บันทึกการทดลองใน [Weights & Biases (W&B): thai-shrine-classifier-td](https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td) ส่วนเว็บไซต์ของ [CoreWeave](https://coreweave.com/) แสดงไว้ตามชื่อที่ระบุในโจทย์ แต่ไฟล์ `environment.json` ของรอบนี้บันทึกเครื่อง Windows/RTX 5060 และไม่ได้ยืนยันว่าเครื่องฝึกอยู่บน CoreWeave รายงานนี้อ้างอิงไฟล์ผลในเครื่องเป็นหลัก; registry ระบุ online ครบ 150 runs แต่ยังไม่ได้ตรวจความครบถ้วนของ cloud artifacts ทุกชิ้น
 
 ## 5) Evaluation metrics
 
@@ -258,44 +268,23 @@ MobileNetV3-Large/Partial ได้รับเลือกเป็น **โม
 
 ผลรอบนี้ครบ 15 คู่ คู่ละ 5 seeds ตรวจซ้ำจาก `test_predictions.csv` ทั้ง 75 runs รวม 6,375 แถว พบ test IDs 85 ภาพเรียงตรงกันทุก run การคำนวณ Accuracy, Macro metrics, ผลรายคลาส และ paired tests ซ้ำให้ค่าตรงกับผลที่บันทึกไว้ภายในความคลาดเคลื่อนระดับ floating-point ดูรายละเอียดใน [verification.json](report/verification.json)
 
-### 6.2 Learning curves: mean ± SD
+### 6.2 ผลระหว่างฝึก ณ checkpoint ที่เลือก: box plots
 
-กราฟต่อไปใช้รูปที่บันทึกใน `outputs_modes_v3_td/final/curves/` แยกสถาปัตยกรรมเพื่อให้เห็น Full, Frozen และ Partial ชัดเจน แถวบนเป็น weighted cross-entropy loss แถวล่างเป็น Accuracy
+กราฟหลักแสดง **validation Macro F1 (%)** และ **best epoch** ของ final runs ทั้ง 5 seeds ต่อ mode กล่องคือช่วงควอร์ไทล์ (IQR) กับมัธยฐาน ปลายเส้นคือค่าต่ำสุด–สูงสุดที่สังเกต และจุดคือ seed แต่ละค่า จึงเห็นการกระจายโดยไม่มี legend ทับชื่อกราฟ กราฟนี้สรุป checkpoint ที่เลือกด้วย validation ของแต่ละ run **ไม่ใช่เส้นการเรียนรู้ตามเวลา**; ประวัติ epoch จริงยังอยู่ใน `history.csv` ของทุก run
 
-เส้นประสีน้ำเงินแสดงค่าเฉลี่ย train เส้นทึบสีส้มแสดงค่าเฉลี่ย validation พื้นที่แรเงาคือ ±1 sample SD และเส้นตั้งจุดสีเทาคือค่าเฉลี่ย epoch ที่เลือก checkpoint จาก validation Macro F1 ของแต่ละ seed
+![ResNet50 checkpoint box plots](report/report_assets/latest/checkpoint_boxes_resnet50.svg)
 
-**วิธีอ่านช่วงท้ายกราฟ:** แต่ละคู่เริ่มจาก 5 seeds แต่หยุดฝึกคนละ epoch ตาม early stopping ค่าเฉลี่ยและ SD ใน epoch ถัดไปจึงใช้เฉพาะ runs ที่ยังมีข้อมูล ไม่มีการเติมค่าต่อหลังหยุด เมื่อเหลือ run เดียว script แสดง SD เป็น 0 เพื่อวาดกราฟ ซึ่งไม่ได้หมายความว่าความแปรปรวนระหว่าง 5 seeds เป็นศูนย์ จึงควรพิจารณาช่วงท้ายร่วมกับจำนวน runs ที่เหลือ
+![EfficientNet-B0 checkpoint box plots](report/report_assets/latest/checkpoint_boxes_efficientnet_b0.svg)
 
-![ResNet50 learning curves: mean ± SD](report/report_assets/learning_curves/resnet50/mean_sd_grid.png)
+![MobileNetV3-Large checkpoint box plots](report/report_assets/latest/checkpoint_boxes_mobilenet_v3_large.svg)
 
-*ภาพที่ 8 ResNet50: Full และ Partial ลด train loss ได้มากกว่า Frozen แต่ validation loss ไม่ลดตามตลอดช่วงฝึก Full เลือก checkpoint เฉลี่ยที่ epoch 8.4 ก่อนหยุดเฉลี่ยที่ epoch 15.4*
+![DenseNet121 checkpoint box plots](report/report_assets/latest/checkpoint_boxes_densenet121.svg)
 
-![EfficientNet-B0 learning curves: mean ± SD](report/report_assets/learning_curves/efficientnet_b0/mean_sd_grid.png)
+![ConvNeXt-Tiny checkpoint box plots](report/report_assets/latest/checkpoint_boxes_convnext_tiny.svg)
 
-*ภาพที่ 9 EfficientNet-B0: Full ใช้เวลาฝึกเฉลี่ยนานกว่า Partial ขณะที่ Partial เริ่มมี train/validation loss แยกจากกันในช่วงต้น การลด train loss ต่อจึงไม่ได้เพิ่ม validation performance เสมอไป*
+*ภาพที่ 10–14 สรุปคะแนน validation และ epoch ที่ดีที่สุดของแต่ละคู่จาก 5 final seeds สี/สัญลักษณ์ของ Full, Frozen และ Partial ตรงกับภาพที่ 9 โมเดลอ้างอิง MobileNetV3-Large/Partial มี best epoch เฉลี่ย 11.4; การหยุดฝึกของแต่ละ seed ทำให้จำนวน epoch ที่บันทึกไม่เท่ากัน*
 
-![MobileNetV3-Large learning curves: mean ± SD](report/report_assets/learning_curves/mobilenet_v3_large/mean_sd_grid.png)
-
-*ภาพที่ 10 MobileNetV3-Large: Full และ Partial มี train accuracy สูง ขณะที่ validation เริ่มคงตัว โมเดลอ้างอิง Partial เลือก checkpoint เฉลี่ยที่ epoch 11.4 และหยุดเฉลี่ยที่ epoch 17.8*
-
-![DenseNet121 learning curves: mean ± SD](report/report_assets/learning_curves/densenet121/mean_sd_grid.png)
-
-*ภาพที่ 11 DenseNet121: Full และ Partial เรียนรู้ชุด train ได้มากกว่า Frozen จาก history พบว่า Full มี train Macro F1 ณ checkpoint เฉลี่ย 0.9995 เทียบกับ validation 0.9442 จึงควรพิจารณาช่องว่างนี้ร่วมกับ loss ในช่วงท้าย*
-
-![ConvNeXt-Tiny learning curves: mean ± SD](report/report_assets/learning_curves/convnext_tiny/mean_sd_grid.png)
-
-*ภาพที่ 12 ConvNeXt-Tiny: Full และ Partial มี train loss ต่ำกว่า Frozen และมีช่องว่างระหว่าง train/validation ชัดเจน Full เลือก checkpoint เฉลี่ยที่ epoch 8.4 ส่วน Partial ที่ epoch 9.6*
-
-<details>
-<summary>กราฟ Loss, Accuracy และ Macro F1 ของโมเดลอ้างอิง</summary>
-
-![MobileNetV3-Large Partial: loss, accuracy and Macro F1 mean ± SD](report/report_assets/learning_curves/mobilenet_v3_large/partial/mean_sd_curves.png)
-
-*ภาพที่ 13 MobileNetV3-Large/Partial รวมทั้ง 5 seeds ณ เริ่มต้นกราฟ เห็น validation Macro F1 เริ่มคงตัวขณะที่ train Macro F1 ยังสูงขึ้น การเลือก checkpoint ใช้ validation ของแต่ละ run แยกกัน*
-
-</details>
-
-[เปิดกราฟภาพรวมทั้ง 15 คู่](report/report_assets/learning_curves/all_pairs_grid.png) · [จำนวน runs ที่มีข้อมูลในแต่ละ epoch](report/learning_curve_epoch_counts.csv) · [ที่มาและ SHA256 ของรูป](report/learning_curve_sources.json)
+หากต้องการดูเส้นเวลาแทนค่าที่ checkpoint เปิด [กราฟ learning curves ต้นฉบับทั้ง 15 คู่](report/report_assets/learning_curves/all_pairs_grid.png) พร้อม [จำนวน runs ที่เหลือในแต่ละ epoch](report/learning_curve_epoch_counts.csv) และ [ที่มา/SHA256](report/learning_curve_sources.json) เส้นท้ายกราฟอาจมีน้อยกว่า 5 runs เพราะ early stopping จึงไม่ใช้เป็นกราฟเปรียบเทียบหลัก
 
 <details>
 <summary>ตาราง best/stop epochs และผล ณ checkpoint ของทั้ง 15 คู่</summary>
@@ -352,11 +341,9 @@ MobileNetV3-Large/Partial ได้รับเลือกเป็น **โม
 
 <!-- /generated:RESULT_TABLE -->
 
-![Test Accuracy ของทุกคู่](report/report_assets/pair_accuracy.png)
+![Validation และ test Accuracy และ Macro F1 ของ 15 คู่](report/report_assets/latest/mode_comparison.svg)
 
-![Test Macro F1 ของทุกคู่](report/report_assets/pair_macro_f1.png)
-
-*ภาพที่ 14–15 ค่าเฉลี่ยและ sample SD ของ test Accuracy และ Macro F1 ข้าม 5 seeds*
+*ภาพที่ 15 เปรียบเทียบ validation และ test ณ checkpoint ที่เลือกของ final runs ทั้ง 15 คู่ จุดใหญ่คือค่าเฉลี่ย จุดจางคือแต่ละ seed และปลายเส้นคือ ±1 sample SD (n = 5); แกนตั้งทุกช่องเป็นเปอร์เซ็นต์ สีน้ำเงิน/วงกลม = Frozen, แดง/สี่เหลี่ยม = Partial, เขียว/ข้าวหลามตัด = Full การจัดอันดับ test เป็นเพียงผลที่สังเกตหลังล็อกโมเดลอ้างอิงแล้ว*
 
 ResNet50/Full ให้ค่าเฉลี่ย Macro F1 สูงสุด 0.9256 ขณะที่โมเดลอ้างอิง MobileNetV3-Large/Partial ได้ 0.9168 ต่างกันประมาณ 0.0088 ส่วน MobileNetV3-Large/Full มี SD ของ Macro F1 ต่ำที่สุดที่ 0.0096 แต่มีค่าเฉลี่ย 0.8986 จึงต้องพิจารณาทั้งคะแนนและความสม่ำเสมอร่วมกัน
 
@@ -405,32 +392,36 @@ ResNet50/Full ให้ค่าเฉลี่ย Macro F1 สูงสุด 0
 
 ศาลพระภูมิเป็นคลาสที่ยากที่สุดสำหรับโมเดลอ้างอิง มี F1 เฉลี่ย 0.8193 และ Recall 0.7222 ส่วนศาลตี่จู้เอี๊ยะมี F1 เฉลี่ย 0.9966 แม้ Accuracy รวมจะสูง ความผิดพลาดรายคลาสจึงยังแตกต่างกันมาก ศาลพระพรหมมี Recall เท่ากับ 1.0 แต่ Precision ต่ำกว่า 1.0 เนื่องจากมีภาพคลาสอื่นถูกทายเป็นพระพรหมด้วย [ผลรายคลาสครบทั้ง 15 คู่](report/verified_per_class_summary.csv)
 
-### 6.6 Confusion matrices
+### 6.6 Confusion matrices: ค่าเฉลี่ย (%) ± SD (จุดเปอร์เซ็นต์)
 
-ใช้ seed 42 ตามที่กำหนดไว้ก่อนประเมิน test โมเดลอ้างอิงใน seed นี้ได้ Accuracy 95.29% และ Macro F1 0.9427 ซึ่งสูงกว่าค่าเฉลี่ยห้า seeds ภาพต่อไปจึงใช้ดูรูปแบบความสับสนของ run ตัวอย่าง โดยรายงานผลรวมด้วยตาราง mean ± SD ในหัวข้อ 6.3
+คำนวณสัดส่วน **ภายในแต่ละ true class** ของแต่ละ seed ก่อน แล้วหาค่าเฉลี่ยและ sample SD ข้าม 5 seeds ช่องแนวทแยงคือ Recall ของคลาสนั้น สเกลสีทุกคู่กำหนด 0–100 เท่ากัน จึงเทียบข้ามภาพได้โดยตรง ตัวเลขบรรทัดแรกในช่องมีหน่วยเปอร์เซ็นต์ ส่วนบรรทัด `±` เป็น SD หน่วยจุดเปอร์เซ็นต์
 
-![Confusion matrix ของโมเดลอ้างอิง seed 42](report/report_assets/confusion_reference_seed42.png)
+![Confusion matrix เฉลี่ยและ SD ของโมเดลอ้างอิง](report/report_assets/latest/confusion_mobilenet_v3_large_partial.svg)
 
-*ภาพที่ 16 Row-normalized confusion matrix ของ MobileNetV3-Large/Partial, seed 42 ค่าบนแนวทแยงแสดง Recall ของแต่ละคลาส*
+*ภาพที่ 16 โมเดลอ้างอิง MobileNetV3-Large/Partial จาก 5 seeds: ภาพศาลพระภูมิถูกทายเป็นศาลพระภูมิเฉลี่ย 72.2% โดยมี SD 10.4 จุดเปอร์เซ็นต์ จึงเป็นคลาสที่ยังสับสนมากที่สุด*
 
 <details>
-<summary>Confusion matrices ของ Full ทั้งห้าสถาปัตยกรรม (seed 42)</summary>
+<summary>Confusion matrices ของทุก architecture × mode (5 seeds ต่อคู่)</summary>
 
-![ResNet50 Full seed 42](report/report_assets/confusion_resnet50_full_seed42.png)
+| Architecture | Frozen | Partial | Full |
+| --- | --- | --- | --- |
+| ResNet50 | [กราฟ](report/report_assets/latest/confusion_resnet50_frozen.svg) | [กราฟ](report/report_assets/latest/confusion_resnet50_partial.svg) | [กราฟ](report/report_assets/latest/confusion_resnet50_full.svg) |
+| EfficientNet-B0 | [กราฟ](report/report_assets/latest/confusion_efficientnet_b0_frozen.svg) | [กราฟ](report/report_assets/latest/confusion_efficientnet_b0_partial.svg) | [กราฟ](report/report_assets/latest/confusion_efficientnet_b0_full.svg) |
+| MobileNetV3-Large | [กราฟ](report/report_assets/latest/confusion_mobilenet_v3_large_frozen.svg) | [กราฟ](report/report_assets/latest/confusion_mobilenet_v3_large_partial.svg) | [กราฟ](report/report_assets/latest/confusion_mobilenet_v3_large_full.svg) |
+| DenseNet121 | [กราฟ](report/report_assets/latest/confusion_densenet121_frozen.svg) | [กราฟ](report/report_assets/latest/confusion_densenet121_partial.svg) | [กราฟ](report/report_assets/latest/confusion_densenet121_full.svg) |
+| ConvNeXt-Tiny | [กราฟ](report/report_assets/latest/confusion_convnext_tiny_frozen.svg) | [กราฟ](report/report_assets/latest/confusion_convnext_tiny_partial.svg) | [กราฟ](report/report_assets/latest/confusion_convnext_tiny_full.svg) |
 
-![EfficientNet-B0 Full seed 42](report/report_assets/confusion_efficientnet_b0_full_seed42.png)
-
-![MobileNetV3-Large Full seed 42](report/report_assets/confusion_mobilenet_v3_large_full_seed42.png)
-
-![DenseNet121 Full seed 42](report/report_assets/confusion_densenet121_full_seed42.png)
-
-![ConvNeXt-Tiny Full seed 42](report/report_assets/confusion_convnext_tiny_full_seed42.png)
-
-ภาพใช้สัดส่วนภายใน true class เหมือนกัน แต่ขอบ colorbar อาจต่างกันตามแต่ละ run จึงควรเปรียบเทียบตัวเลขในช่องประกอบสี
+[ค่ารายช่องทั้ง 15 คู่](report/confusion_mean_sd.csv) ระบุค่าเฉลี่ย (%) และ SD (จุดเปอร์เซ็นต์) ที่ใช้วาดภาพ
 
 </details>
 
-### 6.7 Grad-CAM และการวิเคราะห์ตัวอย่าง
+### 6.7 การเลือกโมเดลสำหรับการวิเคราะห์รายภาพ
+
+**เลือก MobileNetV3-Large/Partial จาก validation ก่อนเปิดผล test**: ใน tuning trial ที่ 5 ของคู่นี้ checkpoint ได้ validation Macro F1 สูงสุดในบรรดา 15 คู่ที่ tune แยกกัน คือ 0.9734, validation Accuracy 97.65% และ validation loss 0.1718 จึงบันทึกเป็น reference pair ใน `selection.json` พร้อมกำหนด seed 42 สำหรับภาพตัวอย่าง สูตรของคู่นี้ใช้กับ final 5 seeds โดยเริ่มฝึกใหม่จาก ImageNet weights ไม่ได้ต่อจาก tuning checkpoint
+
+หลังประเมิน test แล้ว ResNet50/Full มีค่าเฉลี่ย test Macro F1 สูงกว่า (0.9256 เทียบกับ 0.9168) แต่การเลือก reference ยังคงเป็น MobileNetV3-Large/Partial ตามกติกาที่ล็อกไว้ การเปรียบเทียบแบบ paired t-test หลัง Holm ระหว่างสองคู่นี้ให้ adjusted p = 1.0 สำหรับทั้ง Accuracy และ Macro F1 จึงไม่ใช้ผล test มาย้อนเลือกโมเดลหรือเปลี่ยน hyperparameters ส่วนต่อไปทั้งหมดใช้ **MobileNetV3-Large/Partial, seed 42** เว้นแต่ระบุชัดว่าเป็นค่าเฉลี่ย 5 seeds
+
+### 6.8 Grad-CAM และการวิเคราะห์ตัวอย่างของโมเดลที่เลือก
 
 ใช้ MobileNetV3-Large/Partial, seed 42 วิเคราะห์ 8 ภาพ โดยเลือกตัวอย่างทายถูกและทายผิดแยกตาม true class หากคลาสนั้นไม่มีภาพผิด ใช้ภาพทายถูกที่ confidence ต่ำแทน ชุดตัวอย่างประกอบด้วยภาพทายถูก 7 ภาพและทายผิด 1 ภาพ
 
@@ -449,7 +440,7 @@ ResNet50/Full ให้ค่าเฉลี่ย Macro F1 สูงสุด 0
 
 <!-- generated:CASE_TABLE -->
 
-| Image ID | True | Fine-tuned prediction | Confidence | ImageNet top1 |
+| Image ID | True | Fine-tuned prediction | Confidence (0–1) | ImageNet top1 |
 | --- | --- | --- | --- | --- |
 | san_phraphrom/san_phraphrom_0057 | san_phraphrom | san_phraphrom | 1.0000 | stupa |
 | san_phraphrom/san_phraphrom_0066 | san_phraphrom | san_phraphrom | 0.6149 | stupa |
@@ -490,13 +481,17 @@ ResNet50/Full ให้ค่าเฉลี่ย Macro F1 สูงสุด 0
 
 </details>
 
-### 6.8 Confidence และ calibration
+### 6.9 Confidence และ calibration ของโมเดลที่เลือก
 
-![Reliability ของโมเดลอ้างอิง seed 42](report/report_assets/reference_reliability.png)
+![Calibration ของโมเดลอ้างอิง seed 42](report/report_assets/latest/reference_calibration.svg)
 
-*ภาพที่ 19 Reliability diagram ของ MobileNetV3-Large/Partial, seed 42 เปรียบเทียบ confidence กับ accuracy ภายใน bin จาก test 85 ภาพ*
+*ภาพที่ 19 Reliability diagram ของ MobileNetV3-Large/Partial, seed 42 จาก test 85 ภาพ แกนทั้งสองเป็นเปอร์เซ็นต์; วงกลมแทน bin ที่มีข้อมูล ขนาดวงกลมสัมพันธ์กับจำนวนภาพ ตัวเลขข้างจุดคือจำนวนภาพ เส้นประคือกรณี confidence ตรงกับ accuracy*
 
-โมเดลอ้างอิงมี ECE เฉลี่ย 0.04528 ± 0.01666 และ ResNet50/Full มี 0.04941 ± 0.01565 ส่วน DenseNet121/Partial มีค่าเฉลี่ยต่ำสุดที่ 0.04437 ± 0.01184 การทดลองไม่ได้ทดสอบนัยสำคัญของ ECE และบาง bins มีภาพน้อย จึงใช้ผลนี้ประกอบการประเมินความมั่นใจของโมเดล
+โมเดลอ้างอิงมี ECE เฉลี่ย **4.53% ± 1.67 จุดเปอร์เซ็นต์** จาก 5 seeds ส่วน seed 42 ในภาพเป็นเพียงตัวอย่างหนึ่ง ใน 10 bins ที่กำหนด bin 0.9–1.0 ของ seed 42 มี 76/85 ภาพ จึงต้องอ่าน bin ที่มีภาพน้อยด้วยความระมัดระวัง ResNet50/Full มี ECE เฉลี่ย 4.94% ± 1.57 จุดเปอร์เซ็นต์ และ DenseNet121/Partial มีค่าเฉลี่ยต่ำสุด 4.44% ± 1.18 จุดเปอร์เซ็นต์ การทดลองไม่ได้ทดสอบนัยสำคัญของ ECE
+
+### 6.10 Ablation ของโมเดลที่เลือก: สถานะ
+
+**ยังไม่ได้รัน ablation แยกองค์ประกอบ** เช่น ปิด augmentation หรือปิด class weights ดังนั้นจึงไม่มีกราฟหรือผลต่าง ablation ให้รายงาน การเปรียบเทียบ Full/Frozen/Partial ข้างต้นเป็นการเปรียบเทียบวิธีปรับน้ำหนักที่แต่ละคู่ tune ของตนเอง ไม่ใช่การถอดปัจจัยหนึ่งจากสูตร baseline เดียว หากจะทดสอบผลขององค์ประกอบเหล่านี้ ต้องตรึง MobileNetV3-Large/Partial, split, สูตรที่เลือก, 5 seeds และกติกาเลือก checkpoint แล้วฝึก variants เพิ่มก่อนประเมินผล
 
 ## 7) Discussion and conclusions
 
@@ -520,7 +515,9 @@ MobileNetV3-Large/Partial เป็นโมเดลอ้างอิงที
 - [ที่มาของผลและรูป](report/report_inventory.md) และ [รายละเอียดการตรวจสอบ](report/report_validation.md)
 - [ผลราย run จำนวน 75 runs](report/verified_run_metrics.csv), [สรุป 15 คู่](report/verified_pair_summary.csv) และ [ผลรายคลาส](report/verified_per_class_summary.csv)
 - [Paired tests พร้อม effect size และ CI](report/verified_statistics.csv)
-- [ที่มาและ SHA256 ของ learning curves](report/learning_curve_sources.json) และ [จำนวน runs ที่มีข้อมูลต่อ epoch](report/learning_curve_epoch_counts.csv)
+- [สคริปต์สร้างกราฟรอบล่าสุด](report/generate_latest_figures.js), [SHA256 ของไฟล์ต้นทาง](report/latest_figure_sources.json), [ค่าความสว่างที่คำนวณจากภาพต้นฉบับ](report/derived_brightness.csv) และ [ค่า confusion matrix เฉลี่ย/SD](report/confusion_mean_sd.csv)
+- [สคริปต์สร้างตัวอย่าง padding/augmentation](report/generate_preprocessing_examples.js) และ [image IDs, split, SHA256, seed และค่าการแปลง](report/preprocessing_preview_sources.json)
+- [ที่มาและ SHA256 ของ learning curves เดิม](report/learning_curve_sources.json) และ [จำนวน runs ที่มีข้อมูลต่อ epoch](report/learning_curve_epoch_counts.csv)
 - [สคริปต์ตรวจตัวเลขจากไฟล์ผลที่บันทึกไว้](report/build_report.ps1)
 
 ผลเชิงตัวเลขทั้งหมดใช้การทดลองรอบ `outputs_modes_v3_td` ส่วนข้อมูล audit, canonical split และ ImageNet baseline บางส่วนเป็นหลักฐานเดิมที่ใช้ข้อมูลชุดเดียวกันและมีสำเนาใน output ล่าสุด รายละเอียดการคัดผลรอบอื่นออกระบุไว้ใน inventory
