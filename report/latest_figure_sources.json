@@ -1,7 +1,9 @@
 {
-  "generated_utc": "2026-10-19T16:46:46.032Z",
+  "generated_utc": "2026-10-20T15:42:45.013Z",
   "protocol": "outputs_modes_v3_td",
   "source_sha256": {
+    "report/figure_theme.js": "a1fa5b2327c4d20490f16064b4b6ae59e2b5bcc9fd413de25a2008554297cad4",
+    "outputs_modes_v3_td/tuning/best_params_by_arch_mode.json": "d83e9072ed8a30db3f6f489b82975450917a90c03fd05ab91e256438525112b7",
     "outputs_modes_v3_td/dataset_audit/image_properties.csv": "ae7f4e22be5ee9fccd0bda7a1631121c03941edbc640a5fa74479c41e32f443f",
     "outputs_modes_v3_td/final/run_metrics.csv": "1c095fa304d725fc633c43c79c1401c43580e33ba907c31c0fe31c86a462771f",
     "outputs_modes_v3_td/tuning/all_trials.csv": "03081262cdc7dc1f88eb46fedf5e6d91c5ed232d8bf1bd48b3206599ca4c7917",
@@ -80,7 +82,8 @@
     "outputs_modes_v3_td/final/convnext_tiny/full/final_convnext_tiny_full_final_seed456_attempt01_seed456_attempt1791935501_2c31ee/test_predictions.csv": "0d44f9ef9fcbc05f42a08f10ee92e7a5fe3df00feb23b9a2540366ba1405917b",
     "outputs_modes_v3_td/final/convnext_tiny/full/final_convnext_tiny_full_final_seed789_attempt01_seed789_attempt1791935725_c259f5/test_predictions.csv": "c65cf550be0de3ccf0ba18ee92dab376c32bc1fa309818cd09061ea82b9fd60a",
     "outputs_modes_v3_td/final/convnext_tiny/full/final_convnext_tiny_full_final_seed1024_attempt01_seed1024_attempt1791935913_a8080e/test_predictions.csv": "870237c5b2212e12d727cef974a5d8d609fced00ec77099194bd40874616a31d",
-    "outputs_modes_v3_td/confidence/bin_metrics.csv": "5e2d901463db2fbf4c13ed79ddce469c8a4bc20317a2f0cb5a3a2ed948b34f5d"
+    "outputs_modes_v3_td/confidence/bin_metrics.csv": "5e2d901463db2fbf4c13ed79ddce469c8a4bc20317a2f0cb5a3a2ed948b34f5d",
+    "report/derived_brightness.csv": "0e8cd3d9f738cf85a7c8114217c774aacf5c22b44aa575196db9f801e4ad3939"
   },
-  "notes": "All model charts use 75 latest tuning and 75 latest final records. Brightness derives from the 560 original audited image files using EXIF-aware decode and Rec.709 mean luminance; class colours are separate from mode colours."
+  "notes": "All model charts use 75 latest tuning and 75 latest final records. Brightness uses the saved derived_brightness.csv values from 560 originals (EXIF-aware decode, Rec.709); class colours are separate from mode colours."
 }

@@ -22,7 +22,7 @@ const N = 224;
 const NEUTRAL = [124, 116, 104];
 const classOrder = ['san_phraphrom', 'san_phraphum', 'san_tayay', 'tee_ju_eia'];
 const classLabels = [['San Phra', 'Phrom'], ['San Phra', 'Phum'], ['San Ta', 'Yai'], ['Tee Ju', 'Eia']];
-const classColors = ['#4c78a8', '#f58518', '#54a24b', '#b279a2'];
+const classColors = require('./figure_theme').classColors;
 function parseCsv(text) {
   const rows = []; let row = [], field = '', quoted = false;
   for (let i = 0; i < text.length; i++) {

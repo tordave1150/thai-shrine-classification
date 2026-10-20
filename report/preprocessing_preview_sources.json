@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-10-19T16:56:58.972Z",
+  "created_utc": "2026-10-20T15:40:22.157Z",
   "split_csv_sha256": "3eb9c4f3adda4a64536f809fbad5f8801a27d83265d2c753b8f98c6ae93f837f",
   "source_policy": "shrine_classifier/data.py letterbox; shrine_classifier/training.py ImageDataset transforms",
   "rendering_note": "Deterministic JavaScript illustration of the configured policy. Source images are actual train-split images; this is not a logged training minibatch or bit-identical torchvision RNG output.",

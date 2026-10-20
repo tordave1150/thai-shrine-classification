@@ -53,4 +53,7 @@ $runMap=foreach($stage in @('trials','final_runs')){foreach($r in $reg.$stage){[
 $runMap|Export-Csv (Join-Path $PSScriptRoot 'run_evidence_map.csv') -NoTypeInformation -Encoding utf8
 $sourceText="<!-- Generated mirror of ../README.md; edit the canonical README narrative. -->`n"+$text.Replace('](report/', '](')
 Put (Join-Path $PSScriptRoot 'report_source.md') $sourceText
-"README filled; all tables generated from latest artifacts only"
+# Keep the reviewed narrative, display units and appendix order after rebuilding evidence.
+& node (Join-Path $PSScriptRoot 'render_readme.js')
+if ($LASTEXITCODE -ne 0) { throw 'Report presentation rendering failed' }
+"README filled from latest evidence and the reviewed presentation template"

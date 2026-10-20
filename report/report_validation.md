@@ -1,5 +1,19 @@
 # Report validation — 20 October 2026
 
+## การปรับรูปแบบตามข้อเสนอที่ทบทวนแล้ว
+
+- ใช้ `readme_template.md` และ `render_readme.js` เพื่อจัดภาษา หน่วย ตาราง และภาคผนวก โดยอ่านผลที่บันทึกไว้เท่านั้น อัปเดต `report_source.md` เป็นสำเนาของ README ฉบับเดียวกัน
+- ตาราง Accuracy/Precision/Recall/F1/ECE/Confidence แสดง mean (%) และ SD (pp) ผลต่างและ CI แสดง pp ส่วน p, t และ d_z คงหน่วยเดิม ไฟล์ตัวเลขต้นทางไม่ถูกแปลงหน่วย
+- Frozen ใช้น้ำเงิน/วงกลม, Partial ใช้ส้มแดง/สี่เหลี่ยม, Full ใช้เขียว/ข้าวหลามตัด กราฟสำรวจข้อมูลใช้ชุดสีคลาสแยกกัน Confusion matrices ใช้ heat scale เดียวกันทุกคู่ พร้อมตัวเลขสีขาวบนช่องสีเข้ม
+- คง box plots ห้าโมเดลแยกภาพเพื่อให้อ่านได้ ช่วงแกนเหมือนกันทุกภาพอยู่แล้ว: F1 75–100 และ best epoch 0–30
+- Ablation SVG วาดใหม่จาก saved run metrics และตรวจ mean/sample SD ตรงกับ condition summary แสดงคะแนนทั้งห้า seeds และช่วงแกน 80–100 อย่างชัดเจน
+- จัด Grad-CAM เป็นสองคอลัมน์ × สี่แถวจาก original/heatmap/overlay ที่มีอยู่ ไม่คำนวณ heatmap ใหม่ พร้อมป้ายคลาสจริง คลาสที่ทำนาย confidence (%) และเครื่องหมายถูก/ผิด เก็บกริดต้นฉบับไว้
+- จัดภาพ ImageNet baseline และ MobileNet reference ใหม่โดยใช้ predictions และภาพเดิม เพื่อให้ confidence เป็นเปอร์เซ็นต์ มีที่มาใน `context_figure_sources.json` ส่วนภาพ padding/augmentation ยังคงเป็นภาพสาธิตนโยบายจาก train ไม่ใช่ minibatch ใน training log
+- แก้ถ้อยคำ ablation ให้ระบุเพียงว่าค่าเฉลี่ย baseline สูงกว่า แต่ยังไม่พบนัยสำคัญหลัง Holm ไม่อ้างความเท่ากันหรือความไม่ด้อยกว่า และคงชื่อคอลัมน์ loss แยกตัวช่วงท้ายแทนการวินิจฉัย overfitting โดยตรง
+- คง ResNet50/Full เป็นโมเดลที่เลือกภายหลังดู test พร้อมข้อแลกเปลี่ยนด้าน calibration และข้อจำกัดเรื่อง external holdout ส่วน MobileNetV3-Large/Partial ยังคงเป็น reference ใน lock และครอบครัวสถิติเดิม
+- ตรวจโครงสร้าง 24 ตาราง ลิงก์ 83 รายการ และ XML ของ 29 SVG พร้อมดูภาพที่เรนเดอร์จริง ดู `qa/presentation_validation.json` และ source maps ของแต่ละตัวสร้างรูป
+- เทียบ SHA256 ของหลักฐานเดิม 86 ไฟล์กับ provenance ก่อนแก้รายงาน ไม่พบไฟล์ที่เปลี่ยน ดู `qa/evidence_preservation.json` ไม่มีการรัน Python, inference, training หรือชุดทดสอบโมเดล
+
 ## สิ่งที่ตรวจแล้ว
 
 - ใช้resultsเฉพาะ `outputs_modes_v3_td` และตรวจว่ามีhistoricaloutputอื่นในworkspaceจริง โดยคัดออกอย่างชัดเจน ไม่มีการลบ/เขียนทับrawexperimentoutputs
@@ -32,8 +46,8 @@
 
 - สร้างกราฟล่าสุดด้วย [generate_latest_figures.js](generate_latest_figures.js) จาก 75 tuning trials, 75 final runs, 6,375 test predictions และ audit 560 ภาพ; ไม่รัน Python, tests หรือ training
 - Box plots แสดง validation Macro F1 และ best epoch ของแต่ละ final seed ส่วน mean ± SD curves เป็น supplementary link; การหยุดฝึกต่าง epoch ทำให้จำนวน available runs ในภาพเส้นช่วงท้ายต่างกัน
-- Confusion matrices ของทุก 15 คู่เป็นเปอร์เซ็นต์ต่อ true-class row แล้วคำนวณ mean/sample SD ข้าม 5 seeds มีสเกลสี 0–100 เดียวกัน สีแยกตาม mode และ [ค่ารายช่อง](confusion_mean_sd.csv)
-- สี/สัญลักษณ์ในกราฟ mode คงที่: Frozen น้ำเงิน/วงกลม, Partial แดง/สี่เหลี่ยม, Full เขียว/ข้าวหลามตัด ส่วนสีของคลาสใช้เฉพาะ EDA
+- Confusion matrices ของทุก 15 คู่เป็นเปอร์เซ็นต์ต่อ true-class row แล้วคำนวณ mean/sample SD ข้าม 5 seeds มีสเกลสี 0–100 เดียวกัน และ [ค่ารายช่อง](confusion_mean_sd.csv)
+- สี/สัญลักษณ์ในกราฟ mode คงที่: Frozen น้ำเงิน/วงกลม, Partial ส้มแดง/สี่เหลี่ยม, Full เขียว/ข้าวหลามตัด ส่วนสีของคลาสใช้เฉพาะ EDA
 - ข้อมูล [brightness](derived_brightness.csv) คำนวณจากภาพต้นฉบับ 560 ภาพด้วย Sharp, EXIF-aware decode และ Rec.709 luminance; ไม่เอาตัวเลขจากภาพตัวอย่างของผู้ใช้
 - รายงานเลือก ResNet50/Full จากหลาย test metrics แบบ post-hoc โดยแยกจาก reference ของสถิติเดิม ไม่แก้ lock/families หรืออ้างว่าผล Holm ยืนยันความเหนือกว่า Confusion matrix, Grad-CAM และ calibration หลักเป็นของ ResNet; CAM/eyeball ของ MobileNet อยู่ในส่วนประกอบ
 - ผู้ใช้รัน `resnet_followup.py` จนเสร็จ: มี ResNet CAM 8 cases และ ablation 10 runs/145 epochs ที่ล็อกสองเงื่อนไขและ Holm family 4 แยกไว้ Agent ตรวจ saved artifacts และคำนวณซ้ำด้วย Node เท่านั้น ไม่มีการรัน Python/inference/training เพิ่มระหว่างแก้รายงาน
@@ -67,4 +81,4 @@
 
 ## วิธีทำซ้ำเฉพาะหลักฐานรายงาน
 
-เมื่อมี raw outputs ใน workspace เดิม ใช้ PowerShell `./report/write_report.ps1` เพื่อคำนวณหลักฐานและอัปเดต generated table blocks โดยเก็บข้อความใน README ไว้ ตัวสร้างรายงานเรียก `copy_learning_curves.ps1` เพื่อคัดลอก PNG ที่มีอยู่แล้ว พร้อมสร้าง source map และจำนวน runs ต่อ epoch; ต้องมีรูปต้นทางครบก่อนใช้คำสั่งนี้ การเผยแพร่ README ต้องรวมรูปและไฟล์ประกอบที่ลิงก์ไว้ด้วย
+เมื่อมี raw outputs ใน workspace เดิม ใช้ PowerShell `./report/write_report.ps1` เพื่อคำนวณหลักฐานและเรียก `render_readme.js` ในขั้นสุดท้าย ข้อความของรายงานแก้ที่ `readme_template.md` ส่วน `node report/render_readme.js` อัปเดตเฉพาะ README/สำเนาและตรวจตารางกับลิงก์ ตัวสร้างหลักฐานเรียก `copy_learning_curves.ps1` เพื่อคัดลอก PNG ที่มีอยู่แล้ว พร้อมสร้าง source map และจำนวน runs ต่อ epoch; ต้องมีรูปต้นทางครบก่อนใช้คำสั่งนี้ การเผยแพร่ README ต้องรวมรูปและไฟล์ประกอบที่ลิงก์ไว้ด้วย

@@ -2,6 +2,20 @@
 
 ตรวจโฟลเดอร์วันที่ 19 ตุลาคม 2026 เพื่อจัดทำรายงาน Markdown ใช้ actual run artifacts เป็นหลัก ไม่ใช้ลำดับ ranking/ตัวเลขที่ยกตัวอย่างในไฟล์คำสั่งเป็นผลการทดลอง
 
+## รูปแบบรายงานที่ปรับเมื่อ 20 ตุลาคม 2026
+
+การแก้ครั้งนี้เปลี่ยนการนำเสนอ ไม่เพิ่มผลการทดลอง ผลเชิงตัวเลขและต้นฉบับภาพที่บันทึกไว้ยังคงเดิม ตารางแสดงเปอร์เซ็นต์/pp ผ่าน `render_readme.js` และใช้ `readme_template.md` เป็นแม่แบบของ README ส่วน `report_source.md` เป็นสำเนารายงานเดียวกัน
+
+| ภาพที่ใช้ใน README | ต้นทางและการปรับ |
+| --- | --- |
+| `latest/imagenet_baseline_percent.png` | ImageNet predictions เดิมของ train และภาพเดิม; แสดงสามตัวอย่างแรกที่บันทึกไว้ต่อคลาส พร้อม confidence (%) |
+| `latest/gradcam_resnet50_full_seed42_readable.png` | แปด cases เดิมของ ResNet; จัดวางใหม่จาก original/heatmap/overlay โดยไม่ inference หรือสร้าง heatmap ใหม่ |
+| `latest/resnet_ablation_summary.svg` | Baseline final ห้า seeds และ ablation สิบ runs เดิม; ตรวจ mean/SD ตรงกับ saved summary |
+| `latest/gradcam_reference_percent.png`, `latest/eyeball_reference_percent.png` | MobileNet reference แปด cases เดิม; จัดรูปและป้าย confidence (%) ใหม่ เก็บเป็นภาคผนวก |
+| กราฟ EDA, tuning, checkpoint, mode, confusion และ calibration ใน `latest/` | เปลี่ยน theme จาก saved audit/metrics/predictions/bin logs; คง class order และใช้ confusion heat scale เดียวกันทุกคู่ |
+
+ที่มาและ SHA256 ของภาพที่จัดใหม่อยู่ใน [followup_figure_sources.json](followup_figure_sources.json), [context_figure_sources.json](context_figure_sources.json) และ [latest_figure_sources.json](latest_figure_sources.json) การตรวจรูปแบบอยู่ใน [qa/presentation_validation.json](qa/presentation_validation.json) ส่วนการเทียบหลักฐานเดิม 86 ไฟล์อยู่ใน [qa/evidence_preservation.json](qa/evidence_preservation.json) ภาพต้นฉบับของรอบก่อนปรับรูปแบบยังเก็บไว้และไม่ใช้แทนผลใหม่
+
 ## 1. ผลหลายรอบที่ยังคงอยู่ใน workspace
 
 | ตำแหน่ง | สถานะ/บทบาท | ใช้ในรายงานนี้อย่างไร |
