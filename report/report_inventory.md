@@ -31,7 +31,7 @@
 
 ไฟล์ `report/evidence_inventory.csv` ใน workspace เก็บ path, bytes, extension, scope, architecture, seed และชนิดหลักฐานของไฟล์ที่ตรวจ ไม่รวม installed runtime, bytecode, `.git` และโฟลเดอร์รายงาน Snapshot เดิมมีประมาณ 3,894 ไฟล์ จำนวนอาจเปลี่ยนเมื่อเพิ่มเอกสารหรือกราฟ
 
-ไฟล์ `report/run_evidence_map.csv` ใน workspace ระบุ identity, stage, architecture, mode, seed, status และ run path ครบ 150 runs ส่วน [learning_curve_sources.json](learning_curve_sources.json) ที่แนบในรายงานระบุ histories และ SHA256 ของทั้ง 75 final runs รวมถึงกราฟที่นำมาใช้
+ไฟล์ `report/run_evidence_map.csv` ใน workspace ระบุ identity, stage, architecture, mode, seed, status และ run path ของงานหลัก 150 runs ส่วน ablation ใหม่ 10 runs มี registry แยกใน `outputs_modes_v3_td/ablation/resnet50_full_v1/run_registry.json` จึงมีการฝึกทั้งหมด 160 runs โดยไม่ได้นับ baseline ที่ reuse ซ้ำ [learning_curve_sources.json](learning_curve_sources.json) ระบุ histories และ SHA256 ของทั้ง 75 final runs รวมถึงกราฟที่นำมาใช้
 
 ## 4. Map รายงานกับหลักฐาน
 
@@ -67,6 +67,7 @@ Pathในตารางนี้relativeต่อworkspace root; `r` หมา
 | Report asset | Original evidence / generation |
 |---|---|
 | latest/*.svg | README ฉบับปัจจุบัน: สร้างจาก saved logs/predictions/audit ด้วย `generate_latest_figures.js` และระบุ SHA256 ใน `latest_figure_sources.json` |
+| latest/selected_resnet50_full_calibration.svg | สร้างจาก saved `confidence/bin_metrics.csv`, ResNet50/Full seed 42 ด้วย `generate_selected_model_calibration.js`; source hash และการเลือกโมเดลในรายงานอยู่ใน `selected_model_report_sources.json` |
 | latest/padding_large.png, latest/augmentation_train_5_per_class.png | ตัวอย่างประกอบจาก original images ใน canonical train split สร้างด้วย `generate_preprocessing_examples.js`; แหล่งภาพและค่าการแปลงอยู่ใน `preprocessing_preview_sources.json` ไม่ใช่ภาพแนบหรือ logged training minibatch |
 | sample_grid.png, class_distribution.png, preprocessing.png | Copiedunchangedจากlatestdataset_audit/ (preprocessingต้นทางpreprocessing_examples.png) |
 | image_properties.svg | Histogramคำนวณจากlatestdataset_audit/image_properties.csv;560images;overflowlastbin |
@@ -96,3 +97,19 @@ SVG `all_seed_loss.svg`, `all_seed_acc.svg`, `all_seed_macro_f1.svg` และ p
 อ่าน `CODEX_DADS7202_REPORT_INSTRUCTIONS.md` เป็นแนวทางโครงสร้าง/technicalexpectations **ไม่ใช้ตัวเลขหรือrankingที่ยกตัวอย่างเป็นevidence** ไม่พบ `HOMEWORK_GUIDELINE (1).pdf` และ `HOMEWORK_Example.pdf` จากการค้นโครงการ (ยกเว้นruntime) จึงไม่ยืนยันvisualstyleหรือข้อกำหนดต้นฉบับPDF คำขอผู้ใช้ล่าสุดให้ทำMarkdown/GitHubREADMEจึงแทนที่PDF/A4/pagenumberingในไฟล์แนบ
 
 Canonicalreportคือ [README.md](../README.md); [report_source.md](report_source.md) เป็นสำเนาที่ปรับrelativepathsสำหรับอ่านจากโฟลเดอร์report ไม่ใช่protocolหรือผลทดลองอีกversionหนึ่ง
+
+## 7. การเลือกโมเดลในรายงาน — 20 October 2026
+
+คำขอล่าสุดให้เลือก ResNet50/Full จากผลประเมินหลายด้านหลังดู test เป็นข้อสรุปเดียวของรายงาน พร้อมเปิดเผย post-hoc selection และความจำเป็นของ external holdout ใหม่ การตัดสินใจนี้ไม่ได้แก้ `outputs_modes_v3_td/selection.json` หรือ reference/families ของ paired tests เดิม Confusion matrix, Grad-CAM และ calibration หลักใช้ ResNet50/Full; CAM/eyeball ของ MobileNet อยู่ในส่วนหลักฐานประกอบที่ติดป้ายชัดเจน
+
+ผู้ใช้รัน Python follow-up เสร็จแล้วในวันที่ 20 October: Grad-CAM ของ ResNet50/Full seed 42 มี 8 cases (ถูก 6, ผิด 2) และ ablation ครบ 2 variants × 5 seeds ใช้ 145 epochs โดย reuse baseline เดิม 5 seeds รวมการฝึกทั้งงาน 2,906 epochs Agent ตรวจไฟล์/คำนวณซ้ำด้วย Node โดยไม่ได้รัน Python/inference/training เพิ่ม ผล ablation ไม่มี comparisons ที่ significant หลัง Holm ทั้ง 4 แถว
+
+| Follow-up report artifact | Source |
+| --- | --- |
+| `report_assets/latest/gradcam_resnet50_full_seed42.png`, `resnet_gradcam_cases.csv` | `outputs_modes_v3_td/gradcam/resnet50_full/seed42/20261020T133536Z_f92b166e/gradcam_grid.png`, `selected_cases.csv` |
+| `report_assets/latest/resnet_ablation_summary.png` | `outputs_modes_v3_td/ablation/resnet50_full_v1/ablation_summary.png` |
+| `resnet_ablation_*.csv` | Same study directory: condition summary, matched deltas, per-class summary, statistical tests |
+| `resnet_followup_sources.json` | Exported manifest: source directories, registry hash, checkpoint and output hashes |
+| `resnet_followup_verification.json` | Independent Node recomputation from 15 × 85 predictions, summary rows and four statistical comparisons |
+
+รูป/ตารางสำเนาตรงกับ SHA256 ของต้นทาง Grad-CAM/ablation ที่สร้างโดยผู้ใช้ ปัจจุบันส่วนหลักของ README ใช้ ResNet สำหรับ confusion matrix, Grad-CAM และ calibration ส่วน MobileNet CAM/eyeball เป็นหลักฐานประกอบของ reference เดิม การตรวจนี้ไม่ยืนยันความครบถ้วนของ W&B cloud artifacts

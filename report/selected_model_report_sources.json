@@ -1,0 +1,79 @@
+{
+  "selected_report_model": {
+    "architecture": "resnet50",
+    "mode": "full"
+  },
+  "selection_context": "Post-hoc descriptive choice after examining multiple test metrics; requires confirmation on a new external holdout.",
+  "statistical_reference": {
+    "architecture": "mobilenet_v3_large",
+    "mode": "partial",
+    "original_selection_json_unchanged": true
+  },
+  "metric_leaders": {
+    "test_acc_mean": {
+      "architecture": "resnet50",
+      "mode": "full",
+      "value": 0.9364705882352942
+    },
+    "test_macro_precision_mean": {
+      "architecture": "resnet50",
+      "mode": "full",
+      "value": 0.929231017120807
+    },
+    "test_macro_recall_mean": {
+      "architecture": "resnet50",
+      "mode": "full",
+      "value": 0.927718253968254
+    },
+    "test_macro_f1_mean": {
+      "architecture": "resnet50",
+      "mode": "full",
+      "value": 0.9255882747015869
+    }
+  },
+  "calibration": {
+    "source": "outputs_modes_v3_td/confidence/bin_metrics.csv",
+    "source_sha256": "5e2d901463db2fbf4c13ed79ddce469c8a4bc20317a2f0cb5a3a2ed948b34f5d",
+    "seed": 42,
+    "figure": "report/report_assets/latest/selected_resnet50_full_calibration.svg"
+  },
+  "pair_summary": {
+    "source": "report/verified_pair_summary.csv",
+    "source_sha256": "6561aef607856941172fbda9967d072e03aebc6bc4f943d126b986cb2b2a4869"
+  },
+  "gradcam_resnet50_full": {
+    "architecture": "resnet50",
+    "mode": "full",
+    "seed": 42,
+    "examples": 8,
+    "checkpoint_sha256": "209e8bd97c6ae90379b9838ba161b8c2c500f5409fb9fc7078084401d3e55e78",
+    "device": "cuda",
+    "torch": "2.13.0+cu130",
+    "created_utc": "2026-10-20T13:35:43.074436+00:00",
+    "code_fingerprint": "189029c7caa210c48d1deea69f3fc106e45bee56410ce4b8e4661a24c8a6d326",
+    "selection_context": "Post-hoc report-selected model; Grad-CAM is diagnostic, not causal evidence.",
+    "directory": "gradcam/resnet50_full/seed42/20261020T133536Z_f92b166e",
+    "artifact_sha256": {
+      "gradcam_grid.png": "e7a88a61a5490f1762618357d05300d365c79783dd8495f36e023dbe7ba6e657",
+      "selected_cases.csv": "526758eceb68e45097911a4a503b9ecc7739925a3aaefba90d20c8b770dd9edf"
+    }
+  },
+  "ablation_resnet50_full": {
+    "study_fingerprint": "e83947f7b3ab4e481342d08fe3ead78f0620908e498e2f77301317b8527451ff",
+    "completed_new_runs": 10,
+    "baseline_reused": 5,
+    "exploratory": true,
+    "figures": [
+      "ablation_summary.png"
+    ],
+    "registry_sha256": "da9e721794297934e1bb0c20963a3b438abedc6d5b1c4e717d81fe305b62e4db",
+    "artifact_sha256": {
+      "condition_summary.csv": "91e0d80d641efaea9e9766927f3762a54ee78cc291c09d7d80316f30b4343a39",
+      "per_class_summary.csv": "d8fa466eeaff29c73fb8ab4ae92c17a59b42ccd0244a1e10cbb0baa7e76a48ba",
+      "matched_deltas.csv": "99121c045fdb9e54d9105c8d756c0dd9a907a682213fa2fa269bd74556db3a5a",
+      "statistical_tests.csv": "7d3ba8382f684cbe82a8ad9e0abc54938a979a425877909efc73c68627ced552",
+      "ablation_summary.png": "fd6eb8c759184cc57aa391a7ab27a0a1c18433a7ceb0e574d48a73b0ab9a01de"
+    },
+    "note": "Seed variation on a previously examined split, not independent external confirmation. Weighted/unweighted loss values are not directly comparable."
+  }
+}

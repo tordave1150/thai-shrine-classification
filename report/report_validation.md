@@ -1,4 +1,4 @@
-# Report validation — 19 October 2026
+# Report validation — 20 October 2026
 
 ## สิ่งที่ตรวจแล้ว
 
@@ -35,7 +35,9 @@
 - Confusion matrices ของทุก 15 คู่เป็นเปอร์เซ็นต์ต่อ true-class row แล้วคำนวณ mean/sample SD ข้าม 5 seeds มีสเกลสี 0–100 เดียวกัน สีแยกตาม mode และ [ค่ารายช่อง](confusion_mean_sd.csv)
 - สี/สัญลักษณ์ในกราฟ mode คงที่: Frozen น้ำเงิน/วงกลม, Partial แดง/สี่เหลี่ยม, Full เขียว/ข้าวหลามตัด ส่วนสีของคลาสใช้เฉพาะ EDA
 - ข้อมูล [brightness](derived_brightness.csv) คำนวณจากภาพต้นฉบับ 560 ภาพด้วย Sharp, EXIF-aware decode และ Rec.709 luminance; ไม่เอาตัวเลขจากภาพตัวอย่างของผู้ใช้
-- เพิ่มขั้นตอนเลือก reference ก่อน Grad-CAM, confidence/calibration และระบุสถานะ ablation ที่ยังไม่รันอย่างชัดเจน
+- รายงานเลือก ResNet50/Full จากหลาย test metrics แบบ post-hoc โดยแยกจาก reference ของสถิติเดิม ไม่แก้ lock/families หรืออ้างว่าผล Holm ยืนยันความเหนือกว่า Confusion matrix, Grad-CAM และ calibration หลักเป็นของ ResNet; CAM/eyeball ของ MobileNet อยู่ในส่วนประกอบ
+- ผู้ใช้รัน `resnet_followup.py` จนเสร็จ: มี ResNet CAM 8 cases และ ablation 10 runs/145 epochs ที่ล็อกสองเงื่อนไขและ Holm family 4 แยกไว้ Agent ตรวจ saved artifacts และคำนวณซ้ำด้วย Node เท่านั้น ไม่มีการรัน Python/inference/training เพิ่มระหว่างแก้รายงาน
+- [ผลตรวจ follow-up](resnet_followup_verification.json): baseline 5 + ablation 10 = 15 runs/1,275 prediction rows; metrics/summary/deltas ตรงภายใน 1.2e-14 และ paired t/raw p/Holm ภายใน 3.4e-15; SHA256 ของรูป/CSV สำเนาตรงกับต้นทาง ไม่มี ablation comparison ที่ significant หลัง Holm
 - เพิ่มภาพ padding ขนาดใหญ่จากภาพ train จริงหนึ่งภาพ และกริด augmentation 4 คลาส × 5 ภาพจาก canonical train split; เก็บ IDs, SHA256, seeds และพารามิเตอร์ใน [preprocessing_preview_sources.json](preprocessing_preview_sources.json) โดยระบุใน README ว่าเป็นภาพสาธิตที่สร้างใหม่ ไม่ใช่ minibatch ใน log
 - แก้ตารางสัดส่วนข้อมูลที่มี `%` แยกเป็นอีกคอลัมน์ ตารางสถิติที่ comparison แตกเป็นหลาย cells และตารางรายคลาสที่ค่ารวมอยู่ cell เดียว แก้การจัดกลุ่ม expression ในตัวสร้างตารางและเพิ่มการตรวจจำนวน cells ก่อนเขียนไฟล์
 - ย่อตารางสูตรชนะให้อ้าง trial ในตาราง search configurations และปรับภาษาเนื้อหารายงาน โดยคงค่าผลทดลองและข้อสรุปทางสถิติเดิม
@@ -46,14 +48,14 @@
 1. **[TODO — source evidence not found]** PDF guideline/exampleต้นฉบับ ไม่มีในโครงการที่ค้น จึงใช้7sectionorderจากinstructionMDและคำขอล่าสุดที่ให้MarkdownแทนPDF ไม่อ้างว่าตรวจPDFแล้ว
 2. **[TODO — source evidence not found]** Collection/scraperprotocollogที่บอกquery/date/manual-vs-scrapedแต่ละภาพและlicenseครบทุกภาพ ไม่มีหลักฐานพอ รายงานใช้URLmetadataที่มีจริงและระบุunknown112ภาพ
 3. Brightness values ไม่อยู่ใน audit เดิม จึงคำนวณใหม่จากภาพต้นฉบับด้วยวิธีที่บันทึกใน `generate_latest_figures.js` และเก็บค่ารายภาพไว้ใน `derived_brightness.csv`; ไม่ตีความเป็นผลของการฝึก
-4. Cross-modelGrad-CAMบนmatchedsamplesทั้ง5architecturesไม่มี มีreferenceCAM/eyeballจริงเท่านั้น ไม่สร้างattentioncomparisonขึ้นเองและไม่รันcheckpointinferenceเพิ่ม
+4. มี ResNet50/Full Grad-CAM seed 42 ที่ผู้ใช้สร้างเสร็จแล้ว และ MobileNet reference CAM/eyeball เดิม แต่ยังไม่มีการเปรียบเทียบ matched samples/targets/seeds ครบทุกโมเดล ไม่ใช้ภาพสองชุดนี้อ้างว่าโมเดลหนึ่งมองดีกว่าอีกโมเดล และไม่มี ResNet eyeball comparison กับ ImageNet ที่รันเพิ่ม
 5. กลุ่มduplicateที่ยืนยันไม่ข้ามsplit แต่unknownsources/undetectednear-duplicates/samesessionยังอาจมีอยู่ ภาพมีtexts/watermarksและtestsplitนี้เคยถูกดูในงานก่อนหน้า จึงยังเป็นexploratoryfixed-splitfollow-up
 6. ECEใช้summary/binlogsที่มีอยู่ ไม่ได้recomputeprobabilitycalibration/testlossหรือweightedtrainlossในการตรวจซ้ำรอบรายงานนี้ ไม่ได้redecode/hashcheckpointsทุกไฟล์ใหม่
 7. ตรวจกระบวนการcopiedEDA/baselineและcanonicalmanifestsแล้ว แต่ไม่ได้rerunimageauditหรือImageNetbaseline เป็นhistoricalcontextที่ใช้datasnapshot/splitเดียวกัน ไม่ใช่ผลทดลองnumericจากoldfinalruns
 8. CloudW&Bvisibility/completenessยังไม่ตรวจจากdashboard;registryonlineและURLsไม่รับประกันartifactuploadครบ
 9. Dropout/headstructureใช้modelsourceและinstalledtorchvisiondefaultsประกอบsavedconfigs ไม่ได้instantiateโมเดลใหม่เพื่อinspectgraph จำนวนparametersใช้savedmode_statsจริง
-10. ConfusionPNGเดิมrow-normalizedเป็น0–1แต่colorbarอาจautoscaleต่างขอบกัน จึงแจ้งให้เปรียบเทียบcellnumbersไม่ใช้colorintensityข้ามรูปเพียงอย่างเดียว ไม่ได้สร้างaverageconfusionใหม่
-11. ไม่มีoptionalaugmentation/classweight/paddedablation,ไม่มีinference-latencybenchmarkและไม่มีexternalholdoutใหม่ ไม่เพิ่มการทดลองนอกงบเพื่อเติมรายงาน
+10. Confusion matrices หลักเป็น mean (%) ± sample SD (จุดเปอร์เซ็นต์) จาก predictions ห้า seeds ต่อคู่ ใช้สเกล 0–100 เดียวกัน; PNG seed 42 เดิมเก็บเป็นหลักฐานรอง ไม่ใช้แทนค่ารวม
+11. ผู้ใช้อนุมัติและรัน augmentation/class-weight ablation ของ ResNet ครบแล้ว 10 runs; ยังไม่มี padded-input ablation, inference-latency benchmark หรือ external holdout ใหม่
 12. ชื่อผู้จัดทำ/รหัสนักศึกษา/กลุ่มไม่พบในevidenceที่ใช้ จึงใช้ชื่อproject/courseแทน ไม่แต่งidentityหรือacademiccitation
 
 ## ข้อแตกต่างจากไฟล์แนบที่ตั้งใจ
@@ -61,7 +63,7 @@
 - ผู้ใช้ล่าสุดขอGitHubMarkdownไม่เอาPDF: ส่งREADME+Markdownsource/inventory/validation ไม่ทำA4,PageXofYหรือPDFexport
 - ไม่ยึดexampleorderingว่าDenseNetดีที่สุด: ผลจริงResNet50/FullมีmeanTestF1สูงสุด ส่วนreferenceMobileNetPartialล็อกด้วยvalidation
 - ไม่ใช้Welch'stestเพราะมีmatchedseeds:คงpairedtestและplannedHolmfamilies28/30
-- รูปทั้งหมดมาจากlatestlogsหรือcompatiblecanonicalEDA/baseline;รูปใหม่เป็นการplotrecordednumbersเท่านั้น ไม่มีภาพAIหรือผลแต่ง
+- รูปโมเดลมาจาก latest logs/results รวม ResNet CAM ที่ผู้ใช้สร้างจาก checkpoint เดิม; ตัวอย่าง padding/augmentation สร้างจาก train images จริงและติดป้ายว่าเป็นภาพสาธิตแยกจาก measured logs ไม่มีภาพ AI หรือผลแต่ง
 
 ## วิธีทำซ้ำเฉพาะหลักฐานรายงาน
 

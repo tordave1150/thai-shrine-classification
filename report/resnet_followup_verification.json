@@ -1,0 +1,25 @@
+{
+  "verified_utc": "2026-10-20T14:23:09.507Z",
+  "method": "Node.js recomputation from saved prediction files; no Python/inference/training",
+  "baseline_reused": 5,
+  "new_ablation_runs": 10,
+  "unique_new_seeds_per_condition": 5,
+  "matched_prediction_rows": 1275,
+  "cam_examples": 8,
+  "cam_correct": 6,
+  "cam_wrong": 2,
+  "completed_ablation_epochs": 145,
+  "completed_main_runs": 150,
+  "total_completed_training_runs": 160,
+  "total_completed_training_epochs": 2906,
+  "max_run_metric_error": 1.1102230246251565e-16,
+  "max_summary_error": 1.1102230246251565e-14,
+  "max_statistics_error": 3.3306690738754696e-15,
+  "significant_holm_tests": 0,
+  "artifact_hashes_match": true,
+  "original_selection_matches_ablation_lock": true,
+  "effective_tracking_modes": [
+    "online"
+  ],
+  "cloud_completeness_verified": false
+}
