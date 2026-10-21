@@ -1,7 +1,7 @@
 {
-  "generated_utc": "2026-10-20T15:39:29.097Z",
+  "generated_utc": "2026-10-21T17:40:00.497Z",
   "source_sha256": {
-    "report/figure_theme.js": "a1fa5b2327c4d20490f16064b4b6ae59e2b5bcc9fd413de25a2008554297cad4",
+    "report/figure_theme.js": "4d59082ee830418f65e3c5028196b374ad89cbe8069c3dd95e0fe611432843f6",
     "report/resnet_gradcam_cases.csv": "526758eceb68e45097911a4a503b9ecc7739925a3aaefba90d20c8b770dd9edf",
     "report/resnet_followup_sources.json": "0f2aabf0c307c997691fcbd445cb377b18e85014f253e5b31dc289793a7ac0e5",
     "outputs_modes_v3_td/final/run_metrics.csv": "1c095fa304d725fc633c43c79c1401c43580e33ba907c31c0fe31c86a462771f",
@@ -37,7 +37,7 @@
     "report/report_assets/latest/gradcam_resnet50_full_seed42_readable.png"
   ],
   "output_sha256": {
-    "report/report_assets/latest/resnet_ablation_summary.svg": "d90e59cbb29acbc21bc713c8615ad0d29c90cadb11a73ff0998b69311adaf6e0",
+    "report/report_assets/latest/resnet_ablation_summary.svg": "2c2356812dbedcb4a2db8dc0c085bcae64f97513e1928df2fd227559b9f689c4",
     "report/report_assets/latest/gradcam_resnet50_full_seed42_readable.png": "b4437f30bf8016332e55861c368e8b9e2672c5e4f4a7a3f0fd8be2c329ba8b4f"
   },
   "note": "Presentation only: plotted saved run metrics and resized existing original/heatmap/overlay PNGs. No heatmap recomputation, inference, retuning, or training. Original eight-row grid preserved."

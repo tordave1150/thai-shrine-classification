@@ -23,6 +23,7 @@ svg += text(550, 65, '5 matched seeds · mean ± sample SD · diamonds = individ
   const left = 75 + panel * 540, top = 128, width = 430, height = 280;
   const fy = value => top + height - (value - 80) / 20 * height;
   svg += text(left + width/2, 104, panel ? 'Macro F1 (%)' : 'Accuracy (%)', 17, 'font-weight="700"');
+  svg += text(left-55, top+height/2, panel ? 'Macro F1 (%)' : 'Accuracy (%)', 14, 'transform="rotate(-90 '+(left-55)+' '+(top+height/2)+')"');
   for (const tick of [80, 85, 90, 95, 100]) {
     svg += line(left, fy(tick), left + width, fy(tick), theme.grid) + text(left - 24, fy(tick) + 5, tick, 13);
   }

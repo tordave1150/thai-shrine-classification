@@ -1,8 +1,8 @@
 {
-  "generated_utc": "2026-10-20T15:42:45.013Z",
+  "generated_utc": "2026-10-21T17:44:36.001Z",
   "protocol": "outputs_modes_v3_td",
   "source_sha256": {
-    "report/figure_theme.js": "a1fa5b2327c4d20490f16064b4b6ae59e2b5bcc9fd413de25a2008554297cad4",
+    "report/figure_theme.js": "4d59082ee830418f65e3c5028196b374ad89cbe8069c3dd95e0fe611432843f6",
     "outputs_modes_v3_td/tuning/best_params_by_arch_mode.json": "d83e9072ed8a30db3f6f489b82975450917a90c03fd05ab91e256438525112b7",
     "outputs_modes_v3_td/dataset_audit/image_properties.csv": "ae7f4e22be5ee9fccd0bda7a1631121c03941edbc640a5fa74479c41e32f443f",
     "outputs_modes_v3_td/final/run_metrics.csv": "1c095fa304d725fc633c43c79c1401c43580e33ba907c31c0fe31c86a462771f",

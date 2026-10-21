@@ -1,7 +1,8 @@
 // Presentation only. Numerical results remain in their original saved units.
 const modeColors = { frozen: '#0072B2', partial: '#D55E00', full: '#009E73' };
 const symbols = { frozen: 'circle', partial: 'square', full: 'diamond' };
-const classColors = ['#7B61A8', '#CC79A7', '#8C6D46', '#5B6770'];
+// Remaining Okabe–Ito colours; class and fine-tuning mappings are separate.
+const classColors = ['#56B4E9', '#E69F00', '#CC79A7', '#000000'];
 const fontFamily = 'Arial,"Noto Sans Thai","Leelawadee UI",Tahoma,sans-serif';
 const ink = '#1F2937', muted = '#6B7280', grid = '#E5E7EB';
 const esc = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');

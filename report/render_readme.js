@@ -16,7 +16,7 @@ const inputs = ['report/readme_template.md', 'report/verified_pair_summary.csv',
   'report/verified_statistics.csv', 'report/verified_training_dynamics.csv', 'report/resnet_gradcam_cases.csv',
   'report/resnet_ablation_condition_summary.csv', 'report/resnet_ablation_statistical_tests.csv',
   'outputs_modes_v3_td/tuning/best_params_by_arch_mode.json', 'outputs_modes_v3_td/tuning/search_definition.json',
-  'outputs_modes_v3_td/eyeball/eyeball_cases.csv', 'report/error_frequency.csv'];
+  'outputs_modes_v3_td/eyeball/eyeball_cases.csv', 'report/error_frequency.csv', 'report/final_checkpoint_summary.csv'];
 const before = Object.fromEntries(inputs.map(p => [p, hash(p)]));
 function table(headers, rows, numericColumns=[]) {
   if (rows.some(r => r.length !== headers.length)) throw Error('Markdown table column mismatch');
@@ -31,26 +31,29 @@ blocks.RESULT_TABLE = table(['Setup','Accuracy (%)','Macro precision (%)','Macro
 const classSummary = readCsv('report/verified_per_class_summary.csv');
 const selectedClasses = classSummary.filter(r => (r.architecture==='resnet50'&&r.mode==='full') || (r.architecture==='mobilenet_v3_large'&&r.mode==='partial'));
 if (selectedClasses.length !== 8) throw Error('Missing selected/reference per-class metrics');
-blocks.PERCLASS_TABLE = table(['Setup','คลาส','Support','Precision (%)','Recall (%)','F1 (%)'], selectedClasses.map(r => [setup(r), classes[r.class], r.support, ...['precision','recall','f1'].map(key=>pm(r,key))]), [2,3,4,5]);
+blocks.PERCLASS_TABLE = table(['Setup','Class','Support','Precision (%)','Recall (%)','F1 (%)'], selectedClasses.map(r => [setup(r), classes[r.class], r.support, ...['precision','recall','f1'].map(key=>pm(r,key))]), [2,3,4,5]);
 const stats = readCsv('report/verified_statistics.csv');
 if(stats.length!==58)throw Error('Expected all 58 locked statistical comparisons');
 const shownStats = stats.filter(r => r.significant.toLowerCase()==='true' || (r.reference==='mobilenet_v3_large::partial' && r.competitor==='resnet50::full'));
 blocks.STATS_TABLE = table(['Family','A − B','Metric','Mean Δ (pp)','95% CI (pp)¹','Holm p'], shownStats.map(r => [r.family_id.startsWith('primary')?'Primary':'Secondary', pairName(r.reference)+'<br>− '+pairName(r.competitor), r.metric==='test_acc'?'Accuracy':'Macro F1', pct(r.mean_difference), '['+pct(r.ci95_lower)+', '+pct(r.ci95_upper)+']', pval(r.p_holm)]), [3,5]);
-blocks.DYNAMICS_TABLE = table(['Setup','Mean best epoch','Mean stop epoch','Train F1 (%)','Validation F1 (%)','Loss แยกตัวช่วงท้าย (runs)'], readCsv('report/verified_training_dynamics.csv').map(r => [setup(r),f(r.mean_best_epoch,1),f(r.mean_stop_epoch,1),pct(r.mean_train_f1_at_best),pct(r.mean_val_f1_at_best),r.late_divergence_runs+'/5']), [1,2,3,4,5]);
+blocks.DYNAMICS_TABLE = table(['Setup','Mean selected epoch','Mean stop epoch','Training F1 (%)','Validation F1 (%)','Late loss divergence (runs)'], readCsv('report/verified_training_dynamics.csv').map(r => [setup(r),f(r.mean_best_epoch,1),f(r.mean_stop_epoch,1),pct(r.mean_train_f1_at_best),pct(r.mean_val_f1_at_best),r.late_divergence_runs+'/5']), [1,2,3,4,5]);
 const winners = Object.values(JSON.parse(fs.readFileSync(path.join(root, inputs[8]),'utf8')).pairs);
 if(winners.length!==15)throw Error('Expected all 15 independent tuning winners');
-blocks.WINNER_TABLE = table(['Setup','Trial ที่เลือก','Validation Macro F1 (%)'], winners.map(r=>[setup(r),r.winning_trial,pct(r.best_val_macro_f1)]), [1,2]);
+blocks.WINNER_TABLE = table(['Setup','Learning rate','Weight decay','Optimizer','Batch size','Tuning validation F1 (%)'], winners.map(r=>[setup(r),Number(r.learning_rate).toExponential(6),Number(r.weight_decay).toExponential(6),r.optimizer==='adamw'?'AdamW':r.optimizer==='sgd'?'SGD':'Adam',r.batch_size,pct(r.best_val_macro_f1)]), [1,2,4,5]);
+const checkpointRows=readCsv('report/final_checkpoint_summary.csv');
+if(checkpointRows.length!==75)throw Error('Expected 75 final checkpoint identities');
+blocks.CHECKPOINT_SUMMARY_TABLE=table(['Setup','Final runs','Mean selected epoch','Selected epoch range','Seeds'],winners.map(w=>{const rows=checkpointRows.filter(r=>r.architecture===w.architecture&&r.mode===w.mode);if(rows.length!==5)throw Error('Missing checkpoint seeds');const epochs=rows.map(r=>Number(r.selected_epoch));return [setup(w),5,f(epochs.reduce((a,b)=>a+b,0)/5,1),Math.min(...epochs)+'–'+Math.max(...epochs),rows.map(r=>r.seed).join(', ')];}),[1,2]);
 const search = JSON.parse(fs.readFileSync(path.join(root,inputs[9]),'utf8'));
 blocks.SEARCH_TABLE = table(['Trial','Learning rate','Weight decay','Optimizer','Batch'], search.sampled_configs.map((r,i)=>[i+1,Number(r.learning_rate).toExponential(6),Number(r.weight_decay).toExponential(6),r.optimizer==='adamw'?'AdamW':'Adam',r.batch_size]), [0,1,2,4]);
 const cases = readCsv('report/resnet_gradcam_cases.csv');
-blocks.RESNET_CASE_TABLE = table(['Image ID (stem)','คลาสจริง','คลาสที่ทำนาย','Confidence (%)','ตัวอย่างที่เลือก'], cases.map(r=>[r.image_id.split('/')[1],classes[r.true_label],classes[r.predicted_label]+' '+(r.true_label===r.predicted_label?'✓':'✗'),pct(r.confidence),r.selection_reason==='highest_confidence_correct'?'ถูก มั่นใจสูงสุดในคลาส':r.selection_reason==='highest_confidence_misclassified'?'ผิด มั่นใจสูงสุดในคลาส':'ถูก มั่นใจต่ำสุด; คลาสนี้ไม่มีภาพผิด']), [3]);
-blocks.CASE_TABLE = table(['Image ID (stem)','คลาสจริง','ผล fine-tune','Confidence (%)','ImageNet top-1'],readCsv(inputs[10]).map(r=>[r.image_id.split('/')[1],classes[r.true_label],classes[r.predicted_label]+' '+(r.true_label===r.predicted_label?'✓':'✗'),pct(r.confidence),r.imagenet_label]),[3]);
-blocks.ERROR_TABLE = table(['Image ID (stem)','คลาสจริง','ผิด / 75','Reference ผิด / 5','ResNet Full ผิด / 5'],readCsv('report/error_frequency.csv').slice(0,10).map(r=>[r.image_id.split('/')[1],classes[r.true_label],r.wrong_all75,r.wrong_reference5,r.wrong_resnetfull5]),[2,3,4]);
+blocks.RESNET_CASE_TABLE = table(['Image ID (stem)','True class','Predicted class','Confidence (%)','Selection reason'], cases.map(r=>[r.image_id.split('/')[1],classes[r.true_label],classes[r.predicted_label]+' '+(r.true_label===r.predicted_label?'✓':'✗'),pct(r.confidence),r.selection_reason==='highest_confidence_correct'?'ถูก มั่นใจสูงสุดในคลาส':r.selection_reason==='highest_confidence_misclassified'?'ผิด มั่นใจสูงสุดในคลาส':'ถูก มั่นใจต่ำสุด; คลาสนี้ไม่มีภาพผิด']), [3]);
+blocks.CASE_TABLE = table(['Image ID (stem)','True class','Fine-tuned prediction','Confidence (%)','ImageNet top-1'],readCsv(inputs[10]).map(r=>[r.image_id.split('/')[1],classes[r.true_label],classes[r.predicted_label]+' '+(r.true_label===r.predicted_label?'✓':'✗'),pct(r.confidence),r.imagenet_label]),[3]);
+blocks.ERROR_TABLE = table(['Image ID (stem)','True class','Errors / 75','Reference errors / 5','ResNet Full errors / 5'],readCsv('report/error_frequency.csv').slice(0,10).map(r=>[r.image_id.split('/')[1],classes[r.true_label],r.wrong_all75,r.wrong_reference5,r.wrong_resnetfull5]),[2,3,4]);
 const ablation = readCsv('report/resnet_ablation_condition_summary.csv');
 const conditionNames = {baseline:'Baseline',no_augmentation:'ไม่ใช้ augmentation',no_class_weights:'ไม่ใช้ class weights'};
-blocks.ABLATION_TABLE = table(['เงื่อนไข','Accuracy (%)','Macro precision (%)','Macro recall (%)','Macro F1 (%)'],ablation.map(r=>[conditionNames[r.condition],...['test_acc','test_macro_precision','test_macro_recall','test_macro_f1'].map(key=>pm(r,key))]),[1,2,3,4]);
+blocks.ABLATION_TABLE = table(['Condition','Accuracy (%)','Macro precision (%)','Macro recall (%)','Macro F1 (%)'],ablation.map(r=>[conditionNames[r.condition],...['test_acc','test_macro_precision','test_macro_recall','test_macro_f1'].map(key=>pm(r,key))]),[1,2,3,4]);
 const ablationTests = readCsv('report/resnet_ablation_statistical_tests.csv');
-blocks.ABLATION_DELTAS = table(['ปัจจัยที่ถอดออก','Δ Accuracy (pp)','Δ Macro F1 (pp)','Holm p: Accuracy','Holm p: Macro F1'],['no_augmentation','no_class_weights'].map(condition=>{const a=ablationTests.find(r=>r.condition===condition&&r.metric==='test_acc'),b=ablationTests.find(r=>r.condition===condition&&r.metric==='test_macro_f1');return [condition==='no_augmentation'?'Augmentation':'Class weights',f(a.mean_difference_pp),f(b.mean_difference_pp),pval(a.p_holm),pval(b.p_holm)];}),[1,2,3,4]);
+blocks.ABLATION_DELTAS = table(['Removed component','Δ Accuracy (pp)','Δ Macro F1 (pp)','Holm p: Accuracy','Holm p: Macro F1'],['no_augmentation','no_class_weights'].map(condition=>{const a=ablationTests.find(r=>r.condition===condition&&r.metric==='test_acc'),b=ablationTests.find(r=>r.condition===condition&&r.metric==='test_macro_f1');return [condition==='no_augmentation'?'Augmentation':'Class weights',f(a.mean_difference_pp),f(b.mean_difference_pp),pval(a.p_holm),pval(b.p_holm)];}),[1,2,3,4]);
 let text = fs.readFileSync(path.join(__dirname,'readme_template.md'),'utf8');
 text = text.replace(/\{\{([A-Z_]+)\}\}/g,(_,name)=>{
   if(!blocks[name])throw Error('Unknown report block: '+name);

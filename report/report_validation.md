@@ -1,5 +1,18 @@
 # Report validation — 20 October 2026
 
+## Academic and visual revision — 22 October 2026
+
+- README headings, subheadings, disclosure summaries and table headers now use English sentence case. Thai narrative is retained without personal pronouns. The output-directory/date banner was removed from the report header.
+- Added the agreed explanations of group-based splitting, train-derived class weights, EXIF/alpha handling, approximate RGB-weighted brightness, ImageNet mean/SD, augmentation, DataLoader, classifier scoring, fine-tuning versus train/eval mode, checkpoint selection and ten equal-width ECE bins.
+- Kept the post-hoc ResNet50/Full choice and MobileNetV3-Large/Partial statistical reference separate. The test split's prior exposure, calibration trade-off and nonsignificant ablation comparisons remain explicit.
+- Figures 3 and 5 use common-bin overlapping step histograms with within-class percentages (not density). All eight figure/class groups retain their original image counts and sum to 100%. Figure 5 includes class means and the overall mean. Colour modes use direct count/share labels and patterns, with an expanded non-RGB panel.
+- Seven tuning panels use 75 real selected-epoch observations, including both training and validation accuracy. A separate plot shows all five configurations inside each of the 15 predeclared setups; only those within-setup winners are ringed.
+- The selected-hyperparameter table lists learning rate, weight decay, optimizer and batch size for all 15 setups. The checkpoint table separates seed-specific selection, with all 75 identities, paths and history hashes in `final_checkpoint_summary.csv`.
+- Five architecture figures cover all 15 final setups: loss, accuracy, validation Macro F1 and available-run counts. Aggregations use actual observations, sample SD with ddof=1, no imputation, and no SD at n=1. Per-run selected epochs are marked separately from the mean curve. Complete SD bands may mathematically extend outside the metric's possible domain; this is disclosed and the saved run values are unaltered.
+- Independent report-only checks recomputed all 1,800 epoch/metric rows with zero mean/SD discrepancy, verified 210 n=1 rows have no sample SD, and confirmed all 860 measured CSV/JSON hashes are unchanged. No Python, model inference, training, smoke or model-test suite was run.
+- All 35 SVGs parsed as XML. Offline Markdown rendering through a headless browser found 27 images with no broken image or horizontal overflow. Abstract, configuration table and learning-curve screenshots were reviewed, along with colour and grayscale figure proofs. Grayscale checks support readability; they are not a claim of clinical certification for every colour-vision condition.
+- Current machine-readable checks: [report_revision_validation.json](qa/report_revision_validation.json), [readme_render_validation.json](qa/readme_render_validation.json) and [enhanced_figure_sources.json](enhanced_figure_sources.json). Earlier checks below describe the preceding report revisions.
+
 ## การปรับรูปแบบตามข้อเสนอที่ทบทวนแล้ว
 
 - ใช้ `readme_template.md` และ `render_readme.js` เพื่อจัดภาษา หน่วย ตาราง และภาคผนวก โดยอ่านผลที่บันทึกไว้เท่านั้น อัปเดต `report_source.md` เป็นสำเนาของ README ฉบับเดียวกัน
