@@ -1,0 +1,43 @@
+{
+  "approved_budget": {
+    "tuning_runs": 180,
+    "final_runs": 75,
+    "maximum_epochs": 7650
+  },
+  "split_counts": {
+    "train": {
+      "n": 390,
+      "by_class": {
+        "san_phraphrom": 70,
+        "san_phraphum": 89,
+        "san_tayay": 91,
+        "tee_ju_eia": 140
+      }
+    },
+    "validation": {
+      "n": 85,
+      "by_class": {
+        "san_phraphrom": 17,
+        "san_phraphum": 17,
+        "san_tayay": 21,
+        "tee_ju_eia": 30
+      }
+    },
+    "test": {
+      "n": 85,
+      "by_class": {
+        "san_phraphrom": 16,
+        "san_phraphum": 18,
+        "san_tayay": 21,
+        "tee_ju_eia": 30
+      }
+    }
+  },
+  "num_groups": 550,
+  "test_accessed": false,
+  "source_fingerprint": "e854495869473ea313b2c455781479f1d619ac0f67c28318e8c3c01f391bd47b",
+  "protocol_fingerprint": "fb66ec7e6224317e72aeca13ae2345680cc820cadee46f68c5e71cb07323aa39",
+  "dataset_padding_available": false,
+  "disk_free_bytes": 150731198464,
+  "disk_free_gib": 140.38
+}

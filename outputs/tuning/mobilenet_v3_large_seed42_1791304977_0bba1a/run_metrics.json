@@ -1,0 +1,14 @@
+{
+  "architecture": "mobilenet_v3_large",
+  "seed": 42,
+  "status": "completed",
+  "best_epoch": 24,
+  "best_val_acc": 0.4117647058823529,
+  "best_val_macro_f1": 0.3748659003831417,
+  "best_val_loss": 1.374065601124483,
+  "checkpoint": "C:\\Users\\User\\Desktop\\deep\\outputs\\tuning\\mobilenet_v3_large_seed42_1791304977_0bba1a\\best_mobilenet_v3_large_seed42.pt",
+  "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs\\tuning\\mobilenet_v3_large_seed42_1791304977_0bba1a",
+  "epochs_completed": 30,
+  "tracking_mode": "online",
+  "tracking_error": null
+}

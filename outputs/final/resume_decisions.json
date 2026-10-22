@@ -1,0 +1,177 @@
+[
+  {
+    "architecture": "resnet50",
+    "seed": 42,
+    "action": "trained",
+    "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs\\final\\resnet50_seed42_1791375290_77a0c1",
+    "error": null
+  },
+  {
+    "architecture": "resnet50",
+    "seed": 123,
+    "action": "trained",
+    "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs\\final\\resnet50_seed123_1791375441_c0da36",
+    "error": null
+  },
+  {
+    "architecture": "resnet50",
+    "seed": 456,
+    "action": "trained",
+    "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs\\final\\resnet50_seed456_1791375627_26d5a3",
+    "error": null
+  },
+  {
+    "architecture": "resnet50",
+    "seed": 789,
+    "action": "trained",
+    "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs\\final\\resnet50_seed789_1791375885_b62caa",
+    "error": null
+  },
+  {
+    "architecture": "resnet50",
+    "seed": 1024,
+    "action": "trained",
+    "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs\\final\\resnet50_seed1024_1791376043_64e00a",
+    "error": null
+  },
+  {
+    "architecture": "efficientnet_b0",
+    "seed": 42,
+    "action": "trained",
+    "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs\\final\\efficientnet_b0_seed42_1791376238_8b0229",
+    "error": null
+  },
+  {
+    "architecture": "efficientnet_b0",
+    "seed": 123,
+    "action": "trained",
+    "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs\\final\\efficientnet_b0_seed123_1791376456_302447",
+    "error": null
+  },
+  {
+    "architecture": "efficientnet_b0",
+    "seed": 456,
+    "action": "trained",
+    "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs\\final\\efficientnet_b0_seed456_1791376738_3bc8cf",
+    "error": null
+  },
+  {
+    "architecture": "efficientnet_b0",
+    "seed": 789,
+    "action": "trained",
+    "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs\\final\\efficientnet_b0_seed789_1791376900_5782f9",
+    "error": null
+  },
+  {
+    "architecture": "efficientnet_b0",
+    "seed": 1024,
+    "action": "trained",
+    "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs\\final\\efficientnet_b0_seed1024_1791377071_df09b2",
+    "error": null
+  },
+  {
+    "architecture": "mobilenet_v3_large",
+    "seed": 42,
+    "action": "trained",
+    "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs\\final\\mobilenet_v3_large_seed42_1791377215_efb2ae",
+    "error": null
+  },
+  {
+    "architecture": "mobilenet_v3_large",
+    "seed": 123,
+    "action": "trained",
+    "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs\\final\\mobilenet_v3_large_seed123_1791377486_d02a53",
+    "error": null
+  },
+  {
+    "architecture": "mobilenet_v3_large",
+    "seed": 456,
+    "action": "trained",
+    "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs\\final\\mobilenet_v3_large_seed456_1791377606_22cd07",
+    "error": null
+  },
+  {
+    "architecture": "mobilenet_v3_large",
+    "seed": 789,
+    "action": "trained",
+    "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs\\final\\mobilenet_v3_large_seed789_1791377720_c4cd05",
+    "error": null
+  },
+  {
+    "architecture": "mobilenet_v3_large",
+    "seed": 1024,
+    "action": "trained",
+    "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs\\final\\mobilenet_v3_large_seed1024_1791377840_8b22cc",
+    "error": null
+  },
+  {
+    "architecture": "densenet121",
+    "seed": 42,
+    "action": "trained",
+    "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs\\final\\densenet121_seed42_1791377935_acda8e",
+    "error": null
+  },
+  {
+    "architecture": "densenet121",
+    "seed": 123,
+    "action": "trained",
+    "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs\\final\\densenet121_seed123_1791378219_7cfd9c",
+    "error": null
+  },
+  {
+    "architecture": "densenet121",
+    "seed": 456,
+    "action": "trained",
+    "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs\\final\\densenet121_seed456_1791378391_a004ed",
+    "error": null
+  },
+  {
+    "architecture": "densenet121",
+    "seed": 789,
+    "action": "trained",
+    "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs\\final\\densenet121_seed789_1791378553_18dd01",
+    "error": null
+  },
+  {
+    "architecture": "densenet121",
+    "seed": 1024,
+    "action": "trained",
+    "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs\\final\\densenet121_seed1024_1791378774_e84cbf",
+    "error": null
+  },
+  {
+    "architecture": "convnext_tiny",
+    "seed": 42,
+    "action": "trained",
+    "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs\\final\\convnext_tiny_seed42_1791378932_9f441a",
+    "error": null
+  },
+  {
+    "architecture": "convnext_tiny",
+    "seed": 123,
+    "action": "trained",
+    "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs\\final\\convnext_tiny_seed123_1791379214_68fd8b",
+    "error": null
+  },
+  {
+    "architecture": "convnext_tiny",
+    "seed": 456,
+    "action": "trained",
+    "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs\\final\\convnext_tiny_seed456_1791379368_ebb743",
+    "error": null
+  },
+  {
+    "architecture": "convnext_tiny",
+    "seed": 789,
+    "action": "trained",
+    "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs\\final\\convnext_tiny_seed789_1791379538_f2e6ef",
+    "error": null
+  },
+  {
+    "architecture": "convnext_tiny",
+    "seed": 1024,
+    "action": "trained",
+    "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs\\final\\convnext_tiny_seed1024_1791379829_8a3427",
+    "error": null
+  }
+]

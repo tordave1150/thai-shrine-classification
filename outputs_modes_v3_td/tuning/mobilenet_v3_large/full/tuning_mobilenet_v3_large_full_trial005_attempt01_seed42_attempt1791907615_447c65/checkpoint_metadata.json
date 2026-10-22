@@ -1,0 +1,38 @@
+{
+  "checkpoint": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\tuning\\mobilenet_v3_large\\full\\tuning_mobilenet_v3_large_full_trial005_attempt01_seed42_attempt1791907615_447c65\\best_mobilenet_v3_large_full_seed42.pt",
+  "architecture": "mobilenet_v3_large",
+  "mode": "full",
+  "seed": 42,
+  "status": "completed",
+  "trial": 5,
+  "run_identity": "trial005_attempt01",
+  "best_epoch": 10,
+  "best_val_acc": 0.9529411764705882,
+  "best_val_macro_f1": 0.9467787114845938,
+  "best_val_loss": 0.17142472920720192,
+  "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\tuning\\mobilenet_v3_large\\full\\tuning_mobilenet_v3_large_full_trial005_attempt01_seed42_attempt1791907615_447c65",
+  "epochs_completed": 17,
+  "tracking_mode": "online",
+  "tracking_error": null,
+  "wandb_run_id": "ej76p8cs",
+  "wandb_run_url": "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/ej76p8cs",
+  "mode_stats": {
+    "architecture": "mobilenet_v3_large",
+    "mode": "full",
+    "total_parameters": 4207156,
+    "trainable_parameters": 4207156,
+    "frozen_parameters": 0,
+    "trainable_module_names": [
+      "features",
+      "classifier"
+    ],
+    "bn_buffer_policy": "all BN buffers update normally (full fine-tuning)"
+  },
+  "class_order": [
+    "san_phraphrom",
+    "san_phraphum",
+    "san_tayay",
+    "tee_ju_eia"
+  ],
+  "split_sha256": "3eb9c4f3adda4a64536f809fbad5f8801a27d83265d2c753b8f98c6ae93f837f"
+}

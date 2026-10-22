@@ -23,6 +23,15 @@ async function main(){
     await page.screenshot({path:path.join(__dirname,'qa/readme_selected_configurations.png')});
     await page.getByRole('heading',{name:'6.2 Learning curves across five seeds',exact:true}).scrollIntoViewIfNeeded();
     await page.screenshot({path:path.join(__dirname,'qa/readme_learning_curves.png')});
+    for(const [heading,file] of [
+      ['Worked example: MobileNetV3-Large/Partial vs ResNet50/Full','readme_hypothesis'],
+      ['6.7 Matched-image Grad-CAM comparison','readme_matched_cam'],
+      ['6.8 Confidence and calibration','readme_calibration'],
+      ['6.9 Final model selection','readme_model_selection']]){
+      const target=page.getByRole('heading',{name:heading,exact:true});
+      await target.evaluate(el=>el.scrollIntoView({block:'start'}));
+      await page.screenshot({path:path.join(__dirname,'qa',file+'.png')});
+    }
     fs.writeFileSync(path.join(__dirname,'qa/readme_render_validation.json'),JSON.stringify({rendered_utc:new Date().toISOString(),...result,external_network_requests_blocked:true},null,2)+'\n');
     console.log('Offline README render passed: '+result.images+' images, no broken images or horizontal overflow.');
   }finally{await browser.close();}

@@ -1,0 +1,187 @@
+_wandb:
+    value:
+        cli_version: 0.30.0
+        e:
+            oqxkv5093ho1zjwsldt5rfij11svut55:
+                args:
+                    - --stage
+                    - all
+                    - --trials-per-pair
+                    - "5"
+                    - --runs
+                    - "5"
+                    - --seeds
+                    - "42"
+                    - "123"
+                    - "456"
+                    - "789"
+                    - "1024"
+                    - --epochs
+                    - "30"
+                    - --out-dir
+                    - outputs_modes_v3_td
+                    - --architectures
+                    - resnet50
+                    - efficientnet_b0
+                    - mobilenet_v3_large
+                    - densenet121
+                    - convnext_tiny
+                    - --modes
+                    - full
+                    - frozen
+                    - partial
+                    - --wandb-mode
+                    - online
+                    - --wandb-project
+                    - thai-shrine-classifier-td
+                codePath: pipeline_modes.py
+                codePathLocal: pipeline_modes.py
+                cpu_count: 6
+                cpu_count_logical: 12
+                cudaVersion: "13.3"
+                disk:
+                    /:
+                        total: "499766247424"
+                        used: "359172751360"
+                email: wichaidit.m@gmail.com
+                executable: C:\Users\User\Desktop\deep\.venv\Scripts\python.exe
+                gpu: NVIDIA GeForce RTX 5060
+                gpu_count: 1
+                gpu_nvidia:
+                    - architecture: Blackwell
+                      cudaCores: 3840
+                      memoryTotal: "8546942976"
+                      name: NVIDIA GeForce RTX 5060
+                      uuid: GPU-2e6dd58a-2820-b834-446f-ed4d04876a20
+                host: DESKTOP-7LKOQQE
+                memory:
+                    total: "33396543488"
+                os: Windows-10-10.0.19045-SP0
+                program: C:\Users\User\Desktop\deep\pipeline_modes.py
+                python: CPython 3.13.5
+                root: C:\Users\User\Desktop\deep\outputs_modes_v3_td\wandb
+                startedAt: "2026-10-13T15:39:35.310558Z"
+                writerId: oqxkv5093ho1zjwsldt5rfij11svut55
+        m: []
+        python_version: 3.13.5
+        t:
+            "1":
+                - 1
+                - 5
+                - 41
+                - 53
+            "2":
+                - 1
+                - 5
+                - 41
+                - 53
+            "3":
+                - 2
+                - 13
+                - 16
+                - 61
+            "4": 3.13.5
+            "5": 0.30.0
+            "8":
+                - 3
+            "10":
+                - 20
+            "12": 0.30.0
+            "13": windows-amd64
+amp:
+    value: false
+architecture:
+    value: efficientnet_b0
+augmentation:
+    value: true
+augmentation_policy:
+    value: mild train-only
+batch_size:
+    value: 32
+black_threshold:
+    value: 10
+cam_layer:
+    value: features[-1]
+class_weight_policy:
+    value: inverse train frequency
+class_weights:
+    value:
+        - 1.3928571939468384
+        - 1.0955055952072144
+        - 1.0714285373687744
+        - 0.6964285969734192
+code_fingerprint:
+    value: 6f5f6441fb23c82fb7352342963ecfe6f18655671afb081275be40a965d7b9db
+dataset_fingerprint:
+    value: e854495869473ea313b2c455781479f1d619ac0f67c28318e8c3c01f391bd47b
+device:
+    value: cuda
+early_stopping_patience:
+    value: 7
+epochs:
+    value: 30
+input_size:
+    value: 224
+learning_rate:
+    value: 0.00035311169138214097
+min_delta:
+    value: 0.0001
+mode:
+    value: partial
+mode_stats:
+    value:
+        architecture: efficientnet_b0
+        bn_buffer_policy: frozen backbone BN buffers do not update (module in eval mode during training)
+        frozen_parameters: 2878156
+        mode: partial
+        total_parameters: 4012672
+        trainable_module_names:
+            - features.7
+            - features.8
+            - classifier
+        trainable_parameters: 1134516
+num_classes:
+    value: 4
+optimizer:
+    value: adam
+optimizer_defaults:
+    value:
+        adam_betas:
+            - 0.9
+            - 0.999
+        epsilon: 1e-08
+        sgd_momentum: 0.9
+        sgd_nesterov: true
+        weight_decay_mode: optimizer default
+padding_policy:
+    value: neutral ImageNet mean; cleaned source
+patience:
+    value: 7
+pretrained:
+    value: true
+protocol_fingerprint:
+    value: 3a6107dd427e01f1e9d3dd3519b411450a5019505601805c1c1ebe606bf678db
+run_identity:
+    value: trial001_attempt01
+scheduler:
+    value: ReduceLROnPlateau(mode=max,factor=0.5,patience=3)
+seed:
+    value: 42
+split_assignment_fingerprint:
+    value: 2080b705f420a4c0dc10d18315468788385cca46fa248fa189579f84dc00bdc5
+split_csv:
+    value: C:\Users\User\Desktop\deep\outputs_modes_v3_td\splits.csv
+split_sha256:
+    value: 3eb9c4f3adda4a64536f809fbad5f8801a27d83265d2c753b8f98c6ae93f837f
+stage:
+    value: tuning
+trainable_parameters:
+    value: 1134516
+trial:
+    value: 1
+use_class_weights:
+    value: true
+weight_decay:
+    value: 5.695262671673527e-05
+weights:
+    value: EfficientNet_B0_Weights.DEFAULT

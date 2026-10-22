@@ -1,7 +1,7 @@
 {
-  "checked_utc": "2026-10-21T17:46:47.431Z",
+  "checked_utc": "2026-10-22T17:09:55.379Z",
   "source_sha256": {
-    "report/readme_template.md": "85f241d9e2947c9e135b4b0fddd83cb5e5e7bd21d7c1501e2dcb62a58d76dcd0",
+    "report/readme_template.md": "0cc58e55ec2df90535c879487cdce5b4c482f79b41c06c707ad3e967756b4668",
     "report/verified_pair_summary.csv": "6561aef607856941172fbda9967d072e03aebc6bc4f943d126b986cb2b2a4869",
     "report/verified_per_class_summary.csv": "713617c9be2a8eeaea22cee1b8011d6900b7fc7f595ba3ac43451543990a142b",
     "report/verified_statistics.csv": "8e220f660771b094b96f394719a9b082481f973abe7aa7548be290f910e7d646",
@@ -13,13 +13,16 @@
     "outputs_modes_v3_td/tuning/search_definition.json": "1e0068edfd21345f8aa1f9614a768db0373f3e0aa50c9b6c59f561f8ae17ddbf",
     "outputs_modes_v3_td/eyeball/eyeball_cases.csv": "8f30073862f77530ecf2431df3320828fb75b28bffcaf936fe48f72dda384a6d",
     "report/error_frequency.csv": "c428a6f8166090e82dc5316da2a8d8bb56a6b2a813612292b7b1ea8cd58950f7",
-    "report/final_checkpoint_summary.csv": "4c4e01e56cd1d911091bf0dddbc2b05a9d19d3fdb27de5754c7fc40650998c74"
+    "report/final_checkpoint_summary.csv": "4c4e01e56cd1d911091bf0dddbc2b05a9d19d3fdb27de5754c7fc40650998c74",
+    "report/readme_revision_evidence.json": "dd17ab6c98094c8b38017c3caef8ef79c22a506eb732d825eaeeeeb2e37cf692",
+    "report/matched_cam_comparison.csv": "33c2978353e2f1c402dc63e6c728b765ab643a1bf0cf835bf35305eba31b74bc"
   },
-  "readme_sha256": "c91512536d2817781b555f3c6986a63d20c83d2dd3a253fd84509298d4ecf16c",
-  "table_count": 27,
-  "local_and_external_links": 102,
+  "readme_sha256": "36fc46d72bcda9ab90f2b6c6b007c0a60ec8d2b60c1f415a51282ce0aab0e948",
+  "table_count": 31,
+  "local_and_external_links": 109,
   "broken_local_links": 0,
   "original_metric_units": "Saved CSV/JSON remain unchanged; only displayed metrics, differences and CIs are multiplied by 100. p/t/d_z are not rescaled.",
   "model_selection": "ResNet50/Full post hoc; original MobileNetV3-Large/Partial statistical reference preserved.",
-  "python_inference_training_performed": false
+  "execution_scope": "This renderer uses saved files only. The user separately authorized MobileNet Grad-CAM inference for eight fixed images; no new training or tuning was performed.",
+  "renderer_python_inference_training_performed": false
 }

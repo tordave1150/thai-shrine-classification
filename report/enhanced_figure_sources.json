@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-10-21T17:44:35.994Z",
+  "generated_utc": "2026-10-22T16:55:08.638Z",
   "experiment": "outputs_modes_v3_td",
   "source_sha256": {
     "report/figure_theme.js": "4d59082ee830418f65e3c5028196b374ad89cbe8069c3dd95e0fe611432843f6",
@@ -165,11 +165,11 @@
     "report/report_assets/latest/brightness.svg": "4433aea17c1ff04008d31274f4ebe467c5cd4369a33cd3f073b77f1243cc323a",
     "report/report_assets/latest/tuning_response.svg": "cce92378442e666f5dac0bbaf7c4f90365ac936d8b0827151b5e3bd2a7eae95b",
     "report/report_assets/latest/tuning_setup_summary.svg": "bf09c74e465ab44dd8fb39679fd5e9bac6cf84d2785c6f0d02a856853fb33c4c",
-    "report/report_assets/latest/learning_curves_resnet50.svg": "f4ed077f270f69087edaa732e962839e5cff389d8b1554e0d12e3a00951b53d6",
-    "report/report_assets/latest/learning_curves_efficientnet_b0.svg": "0a29c2f4157c26fe3dc6f026a454d49fabb059bdea4a810c7e25ba0292579623",
-    "report/report_assets/latest/learning_curves_mobilenet_v3_large.svg": "4043fc12e69e682f5a32670558fe99ee33ebf836f4c291edd9193c713ecef514",
-    "report/report_assets/latest/learning_curves_densenet121.svg": "d7267176594f056fa148989d39dbaead8f6f5a03fa63464a9a0267a9e29e1d64",
-    "report/report_assets/latest/learning_curves_convnext_tiny.svg": "66040c1c18b5f2149197bc214637e72eb806d9317940bc4b99eb36d9104e72e4"
+    "report/report_assets/latest/learning_curves_resnet50.svg": "9a1d5073c9e470b50f2f32aaa902422996a613a62f05cbbdcb283aed9a44edd5",
+    "report/report_assets/latest/learning_curves_efficientnet_b0.svg": "9a0ca24eda5521b1d10910874a336cdc1d2afe299789560e8d2e94d211a0ba9f",
+    "report/report_assets/latest/learning_curves_mobilenet_v3_large.svg": "7e679f6745e803bf72ad749f0a22a71dea3b479d0b3a9699411a5a3e5f063d31",
+    "report/report_assets/latest/learning_curves_densenet121.svg": "ece15237bc973a9c4e1ca959d8021f3114dd616c0d38d48f10ebf042db30d9d3",
+    "report/report_assets/latest/learning_curves_convnext_tiny.svg": "d13a6dca7c0efe8b3cf6120eff7e54800d627b6c1b85b853198766c293c83660"
   },
   "tuning_trials": 75,
   "final_runs": 75,

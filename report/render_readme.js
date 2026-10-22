@@ -16,7 +16,8 @@ const inputs = ['report/readme_template.md', 'report/verified_pair_summary.csv',
   'report/verified_statistics.csv', 'report/verified_training_dynamics.csv', 'report/resnet_gradcam_cases.csv',
   'report/resnet_ablation_condition_summary.csv', 'report/resnet_ablation_statistical_tests.csv',
   'outputs_modes_v3_td/tuning/best_params_by_arch_mode.json', 'outputs_modes_v3_td/tuning/search_definition.json',
-  'outputs_modes_v3_td/eyeball/eyeball_cases.csv', 'report/error_frequency.csv', 'report/final_checkpoint_summary.csv'];
+  'outputs_modes_v3_td/eyeball/eyeball_cases.csv', 'report/error_frequency.csv', 'report/final_checkpoint_summary.csv',
+  'report/readme_revision_evidence.json', 'report/matched_cam_comparison.csv'];
 const before = Object.fromEntries(inputs.map(p => [p, hash(p)]));
 function table(headers, rows, numericColumns=[]) {
   if (rows.some(r => r.length !== headers.length)) throw Error('Markdown table column mismatch');
@@ -24,6 +25,13 @@ function table(headers, rows, numericColumns=[]) {
     ...rows.map(r => '| '+r.map(v => String(v).replaceAll('|', '\\|')).join(' | ')+' |')].join('\n');
 }
 const blocks = {};
+const revision = JSON.parse(fs.readFileSync(path.join(root,'report/readme_revision_evidence.json'),'utf8'));
+blocks.HYPOTHESIS_F1_TABLE = table(['Seed','MobileNet/Partial F1 (%)','ResNet/Full F1 (%)','Difference (pp)'],
+  revision.paired_f1_example.matched.map(r=>[r.seed,f(r.mobile_f1_pct,4),f(r.resnet_f1_pct,4),f(r.difference_pp,4)]),[0,1,2,3]);
+blocks.MATCHED_CAM_TABLE = table(['Image ID (stem)','True class','ResNet prediction','Confidence (%)','MobileNet prediction','Confidence (%)'],
+  readCsv('report/matched_cam_comparison.csv').map(r=>[r.image_id.split('/')[1],classes[r.true_label],
+    classes[r.resnet_pred]+' '+(r.resnet_pred===r.true_label?'✓':'✗'),pct(r.resnet_confidence),
+    classes[r.mobile_pred]+' '+(r.mobile_pred===r.true_label?'✓':'✗'),pct(r.mobile_confidence)]),[3,5]);
 const summary = readCsv('report/verified_pair_summary.csv');
 if (summary.length !== 15 || summary.some(r => Number(r.n_runs || r.completed_seeds || r.n_seeds || 5) !== 5)) throw Error('Expected 15 five-seed summaries');
 blocks.RESULT_TABLE = table(['Setup','Accuracy (%)','Macro precision (%)','Macro recall (%)','Macro F1 (%)'],
@@ -55,7 +63,7 @@ blocks.ABLATION_TABLE = table(['Condition','Accuracy (%)','Macro precision (%)',
 const ablationTests = readCsv('report/resnet_ablation_statistical_tests.csv');
 blocks.ABLATION_DELTAS = table(['Removed component','Δ Accuracy (pp)','Δ Macro F1 (pp)','Holm p: Accuracy','Holm p: Macro F1'],['no_augmentation','no_class_weights'].map(condition=>{const a=ablationTests.find(r=>r.condition===condition&&r.metric==='test_acc'),b=ablationTests.find(r=>r.condition===condition&&r.metric==='test_macro_f1');return [condition==='no_augmentation'?'Augmentation':'Class weights',f(a.mean_difference_pp),f(b.mean_difference_pp),pval(a.p_holm),pval(b.p_holm)];}),[1,2,3,4]);
 let text = fs.readFileSync(path.join(__dirname,'readme_template.md'),'utf8');
-text = text.replace(/\{\{([A-Z_]+)\}\}/g,(_,name)=>{
+text = text.replace(/\{\{([A-Z][A-Z0-9_]+)\}\}/g,(_,name)=>{
   if(!blocks[name])throw Error('Unknown report block: '+name);
   return '<!-- generated:'+name+' -->\n\n'+blocks[name]+'\n\n<!-- /generated:'+name+' -->';
 });
@@ -74,6 +82,7 @@ fs.writeFileSync(path.join(__dirname,'qa/presentation_validation.json'),JSON.str
   table_count:tables,local_and_external_links:links.length,broken_local_links:0,
   original_metric_units:'Saved CSV/JSON remain unchanged; only displayed metrics, differences and CIs are multiplied by 100. p/t/d_z are not rescaled.',
   model_selection:'ResNet50/Full post hoc; original MobileNetV3-Large/Partial statistical reference preserved.',
-  python_inference_training_performed:false
+  execution_scope:'This renderer uses saved files only. The user separately authorized MobileNet Grad-CAM inference for eight fixed images; no new training or tuning was performed.',
+  renderer_python_inference_training_performed:false
 },null,2)+'\n');
 console.log('Rendered README and report mirror; checked '+tables+' tables and '+links.length+' links.');

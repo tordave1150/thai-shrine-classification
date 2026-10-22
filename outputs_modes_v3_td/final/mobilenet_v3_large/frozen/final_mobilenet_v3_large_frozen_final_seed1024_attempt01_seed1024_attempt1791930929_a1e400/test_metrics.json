@@ -1,0 +1,97 @@
+{
+  "accuracy": 0.8941176470588236,
+  "macro_precision": 0.8870341614906831,
+  "macro_recall": 0.8825396825396825,
+  "macro_f1": 0.8725849886866837,
+  "per_class": {
+    "san_phraphrom": {
+      "precision": 0.7619047619047619,
+      "recall": 1.0,
+      "f1": 0.8648648648648649,
+      "support": 16
+    },
+    "san_phraphum": {
+      "precision": 0.9166666666666666,
+      "recall": 0.6111111111111112,
+      "f1": 0.7333333333333333,
+      "support": 18
+    },
+    "san_tayay": {
+      "precision": 0.8695652173913043,
+      "recall": 0.9523809523809523,
+      "f1": 0.9090909090909091,
+      "support": 21
+    },
+    "tee_ju_eia": {
+      "precision": 1.0,
+      "recall": 0.9666666666666667,
+      "f1": 0.9830508474576272,
+      "support": 30
+    }
+  },
+  "confusion_matrix": [
+    [
+      16,
+      0,
+      0,
+      0
+    ],
+    [
+      5,
+      11,
+      2,
+      0
+    ],
+    [
+      0,
+      1,
+      20,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      29
+    ]
+  ],
+  "classification_report": {
+    "san_phraphrom": {
+      "precision": 0.7619047619047619,
+      "recall": 1.0,
+      "f1-score": 0.8648648648648649,
+      "support": 16.0
+    },
+    "san_phraphum": {
+      "precision": 0.9166666666666666,
+      "recall": 0.6111111111111112,
+      "f1-score": 0.7333333333333333,
+      "support": 18.0
+    },
+    "san_tayay": {
+      "precision": 0.8695652173913043,
+      "recall": 0.9523809523809523,
+      "f1-score": 0.9090909090909091,
+      "support": 21.0
+    },
+    "tee_ju_eia": {
+      "precision": 1.0,
+      "recall": 0.9666666666666667,
+      "f1-score": 0.9830508474576272,
+      "support": 30.0
+    },
+    "accuracy": 0.8941176470588236,
+    "macro avg": {
+      "precision": 0.8870341614906831,
+      "recall": 0.8825396825396825,
+      "f1-score": 0.8725849886866837,
+      "support": 85.0
+    },
+    "weighted avg": {
+      "precision": 0.9053099500669833,
+      "recall": 0.8941176470588236,
+      "f1-score": 0.8896502629703029,
+      "support": 85.0
+    }
+  }
+}

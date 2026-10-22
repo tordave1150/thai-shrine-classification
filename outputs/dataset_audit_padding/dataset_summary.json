@@ -1,0 +1,98 @@
+{
+  "dataset_root": "C:\\Users\\User\\Desktop\\deep\\dataset_padding",
+  "audit_time_utc": "2026-10-05T16:27:25.848397+00:00",
+  "class_order": [
+    "san_phraphrom",
+    "san_phraphum",
+    "san_tayay",
+    "tee_ju_eia"
+  ],
+  "num_images": 560,
+  "num_read_errors_or_identity_issues": 0,
+  "class_counts": {
+    "san_phraphrom": 103,
+    "san_phraphum": 124,
+    "san_tayay": 133,
+    "tee_ju_eia": 200
+  },
+  "mode_counts": {
+    "RGB": 560
+  },
+  "format_counts": {
+    "JPEG": 560
+  },
+  "distinct_dimensions": 1,
+  "dimension_range": {
+    "width": [
+      1024,
+      1024
+    ],
+    "height": [
+      1024,
+      1024
+    ]
+  },
+  "alpha_or_transparency_count": 0,
+  "all_or_nearly_all_black_files": [],
+  "mean_nearblack_fraction_by_class": {
+    "san_phraphrom": 0.26971053151251045,
+    "san_phraphum": 0.30808907939541724,
+    "san_tayay": 0.1510321323136638,
+    "tee_ju_eia": 0.1472177314758301
+  },
+  "mean_edge_nearblack_fraction_by_class": {
+    "san_phraphrom": 0.5458955440374423,
+    "san_phraphum": 0.5852816556355226,
+    "san_tayay": 0.3156667502920648,
+    "tee_ju_eia": 0.34903523406374504
+  },
+  "animated_file_count": 0,
+  "exact_decoded_pixel_duplicate_groups": [
+    [
+      "san_phraphum/san_phraphum_0002",
+      "san_phraphum/san_phraphum_0046"
+    ],
+    [
+      "san_phraphum/san_phraphum_0073",
+      "san_phraphum/san_phraphum_0077"
+    ]
+  ],
+  "repeated_source_url_groups": [],
+  "num_near_duplicate_candidates": 15,
+  "near_duplicate_review": {
+    "file": null,
+    "confirmed": 0,
+    "rejected": 0,
+    "pending": 15,
+    "stale_rows": 0
+  },
+  "phash_hamming_threshold": 6,
+  "metadata": {
+    "path": null,
+    "rows": 0,
+    "rows_with_url": 0,
+    "status": "not_supplied_for_this_version"
+  },
+  "source_domain_counts_by_class": {
+    "san_phraphrom": {
+      "unknown": 103
+    },
+    "san_phraphum": {
+      "unknown": 124
+    },
+    "san_tayay": {
+      "unknown": 133
+    },
+    "tee_ju_eia": {
+      "unknown": 200
+    }
+  },
+  "metadata_only_ids": [],
+  "image_only_ids": [],
+  "unexpected_files": [],
+  "errors": [],
+  "limitations": [
+    "Perceptual hash rows are candidates, not confirmed duplicates.",
+    "Visual/source-site shortcut review remains a human review task."
+  ]
+}

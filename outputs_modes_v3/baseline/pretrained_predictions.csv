@@ -1,0 +1,391 @@
+﻿image_id,true_custom_class,imagenet_top1,imagenet_confidence
+san_phraphrom/san_phraphrom_0001,san_phraphrom,stupa,0.27644097805023193
+san_phraphrom/san_phraphrom_0002,san_phraphrom,stupa,0.5426416397094727
+san_phraphrom/san_phraphrom_0003,san_phraphrom,throne,0.20699508488178253
+san_phraphrom/san_phraphrom_0005,san_phraphrom,altar,0.3264900743961334
+san_phraphrom/san_phraphrom_0006,san_phraphrom,stupa,0.2391628623008728
+san_phraphrom/san_phraphrom_0009,san_phraphrom,palace,0.13041311502456665
+san_phraphrom/san_phraphrom_0010,san_phraphrom,altar,0.14097674190998077
+san_phraphrom/san_phraphrom_0011,san_phraphrom,altar,0.5069325566291809
+san_phraphrom/san_phraphrom_0013,san_phraphrom,altar,0.41479092836380005
+san_phraphrom/san_phraphrom_0014,san_phraphrom,altar,0.2859092354774475
+san_phraphrom/san_phraphrom_0016,san_phraphrom,throne,0.32170483469963074
+san_phraphrom/san_phraphrom_0018,san_phraphrom,stupa,0.3986912667751312
+san_phraphrom/san_phraphrom_0020,san_phraphrom,stupa,0.20688854157924652
+san_phraphrom/san_phraphrom_0021,san_phraphrom,altar,0.5839288234710693
+san_phraphrom/san_phraphrom_0023,san_phraphrom,altar,0.20800238847732544
+san_phraphrom/san_phraphrom_0024,san_phraphrom,library,0.05059972032904625
+san_phraphrom/san_phraphrom_0025,san_phraphrom,altar,0.4243369996547699
+san_phraphrom/san_phraphrom_0026,san_phraphrom,altar,0.19924968481063843
+san_phraphrom/san_phraphrom_0027,san_phraphrom,altar,0.20646816492080688
+san_phraphrom/san_phraphrom_0029,san_phraphrom,web site,0.7119293212890625
+san_phraphrom/san_phraphrom_0030,san_phraphrom,web site,0.6786507964134216
+san_phraphrom/san_phraphrom_0032,san_phraphrom,pedestal,0.19683673977851868
+san_phraphrom/san_phraphrom_0034,san_phraphrom,web site,0.5911836624145508
+san_phraphrom/san_phraphrom_0037,san_phraphrom,stupa,0.12055381387472153
+san_phraphrom/san_phraphrom_0038,san_phraphrom,stupa,0.71666419506073
+san_phraphrom/san_phraphrom_0042,san_phraphrom,stupa,0.5790209174156189
+san_phraphrom/san_phraphrom_0043,san_phraphrom,stupa,0.19019091129302979
+san_phraphrom/san_phraphrom_0044,san_phraphrom,altar,0.10491138696670532
+san_phraphrom/san_phraphrom_0045,san_phraphrom,castle,0.08093219995498657
+san_phraphrom/san_phraphrom_0046,san_phraphrom,altar,0.3675064444541931
+san_phraphrom/san_phraphrom_0048,san_phraphrom,altar,0.09194561094045639
+san_phraphrom/san_phraphrom_0049,san_phraphrom,stupa,0.2437598705291748
+san_phraphrom/san_phraphrom_0050,san_phraphrom,stupa,0.11553195863962173
+san_phraphrom/san_phraphrom_0052,san_phraphrom,church,0.19191008806228638
+san_phraphrom/san_phraphrom_0056,san_phraphrom,stupa,0.39660367369651794
+san_phraphrom/san_phraphrom_0058,san_phraphrom,throne,0.22725710272789001
+san_phraphrom/san_phraphrom_0059,san_phraphrom,stupa,0.32147684693336487
+san_phraphrom/san_phraphrom_0060,san_phraphrom,stupa,0.6285598278045654
+san_phraphrom/san_phraphrom_0062,san_phraphrom,stupa,0.4915813207626343
+san_phraphrom/san_phraphrom_0064,san_phraphrom,stupa,0.4229722023010254
+san_phraphrom/san_phraphrom_0065,san_phraphrom,stupa,0.6568260788917542
+san_phraphrom/san_phraphrom_0067,san_phraphrom,stupa,0.5799824595451355
+san_phraphrom/san_phraphrom_0068,san_phraphrom,altar,0.2552435100078583
+san_phraphrom/san_phraphrom_0069,san_phraphrom,throne,0.12401562184095383
+san_phraphrom/san_phraphrom_0070,san_phraphrom,stupa,0.23513256013393402
+san_phraphrom/san_phraphrom_0071,san_phraphrom,pedestal,0.13402250409126282
+san_phraphrom/san_phraphrom_0073,san_phraphrom,stupa,0.4924331307411194
+san_phraphrom/san_phraphrom_0074,san_phraphrom,stupa,0.4570462107658386
+san_phraphrom/san_phraphrom_0076,san_phraphrom,church,0.2780162990093231
+san_phraphrom/san_phraphrom_0077,san_phraphrom,church,0.12278995662927628
+san_phraphrom/san_phraphrom_0078,san_phraphrom,altar,0.08870463073253632
+san_phraphrom/san_phraphrom_0080,san_phraphrom,stupa,0.14599958062171936
+san_phraphrom/san_phraphrom_0081,san_phraphrom,church,0.32956406474113464
+san_phraphrom/san_phraphrom_0082,san_phraphrom,pedestal,0.09526001662015915
+san_phraphrom/san_phraphrom_0083,san_phraphrom,sundial,0.05704474821686745
+san_phraphrom/san_phraphrom_0084,san_phraphrom,pedestal,0.1463475227355957
+san_phraphrom/san_phraphrom_0085,san_phraphrom,stupa,0.20933496952056885
+san_phraphrom/san_phraphrom_0086,san_phraphrom,throne,0.18917806446552277
+san_phraphrom/san_phraphrom_0087,san_phraphrom,stupa,0.33146432042121887
+san_phraphrom/san_phraphrom_0088,san_phraphrom,pedestal,0.07980053871870041
+san_phraphrom/san_phraphrom_0089,san_phraphrom,throne,0.044656261801719666
+san_phraphrom/san_phraphrom_0091,san_phraphrom,throne,0.19106639921665192
+san_phraphrom/san_phraphrom_0093,san_phraphrom,throne,0.12360715121030807
+san_phraphrom/san_phraphrom_0094,san_phraphrom,throne,0.20078758895397186
+san_phraphrom/san_phraphrom_0097,san_phraphrom,stupa,0.14029069244861603
+san_phraphrom/san_phraphrom_0098,san_phraphrom,throne,0.38545623421669006
+san_phraphrom/san_phraphrom_0099,san_phraphrom,stupa,0.5764223337173462
+san_phraphrom/san_phraphrom_0100,san_phraphrom,stupa,0.15041740238666534
+san_phraphrom/san_phraphrom_0102,san_phraphrom,stupa,0.3073215186595917
+san_phraphrom/san_phraphrom_0103,san_phraphrom,guillotine,0.19484367966651917
+san_phraphum/san_phraphum_0002,san_phraphum,stupa,0.12566860020160675
+san_phraphum/san_phraphum_0003,san_phraphum,stupa,0.4244075417518616
+san_phraphum/san_phraphum_0004,san_phraphum,stupa,0.5713271498680115
+san_phraphum/san_phraphum_0005,san_phraphum,stupa,0.2930358648300171
+san_phraphum/san_phraphum_0006,san_phraphum,stupa,0.3101747930049896
+san_phraphum/san_phraphum_0007,san_phraphum,stupa,0.18214131891727448
+san_phraphum/san_phraphum_0011,san_phraphum,stupa,0.6311355233192444
+san_phraphum/san_phraphum_0013,san_phraphum,altar,0.5141232013702393
+san_phraphum/san_phraphum_0014,san_phraphum,confectionery,0.06399931013584137
+san_phraphum/san_phraphum_0017,san_phraphum,web site,0.18209773302078247
+san_phraphum/san_phraphum_0018,san_phraphum,washbasin,0.053788475692272186
+san_phraphum/san_phraphum_0019,san_phraphum,pedestal,0.08748093247413635
+san_phraphum/san_phraphum_0020,san_phraphum,pedestal,0.11015533655881882
+san_phraphum/san_phraphum_0021,san_phraphum,stupa,0.38410598039627075
+san_phraphum/san_phraphum_0022,san_phraphum,birdhouse,0.08950860798358917
+san_phraphum/san_phraphum_0023,san_phraphum,throne,0.3422558903694153
+san_phraphum/san_phraphum_0024,san_phraphum,stupa,0.4427502453327179
+san_phraphum/san_phraphum_0025,san_phraphum,pedestal,0.19961465895175934
+san_phraphum/san_phraphum_0026,san_phraphum,stupa,0.6714814305305481
+san_phraphum/san_phraphum_0029,san_phraphum,web site,0.7892172932624817
+san_phraphum/san_phraphum_0032,san_phraphum,stupa,0.5955324172973633
+san_phraphum/san_phraphum_0033,san_phraphum,stupa,0.2547018826007843
+san_phraphum/san_phraphum_0034,san_phraphum,patio,0.06690626591444016
+san_phraphum/san_phraphum_0035,san_phraphum,scale,0.10179957002401352
+san_phraphum/san_phraphum_0036,san_phraphum,stupa,0.19583050906658173
+san_phraphum/san_phraphum_0037,san_phraphum,pedestal,0.44354116916656494
+san_phraphum/san_phraphum_0038,san_phraphum,pedestal,0.1429721862077713
+san_phraphum/san_phraphum_0041,san_phraphum,throne,0.22060681879520416
+san_phraphum/san_phraphum_0042,san_phraphum,altar,0.1582205891609192
+san_phraphum/san_phraphum_0044,san_phraphum,stupa,0.06762277334928513
+san_phraphum/san_phraphum_0045,san_phraphum,pedestal,0.0631268098950386
+san_phraphum/san_phraphum_0046,san_phraphum,stupa,0.12566860020160675
+san_phraphum/san_phraphum_0047,san_phraphum,pedestal,0.1986529380083084
+san_phraphum/san_phraphum_0048,san_phraphum,pedestal,0.09052746742963791
+san_phraphum/san_phraphum_0049,san_phraphum,pedestal,0.10147545486688614
+san_phraphum/san_phraphum_0054,san_phraphum,pedestal,0.13603202998638153
+san_phraphum/san_phraphum_0055,san_phraphum,scale,0.11589069664478302
+san_phraphum/san_phraphum_0056,san_phraphum,scale,0.10199940204620361
+san_phraphum/san_phraphum_0057,san_phraphum,stupa,0.19585241377353668
+san_phraphum/san_phraphum_0059,san_phraphum,pedestal,0.11236437410116196
+san_phraphum/san_phraphum_0060,san_phraphum,pedestal,0.10854797065258026
+san_phraphum/san_phraphum_0061,san_phraphum,stupa,0.15381082892417908
+san_phraphum/san_phraphum_0062,san_phraphum,church,0.12221536040306091
+san_phraphum/san_phraphum_0063,san_phraphum,stupa,0.23058243095874786
+san_phraphum/san_phraphum_0066,san_phraphum,church,0.08451653271913528
+san_phraphum/san_phraphum_0067,san_phraphum,church,0.4300442337989807
+san_phraphum/san_phraphum_0068,san_phraphum,sundial,0.12858586013317108
+san_phraphum/san_phraphum_0069,san_phraphum,obelisk,0.1191042810678482
+san_phraphum/san_phraphum_0070,san_phraphum,stupa,0.3885865807533264
+san_phraphum/san_phraphum_0071,san_phraphum,stupa,0.14404216408729553
+san_phraphum/san_phraphum_0072,san_phraphum,stupa,0.4447726607322693
+san_phraphum/san_phraphum_0073,san_phraphum,stupa,0.1551361083984375
+san_phraphum/san_phraphum_0074,san_phraphum,pedestal,0.26051077246665955
+san_phraphum/san_phraphum_0075,san_phraphum,stupa,0.15893720090389252
+san_phraphum/san_phraphum_0077,san_phraphum,stupa,0.1551361083984375
+san_phraphum/san_phraphum_0078,san_phraphum,pedestal,0.06744858622550964
+san_phraphum/san_phraphum_0079,san_phraphum,stupa,0.04628957062959671
+san_phraphum/san_phraphum_0080,san_phraphum,bell cote,0.060751739889383316
+san_phraphum/san_phraphum_0081,san_phraphum,dining table,0.07438136637210846
+san_phraphum/san_phraphum_0082,san_phraphum,altar,0.10011432319879532
+san_phraphum/san_phraphum_0084,san_phraphum,stupa,0.2234446406364441
+san_phraphum/san_phraphum_0085,san_phraphum,stupa,0.07648476213216782
+san_phraphum/san_phraphum_0088,san_phraphum,stupa,0.24999931454658508
+san_phraphum/san_phraphum_0089,san_phraphum,altar,0.21723878383636475
+san_phraphum/san_phraphum_0090,san_phraphum,altar,0.09003713726997375
+san_phraphum/san_phraphum_0091,san_phraphum,palace,0.13497529923915863
+san_phraphum/san_phraphum_0092,san_phraphum,altar,0.1364981085062027
+san_phraphum/san_phraphum_0095,san_phraphum,altar,0.1876840591430664
+san_phraphum/san_phraphum_0096,san_phraphum,stupa,0.5140065550804138
+san_phraphum/san_phraphum_0097,san_phraphum,stupa,0.6094809174537659
+san_phraphum/san_phraphum_0098,san_phraphum,table lamp,0.22754138708114624
+san_phraphum/san_phraphum_0099,san_phraphum,wall clock,0.03527216613292694
+san_phraphum/san_phraphum_0100,san_phraphum,table lamp,0.12411759793758392
+san_phraphum/san_phraphum_0101,san_phraphum,stupa,0.30400413274765015
+san_phraphum/san_phraphum_0102,san_phraphum,table lamp,0.0629948303103447
+san_phraphum/san_phraphum_0103,san_phraphum,chime,0.12821201980113983
+san_phraphum/san_phraphum_0104,san_phraphum,throne,0.2749840319156647
+san_phraphum/san_phraphum_0105,san_phraphum,throne,0.12583641707897186
+san_phraphum/san_phraphum_0106,san_phraphum,pedestal,0.11700749397277832
+san_phraphum/san_phraphum_0107,san_phraphum,pedestal,0.11804357171058655
+san_phraphum/san_phraphum_0108,san_phraphum,stupa,0.18337401747703552
+san_phraphum/san_phraphum_0109,san_phraphum,throne,0.3186606466770172
+san_phraphum/san_phraphum_0110,san_phraphum,pedestal,0.08325659483671188
+san_phraphum/san_phraphum_0112,san_phraphum,stupa,0.17143189907073975
+san_phraphum/san_phraphum_0115,san_phraphum,stupa,0.2431054711341858
+san_phraphum/san_phraphum_0116,san_phraphum,altar,0.24959878623485565
+san_phraphum/san_phraphum_0118,san_phraphum,patio,0.15008032321929932
+san_phraphum/san_phraphum_0119,san_phraphum,altar,0.1262112855911255
+san_phraphum/san_phraphum_0120,san_phraphum,throne,0.061353012919425964
+san_tayay/san_tayay_0001,san_tayay,altar,0.07946282625198364
+san_tayay/san_tayay_0002,san_tayay,park bench,0.11706507951021194
+san_tayay/san_tayay_0004,san_tayay,birdhouse,0.1158691793680191
+san_tayay/san_tayay_0005,san_tayay,throne,0.2279840111732483
+san_tayay/san_tayay_0006,san_tayay,stupa,0.6507083773612976
+san_tayay/san_tayay_0007,san_tayay,greenhouse,0.11008454859256744
+san_tayay/san_tayay_0009,san_tayay,patio,0.16034738719463348
+san_tayay/san_tayay_0010,san_tayay,greenhouse,0.16013462841510773
+san_tayay/san_tayay_0013,san_tayay,birdhouse,0.14396996796131134
+san_tayay/san_tayay_0014,san_tayay,web site,0.7109968066215515
+san_tayay/san_tayay_0015,san_tayay,web site,0.6566802859306335
+san_tayay/san_tayay_0016,san_tayay,birdhouse,0.08224901556968689
+san_tayay/san_tayay_0017,san_tayay,web site,0.5163610577583313
+san_tayay/san_tayay_0018,san_tayay,web site,0.49814242124557495
+san_tayay/san_tayay_0020,san_tayay,throne,0.12087083607912064
+san_tayay/san_tayay_0022,san_tayay,plow,0.0835442766547203
+san_tayay/san_tayay_0023,san_tayay,folding chair,0.09657592326402664
+san_tayay/san_tayay_0024,san_tayay,throne,0.16239216923713684
+san_tayay/san_tayay_0027,san_tayay,patio,0.10721289366483688
+san_tayay/san_tayay_0028,san_tayay,pedestal,0.15137527883052826
+san_tayay/san_tayay_0029,san_tayay,altar,0.2266087681055069
+san_tayay/san_tayay_0030,san_tayay,stupa,0.46088355779647827
+san_tayay/san_tayay_0031,san_tayay,web site,0.6567012071609497
+san_tayay/san_tayay_0032,san_tayay,table lamp,0.2600778639316559
+san_tayay/san_tayay_0033,san_tayay,web site,0.5565028190612793
+san_tayay/san_tayay_0034,san_tayay,throne,0.17646706104278564
+san_tayay/san_tayay_0035,san_tayay,altar,0.04670780524611473
+san_tayay/san_tayay_0036,san_tayay,birdhouse,0.09886657446622849
+san_tayay/san_tayay_0038,san_tayay,stupa,0.4669477641582489
+san_tayay/san_tayay_0039,san_tayay,stupa,0.20122124254703522
+san_tayay/san_tayay_0040,san_tayay,stupa,0.18126027286052704
+san_tayay/san_tayay_0041,san_tayay,stupa,0.3699449598789215
+san_tayay/san_tayay_0043,san_tayay,sundial,0.08912970125675201
+san_tayay/san_tayay_0044,san_tayay,stupa,0.5424764752388
+san_tayay/san_tayay_0045,san_tayay,bell cote,0.19876904785633087
+san_tayay/san_tayay_0047,san_tayay,stupa,0.43244826793670654
+san_tayay/san_tayay_0048,san_tayay,stupa,0.4407880902290344
+san_tayay/san_tayay_0050,san_tayay,stupa,0.24023202061653137
+san_tayay/san_tayay_0051,san_tayay,stupa,0.1924474537372589
+san_tayay/san_tayay_0052,san_tayay,stupa,0.622468113899231
+san_tayay/san_tayay_0056,san_tayay,patio,0.13858753442764282
+san_tayay/san_tayay_0060,san_tayay,bell cote,0.12239772081375122
+san_tayay/san_tayay_0061,san_tayay,bell cote,0.0742885172367096
+san_tayay/san_tayay_0063,san_tayay,rocking chair,0.08421343564987183
+san_tayay/san_tayay_0064,san_tayay,tile roof,0.06394319981336594
+san_tayay/san_tayay_0065,san_tayay,guillotine,0.03883691877126694
+san_tayay/san_tayay_0066,san_tayay,rocking chair,0.1136312410235405
+san_tayay/san_tayay_0069,san_tayay,marimba,0.14161379635334015
+san_tayay/san_tayay_0072,san_tayay,guillotine,0.03963938727974892
+san_tayay/san_tayay_0073,san_tayay,throne,0.09139169752597809
+san_tayay/san_tayay_0074,san_tayay,folding chair,0.19350306689739227
+san_tayay/san_tayay_0075,san_tayay,crib,0.07996373623609543
+san_tayay/san_tayay_0076,san_tayay,stupa,0.12286241352558136
+san_tayay/san_tayay_0082,san_tayay,bell cote,0.06265296041965485
+san_tayay/san_tayay_0083,san_tayay,patio,0.22651730477809906
+san_tayay/san_tayay_0084,san_tayay,birdhouse,0.2593046724796295
+san_tayay/san_tayay_0085,san_tayay,library,0.041614510118961334
+san_tayay/san_tayay_0086,san_tayay,lumbermill,0.05387213081121445
+san_tayay/san_tayay_0087,san_tayay,birdhouse,0.08204822987318039
+san_tayay/san_tayay_0088,san_tayay,birdhouse,0.20203286409378052
+san_tayay/san_tayay_0089,san_tayay,patio,0.04893336445093155
+san_tayay/san_tayay_0090,san_tayay,rocking chair,0.04756317287683487
+san_tayay/san_tayay_0091,san_tayay,marimba,0.07314646989107132
+san_tayay/san_tayay_0092,san_tayay,birdhouse,0.48554688692092896
+san_tayay/san_tayay_0094,san_tayay,patio,0.3235502243041992
+san_tayay/san_tayay_0095,san_tayay,web site,0.09061779081821442
+san_tayay/san_tayay_0096,san_tayay,birdhouse,0.3811871111392975
+san_tayay/san_tayay_0097,san_tayay,web site,0.44293397665023804
+san_tayay/san_tayay_0098,san_tayay,throne,0.15899841487407684
+san_tayay/san_tayay_0099,san_tayay,bell cote,0.0625985860824585
+san_tayay/san_tayay_0100,san_tayay,stove,0.040625181049108505
+san_tayay/san_tayay_0101,san_tayay,tile roof,0.15343941748142242
+san_tayay/san_tayay_0103,san_tayay,lumbermill,0.03880959376692772
+san_tayay/san_tayay_0105,san_tayay,altar,0.18225283920764923
+san_tayay/san_tayay_0106,san_tayay,stupa,0.1771959811449051
+san_tayay/san_tayay_0107,san_tayay,throne,0.6182964444160461
+san_tayay/san_tayay_0108,san_tayay,throne,0.14647257328033447
+san_tayay/san_tayay_0111,san_tayay,altar,0.12068289518356323
+san_tayay/san_tayay_0113,san_tayay,patio,0.057951316237449646
+san_tayay/san_tayay_0114,san_tayay,altar,0.07656058669090271
+san_tayay/san_tayay_0116,san_tayay,restaurant,0.10990488529205322
+san_tayay/san_tayay_0119,san_tayay,marimba,0.11167139559984207
+san_tayay/san_tayay_0122,san_tayay,greenhouse,0.038998983800411224
+san_tayay/san_tayay_0124,san_tayay,bell cote,0.08808043599128723
+san_tayay/san_tayay_0126,san_tayay,sandbar,0.0993080735206604
+san_tayay/san_tayay_0127,san_tayay,patio,0.16205696761608124
+san_tayay/san_tayay_0128,san_tayay,pool table,0.026048559695482254
+san_tayay/san_tayay_0129,san_tayay,upright,0.0708712562918663
+san_tayay/san_tayay_0130,san_tayay,restaurant,0.05711989104747772
+san_tayay/san_tayay_0131,san_tayay,palace,0.045274365693330765
+san_tayay/san_tayay_0133,san_tayay,tile roof,0.034956593066453934
+tee_ju_eia/tee_ju_eia_0002,tee_ju_eia,altar,0.10128399729728699
+tee_ju_eia/tee_ju_eia_0003,tee_ju_eia,altar,0.2571614682674408
+tee_ju_eia/tee_ju_eia_0004,tee_ju_eia,altar,0.1542803943157196
+tee_ju_eia/tee_ju_eia_0005,tee_ju_eia,altar,0.2207123041152954
+tee_ju_eia/tee_ju_eia_0006,tee_ju_eia,throne,0.5355153679847717
+tee_ju_eia/tee_ju_eia_0008,tee_ju_eia,altar,0.5617934465408325
+tee_ju_eia/tee_ju_eia_0009,tee_ju_eia,throne,0.2943412661552429
+tee_ju_eia/tee_ju_eia_0010,tee_ju_eia,altar,0.2027231901884079
+tee_ju_eia/tee_ju_eia_0011,tee_ju_eia,throne,0.30142390727996826
+tee_ju_eia/tee_ju_eia_0012,tee_ju_eia,throne,0.37657424807548523
+tee_ju_eia/tee_ju_eia_0013,tee_ju_eia,altar,0.06613549590110779
+tee_ju_eia/tee_ju_eia_0014,tee_ju_eia,throne,0.21955223381519318
+tee_ju_eia/tee_ju_eia_0015,tee_ju_eia,altar,0.19100189208984375
+tee_ju_eia/tee_ju_eia_0016,tee_ju_eia,pedestal,0.1419752687215805
+tee_ju_eia/tee_ju_eia_0018,tee_ju_eia,throne,0.2915898263454437
+tee_ju_eia/tee_ju_eia_0019,tee_ju_eia,throne,0.47102877497673035
+tee_ju_eia/tee_ju_eia_0020,tee_ju_eia,altar,0.3385126292705536
+tee_ju_eia/tee_ju_eia_0022,tee_ju_eia,altar,0.24711018800735474
+tee_ju_eia/tee_ju_eia_0023,tee_ju_eia,packet,0.23467691242694855
+tee_ju_eia/tee_ju_eia_0024,tee_ju_eia,throne,0.6341156363487244
+tee_ju_eia/tee_ju_eia_0026,tee_ju_eia,pedestal,0.31444114446640015
+tee_ju_eia/tee_ju_eia_0027,tee_ju_eia,throne,0.174226313829422
+tee_ju_eia/tee_ju_eia_0028,tee_ju_eia,throne,0.3054947257041931
+tee_ju_eia/tee_ju_eia_0029,tee_ju_eia,vase,0.28754350543022156
+tee_ju_eia/tee_ju_eia_0030,tee_ju_eia,prayer rug,0.17119409143924713
+tee_ju_eia/tee_ju_eia_0033,tee_ju_eia,vestment,0.13945281505584717
+tee_ju_eia/tee_ju_eia_0034,tee_ju_eia,throne,0.2842843234539032
+tee_ju_eia/tee_ju_eia_0037,tee_ju_eia,altar,0.24699926376342773
+tee_ju_eia/tee_ju_eia_0038,tee_ju_eia,plastic bag,0.10902731865644455
+tee_ju_eia/tee_ju_eia_0039,tee_ju_eia,altar,0.10896598547697067
+tee_ju_eia/tee_ju_eia_0041,tee_ju_eia,confectionery,0.1370481252670288
+tee_ju_eia/tee_ju_eia_0042,tee_ju_eia,altar,0.2414352297782898
+tee_ju_eia/tee_ju_eia_0043,tee_ju_eia,tray,0.12268951535224915
+tee_ju_eia/tee_ju_eia_0044,tee_ju_eia,altar,0.27900639176368713
+tee_ju_eia/tee_ju_eia_0045,tee_ju_eia,sliding door,0.07231473177671432
+tee_ju_eia/tee_ju_eia_0046,tee_ju_eia,throne,0.33954328298568726
+tee_ju_eia/tee_ju_eia_0047,tee_ju_eia,throne,0.15189212560653687
+tee_ju_eia/tee_ju_eia_0048,tee_ju_eia,throne,0.5727601647377014
+tee_ju_eia/tee_ju_eia_0049,tee_ju_eia,altar,0.18525658547878265
+tee_ju_eia/tee_ju_eia_0052,tee_ju_eia,throne,0.5827627778053284
+tee_ju_eia/tee_ju_eia_0053,tee_ju_eia,throne,0.5226313471794128
+tee_ju_eia/tee_ju_eia_0055,tee_ju_eia,pedestal,0.2756285071372986
+tee_ju_eia/tee_ju_eia_0056,tee_ju_eia,perfume,0.31773221492767334
+tee_ju_eia/tee_ju_eia_0057,tee_ju_eia,altar,0.11195225268602371
+tee_ju_eia/tee_ju_eia_0058,tee_ju_eia,altar,0.35687360167503357
+tee_ju_eia/tee_ju_eia_0059,tee_ju_eia,throne,0.1129298135638237
+tee_ju_eia/tee_ju_eia_0060,tee_ju_eia,throne,0.06688431650400162
+tee_ju_eia/tee_ju_eia_0064,tee_ju_eia,altar,0.2290724217891693
+tee_ju_eia/tee_ju_eia_0065,tee_ju_eia,throne,0.13200804591178894
+tee_ju_eia/tee_ju_eia_0070,tee_ju_eia,pedestal,0.07667043805122375
+tee_ju_eia/tee_ju_eia_0071,tee_ju_eia,throne,0.26707518100738525
+tee_ju_eia/tee_ju_eia_0072,tee_ju_eia,bakery,0.12687087059020996
+tee_ju_eia/tee_ju_eia_0073,tee_ju_eia,mortar,0.08221548795700073
+tee_ju_eia/tee_ju_eia_0077,tee_ju_eia,throne,0.1866576075553894
+tee_ju_eia/tee_ju_eia_0078,tee_ju_eia,scale,0.08907882869243622
+tee_ju_eia/tee_ju_eia_0079,tee_ju_eia,throne,0.16004841029644012
+tee_ju_eia/tee_ju_eia_0081,tee_ju_eia,throne,0.08047783374786377
+tee_ju_eia/tee_ju_eia_0083,tee_ju_eia,throne,0.2644297182559967
+tee_ju_eia/tee_ju_eia_0084,tee_ju_eia,confectionery,0.22304485738277435
+tee_ju_eia/tee_ju_eia_0086,tee_ju_eia,throne,0.35480737686157227
+tee_ju_eia/tee_ju_eia_0087,tee_ju_eia,throne,0.2997984290122986
+tee_ju_eia/tee_ju_eia_0088,tee_ju_eia,birdhouse,0.09696365147829056
+tee_ju_eia/tee_ju_eia_0089,tee_ju_eia,confectionery,0.17876315116882324
+tee_ju_eia/tee_ju_eia_0092,tee_ju_eia,throne,0.3173280358314514
+tee_ju_eia/tee_ju_eia_0094,tee_ju_eia,perfume,0.09793170541524887
+tee_ju_eia/tee_ju_eia_0096,tee_ju_eia,throne,0.33709976077079773
+tee_ju_eia/tee_ju_eia_0097,tee_ju_eia,altar,0.054416220635175705
+tee_ju_eia/tee_ju_eia_0100,tee_ju_eia,throne,0.33643797039985657
+tee_ju_eia/tee_ju_eia_0101,tee_ju_eia,confectionery,0.25950294733047485
+tee_ju_eia/tee_ju_eia_0102,tee_ju_eia,throne,0.5346096158027649
+tee_ju_eia/tee_ju_eia_0103,tee_ju_eia,throne,0.1829882264137268
+tee_ju_eia/tee_ju_eia_0104,tee_ju_eia,throne,0.33232617378234863
+tee_ju_eia/tee_ju_eia_0106,tee_ju_eia,altar,0.18214502930641174
+tee_ju_eia/tee_ju_eia_0107,tee_ju_eia,throne,0.23037505149841309
+tee_ju_eia/tee_ju_eia_0108,tee_ju_eia,altar,0.11877299845218658
+tee_ju_eia/tee_ju_eia_0110,tee_ju_eia,throne,0.05804828554391861
+tee_ju_eia/tee_ju_eia_0112,tee_ju_eia,throne,0.3447856307029724
+tee_ju_eia/tee_ju_eia_0114,tee_ju_eia,throne,0.44815537333488464
+tee_ju_eia/tee_ju_eia_0115,tee_ju_eia,throne,0.4656771719455719
+tee_ju_eia/tee_ju_eia_0116,tee_ju_eia,throne,0.3854753375053406
+tee_ju_eia/tee_ju_eia_0118,tee_ju_eia,altar,0.3185020685195923
+tee_ju_eia/tee_ju_eia_0119,tee_ju_eia,bakery,0.6365389227867126
+tee_ju_eia/tee_ju_eia_0121,tee_ju_eia,throne,0.165339395403862
+tee_ju_eia/tee_ju_eia_0122,tee_ju_eia,throne,0.32608938217163086
+tee_ju_eia/tee_ju_eia_0124,tee_ju_eia,throne,0.3426242470741272
+tee_ju_eia/tee_ju_eia_0125,tee_ju_eia,throne,0.401947945356369
+tee_ju_eia/tee_ju_eia_0126,tee_ju_eia,throne,0.6314758062362671
+tee_ju_eia/tee_ju_eia_0127,tee_ju_eia,throne,0.46123966574668884
+tee_ju_eia/tee_ju_eia_0129,tee_ju_eia,throne,0.3965262472629547
+tee_ju_eia/tee_ju_eia_0130,tee_ju_eia,scale,0.3474721908569336
+tee_ju_eia/tee_ju_eia_0131,tee_ju_eia,throne,0.19241780042648315
+tee_ju_eia/tee_ju_eia_0132,tee_ju_eia,vestment,0.25108808279037476
+tee_ju_eia/tee_ju_eia_0133,tee_ju_eia,throne,0.2653123438358307
+tee_ju_eia/tee_ju_eia_0134,tee_ju_eia,throne,0.26912447810173035
+tee_ju_eia/tee_ju_eia_0138,tee_ju_eia,throne,0.07839113473892212
+tee_ju_eia/tee_ju_eia_0142,tee_ju_eia,throne,0.2526649832725525
+tee_ju_eia/tee_ju_eia_0143,tee_ju_eia,throne,0.3669038712978363
+tee_ju_eia/tee_ju_eia_0144,tee_ju_eia,throne,0.1308969408273697
+tee_ju_eia/tee_ju_eia_0145,tee_ju_eia,throne,0.8015497922897339
+tee_ju_eia/tee_ju_eia_0148,tee_ju_eia,altar,0.31236833333969116
+tee_ju_eia/tee_ju_eia_0149,tee_ju_eia,throne,0.3337191045284271
+tee_ju_eia/tee_ju_eia_0151,tee_ju_eia,altar,0.09228119254112244
+tee_ju_eia/tee_ju_eia_0152,tee_ju_eia,throne,0.5108409523963928
+tee_ju_eia/tee_ju_eia_0153,tee_ju_eia,throne,0.45326176285743713
+tee_ju_eia/tee_ju_eia_0154,tee_ju_eia,confectionery,0.21272483468055725
+tee_ju_eia/tee_ju_eia_0156,tee_ju_eia,altar,0.20166893303394318
+tee_ju_eia/tee_ju_eia_0157,tee_ju_eia,throne,0.20632092654705048
+tee_ju_eia/tee_ju_eia_0158,tee_ju_eia,throne,0.6507164239883423
+tee_ju_eia/tee_ju_eia_0160,tee_ju_eia,throne,0.2520620822906494
+tee_ju_eia/tee_ju_eia_0161,tee_ju_eia,throne,0.657767653465271
+tee_ju_eia/tee_ju_eia_0162,tee_ju_eia,throne,0.3063488304615021
+tee_ju_eia/tee_ju_eia_0163,tee_ju_eia,confectionery,0.5080693960189819
+tee_ju_eia/tee_ju_eia_0165,tee_ju_eia,throne,0.2391025871038437
+tee_ju_eia/tee_ju_eia_0166,tee_ju_eia,throne,0.1983606368303299
+tee_ju_eia/tee_ju_eia_0167,tee_ju_eia,confectionery,0.3767649829387665
+tee_ju_eia/tee_ju_eia_0168,tee_ju_eia,confectionery,0.33007827401161194
+tee_ju_eia/tee_ju_eia_0170,tee_ju_eia,confectionery,0.10888919234275818
+tee_ju_eia/tee_ju_eia_0171,tee_ju_eia,throne,0.18936440348625183
+tee_ju_eia/tee_ju_eia_0172,tee_ju_eia,throne,0.24344481527805328
+tee_ju_eia/tee_ju_eia_0173,tee_ju_eia,vestment,0.14702554047107697
+tee_ju_eia/tee_ju_eia_0174,tee_ju_eia,altar,0.22712579369544983
+tee_ju_eia/tee_ju_eia_0175,tee_ju_eia,throne,0.2032778412103653
+tee_ju_eia/tee_ju_eia_0176,tee_ju_eia,throne,0.1998583972454071
+tee_ju_eia/tee_ju_eia_0177,tee_ju_eia,throne,0.6606812477111816
+tee_ju_eia/tee_ju_eia_0179,tee_ju_eia,throne,0.2161020040512085
+tee_ju_eia/tee_ju_eia_0180,tee_ju_eia,throne,0.5022147297859192
+tee_ju_eia/tee_ju_eia_0182,tee_ju_eia,throne,0.4525684118270874
+tee_ju_eia/tee_ju_eia_0183,tee_ju_eia,throne,0.44486719369888306
+tee_ju_eia/tee_ju_eia_0184,tee_ju_eia,throne,0.3654250502586365
+tee_ju_eia/tee_ju_eia_0185,tee_ju_eia,throne,0.19218604266643524
+tee_ju_eia/tee_ju_eia_0187,tee_ju_eia,throne,0.14932090044021606
+tee_ju_eia/tee_ju_eia_0188,tee_ju_eia,throne,0.25898057222366333
+tee_ju_eia/tee_ju_eia_0189,tee_ju_eia,throne,0.43672487139701843
+tee_ju_eia/tee_ju_eia_0190,tee_ju_eia,altar,0.13307195901870728
+tee_ju_eia/tee_ju_eia_0191,tee_ju_eia,throne,0.2704089879989624
+tee_ju_eia/tee_ju_eia_0192,tee_ju_eia,throne,0.22581231594085693
+tee_ju_eia/tee_ju_eia_0195,tee_ju_eia,throne,0.3168955445289612
+tee_ju_eia/tee_ju_eia_0196,tee_ju_eia,altar,0.10700573772192001
+tee_ju_eia/tee_ju_eia_0197,tee_ju_eia,throne,0.13979017734527588
+tee_ju_eia/tee_ju_eia_0200,tee_ju_eia,throne,0.2621764540672302

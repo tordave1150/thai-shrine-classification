@@ -1,0 +1,167 @@
+_wandb:
+    value:
+        cli_version: 0.30.0
+        e:
+            u492gpk95ci40tbjx718qw4tdqc0mxb4:
+                args:
+                    - --stage
+                    - final
+                    - --resume
+                    - --out-dir
+                    - outputs_modes_v3_td
+                    - --wandb-project
+                    - thai-shrine-classifier-td
+                codePath: pipeline_modes.py
+                codePathLocal: pipeline_modes.py
+                cpu_count: 6
+                cpu_count_logical: 12
+                cudaVersion: "13.3"
+                disk:
+                    /:
+                        total: "499766247424"
+                        used: "358940426240"
+                email: wichaidit.m@gmail.com
+                executable: C:\Users\User\Desktop\deep\.venv\Scripts\python.exe
+                gpu: NVIDIA GeForce RTX 5060
+                gpu_count: 1
+                gpu_nvidia:
+                    - architecture: Blackwell
+                      cudaCores: 3840
+                      memoryTotal: "8546942976"
+                      name: NVIDIA GeForce RTX 5060
+                      uuid: GPU-2e6dd58a-2820-b834-446f-ed4d04876a20
+                host: DESKTOP-7LKOQQE
+                memory:
+                    total: "33396543488"
+                os: Windows-10-10.0.19045-SP0
+                program: C:\Users\User\Desktop\deep\pipeline_modes.py
+                python: CPython 3.13.5
+                root: C:\Users\User\Desktop\deep\outputs_modes_v3_td\wandb
+                startedAt: "2026-10-13T20:43:18.432674Z"
+                writerId: u492gpk95ci40tbjx718qw4tdqc0mxb4
+        m: []
+        python_version: 3.13.5
+        t:
+            "1":
+                - 1
+                - 5
+                - 41
+                - 53
+            "2":
+                - 1
+                - 5
+                - 41
+                - 53
+            "3":
+                - 2
+                - 13
+                - 16
+                - 61
+            "4": 3.13.5
+            "5": 0.30.0
+            "8":
+                - 3
+            "10":
+                - 20
+            "12": 0.30.0
+            "13": windows-amd64
+amp:
+    value: false
+architecture:
+    value: resnet50
+augmentation:
+    value: true
+augmentation_policy:
+    value: mild train-only
+batch_size:
+    value: 16
+black_threshold:
+    value: 10
+cam_layer:
+    value: layer4[-1]
+class_weight_policy:
+    value: inverse train frequency
+class_weights:
+    value:
+        - 1.3928571939468384
+        - 1.0955055952072144
+        - 1.0714285373687744
+        - 0.6964285969734192
+code_fingerprint:
+    value: 1d05bcade247fca945c254ecd584fef1263934c66fb598d288b07056e55518a5
+dataset_fingerprint:
+    value: e854495869473ea313b2c455781479f1d619ac0f67c28318e8c3c01f391bd47b
+device:
+    value: cuda
+early_stopping_patience:
+    value: 7
+epochs:
+    value: 30
+input_size:
+    value: 224
+learning_rate:
+    value: 0.00019396806804067654
+min_delta:
+    value: 0.0001
+mode:
+    value: full
+mode_stats:
+    value:
+        architecture: resnet50
+        bn_buffer_policy: all BN buffers update normally (full fine-tuning)
+        frozen_parameters: 0
+        mode: full
+        total_parameters: 23516228
+        trainable_module_names:
+            - conv1
+            - bn1
+            - layer1
+            - layer2
+            - layer3
+            - layer4
+            - fc
+        trainable_parameters: 23516228
+num_classes:
+    value: 4
+optimizer:
+    value: adam
+optimizer_defaults:
+    value:
+        adam_betas:
+            - 0.9
+            - 0.999
+        epsilon: 1e-08
+        sgd_momentum: 0.9
+        sgd_nesterov: true
+padding_policy:
+    value: neutral ImageNet mean; cleaned source
+patience:
+    value: 7
+pretrained:
+    value: true
+protocol_fingerprint:
+    value: 3a6107dd427e01f1e9d3dd3519b411450a5019505601805c1c1ebe606bf678db
+run_identity:
+    value: final_seed789_attempt01
+scheduler:
+    value: ReduceLROnPlateau(mode=max,factor=0.5,patience=3)
+seed:
+    value: 789
+selection_fingerprint:
+    value: 7a8d9b146331e5d9b8d645c9baf05272ee8e19f0bf3c7542b3218ead70c76ecd
+split_assignment_fingerprint:
+    value: 2080b705f420a4c0dc10d18315468788385cca46fa248fa189579f84dc00bdc5
+split_csv:
+    value: C:\Users\User\Desktop\deep\outputs_modes_v3_td\splits.csv
+split_sha256:
+    value: 3eb9c4f3adda4a64536f809fbad5f8801a27d83265d2c753b8f98c6ae93f837f
+stage:
+    value: final
+trainable_parameters:
+    value: 23516228
+use_class_weights:
+    value: true
+weight_decay:
+    value: 0.001954548507358632
+weights:
+    value: ResNet50_Weights.DEFAULT

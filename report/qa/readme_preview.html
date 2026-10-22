@@ -1,0 +1,2007 @@
+<!doctype html><html lang="th"><meta charset="utf-8"><base href="file:///C:/Users/User/Desktop/deep/"><title>README preview</title><style>body{font:16px/1.7 Arial,Tahoma,sans-serif;color:#1f2937;background:white;margin:40px auto;max-width:1000px}h1,h2,h3,h4{line-height:1.35;margin-top:1.7em}h1{font-size:30px}h2{font-size:25px;border-bottom:1px solid #ddd;padding-bottom:10px}h3{font-size:21px}img{max-width:100%;height:auto}table{border-collapse:collapse;width:100%;margin:20px 0;font-size:14px}th,td{border:1px solid #d1d5db;padding:9px;overflow-wrap:anywhere}th{background:#f3f4f6;text-align:left}pre{background:#f3f4f6;padding:16px;white-space:pre-wrap;overflow-wrap:anywhere}code{font-size:.9em}a{color:#0066a6}details{padding:12px;border:1px solid #ddd}sub{font-size:14px}</style><body><h1>DADS7202 — Thai shrine image classification using transfer learning</h1>
+<h2>Abstract</h2>
+<p>การศึกษานี้เปรียบเทียบโมเดลที่ผ่านการฝึกบน ImageNet จำนวน 5 แบบ สำหรับจำแนกภาพศาลไทย 4 ประเภทจากข้อมูล 560 ภาพ แต่ละโมเดลนำมาฝึกด้วย 3 fine-tuning strategies ได้แก่ Full ซึ่งปรับน้ำหนักทั้งโมเดล Frozen ซึ่งตรึงส่วนสกัดลักษณะภาพและฝึกเฉพาะส่วนจำแนกคลาส และ Partial ซึ่งปรับน้ำหนักเฉพาะส่วนท้ายของส่วนสกัดลักษณะภาพร่วมกับส่วนจำแนกคลาส รวมเป็น 15 setups</p>
+<p>ข้อมูลแบ่งโดยจัดภาพซ้ำและภาพใกล้เคียงที่ผ่านการตรวจสอบให้อยู่ในกลุ่มเดียวกัน แล้วแบ่งกลุ่มเป็น train 390 ภาพ validation 85 ภาพ และ test 85 ภาพ โดยเลือกการแบ่งที่รักษาสัดส่วนคลาสให้ใกล้เคียงกัน แต่ละ setup ค้นหา hyperparameters แยกกันจำนวน 5 trials ก่อนฝึกซ้ำด้วย 5 seeds รวม 75 tuning trials และ 75 final runs</p>
+<p><strong>ResNet50/Full ได้รับเลือกเป็นโมเดลสุดท้ายของการศึกษา</strong> เพราะมีค่าเฉลี่ย Accuracy, Macro precision, Macro recall และ Macro F1 บน test สูงสุดจาก 15 setups โดยได้ Accuracy 93.65% ± 1.34 pp และ Macro F1 92.56% ± 1.81 pp นอกจากนี้ยังมี Recall ของศาลพระภูมิสูงกว่า และมี SD ของ Accuracy และ Macro F1 ต่ำกว่า MobileNetV3-Large/Partial ซึ่งเป็นโมเดลอ้างอิงจาก validation ส่วน MobileNet มี ECE ต่ำกว่าเล็กน้อย ความแตกต่างของ Accuracy และ Macro F1 ระหว่างสองโมเดลยังไม่มีนัยสำคัญหลังปรับ Holm การเลือก ResNet จึงเป็นข้อสรุปจากผลที่สังเกตในการศึกษานี้ โดยเปิดเผยว่าเลือกหลังพิจารณา test (post-hoc) บน split ที่เคยตรวจดูแล้ว และผลมีสถานะเชิงสำรวจ (exploratory)</p>
+<p>การศึกษา ablation ใช้ตรวจสอบผลของ augmentation และ class weights โดยนำองค์ประกอบออกจากสูตรเดิมทีละอย่าง การไม่ใช้ augmentation มี Macro F1 เฉลี่ยลดลง 1.32 pp ส่วนการไม่ใช้ class weights ลดลง 0.67 pp แต่ยังไม่พบความแตกต่างอย่างมีนัยสำคัญหลังปรับ Holm ทั้ง 4 comparisons การฝึกเพิ่ม 10 runs ทำให้รวมทั้งงานเป็น 160 runs นอกจากนี้ใช้ Grad-CAM จาก checkpoint เดิมวิเคราะห์บริเวณภาพที่สัมพันธ์กับผลทำนาย รวมถึงตัวอย่างที่ทายผิดด้วยความมั่นใจสูง</p>
+<h2>1. Dataset overview</h2>
+<h3>1.1 Study objective and data sources</h3>
+<p>การศึกษามีวัตถุประสงค์เพื่อจำแนกภาพศาลพระพรหม ศาลพระภูมิ ศาลตายาย และศาลตี่จู้เอี๊ยะ ซึ่งมีรูปทรงและบริบทในภาพบางส่วนคล้ายกัน ข้อมูลผ่านการตรวจป้ายกำกับโดยมนุษย์และจัดเก็บใน <code>dataset_cleaned/</code> ตารางใช้รหัสคลาสเดียวกับไฟล์ผลการทดลองและลำดับคะแนนที่โมเดลส่งออก</p>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Class ID</th>
+<th align="right">Image count</th>
+<th align="right">Proportion (%)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>พระพรหม</td>
+<td>san_phraphrom</td>
+<td align="right">103</td>
+<td align="right">18.39</td>
+</tr>
+<tr>
+<td>พระภูมิ</td>
+<td>san_phraphum</td>
+<td align="right">124</td>
+<td align="right">22.14</td>
+</tr>
+<tr>
+<td>ตายาย</td>
+<td>san_tayay</td>
+<td align="right">133</td>
+<td align="right">23.75</td>
+</tr>
+<tr>
+<td>ตี่จู้เอี๊ยะ</td>
+<td>tee_ju_eia</td>
+<td align="right">200</td>
+<td align="right">35.71</td>
+</tr>
+</tbody></table>
+<p>รวบรวมภาพด้วย <strong>web scraping</strong> และบันทึกชื่อไฟล์ คลาส และ URL ต้นทางใน <code>metadata_cleaned.csv</code> มี URL สำหรับ 448 ภาพ และไม่ทราบ URL 112 ภาพ รายการแหล่งภาพอยู่ใน Appendix C</p>
+<h3>1.2 Class distribution and loss weighting</h3>
+<p>ศาลตี่จู้เอี๊ยะมีภาพมากที่สุด 200 ภาพ ขณะที่ศาลพระพรหมมี 103 ภาพ อัตราส่วนประมาณ 1.94:1 การประเมินจึงใช้ Macro metrics ซึ่งให้น้ำหนักแต่ละคลาสเท่ากัน และการฝึกใช้ <strong>class-weighted cross-entropy</strong> เพื่อชดเชยความไม่สมดุลของจำนวนภาพ</p>
+<p>น้ำหนักคำนวณจากข้อมูล train เท่านั้นด้วยสูตร <code>weight_c = N_train / (K × n_c)</code> โดย <code>N_train = 390</code>, <code>K = 4</code> และ <code>n_c</code> คือจำนวนภาพ train ของคลาสนั้น</p>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th align="right">Training images</th>
+<th align="right">Class weight</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>พระพรหม</td>
+<td align="right">70</td>
+<td align="right">1.392857</td>
+</tr>
+<tr>
+<td>พระภูมิ</td>
+<td align="right">89</td>
+<td align="right">1.095506</td>
+</tr>
+<tr>
+<td>ตายาย</td>
+<td align="right">91</td>
+<td align="right">1.071429</td>
+</tr>
+<tr>
+<td>ตี่จู้เอี๊ยะ</td>
+<td align="right">140</td>
+<td align="right">0.696429</td>
+</tr>
+</tbody></table>
+<p>ค่า loss ของแต่ละภาพถูกคูณด้วยน้ำหนักของคลาสจริง ก่อนรวมและหารด้วยจำนวนภาพ ดังนั้น หากโมเดลให้ความน่าจะเป็นของคลาสจริงเท่ากัน ภาพพระพรหมจะมีน้ำหนักใน loss ประมาณสองเท่าของภาพตี่จู้เอี๊ยะ วิธีนี้เพิ่มบทบาทของคลาสที่มีภาพน้อยระหว่างฝึก โดยไม่เพิ่มจำนวนภาพหรือสุ่มภาพซ้ำ และไม่ได้รับประกันว่าคะแนนทุกคลาสจะสูงขึ้นเสมอ</p>
+<p><img src="report/report_assets/sample_grid.png" alt="Examples of the four shrine classes"></p>
+<p><em>Figure 1. ตัวอย่างภาพทั้งสี่คลาส แสดงความแตกต่างของรูปทรง มุมมอง และฉากหลัง</em></p>
+<p><img src="report/report_assets/latest/class_distribution.svg" alt="Class distribution"></p>
+<p><em>Figure 2. จำนวนภาพต่อคลาสก่อนแบ่งข้อมูล</em></p>
+<h3>1.3 Image dimensions, colour modes and brightness</h3>
+<p><img src="report/report_assets/latest/image_dimensions.svg" alt="Image dimensions and overlapping aspect-ratio histograms"></p>
+<p><em>Figure 3. ขนาดภาพต้นฉบับและ histogram ของอัตราส่วนกว้างต่อสูง โดยใช้ bins ร่วมกันและแสดงสัดส่วนภาพภายในแต่ละคลาส</em></p>
+<p>ภาพมีขนาดต่างกัน 206 แบบ ทั้งแนวตั้ง แนวนอน และจัตุรัส โดยเป็นภาพจัตุรัส 190 ภาพ จึงเตรียมภาพด้วยการย่อโดยรักษาสัดส่วนแล้วเติมขอบให้ครบ 224 × 224 พิกเซล เพื่อคงรูปทรงศาลไว้</p>
+<p><img src="report/report_assets/latest/colour_modes.svg" alt="Decoded colour-mode counts with non-RGB detail"></p>
+<p><em>Figure 4. จำนวนและสัดส่วนของโหมดสีที่ถอดรหัสได้จริง พร้อมกราฟขยายกลุ่ม non-RGB เพื่อให้เห็นกลุ่มที่มีภาพน้อย</em></p>
+<p>ภาพส่วนใหญ่เป็น RGB 543 ภาพ อีก 17 ภาพเป็น RGBA, Palette หรือ CMYK จึงแปลงทุกภาพเป็น RGB และผสมส่วนโปร่งใสกับสีพื้นกลางก่อนเข้าโมเดล</p>
+<p><img src="report/report_assets/latest/brightness.svg" alt="Image brightness distributions and class means"></p>
+<p><em>Figure 5. ความสว่างเฉลี่ยรายภาพแยกคลาส กล่องแสดง IQR และมัธยฐาน เครื่องหมาย × แสดงค่าเฉลี่ยรายคลาส เส้นประแนวนอนแสดงค่าเฉลี่ยรวม</em></p>
+<p>ความสว่างของภาพกระจายกว้างและทับซ้อนกันระหว่างคลาส ภาพประเภทเดียวกันจึงมีสภาพแสงหลากหลาย การฝึกใช้การปรับแสงและสีเล็กน้อยเพื่อให้โมเดลพบความแปรผันนี้มากขึ้น</p>
+<h2>2. Data preparation</h2>
+<h3>2.1 Group-based data splitting</h3>
+<p>แบ่งข้อมูลเป็น train, validation และ test ในสัดส่วนใกล้เคียง 70/15/15 โดยจัดภาพที่ซ้ำหรือใกล้เคียงกันให้อยู่ในกลุ่มเดียวกันก่อน แล้วใช้ GroupShuffleSplit ด้วย split seed 42 เพื่อแยกกลุ่มภาพพร้อมรักษาสัดส่วนคลาสให้ใกล้เคียงกัน</p>
+<table>
+<thead>
+<tr>
+<th>Split</th>
+<th align="right">Total images</th>
+<th align="right">Phra Phrom</th>
+<th align="right">Phra Phum</th>
+<th align="right">Ta Yai</th>
+<th align="right">Tee Ju Eia</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Train</td>
+<td align="right">390</td>
+<td align="right">70</td>
+<td align="right">89</td>
+<td align="right">91</td>
+<td align="right">140</td>
+</tr>
+<tr>
+<td>Validation</td>
+<td align="right">85</td>
+<td align="right">17</td>
+<td align="right">17</td>
+<td align="right">21</td>
+<td align="right">30</td>
+</tr>
+<tr>
+<td>Test</td>
+<td align="right">85</td>
+<td align="right">16</td>
+<td align="right">18</td>
+<td align="right">21</td>
+<td align="right">30</td>
+</tr>
+</tbody></table>
+<p>ชุด train ใช้ให้โมเดลเรียนรู้ ส่วน validation ใช้เลือก hyperparameters และน้ำหนักที่ดีที่สุดระหว่างฝึก จากนั้นจึงประเมินด้วย test หลังล็อกสูตรแล้ว ทุก setup และทุก seed ใช้การแบ่งภาพชุดเดียวกันเพื่อให้เปรียบเทียบผลได้ตรงกัน โดยแบ่งข้อมูลก่อนทำ augmentation และไม่มีภาพกลุ่มเดียวกันข้ามชุดข้อมูล</p>
+<h3>2.2 Image preprocessing and normalization</h3>
+<p>ขั้นตอนเตรียมภาพประกอบด้วยการถอดรหัส จัดทิศทางตาม EXIF แปลงโหมดสีและจัดการความโปร่งใส จากนั้นย่อด้วย LANCZOS โดยรักษาอัตราส่วน ให้ด้านยาวเท่ากับ 224 พิกเซล แล้ววางกึ่งกลางบนพื้น RGB (124,116,104) ขนาด 224 × 224 โดยคงขอบเดิมที่ติดมากับภาพไว้</p>
+<p><img src="report/report_assets/latest/padding_large.png" alt="Original image and neutral padding"></p>
+<p><em>Figure 6. ภาพ train <code>san_phraphrom_0001</code> ขนาด 960 × 720 เทียบกับผล preprocessing 224 × 224 ที่ขยายให้เห็นรายละเอียด</em></p>
+<p>หลัง augmentation สำหรับ train ภาพถูกแปลงเป็น tensor โดยปรับค่าพิกเซล RGB จาก 0–255 เป็น 0–1 แล้ว normalize ด้วยสูตร <code>(x − mean) / SD</code> ใช้ mean <code>(0.485,0.456,0.406)</code> และ SD <code>(0.229,0.224,0.225)</code> ของ ImageNet ให้สอดคล้องกับโมเดล pretrained</p>
+<h3>2.3 Training augmentation</h3>
+<p>Augmentation ใช้เฉพาะ train เพื่อเพิ่มความหลากหลายของภาพที่โมเดลพบระหว่างฝึก ส่วน validation และ test ใช้ preprocessing แบบคงที่</p>
+<table>
+<thead>
+<tr>
+<th>Transformation</th>
+<th>Parameter / probability</th>
+<th>Description</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Rotation</td>
+<td>±12°</td>
+<td>หมุนภาพเล็กน้อย</td>
+<td>จำลองการถือกล้องเอียง</td>
+</tr>
+<tr>
+<td>Translation</td>
+<td>±5%</td>
+<td>เลื่อนภาพแนวนอนและแนวตั้ง</td>
+<td>ลดการยึดติดกับตำแหน่งเดิม</td>
+</tr>
+<tr>
+<td>Scale</td>
+<td>0.92–1.08</td>
+<td>ย่อหรือขยายภาพเล็กน้อย</td>
+<td>จำลองขนาดวัตถุที่ต่างกัน</td>
+</tr>
+<tr>
+<td>Perspective</td>
+<td>Distortion 0.10; probability 0.20</td>
+<td>ปรับมุมมองภาพเล็กน้อยใน 20% ของโอกาส</td>
+<td>เพิ่มความแปรผันของมุมถ่าย</td>
+</tr>
+<tr>
+<td>Horizontal flip</td>
+<td>Probability 0.50</td>
+<td>สะท้อนภาพซ้าย–ขวา</td>
+<td>เพิ่มความหลากหลายของการจัดวาง</td>
+</tr>
+<tr>
+<td>Color jitter</td>
+<td>Brightness/contrast/saturation 0.10; hue 0.02</td>
+<td>ปรับแสงและสีภายในช่วงที่กำหนด</td>
+<td>จำลองสภาพแสงและสีที่ต่างกัน</td>
+</tr>
+<tr>
+<td>Random erasing</td>
+<td>Probability 0.05; area 0.02–0.08</td>
+<td>แทนที่พื้นที่เล็ก ๆ ด้วยสีพื้นกลาง</td>
+<td>จำลองการบดบังบางส่วน</td>
+</tr>
+</tbody></table>
+<p>Probability คือโอกาสที่การแปลงจะเกิดขึ้นกับแต่ละภาพ ส่วน area ของ erasing คือสัดส่วนพื้นที่ที่เลือกแทนที่ พื้นที่ว่างจากการแปลงเชิงเรขาคณิตและ erasing ใช้สีพื้นกลางเดียวกัน โดยคำนึงถึงสเกลหลัง normalization สำหรับ erasing</p>
+<p><img src="report/report_assets/latest/augmentation_train_5_per_class.png" alt="Five augmentation examples per class"></p>
+<p><em>Figure 7. ตัวอย่าง augmentation จากภาพ train จริงคลาสละห้าภาพ ใช้ seed คงที่เพื่อสร้างซ้ำได้</em></p>
+<p>ภาพนี้สร้างเพื่อสาธิตนโยบาย augmentation โดย seed ควบคุมการสุ่มให้สร้างตัวอย่างเดิมซ้ำได้ ไม่ใช่ minibatch ที่บันทึกระหว่างฝึก การเรนเดอร์ JavaScript อาจต่างจาก torchvision ในรายละเอียดระดับพิกเซล ตรวจ <a href="report/preprocessing_preview_sources.json">image IDs และค่าการแปลง</a> ได้จากไฟล์ประกอบ</p>
+<h3>2.4 Batch loading</h3>
+<p>ระหว่างฝึก DataLoader ส่งภาพให้โมเดลครั้งละ 16 หรือ 32 ภาพตาม batch size ที่เลือก โมเดลคำนวณข้อผิดพลาดจากภาพกลุ่มนั้นแล้วปรับน้ำหนักหนึ่งครั้ง เมื่อใช้ภาพ train ครบ 390 ภาพถือว่าจบหนึ่ง epoch จากนั้นสุ่มลำดับภาพใหม่สำหรับรอบถัดไป</p>
+<p>ใช้ภาพใน batch สุดท้ายด้วยแม้จำนวนไม่ครบ เช่น batch size 32 จะแบ่งได้ 12 batches เต็มและ batch สุดท้ายอีก 6 ภาพ ส่วน validation และ test ใช้ลำดับภาพคงที่และคำนวณผลโดยไม่ปรับน้ำหนัก</p>
+<h2>3. Model architecture</h2>
+<h3>3.1 Feature extraction and classification</h3>
+<p>โมเดลประกอบด้วย <strong>backbone</strong> ซึ่งสกัดลักษณะจากภาพ และ <strong>classifier</strong> ซึ่งนำลักษณะเหล่านั้นมาให้คะแนนแต่ละคลาส ใช้ pretrained weights อย่างเป็นทางการของ torchvision ผ่าน <code>Weights.DEFAULT</code> ตาม environment ที่บันทึกไว้</p>
+<p>โมเดล ImageNet เดิมให้คะแนน 1,000 คลาส การศึกษานี้เปลี่ยนเฉพาะชั้นให้คะแนนสุดท้ายให้เหลือ 4 คะแนนสำหรับศาลไทย ชั้นดังกล่าวเรียกว่า <strong>linear layer</strong> เพราะคำนวณคะแนนจากผลรวมถ่วงน้ำหนักของลักษณะภาพ แล้วบวกค่าคงที่หรือ bias ตามสมการ <code>z = Wx + b</code> โดย <code>x</code> คือลักษณะที่สกัดได้ <code>W</code> และ <code>b</code> เป็นค่าที่เรียนรู้ และ <code>z</code> คือคะแนน logits ของแต่ละคลาส คลาสที่ได้คะแนนสูงสุดเป็นคำทำนาย</p>
+<table>
+<thead>
+<tr>
+<th>Architecture</th>
+<th>Backbone structure</th>
+<th>Classification-head adaptation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ResNet50</td>
+<td>Residual blocks</td>
+<td>เปลี่ยนชั้น <code>fc</code> สุดท้ายเป็นชั้นให้คะแนน 4 คลาส</td>
+</tr>
+<tr>
+<td>EfficientNet-B0</td>
+<td>MBConv blocks</td>
+<td>เปลี่ยนชั้นให้คะแนนสุดท้าย คง Dropout 0.2</td>
+</tr>
+<tr>
+<td>MobileNetV3-Large</td>
+<td>InvertedResidual blocks</td>
+<td>เปลี่ยนชั้นให้คะแนนสุดท้าย คง hidden linear, Hardswish และ Dropout 0.2</td>
+</tr>
+<tr>
+<td>DenseNet121</td>
+<td>Dense blocks</td>
+<td>เปลี่ยน <code>classifier</code> เป็นชั้นให้คะแนน 4 คลาส</td>
+</tr>
+<tr>
+<td>ConvNeXt-Tiny</td>
+<td>ConvNeXt feature stages</td>
+<td>เปลี่ยนชั้นให้คะแนนสุดท้าย คง normalization และ flatten</td>
+</tr>
+</tbody></table>
+<p>สถาปัตยกรรมทั้งห้าเป็นกลุ่มเปรียบเทียบที่กำหนดไว้ล่วงหน้า เพื่อศึกษาวิธีเชื่อมต่อและขอบเขตการปรับน้ำหนักที่ต่างกัน เหตุผลที่เลือก ResNet50/Full จากผลการทดลองอยู่ในหัวข้อ 6.9 ส่วนจำนวน parameters ของแต่ละ mode อยู่ใน Appendix C</p>
+<h3>3.2 Fine-tuning strategies</h3>
+<p>การใช้โมเดล pretrained เลือกได้ว่าจะให้ส่วนใดเรียนรู้จากภาพศาลเพิ่มเติม งานนี้เปรียบเทียบ 3 strategies โดยส่วนที่ <strong>freeze</strong> จะคงน้ำหนักจาก ImageNet ไว้ ส่วนที่เปิดให้ฝึกจะถูกปรับน้ำหนักจากข้อมูล train ตามตาราง</p>
+<table>
+<thead>
+<tr>
+<th>Strategy</th>
+<th>Updated parameters</th>
+<th>Backbone behavior during training</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Full</td>
+<td>Backbone และ classifier ทั้งหมด</td>
+<td>ส่วนทั้งหมดอยู่ใน train mode</td>
+<td>ปรับลักษณะ pretrained ให้เข้ากับข้อมูลศาลทั้งโมเดล</td>
+</tr>
+<tr>
+<td>Frozen</td>
+<td>Classifier head ทั้งส่วน</td>
+<td>Backbone ตรึงน้ำหนักและอยู่ใน eval mode</td>
+<td>ประเมินการใช้ลักษณะ pretrained เดิมกับ classifier ที่ฝึกได้</td>
+</tr>
+<tr>
+<td>Partial</td>
+<td>Backbone stage สุดท้ายและ classifier</td>
+<td>ส่วนต้นตรึงน้ำหนักและอยู่ใน eval; ส่วนท้ายอยู่ใน train</td>
+<td>ปรับลักษณะระดับท้ายโดยคงส่วนต้นไว้</td>
+</tr>
+</tbody></table>
+<p>นอกจากเลือกว่าจะปรับน้ำหนักส่วนใดแล้ว ยังต้องกำหนด <strong>train mode</strong> และ <strong>eval mode</strong> ให้เหมาะสมด้วย ใน train mode ชั้น Dropout จะสุ่มปิดค่าบางส่วน และ BatchNorm จะใช้สถิติจาก batch พร้อมปรับสถิติสะสม ส่วน eval mode จะปิดการสุ่มของ Dropout และให้ BatchNorm ใช้สถิติสะสมที่มีอยู่ จึงใช้ eval mode กับ backbone ที่ freeze รวมถึงทั้งโมเดลขณะประเมิน validation/test การตั้ง eval mode เพียงอย่างเดียวไม่ได้ตรึงน้ำหนัก ต้องกำหนดส่วนที่ freeze แยกด้วย</p>
+<p>สำหรับ <strong>Partial</strong> ส่วนท้ายของ backbone หมายถึงกลุ่มชั้นสุดท้ายที่สร้างลักษณะภาพก่อนส่งเข้า classifier จึงเปิดให้กลุ่มนี้ปรับเข้ากับภาพศาล ส่วนต้นยังคงน้ำหนักเดิม ขอบเขตของแต่ละ architecture เป็นดังนี้ โดยทุกแถวฝึก classifier head ร่วมด้วย</p>
+<table>
+<thead>
+<tr>
+<th>Architecture</th>
+<th>Trainable backbone stage in Partial</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ResNet50</td>
+<td>Residual stage สุดท้าย (<code>layer4</code>)</td>
+</tr>
+<tr>
+<td>EfficientNet-B0</td>
+<td>MBConv stage สุดท้ายและชั้น projection ที่ตามมา</td>
+</tr>
+<tr>
+<td>MobileNetV3-Large</td>
+<td>InvertedResidual stage สุดท้ายและ projection (<code>features.13–16</code>)</td>
+</tr>
+<tr>
+<td>DenseNet121</td>
+<td>Dense block สุดท้ายและ normalization (<code>denseblock4</code>, <code>norm5</code>)</td>
+</tr>
+<tr>
+<td>ConvNeXt-Tiny</td>
+<td>ConvNeXt feature stage สุดท้าย</td>
+</tr>
+</tbody></table>
+<p>ดังนั้น Frozen ยังฝึก classifier ได้ ส่วน Full และ Partial ต่างกันที่ขอบเขตของ backbone ที่เปิดให้เรียนรู้ การมีหรือไม่มี Dropout เป็นอีกเรื่องหนึ่ง: ทุกโมเดลมีส่วนจำแนกคลาส แต่คง Dropout ใน classifier เฉพาะ EfficientNet-B0 และ MobileNetV3-Large ตามโครงสร้างเดิม โดยไม่ได้ tune ค่า Dropout</p>
+<p>กราฟเปรียบเทียบใช้ Frozen = น้ำเงิน ●, Partial = ส้มแดง ■ และ Full = เขียว ◆ ตามชุดสี Okabe–Ito ร่วมกับรูปทรงและ line styles ส่วนกราฟคลาสใช้ชุดสีแยกกัน คงลำดับคลาส และไม่อาศัยสีเพียงอย่างเดียวในการสื่อความหมาย</p>
+<h3>3.3 Predictions before fine-tuning</h3>
+<p>ผล ResNet50/ImageNet เดิมบนตัวอย่าง train แสดงว่าชุดป้ายกำกับ 1,000 คลาสยังไม่ตรงกับสี่ประเภทศาล เช่น ผลทำนาย <code>stupa</code> อาจสัมพันธ์กับรูปทรง แต่ไม่ใช่ป้ายศาลไทยตามการศึกษานี้ ใช้ตัวเลข baseline เดิมที่เข้ากันได้กับข้อมูลชุดเดียวกัน โดยไม่นำมาคำนวณ Accuracy แบบสี่คลาส</p>
+<p><img src="report/report_assets/latest/imagenet_baseline_percent.png" alt="ImageNet predictions on fixed training examples"></p>
+<p><em>Figure 8. ป้าย ImageNet และ confidence (%) จากตัวอย่าง train เดิม ใช้อธิบายความต่างของชุดป้ายกำกับก่อนปรับ classifier</em></p>
+<h2>4. Training method</h2>
+<h3>4.1 Hyperparameter search</h3>
+<p>ลำดับการทดลองคือเตรียมข้อมูล → ค้นหา hyperparameters แยกทุก setup → เลือกสูตรแต่ละ setup ด้วย validation → ล็อกสูตรและโมเดลอ้างอิง → ฝึก final ด้วย 5 seeds → ประเมิน test และวิเคราะห์ผล</p>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+<th>Count in this study</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Setup</td>
+<td>Architecture × fine-tuning strategy</td>
+<td>5 × 3 = 15</td>
+</tr>
+<tr>
+<td>Tuning trial</td>
+<td>ทดลอง hyperparameters หนึ่งชุดภายใน setup ด้วย seed 42</td>
+<td>5 ต่อ setup รวม 75</td>
+</tr>
+<tr>
+<td>Final run</td>
+<td>นำ best hyperparameters ของแต่ละ setup มาฝึกด้วย 5 seeds โดยหนึ่ง seed เป็นหนึ่ง run</td>
+<td>5 ต่อ setup รวม 75</td>
+</tr>
+<tr>
+<td>Selected checkpoint</td>
+<td>น้ำหนักที่เลือกจาก validation ภายในแต่ละ run</td>
+<td>หนึ่ง checkpoint ต่อ run</td>
+</tr>
+</tbody></table>
+<p>การค้นหา hyperparameters หรือ <strong>sweep</strong> ในงานนี้ใช้ random search ที่กำหนด seed โดยสุ่มค่าจากช่วงที่กำหนด แล้วบันทึกผลแต่ละ trial ผ่าน W&amp;B ทุก setup ทดลองชุดค่าเดียวกัน 5 ชุด ชุดละไม่เกิน 30 epochs จึงมีงบค้นหาเท่ากันที่ <strong>5 trials และสูงสุด 150 epochs ต่อ setup</strong> แต่เลือกชุดที่ดีที่สุดจาก validation ของตนเองแยกกันทั้ง 15 setups</p>
+<p>ตารางต่อไปนี้คือ <strong>search space ของ hyperparameters 4 ตัวที่ tune</strong> ค่า learning rate และ weight decay สุ่มบนสเกล logarithm เพื่อครอบคลุมค่าหลายระดับขนาด ส่วน optimizer และ batch size สุ่มจากตัวเลือกที่ระบุ</p>
+<table>
+<thead>
+<tr>
+<th>Hyperparameter</th>
+<th>Search space</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Learning rate</td>
+<td>Log-uniform [1e-5, 1e-3]</td>
+</tr>
+<tr>
+<td>Weight decay</td>
+<td>Log-uniform [1e-6, 1e-2]</td>
+</tr>
+<tr>
+<td>Optimizer</td>
+<td>AdamW, Adam, SGD</td>
+</tr>
+<tr>
+<td>Batch size</td>
+<td>16, 32</td>
+</tr>
+</tbody></table>
+<p>จาก search space ข้างต้น ได้ <strong>configurations ที่ใช้ทดลองจริง 5 ชุด</strong> ดังตาราง แต่ละ trial ทดลองค่าทั้ง 4 ตัวร่วมกัน</p>
+<!-- generated:SEARCH_TABLE -->
+
+<table>
+<thead>
+<tr>
+<th align="right">Trial</th>
+<th align="right">Learning rate</th>
+<th align="right">Weight decay</th>
+<th>Optimizer</th>
+<th align="right">Batch</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">1</td>
+<td align="right">3.531117e-4</td>
+<td align="right">5.695263e-5</td>
+<td>Adam</td>
+<td align="right">32</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="right">2.481624e-4</td>
+<td align="right">2.380726e-6</td>
+<td>Adam</td>
+<td align="right">32</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">3.328736e-4</td>
+<td align="right">1.393982e-3</td>
+<td>Adam</td>
+<td align="right">16</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="right">7.957413e-5</td>
+<td align="right">3.042230e-5</td>
+<td>AdamW</td>
+<td align="right">32</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td align="right">1.939681e-4</td>
+<td align="right">1.954549e-3</td>
+<td>Adam</td>
+<td align="right">16</td>
+</tr>
+</tbody></table>
+<!-- /generated:SEARCH_TABLE -->
+
+<p>ค่าที่สุ่มได้จริงเป็น Adam 4 ชุดและ AdamW 1 ชุด จึงไม่มีผลของ SGD ในรอบนี้ ส่วน Dropout เป็นค่าคงที่ตาม architecture เมื่อทดลองแต่ละ configuration ครบแล้ว นำ validation Macro F1 มาเปรียบเทียบภายใน setup ดัง Figure 9a เพื่อเลือกสูตรที่นำไปฝึก final</p>
+<p><img src="report/report_assets/latest/tuning_setup_summary.svg" alt="Tuning trials within each architecture-mode setup"></p>
+<p><em>Figure 9a. คะแนน validation ของ 5 trials ภายในแต่ละ setup วงแหวนระบุสูตรที่เลือก แต่ละจุดเป็นหนึ่ง configuration</em></p>
+<p>คะแนนของแต่ละ setup เปลี่ยนตาม configuration ที่ใช้ จึงเลือกสูตรแยกตาม architecture และ mode จากนั้น Figure 9b รวมผล 75 trials เพื่อดูความสัมพันธ์ระหว่างค่าที่ทดลอง พัฒนาการระหว่างฝึก และคะแนน validation</p>
+<p><img src="report/report_assets/latest/tuning_response.svg" alt="Seven tuning diagnostics against validation Macro F1"></p>
+<p><em>Figure 9b. Learning rate, weight decay และผลที่ selected epoch เทียบกับ Validation Macro F1 (%) จาก 75 tuning trials</em></p>
+<p>ภาพรวมแสดงว่า configuration เดียวกันให้คะแนนต่างกันได้ตาม architecture และ mode อีกทั้งการฝึกได้นานหรือทำคะแนน train ได้สูงไม่ได้รับประกันว่าจะได้ validation Macro F1 สูงสุด จึงใช้ผล validation ของแต่ละ setup เป็นเกณฑ์เลือกสูตร ส่วนกราฟนี้ใช้ช่วยอธิบายผลการค้นหา เพราะแต่ละ trial เปลี่ยนหลาย hyperparameters พร้อมกัน จึงยังแยกผลของตัวแปรใดตัวแปรหนึ่งไม่ได้</p>
+<h3>4.2 Training settings and checkpoint selection</h3>
+<p>แต่ละ run ฝึกได้สูงสุด 30 epochs โดยหนึ่ง epoch คือการใช้ภาพ train ครบหนึ่งรอบ ภายในรอบนั้นโมเดลรับภาพทีละ batch แล้วปรับน้ำหนักด้วย optimizer ที่เลือก ค่า learning rate กำหนดขนาดก้าวในการปรับน้ำหนัก ส่วน weight decay ช่วยจำกัดขนาดน้ำหนักระหว่างฝึก เมื่อจบแต่ละ epoch จะประเมิน validation เพื่อติดตามพัฒนาการและเลือก checkpoint</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Value</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Loss</td>
+<td>Class-weighted cross-entropy</td>
+<td>ให้น้ำหนักข้อผิดพลาดตามจำนวนภาพ train</td>
+</tr>
+<tr>
+<td>Maximum epochs</td>
+<td>30</td>
+<td>จำกัดความยาวของแต่ละ run</td>
+</tr>
+<tr>
+<td>Early stopping</td>
+<td>Patience 7; min_delta 0.0001 (0.01 pp)</td>
+<td>หยุดเมื่อไม่มีการพัฒนาตามเกณฑ์ต่อเนื่องเจ็ด epochs</td>
+</tr>
+<tr>
+<td>Scheduler</td>
+<td>ReduceLROnPlateau; mode=max; factor=0.5; patience=3</td>
+<td>ลด learning rate ลงครึ่งหนึ่งเมื่อ validation Macro F1 ไม่พัฒนาตามเกณฑ์</td>
+</tr>
+<tr>
+<td>Monitored metric</td>
+<td>Validation Macro F1</td>
+<td>ใช้กับ scheduler และ early stopping</td>
+</tr>
+<tr>
+<td>Adam defaults</td>
+<td>Betas (0.9,0.999); epsilon 1e-8</td>
+<td>ค่าร่วมของ optimizer ตาม config</td>
+</tr>
+<tr>
+<td>Tuning seed</td>
+<td>42</td>
+<td>ควบคุมการสุ่มในการฝึก tuning</td>
+</tr>
+<tr>
+<td>Final seeds</td>
+<td>42, 123, 456, 789, 1024</td>
+<td>ฝึกสูตรเดิมด้วย 5 seeds เพื่อดูความแปรปรวน</td>
+</tr>
+</tbody></table>
+<p><strong>Checkpoint</strong> คือน้ำหนักโมเดลที่บันทึกไว้ ณ epoch หนึ่ง งานนี้เลือก checkpoint ที่มี validation Macro F1 สูงที่สุด หากเท่ากันจะเลือก validation loss ต่ำกว่า และถ้ายังเท่ากันจะเลือก epoch ที่เกิดก่อน</p>
+<p>ส่วน <strong>early stopping</strong> ใช้ตัดสินว่าจะหยุดฝึกเมื่อใด โดยหยุดเมื่อ validation Macro F1 ไม่ดีขึ้นตามเกณฑ์ <code>min_delta</code> ติดต่อกัน 7 epochs ดังนั้น epoch ที่เลือก checkpoint อาจเกิดก่อน epoch ที่หยุดฝึก และคะแนนที่ดีขึ้นเล็กน้อยอาจทำให้เปลี่ยน checkpoint ได้ แม้ยังไม่มากพอให้เริ่มนับ patience ใหม่</p>
+<p>เมื่อครบ 5 trials ของแต่ละ setup จะเลือก best hyperparameters จาก validation Macro F1 ของ checkpoint ที่เลือก หากคะแนนเท่ากัน ใช้ validation Accuracy ที่สูงกว่า ตามด้วย validation loss ที่ต่ำกว่า และ trial index ที่น้อยกว่าตามลำดับ</p>
+<h3>4.3 Selected configurations and final evaluation</h3>
+<p>ตารางแสดง best hyperparameters ของทั้ง 15 setups พร้อม validation Macro F1 จากรอบ tuning seed 42</p>
+<!-- generated:WINNER_TABLE -->
+
+<table>
+<thead>
+<tr>
+<th>Setup</th>
+<th align="right">Learning rate</th>
+<th align="right">Weight decay</th>
+<th>Optimizer</th>
+<th align="right">Batch size</th>
+<th align="right">Tuning validation F1 (%)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ResNet50/Full</td>
+<td align="right">1.939681e-4</td>
+<td align="right">1.954549e-3</td>
+<td>Adam</td>
+<td align="right">16</td>
+<td align="right">93.17</td>
+</tr>
+<tr>
+<td>ResNet50/Frozen</td>
+<td align="right">3.328736e-4</td>
+<td align="right">1.393982e-3</td>
+<td>Adam</td>
+<td align="right">16</td>
+<td align="right">87.76</td>
+</tr>
+<tr>
+<td>ResNet50/Partial</td>
+<td align="right">1.939681e-4</td>
+<td align="right">1.954549e-3</td>
+<td>Adam</td>
+<td align="right">16</td>
+<td align="right">94.40</td>
+</tr>
+<tr>
+<td>EfficientNet-B0/Full</td>
+<td align="right">2.481624e-4</td>
+<td align="right">2.380726e-6</td>
+<td>Adam</td>
+<td align="right">32</td>
+<td align="right">94.68</td>
+</tr>
+<tr>
+<td>EfficientNet-B0/Frozen</td>
+<td align="right">3.531117e-4</td>
+<td align="right">5.695263e-5</td>
+<td>Adam</td>
+<td align="right">32</td>
+<td align="right">85.04</td>
+</tr>
+<tr>
+<td>EfficientNet-B0/Partial</td>
+<td align="right">3.328736e-4</td>
+<td align="right">1.393982e-3</td>
+<td>Adam</td>
+<td align="right">16</td>
+<td align="right">88.87</td>
+</tr>
+<tr>
+<td>MobileNetV3-Large/Full</td>
+<td align="right">1.939681e-4</td>
+<td align="right">1.954549e-3</td>
+<td>Adam</td>
+<td align="right">16</td>
+<td align="right">94.68</td>
+</tr>
+<tr>
+<td>MobileNetV3-Large/Frozen</td>
+<td align="right">1.939681e-4</td>
+<td align="right">1.954549e-3</td>
+<td>Adam</td>
+<td align="right">16</td>
+<td align="right">92.50</td>
+</tr>
+<tr>
+<td>MobileNetV3-Large/Partial</td>
+<td align="right">1.939681e-4</td>
+<td align="right">1.954549e-3</td>
+<td>Adam</td>
+<td align="right">16</td>
+<td align="right">97.34</td>
+</tr>
+<tr>
+<td>DenseNet121/Full</td>
+<td align="right">1.939681e-4</td>
+<td align="right">1.954549e-3</td>
+<td>Adam</td>
+<td align="right">16</td>
+<td align="right">96.28</td>
+</tr>
+<tr>
+<td>DenseNet121/Frozen</td>
+<td align="right">3.328736e-4</td>
+<td align="right">1.393982e-3</td>
+<td>Adam</td>
+<td align="right">16</td>
+<td align="right">89.06</td>
+</tr>
+<tr>
+<td>DenseNet121/Partial</td>
+<td align="right">3.328736e-4</td>
+<td align="right">1.393982e-3</td>
+<td>Adam</td>
+<td align="right">16</td>
+<td align="right">90.61</td>
+</tr>
+<tr>
+<td>ConvNeXt-Tiny/Full</td>
+<td align="right">2.481624e-4</td>
+<td align="right">2.380726e-6</td>
+<td>Adam</td>
+<td align="right">32</td>
+<td align="right">94.63</td>
+</tr>
+<tr>
+<td>ConvNeXt-Tiny/Frozen</td>
+<td align="right">3.328736e-4</td>
+<td align="right">1.393982e-3</td>
+<td>Adam</td>
+<td align="right">16</td>
+<td align="right">89.02</td>
+</tr>
+<tr>
+<td>ConvNeXt-Tiny/Partial</td>
+<td align="right">1.939681e-4</td>
+<td align="right">1.954549e-3</td>
+<td>Adam</td>
+<td align="right">16</td>
+<td align="right">94.90</td>
+</tr>
+</tbody></table>
+<!-- /generated:WINNER_TABLE -->
+
+<p>MobileNetV3-Large/Partial ได้รับเลือกเป็น <strong>statistical reference</strong> ด้วย tuning validation Macro F1 97.34%, Accuracy 97.65% และ loss 0.1718 ผลการเลือกและสูตรทั้ง 15 setups ถูกล็อกใน <code>selection.json</code> ก่อน final evaluation</p>
+<p>จากนั้นนำ best hyperparameters ของแต่ละ setup มาฝึกใหม่ด้วย <strong>5 seeds</strong> ทุก run เริ่มจาก ImageNet weights และเลือก checkpoint ของตนเองด้วย validation ก่อนนำ checkpoint นั้นไปประเมิน test หนึ่งครั้ง จึงได้ผล 5 ค่าในแต่ละ setup สำหรับคำนวณค่าเฉลี่ยและ SD</p>
+<p>ตารางด้านล่างสรุป epoch ที่เลือก checkpoint ของแต่ละ setup ทั้งค่าเฉลี่ยและช่วงจาก 5 seeds ค่า <strong>Mean selected epoch</strong> จึงเป็นจุดสรุปการเลือก checkpoint และไม่ใช่จุดที่กำหนดให้ทุก run หยุดฝึกพร้อมกัน</p>
+<!-- generated:CHECKPOINT_SUMMARY_TABLE -->
+
+<table>
+<thead>
+<tr>
+<th>Setup</th>
+<th align="right">Final runs</th>
+<th align="right">Mean selected epoch</th>
+<th>Selected epoch range</th>
+<th>Seeds</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ResNet50/Full</td>
+<td align="right">5</td>
+<td align="right">8.4</td>
+<td>3–12</td>
+<td>42, 123, 456, 789, 1024</td>
+</tr>
+<tr>
+<td>ResNet50/Frozen</td>
+<td align="right">5</td>
+<td align="right">15.6</td>
+<td>13–19</td>
+<td>42, 123, 456, 789, 1024</td>
+</tr>
+<tr>
+<td>ResNet50/Partial</td>
+<td align="right">5</td>
+<td align="right">12.6</td>
+<td>9–21</td>
+<td>42, 123, 456, 789, 1024</td>
+</tr>
+<tr>
+<td>EfficientNet-B0/Full</td>
+<td align="right">5</td>
+<td align="right">17.6</td>
+<td>11–25</td>
+<td>42, 123, 456, 789, 1024</td>
+</tr>
+<tr>
+<td>EfficientNet-B0/Frozen</td>
+<td align="right">5</td>
+<td align="right">15.8</td>
+<td>7–22</td>
+<td>42, 123, 456, 789, 1024</td>
+</tr>
+<tr>
+<td>EfficientNet-B0/Partial</td>
+<td align="right">5</td>
+<td align="right">7.8</td>
+<td>3–12</td>
+<td>42, 123, 456, 789, 1024</td>
+</tr>
+<tr>
+<td>MobileNetV3-Large/Full</td>
+<td align="right">5</td>
+<td align="right">13.4</td>
+<td>7–21</td>
+<td>42, 123, 456, 789, 1024</td>
+</tr>
+<tr>
+<td>MobileNetV3-Large/Frozen</td>
+<td align="right">5</td>
+<td align="right">17.2</td>
+<td>12–22</td>
+<td>42, 123, 456, 789, 1024</td>
+</tr>
+<tr>
+<td>MobileNetV3-Large/Partial</td>
+<td align="right">5</td>
+<td align="right">11.4</td>
+<td>6–20</td>
+<td>42, 123, 456, 789, 1024</td>
+</tr>
+<tr>
+<td>DenseNet121/Full</td>
+<td align="right">5</td>
+<td align="right">12.4</td>
+<td>7–19</td>
+<td>42, 123, 456, 789, 1024</td>
+</tr>
+<tr>
+<td>DenseNet121/Frozen</td>
+<td align="right">5</td>
+<td align="right">21.4</td>
+<td>15–30</td>
+<td>42, 123, 456, 789, 1024</td>
+</tr>
+<tr>
+<td>DenseNet121/Partial</td>
+<td align="right">5</td>
+<td align="right">9.6</td>
+<td>7–12</td>
+<td>42, 123, 456, 789, 1024</td>
+</tr>
+<tr>
+<td>ConvNeXt-Tiny/Full</td>
+<td align="right">5</td>
+<td align="right">8.4</td>
+<td>4–12</td>
+<td>42, 123, 456, 789, 1024</td>
+</tr>
+<tr>
+<td>ConvNeXt-Tiny/Frozen</td>
+<td align="right">5</td>
+<td align="right">13.2</td>
+<td>7–21</td>
+<td>42, 123, 456, 789, 1024</td>
+</tr>
+<tr>
+<td>ConvNeXt-Tiny/Partial</td>
+<td align="right">5</td>
+<td align="right">9.6</td>
+<td>4–21</td>
+<td>42, 123, 456, 789, 1024</td>
+</tr>
+</tbody></table>
+<!-- /generated:CHECKPOINT_SUMMARY_TABLE -->
+
+<p>รายละเอียด checkpoint ราย seed จำนวน epochs ที่ใช้จริง และเครื่องที่ใช้ทดลองอยู่ใน Appendix C</p>
+<h2>5. Evaluation metrics</h2>
+<h3>5.1 Classification metrics</h3>
+<p>ประเมินด้วย 4 metrics เพื่อดูทั้งความถูกต้องรวมและผลต่อแต่ละคลาส</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Definition</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Accuracy</td>
+<td>จำนวนภาพที่ทายถูก / จำนวนภาพทั้งหมด</td>
+<td>ทายภาพทั้งหมดถูกมากเพียงใด</td>
+</tr>
+<tr>
+<td>Precision</td>
+<td>TP / (TP + FP)</td>
+<td>ภาพที่ทายว่าเป็นคลาสนี้ เป็นคลาสนี้จริงกี่ส่วน</td>
+</tr>
+<tr>
+<td>Recall</td>
+<td>TP / (TP + FN)</td>
+<td>ภาพที่เป็นคลาสนี้จริง โมเดลตรวจพบกี่ส่วน</td>
+</tr>
+<tr>
+<td>F1</td>
+<td>2 × Precision × Recall / (Precision + Recall)</td>
+<td>สรุป Precision และ Recall ร่วมกัน</td>
+</tr>
+</tbody></table>
+<p>เมื่อพิจารณาทีละคลาส TP คือภาพที่ทายเป็นคลาสนั้นถูกต้อง FP คือภาพคลาสอื่นที่ทายมาเป็นคลาสนั้น และ FN คือภาพของคลาสนั้นที่ทายไปเป็นคลาสอื่น กรณีตัวหารเป็นศูนย์ให้ค่าเป็น 0</p>
+<p><strong>Macro precision, Macro recall และ Macro F1</strong> คำนวณ metric ของแต่ละคลาสก่อน แล้วเฉลี่ยทั้ง 4 คลาสเท่ากัน จึงให้ความสำคัญกับคลาสที่มีภาพน้อยด้วย โดย Macro F1 เฉลี่ยจาก F1 รายคลาสโดยตรง</p>
+<p>รายงานผลแต่ละ setup เป็น <strong>ค่าเฉลี่ย (%) ± sample SD (pp) จาก 5 seeds</strong> ค่าเฉลี่ยแสดงระดับคะแนน ส่วน SD แสดงว่าคะแนนแปรผันระหว่างการฝึกมากเพียงใด เช่น 93.65% ± 1.34 pp หมายถึงคะแนนเฉลี่ย 93.65% และ SD 1.34 จุดเปอร์เซ็นต์ ใช้ sample SD (<code>ddof=1</code>) โดยทุก seed ประเมินบน test ชุดเดียวกัน</p>
+<h3>5.2 Paired statistical comparisons</h3>
+<p>ใช้ <strong>two-sided paired t-test</strong> เปรียบเทียบ Accuracy และ Macro F1 โดยหาผลต่างของโมเดลสองแบบที่ใช้ seed เดียวกัน จึงได้ผลต่าง 5 คู่ แล้วทดสอบว่าค่าเฉลี่ยผลต่างต่างจากศูนย์หรือไม่</p>
+<p>เมื่อทดสอบหลายคู่ โอกาสพบความแตกต่างโดยบังเอิญจะเพิ่มขึ้น จึงปรับ p-value ด้วย <strong>Holm</strong> เพื่อควบคุมโอกาสสรุปว่ามีความแตกต่างทั้งที่ไม่มีจริงภายในแต่ละกลุ่มการทดสอบ โดยตัดสินนัยสำคัญเมื่อ Holm-adjusted p &lt; 0.05 แบ่งเป็น 2 กลุ่มตามคำถามวิจัยที่กำหนดไว้ก่อนดู test:</p>
+<table>
+<thead>
+<tr>
+<th>Comparison group</th>
+<th>Question and comparisons</th>
+<th align="right">Number of tests</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Primary</td>
+<td>โมเดลอ้างอิง MobileNetV3-Large/Partial ต่างจากอีก 14 setups หรือไม่: 14 คู่ × Accuracy และ Macro F1</td>
+<td align="right">28</td>
+</tr>
+<tr>
+<td>Secondary</td>
+<td>ใน architecture เดียวกัน Full–Frozen, Full–Partial และ Partial–Frozen ต่างกันหรือไม่: 3 คู่ × 5 architectures × 2 metrics</td>
+<td align="right">30</td>
+</tr>
+</tbody></table>
+<p>ปรับ Holm ภายในแต่ละกลุ่มตามจำนวนการทดสอบข้างต้น และคงทั้ง 28 และ 30 รายการไว้ครบ ผลนี้อธิบายความแปรผันจาก training seeds บน split เดียวกัน ตัวอย่างการตั้งสมมติฐานและคำนวณอยู่ในหัวข้อ 6.4 ส่วนช่วงความเชื่อมั่นและ effect size อธิบายใน Appendix C</p>
+<h3>5.3 Confidence calibration</h3>
+<p>Confidence คือความน่าจะเป็นสูงสุดที่โมเดลให้กับคลาสที่ทำนาย Calibration ตรวจว่าระดับความมั่นใจนั้นสอดคล้องกับความถูกต้องที่สังเกตหรือไม่ Expected Calibration Error (ECE) แบ่งผลทำนายเป็นสิบช่วงความกว้างเท่ากันตั้งแต่ 0–10% ถึง 90–100% ตาม implementation จริง จากนั้นคำนวณขนาดความต่างระหว่าง confidence เฉลี่ยกับ accuracy ของแต่ละช่วง แล้วเฉลี่ยโดยถ่วงน้ำหนักตามจำนวนภาพ ช่วงที่ไม่มีภาพไม่มีส่วนร่วมในผลรวม</p>
+<p><strong>ตัวอย่างเพื่ออธิบาย:</strong> กลุ่มที่มี confidence เฉลี่ย 85% แต่ทายถูก 70% มี calibration gap 15 pp ECE รวมพิจารณาทุกกลุ่ม ค่า ECE ต่ำจึงหมายถึงความมั่นใจกับความถูกต้องสอดคล้องกันมากขึ้นภายใต้วิธีแบ่ง bins นี้ ไม่ได้วัด Accuracy โดยตรง และอาจเปลี่ยนตามวิธีแบ่ง bins กับจำนวนตัวอย่าง ตัวอย่างตัวเลขนี้ไม่ใช่ผลทดลองเพิ่มเติม</p>
+<h2>6. Experimental results</h2>
+<h3>6.1 Experiment completeness</h3>
+<p>การทดลองเสร็จครบทั้ง 15 setups โดยแต่ละ setup ผ่านการค้นหา 5 trials และฝึก final ด้วย 5 seeds รวมงานหลัก 150 runs จึงเปรียบเทียบทุก architecture และ mode ได้ภายใต้งบเดียวกัน ผลในหัวข้อต่อไปมาจาก 75 final runs ที่ประเมินบน test 85 ภาพชุดเดียวกัน ส่วน ablation อีก 10 runs แสดงในหัวข้อ 6.10</p>
+<h3>6.2 Learning curves across five seeds</h3>
+<p>กราฟแสดงพัฒนาการระหว่างฝึกของ 5 seeds แยก Full, Frozen และ Partial เส้นเป็นค่าเฉลี่ยและพื้นที่แรเงาเป็น ±1 sample SD โดยเส้นทึบแทน train และเส้นประแทน validation</p>
+<p>บนกราฟ <strong>Validation Macro F1</strong> เครื่องหมาย <strong>×</strong> แสดง selected checkpoint ของแต่ละ seed ส่วนเส้นแนวตั้ง <strong>Mean selected epoch</strong> แสดงค่าเฉลี่ย epoch ที่เลือกจากครบ 5 seeds ของ setup นั้น เส้นนี้ช่วยบอกช่วงที่โมเดลมักได้ checkpoint ที่ดีที่สุด โดยไม่ใช่ค่าเฉลี่ย epoch ที่หยุดฝึก</p>
+<p><img src="report/report_assets/latest/learning_curves_resnet50.svg" alt="ResNet50 learning curves with sample SD"></p>
+<p><em>Figure 10. ResNet50: mean ± sample SD ของ loss, accuracy และ Validation Macro F1 พร้อมจำนวน runs ต่อ epoch</em></p>
+<p><img src="report/report_assets/latest/learning_curves_efficientnet_b0.svg" alt="EfficientNet-B0 learning curves with sample SD"></p>
+<p><em>Figure 11. EfficientNet-B0: mean ± sample SD ของ loss, accuracy และ Validation Macro F1 พร้อมจำนวน runs ต่อ epoch</em></p>
+<p><img src="report/report_assets/latest/learning_curves_mobilenet_v3_large.svg" alt="MobileNetV3-Large learning curves with sample SD"></p>
+<p><em>Figure 12. MobileNetV3-Large: mean ± sample SD ของ loss, accuracy และ Validation Macro F1 พร้อมจำนวน runs ต่อ epoch</em></p>
+<p><img src="report/report_assets/latest/learning_curves_densenet121.svg" alt="DenseNet121 learning curves with sample SD"></p>
+<p><em>Figure 13. DenseNet121: mean ± sample SD ของ loss, accuracy และ Validation Macro F1 พร้อมจำนวน runs ต่อ epoch</em></p>
+<p><img src="report/report_assets/latest/learning_curves_convnext_tiny.svg" alt="ConvNeXt-Tiny learning curves with sample SD"></p>
+<p><em>Figure 14. ConvNeXt-Tiny: mean ± sample SD ของ loss, accuracy และ Validation Macro F1 พร้อมจำนวน runs ต่อ epoch</em></p>
+<p>แถวล่าง <strong>Available runs</strong> คือจำนวน runs ที่ยังมีข้อมูล ณ epoch นั้น เมื่อบาง run หยุดฝึก จำนวนจะลดลงจาก 5 เส้นเฉลี่ยจึงคำนวณจาก runs ที่เหลือจริง โดยไม่เติมค่าหลังหยุด หากเหลือเพียงหนึ่ง run จะไม่มีแถบ SD ช่วงท้ายจึงควรอ่านคู่กับจำนวน runs เสมอ</p>
+<p>Train วัดระหว่างฝึกด้วย augmentation ส่วน validation วัดด้วยภาพที่เตรียมแบบคงที่ จึงมีเงื่อนไขต่างกัน แถบ ±SD แสดงการกระจายของคะแนน ไม่ใช่ช่วงความเชื่อมั่น และจุดสูงสุดของเส้นเฉลี่ยไม่ใช่ checkpoint ที่ใช้ร่วมกันทุก seed ตารางค่าราย epoch และ checkpoint ราย seed อยู่ใน Appendix C</p>
+<h3>6.3 Test performance</h3>
+<p><strong>ResNet50/Full มีค่าเฉลี่ยสูงสุดทั้ง 4 classification metrics จาก 15 setups</strong> ได้แก่ Accuracy 93.65%, Macro precision 92.92%, Macro recall 92.77% และ Macro F1 92.56% ผลจึงสนับสนุนการเลือกจากหลายด้านร่วมกัน ตารางแสดง mean (%) ± sample SD (pp) จาก 5 seeds เรียงตาม Macro F1</p>
+<!-- generated:RESULT_TABLE -->
+
+<table>
+<thead>
+<tr>
+<th>Setup</th>
+<th align="right">Accuracy (%)</th>
+<th align="right">Macro precision (%)</th>
+<th align="right">Macro recall (%)</th>
+<th align="right">Macro F1 (%)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ResNet50/Full</td>
+<td align="right">93.65 ± 1.34</td>
+<td align="right">92.92 ± 2.07</td>
+<td align="right">92.77 ± 1.69</td>
+<td align="right">92.56 ± 1.81</td>
+</tr>
+<tr>
+<td>ResNet50/Partial</td>
+<td align="right">93.18 ± 1.53</td>
+<td align="right">92.39 ± 1.63</td>
+<td align="right">92.11 ± 1.80</td>
+<td align="right">91.82 ± 2.09</td>
+</tr>
+<tr>
+<td>MobileNetV3-Large/Partial</td>
+<td align="right">93.18 ± 2.41</td>
+<td align="right">92.71 ± 2.04</td>
+<td align="right">92.17 ± 2.66</td>
+<td align="right">91.68 ± 3.05</td>
+</tr>
+<tr>
+<td>DenseNet121/Partial</td>
+<td align="right">92.71 ± 1.74</td>
+<td align="right">91.81 ± 2.10</td>
+<td align="right">91.49 ± 2.00</td>
+<td align="right">91.42 ± 1.85</td>
+</tr>
+<tr>
+<td>ConvNeXt-Tiny/Full</td>
+<td align="right">92.94 ± 1.66</td>
+<td align="right">92.36 ± 1.94</td>
+<td align="right">91.79 ± 1.90</td>
+<td align="right">91.35 ± 2.12</td>
+</tr>
+<tr>
+<td>DenseNet121/Full</td>
+<td align="right">92.71 ± 1.53</td>
+<td align="right">92.02 ± 1.93</td>
+<td align="right">91.44 ± 1.85</td>
+<td align="right">91.27 ± 1.89</td>
+</tr>
+<tr>
+<td>EfficientNet-B0/Partial</td>
+<td align="right">92.71 ± 2.10</td>
+<td align="right">91.66 ± 2.64</td>
+<td align="right">91.29 ± 2.46</td>
+<td align="right">91.05 ± 2.67</td>
+</tr>
+<tr>
+<td>ConvNeXt-Tiny/Partial</td>
+<td align="right">92.00 ± 1.53</td>
+<td align="right">92.05 ± 1.46</td>
+<td align="right">90.80 ± 1.72</td>
+<td align="right">90.74 ± 1.78</td>
+</tr>
+<tr>
+<td>MobileNetV3-Large/Full</td>
+<td align="right">91.76 ± 0.83</td>
+<td align="right">91.45 ± 1.57</td>
+<td align="right">90.40 ± 0.85</td>
+<td align="right">89.86 ± 0.96</td>
+</tr>
+<tr>
+<td>EfficientNet-B0/Full</td>
+<td align="right">91.06 ± 1.34</td>
+<td align="right">89.98 ± 1.43</td>
+<td align="right">89.25 ± 1.53</td>
+<td align="right">89.21 ± 1.52</td>
+</tr>
+<tr>
+<td>MobileNetV3-Large/Frozen</td>
+<td align="right">90.35 ± 0.98</td>
+<td align="right">89.14 ± 0.93</td>
+<td align="right">89.23 ± 1.12</td>
+<td align="right">88.69 ± 1.33</td>
+</tr>
+<tr>
+<td>ResNet50/Frozen</td>
+<td align="right">88.47 ± 1.53</td>
+<td align="right">87.93 ± 1.72</td>
+<td align="right">87.65 ± 1.59</td>
+<td align="right">87.55 ± 1.67</td>
+</tr>
+<tr>
+<td>DenseNet121/Frozen</td>
+<td align="right">88.00 ± 1.29</td>
+<td align="right">86.37 ± 1.73</td>
+<td align="right">85.86 ± 1.57</td>
+<td align="right">85.87 ± 1.65</td>
+</tr>
+<tr>
+<td>ConvNeXt-Tiny/Frozen</td>
+<td align="right">87.06 ± 2.76</td>
+<td align="right">86.14 ± 3.52</td>
+<td align="right">85.66 ± 2.69</td>
+<td align="right">85.17 ± 2.48</td>
+</tr>
+<tr>
+<td>EfficientNet-B0/Frozen</td>
+<td align="right">85.65 ± 2.41</td>
+<td align="right">83.66 ± 2.62</td>
+<td align="right">83.78 ± 2.30</td>
+<td align="right">83.38 ± 2.36</td>
+</tr>
+</tbody></table>
+<!-- /generated:RESULT_TABLE -->
+
+<p><img src="report/report_assets/latest/mode_comparison.svg" alt="เปรียบเทียบ validation และ test ของ 15 setups"></p>
+<p><em>Figure 15 Validation และ test Accuracy / Macro F1 ของ 15 setups จุดใหญ่คือค่าเฉลี่ย จุดจางคือแต่ละ seed เส้นคือ ± 1 SD (n = 5)</em></p>
+<p>เมื่อพิจารณา mode ภายในแต่ละ architecture พบว่า Full ให้ Macro F1 เฉลี่ยสูงสุดใน ResNet50 และ ConvNeXt-Tiny ส่วน Partial สูงสุดใน EfficientNet-B0, MobileNetV3-Large และ DenseNet121 ขณะที่ Frozen ต่ำสุดทั้ง 5 architectures จึงเห็นว่าขอบเขตการปรับ backbone ที่เหมาะสมขึ้นกับโมเดล</p>
+<p>คำว่า “สูงสุด” ข้างต้นหมายถึงค่าเฉลี่ยของ 4 classification metrics รวม ไม่ได้หมายถึง SD ต่ำสุด ทุกคลาสดีที่สุด หรือ calibration ดีที่สุด รายละเอียดเหล่านี้และผลทางสถิตินำมาประกอบการเลือกโมเดลในหัวข้อถัดไป</p>
+<h3>6.4 Statistical comparisons</h3>
+<p>หลังปรับ Holm มี 2 จาก 28 สมมติฐานใน Primary และ 3 จาก 30 ใน Secondary ที่มีนัยสำคัญ ตารางแสดงรายการเหล่านั้นและการเทียบโมเดลอ้างอิงกับ ResNet50/Full Δ = A − B หน่วย pp</p>
+<!-- generated:STATS_TABLE -->
+
+<table>
+<thead>
+<tr>
+<th>Family</th>
+<th>A − B</th>
+<th>Metric</th>
+<th align="right">Mean Δ (pp)</th>
+<th>95% CI (pp)¹</th>
+<th align="right">Holm p</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Primary</td>
+<td>MobileNetV3-Large/Partial<br>− ResNet50/Full</td>
+<td>Accuracy</td>
+<td align="right">-0.47</td>
+<td>[-4.42, 3.48]</td>
+<td align="right">1.000</td>
+</tr>
+<tr>
+<td>Primary</td>
+<td>MobileNetV3-Large/Partial<br>− ResNet50/Full</td>
+<td>Macro F1</td>
+<td align="right">-0.88</td>
+<td>[-5.89, 4.13]</td>
+<td align="right">1.000</td>
+</tr>
+<tr>
+<td>Primary</td>
+<td>MobileNetV3-Large/Partial<br>− ConvNeXt-Tiny/Frozen</td>
+<td>Accuracy</td>
+<td align="right">6.12</td>
+<td>[4.52, 7.72]</td>
+<td align="right">0.012</td>
+</tr>
+<tr>
+<td>Primary</td>
+<td>MobileNetV3-Large/Partial<br>− ConvNeXt-Tiny/Frozen</td>
+<td>Macro F1</td>
+<td align="right">6.50</td>
+<td>[4.81, 8.20]</td>
+<td align="right">0.012</td>
+</tr>
+<tr>
+<td>Secondary</td>
+<td>ResNet50/Full<br>− ResNet50/Frozen</td>
+<td>Accuracy</td>
+<td align="right">5.18</td>
+<td>[3.51, 6.84]</td>
+<td align="right">0.028</td>
+</tr>
+<tr>
+<td>Secondary</td>
+<td>DenseNet121/Frozen<br>− DenseNet121/Partial</td>
+<td>Accuracy</td>
+<td align="right">-4.71</td>
+<td>[-6.17, -3.25]</td>
+<td align="right">0.025</td>
+</tr>
+<tr>
+<td>Secondary</td>
+<td>DenseNet121/Frozen<br>− DenseNet121/Partial</td>
+<td>Macro F1</td>
+<td align="right">-5.55</td>
+<td>[-7.16, -3.95]</td>
+<td align="right">0.020</td>
+</tr>
+</tbody></table>
+<!-- /generated:STATS_TABLE -->
+
+<p>ผลที่มีนัยสำคัญคือ MobileNetV3-Large/Partial สูงกว่า ConvNeXt-Tiny/Frozen ทั้ง Accuracy และ Macro F1, ResNet50/Full สูงกว่า ResNet50/Frozen ใน Accuracy และ DenseNet121/Partial สูงกว่า DenseNet121/Frozen ทั้งสอง metrics ส่วน ResNet50/Full เทียบกับ MobileNetV3-Large/Partial ได้ Holm-adjusted p = 1.000 ทั้ง Accuracy และ Macro F1</p>
+<p>¹ ช่วงความเชื่อมั่น 95% ในตารางยังไม่ปรับสำหรับการทดสอบหลายคู่ จึงใช้ Holm-adjusted p เป็นเกณฑ์ตัดสินนัยสำคัญ</p>
+<h4>Worked example: MobileNetV3-Large/Partial vs ResNet50/Full</h4>
+<p>เลือกทดสอบ <strong>Macro F1</strong> โดยกำหนดผลต่างของแต่ละ seed เป็น <code>d = F1(MobileNet/Partial) − F1(ResNet/Full)</code> ค่าบวกหมายถึง MobileNet ได้คะแนนสูงกว่า และค่าลบหมายถึง ResNet ได้คะแนนสูงกว่า</p>
+<ul>
+<li><strong>H₀: μd = 0</strong> — ค่าเฉลี่ยผลต่าง Macro F1 ของสอง setup เท่ากับศูนย์</li>
+<li><strong>H₁: μd ≠ 0</strong> — ค่าเฉลี่ยผลต่าง Macro F1 ของสอง setup ต่างจากศูนย์</li>
+<li>ใช้ two-sided paired t-test และระดับนัยสำคัญ <strong>α = 0.05</strong></li>
+</ul>
+<p>จับคู่ผลด้วย seed เดียวกัน ได้ข้อมูลดังนี้:</p>
+<!-- generated:HYPOTHESIS_F1_TABLE -->
+
+<table>
+<thead>
+<tr>
+<th align="right">Seed</th>
+<th align="right">MobileNet/Partial F1 (%)</th>
+<th align="right">ResNet/Full F1 (%)</th>
+<th align="right">Difference (pp)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">42</td>
+<td align="right">94.2680</td>
+<td align="right">92.8788</td>
+<td align="right">1.3893</td>
+</tr>
+<tr>
+<td align="right">123</td>
+<td align="right">91.4255</td>
+<td align="right">95.1296</td>
+<td align="right">-3.7042</td>
+</tr>
+<tr>
+<td align="right">456</td>
+<td align="right">94.3978</td>
+<td align="right">90.1515</td>
+<td align="right">4.2462</td>
+</tr>
+<tr>
+<td align="right">789</td>
+<td align="right">86.8811</td>
+<td align="right">92.8030</td>
+<td align="right">-5.9219</td>
+</tr>
+<tr>
+<td align="right">1024</td>
+<td align="right">91.4255</td>
+<td align="right">91.8312</td>
+<td align="right">-0.4057</td>
+</tr>
+</tbody></table>
+<!-- /generated:HYPOTHESIS_F1_TABLE -->
+
+<p>ค่าเฉลี่ยผลต่าง <code>d̄ = −0.8793 pp</code> และ sample SD ของผลต่าง <code>s_d = 4.0327 pp</code> เมื่อมี <code>n = 5</code> คู่ จะได้</p>
+<pre><code class="language-text">t = d̄ / (s_d / √n)
+  = −0.8793 / (4.0327 / √5)
+  ≈ −0.4875,  df = n − 1 = 4
+</code></pre>
+<p>ค่า <strong>raw p = 0.6514</strong> และหลังปรับร่วมกับการทดสอบทั้งหมด 28 รายการในกลุ่ม Primary ได้ <strong>Holm-adjusted p = 1.0000 &gt; α = 0.05</strong> จึง <strong>ไม่ปฏิเสธ H₀</strong> แม้ ResNet50/Full มี Macro F1 เฉลี่ยสูงกว่า 0.88 pp แต่ผลจาก 5 seeds ยังไม่แสดงความแตกต่างอย่างมีนัยสำคัญ การไม่ปฏิเสธ H₀ ไม่ได้ยืนยันว่าโมเดลทั้งสองให้ผลเท่ากัน</p>
+<p>ตัวอย่างนี้เป็นหนึ่งรายการจากแผนทดสอบเดิม ผลครบ 58 รายการอยู่ใน <a href="report/verified_statistics.csv">verified_statistics.csv</a></p>
+<h3>6.5 Per-class performance</h3>
+<p>เปรียบเทียบ ResNet50/Full (โมเดลที่เลือก) กับ MobileNetV3-Large/Partial (โมเดลอ้างอิง) ค่าเป็น mean (%) ± sample SD (pp) จาก 5 seeds Support คือจำนวนภาพ test ต่อ run</p>
+<!-- generated:PERCLASS_TABLE -->
+
+<table>
+<thead>
+<tr>
+<th>Setup</th>
+<th>Class</th>
+<th align="right">Support</th>
+<th align="right">Precision (%)</th>
+<th align="right">Recall (%)</th>
+<th align="right">F1 (%)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ResNet50/Full</td>
+<td>พระพรหม</td>
+<td align="right">16</td>
+<td align="right">88.98 ± 6.48</td>
+<td align="right">97.50 ± 3.42</td>
+<td align="right">92.94 ± 3.96</td>
+</tr>
+<tr>
+<td>ResNet50/Full</td>
+<td>พระภูมิ</td>
+<td align="right">18</td>
+<td align="right">92.17 ± 5.39</td>
+<td align="right">77.78 ± 3.93</td>
+<td align="right">84.35 ± 4.43</td>
+</tr>
+<tr>
+<td>ResNet50/Full</td>
+<td>ตายาย</td>
+<td align="right">21</td>
+<td align="right">90.55 ± 5.01</td>
+<td align="right">97.14 ± 2.61</td>
+<td align="right">93.63 ± 2.31</td>
+</tr>
+<tr>
+<td>ResNet50/Full</td>
+<td>ตี่จู้เอี๊ยะ</td>
+<td align="right">30</td>
+<td align="right">100.00 ± 0.00</td>
+<td align="right">98.67 ± 1.83</td>
+<td align="right">99.32 ± 0.93</td>
+</tr>
+<tr>
+<td>MobileNetV3-Large/Partial</td>
+<td>พระพรหม</td>
+<td align="right">16</td>
+<td align="right">84.48 ± 5.19</td>
+<td align="right">100.00 ± 0.00</td>
+<td align="right">91.52 ± 3.12</td>
+</tr>
+<tr>
+<td>MobileNetV3-Large/Partial</td>
+<td>พระภูมิ</td>
+<td align="right">18</td>
+<td align="right">95.89 ± 3.77</td>
+<td align="right">72.22 ± 10.39</td>
+<td align="right">81.93 ± 6.75</td>
+</tr>
+<tr>
+<td>MobileNetV3-Large/Partial</td>
+<td>ตายาย</td>
+<td align="right">21</td>
+<td align="right">90.47 ± 4.05</td>
+<td align="right">97.14 ± 2.61</td>
+<td align="right">93.61 ± 1.74</td>
+</tr>
+<tr>
+<td>MobileNetV3-Large/Partial</td>
+<td>ตี่จู้เอี๊ยะ</td>
+<td align="right">30</td>
+<td align="right">100.00 ± 0.00</td>
+<td align="right">99.33 ± 1.49</td>
+<td align="right">99.66 ± 0.76</td>
+</tr>
+</tbody></table>
+<!-- /generated:PERCLASS_TABLE -->
+
+<p>พระภูมิเป็นคลาสที่ยากที่สุดของทั้งสองโมเดล ResNet50/Full ได้ Recall 77.78% และ F1 84.35% สูงกว่า MobileNetV3-Large/Partial (72.22% และ 81.93%) แต่ MobileNetV3-Large/Partial ได้ Recall ของพระพรหมและตี่จู้เอี๊ยะสูงกว่า ดังนั้น ResNet50/Full ไม่ได้ชนะทุกคลาส</p>
+<p>ไฟล์ประกอบ: <a href="report/verified_per_class_summary.csv">verified_per_class_summary.csv</a> (ครบ 15 setups)</p>
+<h3>6.6 Confusion matrices</h3>
+<p>คำนวณสัดส่วนภายในแต่ละ true class ของแต่ละ seed ก่อน แล้วเฉลี่ยและหา sample SD ข้าม 5 seeds ช่องแนวทแยงคือ Recall ของคลาสนั้น สเกลสีเป็น 0–100 เท่ากันทุกภาพ</p>
+<p><img src="report/report_assets/latest/confusion_resnet50_full.svg" alt="Confusion matrix ของ ResNet50/Full"></p>
+<p><em>Figure 16 Confusion matrix ของ ResNet50/Full (ค่าเฉลี่ย % และ SD เป็น pp ข้าม 5 seeds) พระภูมิถูกทายถูกเฉลี่ย 77.8% ± 3.9 pp ซึ่งต่ำสุดในสี่คลาส</em></p>
+<details>
+<summary>Confusion matrices for all 15 setups (five seeds each)</summary>
+
+<table>
+<thead>
+<tr>
+<th>Architecture</th>
+<th>Frozen</th>
+<th>Partial</th>
+<th>Full</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ResNet50</td>
+<td><a href="report/report_assets/latest/confusion_resnet50_frozen.svg">ดูภาพ</a></td>
+<td><a href="report/report_assets/latest/confusion_resnet50_partial.svg">ดูภาพ</a></td>
+<td><a href="report/report_assets/latest/confusion_resnet50_full.svg">ดูภาพ</a></td>
+</tr>
+<tr>
+<td>EfficientNet-B0</td>
+<td><a href="report/report_assets/latest/confusion_efficientnet_b0_frozen.svg">ดูภาพ</a></td>
+<td><a href="report/report_assets/latest/confusion_efficientnet_b0_partial.svg">ดูภาพ</a></td>
+<td><a href="report/report_assets/latest/confusion_efficientnet_b0_full.svg">ดูภาพ</a></td>
+</tr>
+<tr>
+<td>MobileNetV3-Large</td>
+<td><a href="report/report_assets/latest/confusion_mobilenet_v3_large_frozen.svg">ดูภาพ</a></td>
+<td><a href="report/report_assets/latest/confusion_mobilenet_v3_large_partial.svg">ดูภาพ</a></td>
+<td><a href="report/report_assets/latest/confusion_mobilenet_v3_large_full.svg">ดูภาพ</a></td>
+</tr>
+<tr>
+<td>DenseNet121</td>
+<td><a href="report/report_assets/latest/confusion_densenet121_frozen.svg">ดูภาพ</a></td>
+<td><a href="report/report_assets/latest/confusion_densenet121_partial.svg">ดูภาพ</a></td>
+<td><a href="report/report_assets/latest/confusion_densenet121_full.svg">ดูภาพ</a></td>
+</tr>
+<tr>
+<td>ConvNeXt-Tiny</td>
+<td><a href="report/report_assets/latest/confusion_convnext_tiny_frozen.svg">ดูภาพ</a></td>
+<td><a href="report/report_assets/latest/confusion_convnext_tiny_partial.svg">ดูภาพ</a></td>
+<td><a href="report/report_assets/latest/confusion_convnext_tiny_full.svg">ดูภาพ</a></td>
+</tr>
+</tbody></table>
+<p><a href="report/confusion_mean_sd.csv">ค่ารายช่องทั้ง 15 คู่</a> ระบุค่าเฉลี่ย (%) และ SD (pp) ที่ใช้วาดภาพ</p>
+</details>
+
+<h3>6.7 Matched-image Grad-CAM comparison</h3>
+<!-- resnet-followup:gradcam:start -->
+
+<p>เปรียบเทียบ ResNet50/Full กับ MobileNetV3-Large/Partial โดยใช้ <strong>ภาพเดียวกัน 8 ภาพ ลำดับเดียวกัน และ checkpoint seed 42</strong> ทั้งสองโมเดล แต่ละกรณีแสดงเฉพาะภาพต้นฉบับและ overlay เพื่อให้เห็นตำแหน่งที่ตอบสนองร่วมกับรายละเอียดภาพได้ชัดเจน</p>
+<p>ภาพชุดนี้เลือกจากผล ResNet: ในแต่ละคลาสใช้ภาพทายถูกที่มั่นใจสูงสุดและภาพทายผิดที่มั่นใจสูงสุด หากไม่มีภาพทายผิดจึงใช้ภาพทายถูกที่มั่นใจต่ำสุดแทน จากนั้นสร้าง CAM ของ MobileNet บนภาพชุดเดียวกันจาก checkpoint เดิม โดยไม่มีการฝึกเพิ่ม CAM แต่ละภาพอธิบายคลาสที่โมเดลนั้นทำนาย และจัดแนวกลับสู่ภาพต้นฉบับหลังตัด padding</p>
+<p><img src="report/report_assets/latest/gradcam_resnet50_full_original_overlay.png" alt="Original and overlay of ResNet50/Full on eight cases"></p>
+<p><em>Figure 17a. ResNet50/Full seed 42: ภาพต้นฉบับและ Grad-CAM overlay ทายถูก 6 ภาพและผิด 2 ภาพในชุดตัวอย่างนี้</em></p>
+<p><img src="report/report_assets/latest/gradcam_mobilenet_partial_matched_original_overlay.png" alt="Original and overlay of MobileNetV3-Large/Partial on the same eight cases"></p>
+<p><em>Figure 17b. MobileNetV3-Large/Partial seed 42: ภาพและลำดับตรงกับ Figure 17a ทายถูก 7 ภาพและผิด 1 ภาพในชุดตัวอย่างนี้</em></p>
+<!-- resnet-followup:gradcam:end -->
+
+<!-- generated:MATCHED_CAM_TABLE -->
+
+<table>
+<thead>
+<tr>
+<th>Image ID (stem)</th>
+<th>True class</th>
+<th>ResNet prediction</th>
+<th align="right">Confidence (%)</th>
+<th>MobileNet prediction</th>
+<th align="right">Confidence (%)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>san_phraphrom_0051</td>
+<td>พระพรหม</td>
+<td>พระพรหม ✓</td>
+<td align="right">99.98</td>
+<td>พระพรหม ✓</td>
+<td align="right">99.66</td>
+</tr>
+<tr>
+<td>san_phraphrom_0017</td>
+<td>พระพรหม</td>
+<td>พระพรหม ✓</td>
+<td align="right">83.96</td>
+<td>พระพรหม ✓</td>
+<td align="right">99.84</td>
+</tr>
+<tr>
+<td>san_phraphum_0065</td>
+<td>พระภูมิ</td>
+<td>พระภูมิ ✓</td>
+<td align="right">99.95</td>
+<td>พระภูมิ ✓</td>
+<td align="right">86.52</td>
+</tr>
+<tr>
+<td>san_phraphum_0121</td>
+<td>พระภูมิ</td>
+<td>พระพรหม ✗</td>
+<td align="right">96.80</td>
+<td>พระพรหม ✗</td>
+<td align="right">99.46</td>
+</tr>
+<tr>
+<td>san_tayay_0078</td>
+<td>ตายาย</td>
+<td>ตายาย ✓</td>
+<td align="right">99.89</td>
+<td>ตายาย ✓</td>
+<td align="right">100.00</td>
+</tr>
+<tr>
+<td>san_tayay_0093</td>
+<td>ตายาย</td>
+<td>พระภูมิ ✗</td>
+<td align="right">94.18</td>
+<td>ตายาย ✓</td>
+<td align="right">98.98</td>
+</tr>
+<tr>
+<td>tee_ju_eia_0050</td>
+<td>ตี่จู้เอี๊ยะ</td>
+<td>ตี่จู้เอี๊ยะ ✓</td>
+<td align="right">100.00</td>
+<td>ตี่จู้เอี๊ยะ ✓</td>
+<td align="right">99.99</td>
+</tr>
+<tr>
+<td>tee_ju_eia_0137</td>
+<td>ตี่จู้เอี๊ยะ</td>
+<td>ตี่จู้เอี๊ยะ ✓</td>
+<td align="right">83.11</td>
+<td>ตี่จู้เอี๊ยะ ✓</td>
+<td align="right">99.46</td>
+</tr>
+</tbody></table>
+<!-- /generated:MATCHED_CAM_TABLE -->
+
+<p>ทั้งสองโมเดลมีบริเวณตอบสนองใกล้ตัวศาลในหลายภาพ แต่ตำแหน่งเด่นต่างกัน เช่น <code>san_phraphum_0065</code> ของ ResNet เด่นบริเวณตัวเรือนและฐานรอง ขณะที่ MobileNet เด่นใกล้ยอดหลังคา ทั้งคู่ทายถูก ส่วน <code>san_tayay_0078</code> และภาพตี่จู้เอี๊ยะทั้งสองภาพ มีบริเวณเด่นทับส่วนตัวศาลและให้คำทำนายตรงกัน</p>
+<p>ความต่างที่ชัดคือ <code>san_tayay_0093</code>: ResNet ทายเป็นพระภูมิด้วย confidence 94.18% และมีบริเวณเด่นใกล้เรือนศาลด้านขวา ส่วน MobileNet ทายเป็นตายายถูกต้องด้วย confidence 98.98% และมีบริเวณตอบสนองครอบคลุมส่วนเรือนและฐานกว้างกว่า กรณีนี้ CAM ของสองโมเดลอธิบายคนละคลาสตามคำทำนาย จึงใช้บอกตำแหน่งที่สัมพันธ์กับผลแต่ละโมเดล โดยยังสรุปไม่ได้ว่าตำแหน่งใดทำให้ทายถูก</p>
+<p>สำหรับ <code>san_phraphum_0121</code> ทั้งคู่ทายเป็นพระพรหมผิดด้วย confidence สูง (ResNet 96.80%, MobileNet 99.46%) แม้บริเวณเด่นอยู่ที่ตัวศาล จึงเห็นว่าการตอบสนองตรงวัตถุไม่ได้รับประกันการแยกประเภทที่ถูกต้อง ขณะที่ภาพโฆษณา <code>san_phraphrom_0051</code> มีทั้งศาลหลายองค์และข้อความ จึงยังแยกบทบาทของรูปทรงกับบริบทร่วมไม่ได้</p>
+<p>ชุดนี้คัดเลือกตามผล ResNet เพื่อวิเคราะห์กรณีเฉพาะ สัดส่วนทายถูก 6/8 และ 7/8 จึงไม่ใช้จัดอันดับประสิทธิภาพรวม สีของ CAM ถูกปรับสเกลภายในแต่ละภาพ และ Grad-CAM ไม่ใช่หลักฐานเชิงสาเหตุ ส่วน confidence แสดงจากผล final ที่บันทึกไว้โดยปัดทศนิยม 2 ตำแหน่ง ค่า 100.00% จึงไม่ใช่การรับประกันความถูกต้อง</p>
+<p><strong>ภาพที่ถูกทายผิดบ่อยที่สุด</strong> นับจากทั้ง 75 runs ภาพพระภูมิอยู่ในกลุ่มที่ผิดบ่อยที่สุดซ้ำ ๆ เช่น <code>san_phraphum_0043</code> ผิด 69/75 runs และ <code>san_phraphum_0121</code> ผิด 66/75 runs ตัวเลขเหล่านี้มาจากภาพชุดเดียวกันและโมเดลที่เกี่ยวข้องกัน จึงไม่ใช่ตัวอย่างอิสระ 75 ชุด ตารางสิบอันดับแรกอยู่ใน Appendix C และมีผลครบ 85 ภาพใน <a href="report/error_frequency.csv">error_frequency.csv</a></p>
+<p>ไฟล์ประกอบ: <a href="report/matched_cam_comparison.csv">ผลเปรียบเทียบภาพเดียวกัน</a> ส่วน Grad-CAM ชุดเดิมและ eyeball ของ MobileNet อยู่ใน Appendix B</p>
+<h3>6.8 Confidence and calibration</h3>
+<p><img src="report/report_assets/latest/selected_resnet50_full_calibration.svg" alt="Reliability diagram ของ ResNet50/Full"></p>
+<p><em>Figure 18a. Reliability diagram ของ ResNet50/Full seed 42 บน test 85 ภาพ ECE = 5.99% วงกลมคือ bin ที่มีข้อมูล ขนาดสัมพันธ์กับจำนวนภาพ เส้นประคือ confidence เท่ากับ accuracy</em></p>
+<p><img src="report/report_assets/latest/reliability_mobilenet_v3_large_partial_seed42.svg" alt="Reliability diagram of MobileNetV3-Large/Partial"></p>
+<p><em>Figure 18b. Reliability diagram ของ MobileNetV3-Large/Partial seed 42 บน test 85 ภาพเดียวกัน ECE = 2.76% ใช้ 10 bins และช่วงแกนเดียวกับ Figure 18a</em></p>
+<p>ใน seed 42 MobileNet มี ECE ต่ำกว่า ResNet (2.76% เทียบกับ 5.99%) จึงมีความมั่นใจที่สอดคล้องกับความถูกต้องมากกว่าเมื่อสรุปด้วย 10 bins นี้ จุดใต้เส้นทแยงหมายถึง confidence สูงกว่าสัดส่วนที่ทายถูก เช่น ResNet มีภาพ 73 จาก 85 ภาพอยู่ในช่วง confidence 90–100% จึงมีน้ำหนักต่อ ECE มากกว่าช่วงที่มีภาพเพียงเล็กน้อย</p>
+<p>เมื่อสรุปครบ <strong>5 seeds</strong> ResNet มี ECE <strong>4.94% ± 1.56 pp</strong> ส่วน MobileNet มี <strong>4.53% ± 1.67 pp</strong> ความต่างของค่าเฉลี่ยจึงเล็กกว่าที่เห็นใน seed 42 เพียง seed เดียว โดย DenseNet121/Partial มีค่าเฉลี่ย ECE ต่ำสุดใน 15 setups ที่ 4.44% ± 1.18 pp ผลนี้ทำให้เห็นว่าโมเดลที่มี classification metrics สูงสุดอาจไม่ได้มี calibration ดีที่สุด ทั้งนี้ยังไม่ได้ทดสอบนัยสำคัญของ ECE</p>
+<h3>6.9 Final model selection</h3>
+<p><strong>เลือก ResNet50/Full เป็นโมเดลสุดท้ายของการศึกษา</strong> โดยให้น้ำหนักกับความถูกต้องโดยรวม ความสมดุลระหว่างคลาส และความสม่ำเสมอของผลจาก 5 seeds พร้อมพิจารณา calibration ประกอบ ตารางสรุปการเทียบกับ MobileNetV3-Large/Partial ซึ่งเป็นโมเดลอ้างอิงที่เลือกไว้จาก validation ดังนี้</p>
+<table>
+<thead>
+<tr>
+<th>Metric (%)</th>
+<th align="right">ResNet50/Full (selected)</th>
+<th align="right">MobileNetV3-Large/Partial (reference)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Accuracy ↑</td>
+<td align="right">93.65 ± 1.34</td>
+<td align="right">93.18 ± 2.41</td>
+</tr>
+<tr>
+<td>Macro precision ↑</td>
+<td align="right">92.92 ± 2.07</td>
+<td align="right">92.71 ± 2.04</td>
+</tr>
+<tr>
+<td>Macro recall ↑</td>
+<td align="right">92.77 ± 1.69</td>
+<td align="right">92.17 ± 2.66</td>
+</tr>
+<tr>
+<td>Macro F1 ↑</td>
+<td align="right">92.56 ± 1.81</td>
+<td align="right">91.68 ± 3.05</td>
+</tr>
+<tr>
+<td>Phra Phum recall ↑</td>
+<td align="right">77.78 ± 3.93</td>
+<td align="right">72.22 ± 10.39</td>
+</tr>
+<tr>
+<td>ECE (10 bins) ↓</td>
+<td align="right">4.94 ± 1.56</td>
+<td align="right">4.53 ± 1.67</td>
+</tr>
+</tbody></table>
+<p>เหตุผลหลักคือ ResNet50/Full มีค่าเฉลี่ยสูงสุดทั้ง 4 classification metrics จาก 15 setups และตรวจพบพระภูมิซึ่งเป็นคลาสที่ยากที่สุดได้มากกว่าโมเดลอ้างอิง โดย Recall สูงกว่า 5.56 pp นอกจากนี้ SD ของ Accuracy, Macro recall และ Macro F1 ยังต่ำกว่า MobileNet/Partial แสดงถึงผลที่สม่ำเสมอกว่าใน metrics เหล่านี้เมื่อเปลี่ยน seed</p>
+<p>ข้อแลกเปลี่ยนคือ ECE เฉลี่ยของ ResNet สูงกว่า 0.41 pp และไม่ได้ดีที่สุดทุกคลาส แต่เมื่อพิจารณาผลร่วมกัน งานนี้ให้ความสำคัญกับการจำแนกศาลได้ถูกต้องและผลรายคลาส จึงเลือก <strong>ResNet50/Full พร้อมสูตร baseline ที่มี augmentation และ class weights</strong> เป็นข้อสรุปของการศึกษา</p>
+<p>การเลือกนี้อาศัยผล test หลายด้านร่วมกันหลังการทดลอง (post-hoc) และไม่ได้หมายความว่า ResNet เหนือกว่า MobileNet อย่างมีนัยสำคัญทางสถิติ ส่วน MobileNetV3-Large/Partial ยังคงเป็น statistical reference ตาม <code>selection.json</code> และแผนทดสอบ 28/30 รายการเดิม</p>
+<h3>6.10 Ablation study of ResNet50/Full</h3>
+<!-- resnet-followup:ablation:start -->
+
+<p>เพื่อดูว่า augmentation และ class weights มีผลต่อสูตรที่เลือกอย่างไร เปรียบเทียบ <strong>baseline ที่มีทั้งสององค์ประกอบ</strong> กับอีก 2 เงื่อนไข: ไม่ใช้ augmentation แต่คง class weights และไม่ใช้ class weights แต่คง augmentation</p>
+<p>ทั้งสองเงื่อนไขใช้ ResNet50/Full, hyperparameters, split และเกณฑ์เลือก checkpoint เดิม โดยล็อกแผนก่อนฝึกเพิ่มจาก ImageNet อย่างละ 5 seeds รวม 10 runs แล้วจับคู่กับ baseline final เดิม 5 seeds จึงไม่มีการ tune ใหม่หรือฝึก baseline ซ้ำ</p>
+<!-- generated:ABLATION_TABLE -->
+
+<table>
+<thead>
+<tr>
+<th>Condition</th>
+<th align="right">Accuracy (%)</th>
+<th align="right">Macro precision (%)</th>
+<th align="right">Macro recall (%)</th>
+<th align="right">Macro F1 (%)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Baseline</td>
+<td align="right">93.65 ± 1.34</td>
+<td align="right">92.92 ± 2.07</td>
+<td align="right">92.77 ± 1.69</td>
+<td align="right">92.56 ± 1.81</td>
+</tr>
+<tr>
+<td>ไม่ใช้ augmentation</td>
+<td align="right">92.71 ± 1.93</td>
+<td align="right">92.35 ± 1.92</td>
+<td align="right">91.41 ± 2.28</td>
+<td align="right">91.24 ± 2.39</td>
+</tr>
+<tr>
+<td>ไม่ใช้ class weights</td>
+<td align="right">93.18 ± 2.10</td>
+<td align="right">92.77 ± 2.55</td>
+<td align="right">92.18 ± 2.22</td>
+<td align="right">91.89 ± 2.54</td>
+</tr>
+</tbody></table>
+<!-- /generated:ABLATION_TABLE -->
+
+<p><img src="report/report_assets/latest/resnet_ablation_summary.svg" alt="Ablation ของ ResNet50/Full"></p>
+<p><em>Figure 19 Accuracy และ Macro F1 ของ baseline กับสอง variants แสดง mean ± SD และแต่ละ seed ใช้ช่วงแกน 80–100</em></p>
+<p>จุดย่อยแสดงผลแต่ละ seed ส่วนจุดใหญ่และเส้นแสดงค่าเฉลี่ยกับ SD จึงดูได้ทั้งระดับคะแนนและการกระจายของแต่ละเงื่อนไข</p>
+<!-- resnet-followup:ablation:end -->
+
+<!-- generated:ABLATION_DELTAS -->
+
+<table>
+<thead>
+<tr>
+<th>Removed component</th>
+<th align="right">Δ Accuracy (pp)</th>
+<th align="right">Δ Macro F1 (pp)</th>
+<th align="right">Holm p: Accuracy</th>
+<th align="right">Holm p: Macro F1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Augmentation</td>
+<td align="right">-0.94</td>
+<td align="right">-1.32</td>
+<td align="right">1.000</td>
+<td align="right">0.900</td>
+</tr>
+<tr>
+<td>Class weights</td>
+<td align="right">-0.47</td>
+<td align="right">-0.67</td>
+<td align="right">1.000</td>
+<td align="right">1.000</td>
+</tr>
+</tbody></table>
+<!-- /generated:ABLATION_DELTAS -->
+
+<p>Δ คือคะแนนของเงื่อนไขที่นำองค์ประกอบออก ลบคะแนน baseline โดยจับคู่ seed เดียวกัน ค่าลบจึงหมายถึงคะแนนลดลงเมื่อเอาองค์ประกอบนั้นออก</p>
+<p>เมื่อไม่ใช้ augmentation ค่าเฉลี่ย Accuracy ลดลง <strong>0.94 pp</strong> และ Macro F1 ลดลง <strong>1.32 pp</strong> ส่วนการไม่ใช้ class weights ลดลง <strong>0.47 pp</strong> และ <strong>0.67 pp</strong> ตามลำดับ Baseline จึงมีคะแนนเฉลี่ยสูงกว่าทั้งสองเงื่อนไขในรอบนี้</p>
+<p>ทดสอบสองเงื่อนไขเทียบ baseline ด้วย Accuracy และ Macro F1 รวม 4 รายการ แล้วปรับ Holm แยกจากการทดสอบงานหลัก ไม่พบรายการที่มีนัยสำคัญที่ระดับ 0.05 (Holm-adjusted p ต่ำสุด 0.9002) ผลจึงบอกทิศทางคะแนนที่สังเกตได้ แต่ยังไม่ยืนยันว่าประโยชน์เกิดจากแต่ละองค์ประกอบอย่างแน่ชัด และไม่ได้ยืนยันว่าเงื่อนไขต่าง ๆ ให้ผลเท่ากัน</p>
+<p>ผลรายคลาสมีข้อแลกเปลี่ยน: Recall ของพระภูมิลดจาก 77.78% เป็น 74.44% ในทั้งสอง variants แต่ Precision ของคลาสนี้ในกรณีไม่ใช้ class weights เพิ่มจาก 92.17% เป็น 95.00% คงเลือกสูตร baseline (มีทั้ง augmentation และ class weights) และไม่นำผล ablation ไปปรับ hyperparameters</p>
+<p>Ablation นี้เป็นผลเชิงสำรวจ ทำหลังเลือก ResNet50/Full จาก test บน split ที่เคยดูแล้ว และ loss ของกรณีใช้/ไม่ใช้ class weights อยู่คนละสเกลวัตถุประสงค์</p>
+<p>ไฟล์ประกอบ: <a href="report/resnet_ablation_matched_deltas.csv">matched deltas</a> · <a href="report/resnet_ablation_statistical_tests.csv">statistical tests</a> · <a href="report/resnet_ablation_per_class_summary.csv">per-class summary</a></p>
+<hr>
+<h2>7. Discussion and conclusions</h2>
+<p>การปรับ backbone ให้เรียนรู้จากภาพศาลเพิ่มเติมช่วยให้ Full และ Partial มี Macro F1 เฉลี่ยสูงกว่า Frozen ในทุก architecture ของการทดลองนี้ อย่างไรก็ตาม mode ที่ได้คะแนนสูงสุดต่างกันตามโมเดล จึงสนับสนุนการค้นหา hyperparameters แยกแต่ละ setup ภายใต้งบเดียวกัน</p>
+<p>จากผลประเมินหลายด้าน <strong>ResNet50/Full เป็นโมเดลที่เลือกสำหรับงานนี้</strong> ด้วยค่าเฉลี่ยสูงสุดทั้ง 4 classification metrics ผลที่สม่ำเสมอกว่าโมเดลอ้างอิงใน Accuracy และ Macro F1 และ Recall ของพระภูมิที่สูงกว่า ขณะที่ MobileNet/Partial มี calibration เฉลี่ยดีกว่าเล็กน้อย ทั้งนี้ความแตกต่างระหว่างสองโมเดลยังไม่มีนัยสำคัญหลังปรับ Holm</p>
+<p>พระภูมิยังเป็นคลาสที่แยกได้ยากที่สุด และการเปรียบเทียบ Grad-CAM บนภาพเดียวกันแสดงให้เห็นว่าทั้งสองโมเดลอาจทายผิดด้วยความมั่นใจสูงแม้บริเวณตอบสนองอยู่ที่ตัวศาล การแปลผลจึงต้องใช้คะแนนรายคลาสและ calibration ร่วมกับภาพอธิบาย ส่วน ablation พบว่าสูตรเดิมมีคะแนนเฉลี่ยสูงกว่าการนำ augmentation หรือ class weights ออก จึงคงสูตร baseline เป็นผลลัพธ์สุดท้าย โดยยังไม่อ้างว่าแต่ละองค์ประกอบเพิ่มคะแนนอย่างมีนัยสำคัญ</p>
+<h3>7.1 Limitations</h3>
+<ol>
+<li><strong>ข้อมูลและการเลือกโมเดล:</strong> Test มี 85 ภาพบน split เดียวที่เคยตรวจดูแล้ว และเลือก ResNet หลังพิจารณา test ผลจึงเป็นเชิงสำรวจ ส่วน SD และ paired tests สะท้อนความแปรผันระหว่าง seeds บนภาพชุดนี้</li>
+<li><strong>การค้นหา hyperparameters:</strong> ใช้ 5 configurations ต่อ setup และ tuning seed เดียว โดยไม่มี SGD ในชุดที่สุ่มได้</li>
+<li><strong>บริบทในภาพ:</strong> ภาพจากเว็บมีข้อความ ลายน้ำ และฉากหลังหลากหลาย ซึ่งอาจสัมพันธ์กับคลาส และไม่ทราบ URL ต้นทาง 112 ภาพ</li>
+<li><strong>การวิเคราะห์เพิ่มเติม:</strong> Grad-CAM ใช้ตัวอย่างที่คัดเลือก 8 ภาพจาก seed 42 และ ablation ใช้ 5 seeds ต่อเงื่อนไขหลังเลือกโมเดล การไม่พบนัยสำคัญไม่ใช่หลักฐานยืนยันความเท่ากัน อีกทั้งยังไม่มีผลวัด latency ภายใต้เงื่อนไขควบคุม</li>
+</ol>
+<hr>
+<h2>Appendix</h2>
+<h3>A. Reproducing the follow-up study</h3>
+<p><code>resnet_followup.py</code> รันครบแล้ว (Grad-CAM, ablation 10 runs, analysis และการนำผลเข้า README) คำสั่งด้านล่างใช้ทำซ้ำจากโฟลเดอร์โครงการ ใน environment เดิมที่มี PyTorch/torchvision ไม่ต้องฝึกใหม่เพื่ออ่านรายงานนี้</p>
+<pre><code class="language-powershell">python resnet_followup.py --stage gradcam
+python resnet_followup.py --stage lock
+python resnet_followup.py --stage ablation --resume --wandb-mode online --wandb-project thai-shrine-classifier-td
+python resnet_followup.py --stage analyze
+python resnet_followup.py --stage report
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>gradcam</code></td>
+<td>สร้าง Grad-CAM จาก checkpoint เดิม ไม่ฝึกใหม่</td>
+</tr>
+<tr>
+<td><code>lock</code></td>
+<td>ตรวจ baseline, config, split และบันทึกแผน ablation</td>
+</tr>
+<tr>
+<td><code>ablation</code></td>
+<td>ฝึกเพิ่ม 10 runs (<code>--resume</code> ใช้ซ้ำเฉพาะ run ที่เสร็จและไฟล์ตรงกัน)</td>
+</tr>
+<tr>
+<td><code>analyze</code></td>
+<td>สรุป mean/SD ผลรายคลาส ผลต่างจับคู่ และสถิติ</td>
+</tr>
+<tr>
+<td><code>report</code></td>
+<td>นำรูปและตารางที่สร้างเสร็จใส่ README ในเครื่อง โดยไม่ push GitHub</td>
+</tr>
+</tbody></table>
+<p>ถ้าหยุดกลางการฝึก run ที่ไม่สมบูรณ์จะเริ่มเป็น attempt ใหม่ ผลใหม่อยู่ใต้ output เดิมในโฟลเดอร์เฉพาะ และไม่แก้ final registry หรือ statistical lock เดิม</p>
+<h3>B. Reference-model diagnostics</h3>
+<details>
+<summary>Supplementary Grad-CAM and eyeball: MobileNetV3-Large/Partial</summary>
+
+<p>ใช้ MobileNetV3-Large/Partial, seed 42 วิเคราะห์ 8 ภาพ โดยเลือกตัวอย่างทายถูกและทายผิดแยกตาม true class หากคลาสนั้นไม่มีภาพผิด ใช้ภาพทายถูกที่ confidence ต่ำแทน ชุดตัวอย่างประกอบด้วยภาพทายถูก 7 ภาพและทายผิด 1 ภาพ</p>
+<p><img src="report/report_assets/latest/gradcam_reference_percent.png" alt="Grad-CAM ของโมเดลอ้างอิง"></p>
+<p><em>Supplementary figure A1 ภาพต้นฉบับ heatmap และ overlay ของ MobileNetV3-Large/Partial seed 42 จัดวางใหม่จากภาพที่บันทึกไว้</em></p>
+<p>หลายตัวอย่างมีบริเวณตอบสนองสูงใกล้ส่วนกลางศาล หลังคา หรือฐาน กรณี <code>san_phraphum_0076</code> ถูกทายเป็นศาลตายายด้วย confidence 60.01% และมี heatmap กระจุกใกล้ศาลด้านล่างขวา บางภาพมีข้อความและลายน้ำอยู่ใกล้บริเวณตอบสนองสูงด้วย จึงยังแยกไม่ได้ว่าโมเดลใช้รูปทรงหรือข้อความมากน้อยเพียงใด Grad-CAM ช่วยตั้งข้อสังเกต แต่ไม่ได้ยืนยันสาเหตุของการทำนาย</p>
+<p><img src="report/report_assets/latest/eyeball_reference_percent.png" alt="เปรียบเทียบป้าย ImageNet กับผลหลัง fine-tune"></p>
+<p><em>Supplementary figure A2 ป้ายกำกับจาก ImageNet model และผลหลัง fine-tune ของ MobileNetV3-Large/Partial บนภาพเดียวกัน เช่น stupa, altar และ china cabinet เทียบกับประเภทศาลไทย</em></p>
+<details>
+<summary>Predictions for selected reference examples</summary>
+
+<!-- generated:CASE_TABLE -->
+
+<table>
+<thead>
+<tr>
+<th>Image ID (stem)</th>
+<th>True class</th>
+<th>Fine-tuned prediction</th>
+<th align="right">Confidence (%)</th>
+<th>ImageNet top-1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>san_phraphrom_0057</td>
+<td>พระพรหม</td>
+<td>พระพรหม ✓</td>
+<td align="right">100.00</td>
+<td>stupa</td>
+</tr>
+<tr>
+<td>san_phraphrom_0066</td>
+<td>พระพรหม</td>
+<td>พระพรหม ✓</td>
+<td align="right">61.49</td>
+<td>stupa</td>
+</tr>
+<tr>
+<td>san_phraphum_0093</td>
+<td>พระภูมิ</td>
+<td>พระภูมิ ✓</td>
+<td align="right">100.00</td>
+<td>altar</td>
+</tr>
+<tr>
+<td>san_phraphum_0076</td>
+<td>พระภูมิ</td>
+<td>ตายาย ✗</td>
+<td align="right">60.01</td>
+<td>altar</td>
+</tr>
+<tr>
+<td>san_tayay_0068</td>
+<td>ตายาย</td>
+<td>ตายาย ✓</td>
+<td align="right">100.00</td>
+<td>boathouse</td>
+</tr>
+<tr>
+<td>san_tayay_0003</td>
+<td>ตายาย</td>
+<td>ตายาย ✓</td>
+<td align="right">72.19</td>
+<td>church</td>
+</tr>
+<tr>
+<td>tee_ju_eia_0001</td>
+<td>ตี่จู้เอี๊ยะ</td>
+<td>ตี่จู้เอี๊ยะ ✓</td>
+<td align="right">100.00</td>
+<td>china cabinet</td>
+</tr>
+<tr>
+<td>tee_ju_eia_0080</td>
+<td>ตี่จู้เอี๊ยะ</td>
+<td>ตี่จู้เอี๊ยะ ✓</td>
+<td align="right">86.00</td>
+<td>vestment</td>
+</tr>
+</tbody></table>
+<!-- /generated:CASE_TABLE -->
+
+</details>
+
+</details>
+
+<p>ตัวอย่าง MobileNet เดิมใน Appendix B เป็นคนละชุดกับ ResNet จึงเก็บไว้เป็นหลักฐานประกอบแยกต่างหาก ส่วนการเปรียบเทียบทั้งสองโมเดลบนภาพเดียวกันอยู่ในหัวข้อ 6.7</p>
+<h3>C. Supporting evidence</h3>
+<h4>Compute budget and environment</h4>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th align="right">Training runs</th>
+<th align="right">Actual epochs</th>
+<th align="right">Maximum epochs</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Tuning</td>
+<td align="right">75</td>
+<td align="right">1,350</td>
+<td align="right">2,250</td>
+</tr>
+<tr>
+<td>Final</td>
+<td align="right">75</td>
+<td align="right">1,411</td>
+<td align="right">2,250</td>
+</tr>
+<tr>
+<td>Main study</td>
+<td align="right">150</td>
+<td align="right">2,761</td>
+<td align="right">4,500</td>
+</tr>
+<tr>
+<td>Ablation (new runs only)</td>
+<td align="right">10</td>
+<td align="right">145</td>
+<td align="right">300</td>
+</tr>
+<tr>
+<td>Total</td>
+<td align="right">160</td>
+<td align="right">2,906</td>
+<td align="right">4,800</td>
+</tr>
+</tbody></table>
+<p>Ablation ใช้ baseline final เดิมอีก 5 seeds เป็นตัวเทียบ จึงไม่นับเป็นการฝึกเพิ่ม Environment ที่บันทึกไว้คือ Windows, Python 3.13.5, PyTorch 2.13.0+cu130, torchvision 0.28.0+cu130, CUDA 13.0 และ RTX 5060 ปิด AMP ใช้ deterministic algorithms แบบ <code>warn_only</code> และ DataLoader <code>num_workers=0</code>, <code>drop_last=False</code> การใช้ seed เดิมช่วยควบคุมการสุ่ม แต่ผลอาจต่างกันตาม hardware และ library version</p>
+<h4>Numerical verification and figure sources</h4>
+<p>ตรวจผลทำนายงานหลัก 75 runs รวม 6,375 แถว พบ test IDs 85 ภาพเรียงตรงกันทุก run และคำนวณ metrics กับ paired tests ซ้ำได้ตรงกับผลที่บันทึก ส่วน ablation ตรวจ 1,275 แถวจาก baseline 5 runs และ variants 10 runs ภาพ test ยังคงเป็น 85 ภาพเดิม จำนวนแถวเหล่านี้จึงไม่ใช่จำนวนภาพอิสระที่เพิ่มขึ้น ดู <a href="report/verification.json">main verification</a> และ <a href="report/resnet_followup_verification.json">ablation verification</a></p>
+<p>ตาราง <a href="report/learning_curve_summary.csv">learning-curve summary</a> เก็บค่าเฉลี่ย SD และจำนวน runs ของแต่ละ epoch ส่วน <a href="report/final_checkpoint_summary.csv">final checkpoints</a> ระบุ checkpoint และ selected epoch ของแต่ละ seed ค่าเส้นแนวตั้งในกราฟอยู่ใน <a href="report/mean_selected_epochs.csv">mean selected epochs</a> และ <a href="report/enhanced_figure_sources.json">enhanced figure sources</a> เชื่อมกราฟกับไฟล์ต้นทางและ SHA256</p>
+<p>การตรวจฉบับปรับปรุงใน <a href="report/readme_revision_evidence.json">revision evidence</a> ยืนยันอันดับค่าเฉลี่ยทั้ง 4 metrics ค่าที่ใช้ในตัวอย่าง paired t-test และที่มาของภาพเปรียบเทียบ CAM โดยตรวจว่าภาพต้นฉบับทั้งสองโมเดลตรงกันทั้ง 8 ภาพ MobileNet CAM ที่เพิ่มใช้ checkpoint seed 42 เดิม ชั้น <code>features[-1]</code> เทียบกับ ResNet <code>layer4[-1]</code> ไม่มี training/tuning เพิ่ม</p>
+<p>Confidence ในกราฟ CAM และตารางใช้ค่าจาก final predictions เดิม การคำนวณ MobileNet CAM ครั้งนี้ตรวจแล้วว่าคลาสทำนายตรงกันทั้ง 8 ภาพ แต่ค่าความน่าจะเป็นบางช่องต่างจากค่าที่บันทึกเดิมเล็กน้อย โดยต่างสูงสุด 0.001588 (0.1588 pp) จึงเก็บทั้งค่าปัจจุบันและค่าเดิมไว้ใน manifest พร้อม checkpoint hash และผลตรวจ heatmap โดยไม่เขียนทับผล final</p>
+<h4>Additional statistical quantities</h4>
+<p>ไฟล์สถิติเก็บทั้งผลต่างเฉลี่ย ช่วงความเชื่อมั่น 95% และ Cohen’s d_z เพื่ออธิบายขนาดผลต่างประกอบ p-value โดย <code>d_z = mean(d) / sample SD(d)</code> และช่วงความเชื่อมั่นใช้ t-distribution ที่ <code>df=4</code> ช่วงดังกล่าวยังไม่ปรับสำหรับการทดสอบหลายคู่ จึงใช้ Holm-adjusted p เพื่อตัดสินนัยสำคัญ ผลต่างและช่วงความเชื่อมั่นของ Accuracy/F1 แสดงเป็น pp ส่วน t, p และ d_z ไม่มีหน่วยเปอร์เซ็นต์</p>
+<h4>Source domains</h4>
+<p>จำนวนภาพจากสิบโดเมนอันดับแรก รวมรายการที่ไม่ทราบ URL</p>
+<!-- generated:DOMAINS -->
+
+<table>
+<thead>
+<tr>
+<th>Source domain</th>
+<th align="right">Image count</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Unknown</td>
+<td align="right">112</td>
+</tr>
+<tr>
+<td>down-th.img.susercontent.com</td>
+<td align="right">65</td>
+</tr>
+<tr>
+<td>cy.lnwfile.com</td>
+<td align="right">41</td>
+</tr>
+<tr>
+<td>brahmansiam.com</td>
+<td align="right">38</td>
+</tr>
+<tr>
+<td><a href="http://www.kt-spirithouse.com">www.kt-spirithouse.com</a></td>
+<td align="right">36</td>
+</tr>
+<tr>
+<td><a href="http://www.korwattana.com">www.korwattana.com</a></td>
+<td align="right">35</td>
+</tr>
+<tr>
+<td>cf.shopee.co.th</td>
+<td align="right">24</td>
+</tr>
+<tr>
+<td>fw.lnwfile.com</td>
+<td align="right">14</td>
+</tr>
+<tr>
+<td>maneesuk.com</td>
+<td align="right">14</td>
+</tr>
+<tr>
+<td>image.makewebeasy.net</td>
+<td align="right">13</td>
+</tr>
+</tbody></table>
+<!-- /generated:DOMAINS -->
+
+<h4>Parameter counts</h4>
+<p>จำนวนเต็มจาก saved mode configurations</p>
+<!-- generated:PARAM_TABLE -->
+
+<table>
+<thead>
+<tr>
+<th>Architecture</th>
+<th align="right">Total parameters</th>
+<th align="right">Trainable Full</th>
+<th align="right">Trainable Frozen</th>
+<th align="right">Trainable Partial</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ResNet50</td>
+<td align="right">23,516,228</td>
+<td align="right">23,516,228</td>
+<td align="right">8,196</td>
+<td align="right">14,972,932</td>
+</tr>
+<tr>
+<td>EfficientNet-B0</td>
+<td align="right">4,012,672</td>
+<td align="right">4,012,672</td>
+<td align="right">5,124</td>
+<td align="right">1,134,516</td>
+</tr>
+<tr>
+<td>MobileNetV3-Large</td>
+<td align="right">4,207,156</td>
+<td align="right">4,207,156</td>
+<td align="right">1,235,204</td>
+<td align="right">3,414,668</td>
+</tr>
+<tr>
+<td>DenseNet121</td>
+<td align="right">6,957,956</td>
+<td align="right">6,957,956</td>
+<td align="right">4,100</td>
+<td align="right">2,164,228</td>
+</tr>
+<tr>
+<td>ConvNeXt-Tiny</td>
+<td align="right">27,823,204</td>
+<td align="right">27,823,204</td>
+<td align="right">4,612</td>
+<td align="right">14,294,020</td>
+</tr>
+</tbody></table>
+<!-- /generated:PARAM_TABLE -->
+
+<h4>Checkpoint distributions</h4>
+<details>
+<summary>Validation Macro F1 and selected-epoch distributions</summary>
+
+<p><img src="report/report_assets/latest/checkpoint_boxes_resnet50.svg" alt="ResNet50 checkpoint distributions"></p>
+<p><img src="report/report_assets/latest/checkpoint_boxes_efficientnet_b0.svg" alt="EfficientNet-B0 checkpoint distributions"></p>
+<p><img src="report/report_assets/latest/checkpoint_boxes_mobilenet_v3_large.svg" alt="MobileNetV3-Large checkpoint distributions"></p>
+<p><img src="report/report_assets/latest/checkpoint_boxes_densenet121.svg" alt="DenseNet121 checkpoint distributions"></p>
+<p><img src="report/report_assets/latest/checkpoint_boxes_convnext_tiny.svg" alt="ConvNeXt-Tiny checkpoint distributions"></p>
+<p>กล่องแสดง IQR และมัธยฐาน ปลายเส้นคือ min–max ที่สังเกต และจุดคือแต่ละ seed เป็นการกระจาย ณ selected checkpoint ส่วนพัฒนาการราย epoch แสดงในหัวข้อ 6.2</p>
+</details>
+
+<p><a href="report/report_assets/learning_curves/all_pairs_grid.png">Archived curve exports</a> · <a href="report/learning_curve_sources.json">Archived source mapping</a></p>
+<h4>Training dynamics</h4>
+<!-- generated:DYNAMICS_TABLE -->
+
+<table>
+<thead>
+<tr>
+<th>Setup</th>
+<th align="right">Mean selected epoch</th>
+<th align="right">Mean stop epoch</th>
+<th align="right">Training F1 (%)</th>
+<th align="right">Validation F1 (%)</th>
+<th align="right">Late loss divergence (runs)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ResNet50/Full</td>
+<td align="right">8.4</td>
+<td align="right">15.4</td>
+<td align="right">97.07</td>
+<td align="right">94.02</td>
+<td align="right">5/5</td>
+</tr>
+<tr>
+<td>ResNet50/Frozen</td>
+<td align="right">15.6</td>
+<td align="right">19.2</td>
+<td align="right">88.55</td>
+<td align="right">88.86</td>
+<td align="right">0/5</td>
+</tr>
+<tr>
+<td>ResNet50/Partial</td>
+<td align="right">12.6</td>
+<td align="right">19.6</td>
+<td align="right">98.91</td>
+<td align="right">94.80</td>
+<td align="right">4/5</td>
+</tr>
+<tr>
+<td>EfficientNet-B0/Full</td>
+<td align="right">17.6</td>
+<td align="right">23.6</td>
+<td align="right">99.41</td>
+<td align="right">93.76</td>
+<td align="right">1/5</td>
+</tr>
+<tr>
+<td>EfficientNet-B0/Frozen</td>
+<td align="right">15.8</td>
+<td align="right">18.6</td>
+<td align="right">88.53</td>
+<td align="right">85.93</td>
+<td align="right">0/5</td>
+</tr>
+<tr>
+<td>EfficientNet-B0/Partial</td>
+<td align="right">7.8</td>
+<td align="right">14.6</td>
+<td align="right">97.56</td>
+<td align="right">88.26</td>
+<td align="right">5/5</td>
+</tr>
+<tr>
+<td>MobileNetV3-Large/Full</td>
+<td align="right">13.4</td>
+<td align="right">20.4</td>
+<td align="right">99.29</td>
+<td align="right">93.35</td>
+<td align="right">2/5</td>
+</tr>
+<tr>
+<td>MobileNetV3-Large/Frozen</td>
+<td align="right">17.2</td>
+<td align="right">23.8</td>
+<td align="right">95.87</td>
+<td align="right">91.11</td>
+<td align="right">1/5</td>
+</tr>
+<tr>
+<td>MobileNetV3-Large/Partial</td>
+<td align="right">11.4</td>
+<td align="right">17.8</td>
+<td align="right">98.82</td>
+<td align="right">94.88</td>
+<td align="right">3/5</td>
+</tr>
+<tr>
+<td>DenseNet121/Full</td>
+<td align="right">12.4</td>
+<td align="right">18.8</td>
+<td align="right">99.95</td>
+<td align="right">94.42</td>
+<td align="right">2/5</td>
+</tr>
+<tr>
+<td>DenseNet121/Frozen</td>
+<td align="right">21.4</td>
+<td align="right">25.0</td>
+<td align="right">90.49</td>
+<td align="right">89.63</td>
+<td align="right">0/5</td>
+</tr>
+<tr>
+<td>DenseNet121/Partial</td>
+<td align="right">9.6</td>
+<td align="right">16.6</td>
+<td align="right">98.49</td>
+<td align="right">93.03</td>
+<td align="right">4/5</td>
+</tr>
+<tr>
+<td>ConvNeXt-Tiny/Full</td>
+<td align="right">8.4</td>
+<td align="right">15.4</td>
+<td align="right">99.82</td>
+<td align="right">93.38</td>
+<td align="right">3/5</td>
+</tr>
+<tr>
+<td>ConvNeXt-Tiny/Frozen</td>
+<td align="right">13.2</td>
+<td align="right">18.2</td>
+<td align="right">89.13</td>
+<td align="right">88.26</td>
+<td align="right">0/5</td>
+</tr>
+<tr>
+<td>ConvNeXt-Tiny/Partial</td>
+<td align="right">9.6</td>
+<td align="right">15.2</td>
+<td align="right">99.17</td>
+<td align="right">93.54</td>
+<td align="right">4/5</td>
+</tr>
+</tbody></table>
+<!-- /generated:DYNAMICS_TABLE -->
+
+<p>คอลัมน์สุดท้ายนับ runs ที่ train loss ณ epoch สุดท้ายต่ำกว่าที่ checkpoint แต่ validation loss สูงกว่า เป็นสัญญาณการแยกตัวช่วงท้ายตามนิยามนี้ ยังไม่ใช่การวินิจฉัย overfitting โดยตรง Train metrics มาจากภาพที่ทำ augmentation จึงมีเงื่อนไขต่างจาก validation</p>
+<h4>Frequent classification errors</h4>
+<!-- generated:ERROR_TABLE -->
+
+<table>
+<thead>
+<tr>
+<th>Image ID (stem)</th>
+<th>True class</th>
+<th align="right">Errors / 75</th>
+<th align="right">Reference errors / 5</th>
+<th align="right">ResNet Full errors / 5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>san_phraphum_0043</td>
+<td>พระภูมิ</td>
+<td align="right">69</td>
+<td align="right">2</td>
+<td align="right">5</td>
+</tr>
+<tr>
+<td>san_phraphum_0121</td>
+<td>พระภูมิ</td>
+<td align="right">66</td>
+<td align="right">5</td>
+<td align="right">4</td>
+</tr>
+<tr>
+<td>san_phraphum_0114</td>
+<td>พระภูมิ</td>
+<td align="right">60</td>
+<td align="right">3</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td>san_phraphum_0015</td>
+<td>พระภูมิ</td>
+<td align="right">42</td>
+<td align="right">3</td>
+<td align="right">4</td>
+</tr>
+<tr>
+<td>san_phraphum_0076</td>
+<td>พระภูมิ</td>
+<td align="right">42</td>
+<td align="right">3</td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td>san_phraphum_0113</td>
+<td>พระภูมิ</td>
+<td align="right">35</td>
+<td align="right">3</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td>san_tayay_0046</td>
+<td>ตายาย</td>
+<td align="right">32</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td>san_tayay_0093</td>
+<td>ตายาย</td>
+<td align="right">28</td>
+<td align="right">0</td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td>tee_ju_eia_0061</td>
+<td>ตี่จู้เอี๊ยะ</td>
+<td align="right">23</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr>
+<td>san_phraphum_0064</td>
+<td>พระภูมิ</td>
+<td align="right">20</td>
+<td align="right">4</td>
+<td align="right">1</td>
+</tr>
+</tbody></table>
+<!-- /generated:ERROR_TABLE -->
+
+<p>นับบน test 85 ภาพเดิม ดูผลครบใน <a href="report/error_frequency.csv">error_frequency.csv</a> จำนวนครั้งจาก 75 runs ไม่ใช่ตัวอย่างอิสระ 75 ชุด</p>
+<h4>Experiment tracking and CoreWeave</h4>
+<p>บันทึกการทดลองอยู่ใน <a href="https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td">W&amp;B: thai-shrine-classifier-td</a> ส่วนเว็บไซต์ของ CoreWeave คือ <a href="https://coreweave.com/">coreweave.com</a></p>
+<p>ไฟล์ environment บันทึกเครื่อง Windows/RTX 5060 จึงยังไม่ยืนยันว่ารันบน CoreWeave Registry ระบุ online สำหรับงานหลัก 150 runs และ ablation เพิ่ม 10 runs แต่ยังไม่ได้ตรวจ cloud artifacts ครบทุกชิ้น</p>
+<h4>Rendering the report from saved results</h4>
+<p>คำสั่งต่อไปนี้ใช้เฉพาะ Node.js เพื่อจัดรูปและตารางจากไฟล์เดิม</p>
+<pre><code class="language-powershell">node report/generate_latest_figures.js
+node report/generate_selected_model_calibration.js
+node report/generate_followup_figures.js
+node report/generate_context_figures.js
+node report/revise_readme_figures.js
+node report/render_readme.js
+</code></pre>
+<p>หลังใช้คำสั่ง <code>python resnet_followup.py --stage report</code> ซึ่ง export รูปแบบเดิม ให้ใช้ <code>node report/render_readme.js</code> เพื่อคืนรูปแบบภาษาและหน่วยของรายงานฉบับนี้ โดยอ่านเฉพาะผลที่มีอยู่</p>
+<p>สคริปต์ <a href="report/generate_matched_mobilenet_cam.py">generate_matched_mobilenet_cam.py</a> ใช้สร้าง MobileNet CAM บน 8 ภาพเดียวกับ ResNet จาก checkpoint เดิม ขั้นตอนนี้รันเสร็จแล้วตามการอนุญาตเฉพาะครั้ง จึงใช้ผลที่บันทึกไว้ในการจัดรูปครั้งถัดไปได้</p>
+<h3>D. Report files</h3>
+<p>ผลตรวจฉบับนี้: <a href="report/readme_revision_evidence.json">revision evidence</a>, <a href="report/qa/readme_revision_checks.json">numerical and preservation checks</a>, <a href="report/qa/presentation_validation.json">table and link validation</a> และ <a href="report/qa/readme_render_validation.json">offline render validation</a> ส่วน <a href="report/qa/report_revision_validation.json">previous revision validation</a> เป็นบันทึกตรวจฉบับก่อนหน้า</p>
+<p>กราฟเชิงตัวเลขอ่านจากผลที่บันทึกไว้: <a href="report/enhanced_figure_sources.json">enhanced figure sources</a>, <a href="report/image_property_histograms.csv">histogram values</a>, <a href="report/colour_mode_counts.csv">colour-mode counts</a>, <a href="report/tuning_checkpoint_observations.csv">tuning observations</a>, <a href="report/learning_curve_summary.csv">learning-curve summary</a> และ <a href="report/final_checkpoint_summary.csv">final checkpoints</a> ตัวสร้างคือ <a href="report/generate_learning_report.js">generate_learning_report.js</a> ซึ่งถูกเรียกโดย generate_latest_figures.js ส่วน MobileNet CAM บน 8 ภาพที่จับคู่กันเป็น inference เพิ่มจาก checkpoint เดิมตามที่อนุญาต แล้วจัดรูปด้วย <a href="report/revise_readme_figures.js">revise_readme_figures.js</a></p>
+<ul>
+<li>ที่มาและการตรวจ: <a href="report/report_inventory.md">report_inventory.md</a> · <a href="report/report_validation.md">report_validation.md</a></li>
+<li>ผลราย run และสรุป: <a href="report/verified_run_metrics.csv">verified_run_metrics.csv</a> · <a href="report/verified_pair_summary.csv">verified_pair_summary.csv</a> · <a href="report/verified_per_class_summary.csv">verified_per_class_summary.csv</a></li>
+<li>สถิติ: <a href="report/verified_statistics.csv">verified_statistics.csv</a></li>
+<li>ResNet50 follow-up: <a href="report/resnet_followup_sources.json">resnet_followup_sources.json</a> · <a href="report/resnet_followup_verification.json">resnet_followup_verification.json</a> · <a href="report/verify_resnet_followup.js">verify_resnet_followup.js</a></li>
+<li>โมเดลที่เลือกและ calibration: <a href="report/selected_model_report_sources.json">selected_model_report_sources.json</a> · <a href="report/generate_selected_model_calibration.js">generate_selected_model_calibration.js</a></li>
+<li>กราฟรอบล่าสุด: <a href="report/generate_latest_figures.js">generate_latest_figures.js</a> · <a href="report/latest_figure_sources.json">latest_figure_sources.json</a> · <a href="report/derived_brightness.csv">derived_brightness.csv</a> · <a href="report/confusion_mean_sd.csv">confusion_mean_sd.csv</a></li>
+<li>Preprocessing: <a href="report/generate_preprocessing_examples.js">generate_preprocessing_examples.js</a> · <a href="report/preprocessing_preview_sources.json">preprocessing_preview_sources.json</a></li>
+<li>Learning curves: <a href="report/learning_curve_sources.json">learning_curve_sources.json</a> · <a href="report/learning_curve_epoch_counts.csv">learning_curve_epoch_counts.csv</a></li>
+<li>การตรวจรูปแบบ: <a href="report/qa/presentation_validation.json">presentation_validation.json</a> · <a href="report/qa/evidence_preservation.json">evidence_preservation.json</a></li>
+<li>รูปแบบรายงาน: <a href="report/readme_template.md">readme_template.md</a> · <a href="report/render_readme.js">render_readme.js</a> · <a href="report/figure_theme.js">figure_theme.js</a></li>
+<li>ภาพบริบทที่ปรับหน่วย: <a href="report/generate_context_figures.js">generate_context_figures.js</a> · <a href="report/context_figure_sources.json">context_figure_sources.json</a></li>
+<li>รูป follow-up ที่จัดใหม่: <a href="report/generate_followup_figures.js">generate_followup_figures.js</a> · <a href="report/followup_figure_sources.json">followup_figure_sources.json</a></li>
+<li>ตรวจตัวเลข: <a href="report/build_report.ps1">build_report.ps1</a></li>
+<li>ตรวจฉบับปรับปรุง: <a href="report/verify_readme_revision.js">verify_readme_revision.js</a></li>
+</ul>
+<p>ผลเชิงตัวเลขทั้งหมดมาจากการทดลองรอบ <code>outputs_modes_v3_td</code> ส่วน audit, canonical split และ ImageNet baseline บางส่วนเป็นหลักฐานเดิมที่ใช้ข้อมูลชุดเดียวกัน และมีสำเนาใน output ล่าสุด รายละเอียดการคัดผลรอบอื่นออกอยู่ใน inventory</p>
+<hr>
+</body></html>

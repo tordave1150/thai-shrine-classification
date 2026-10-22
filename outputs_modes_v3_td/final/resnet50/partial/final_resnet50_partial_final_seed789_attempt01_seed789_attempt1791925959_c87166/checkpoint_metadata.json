@@ -1,0 +1,69 @@
+{
+  "checkpoint": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\final\\resnet50\\partial\\final_resnet50_partial_final_seed789_attempt01_seed789_attempt1791925959_c87166\\best_resnet50_partial_seed789.pt",
+  "architecture": "resnet50",
+  "mode": "partial",
+  "seed": 789,
+  "status": "completed",
+  "trial": null,
+  "run_identity": "final_seed789_attempt01",
+  "best_epoch": 13,
+  "best_val_acc": 0.9411764705882353,
+  "best_val_macro_f1": 0.9326981761407991,
+  "best_val_loss": 0.26936170456602293,
+  "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\final\\resnet50\\partial\\final_resnet50_partial_final_seed789_attempt01_seed789_attempt1791925959_c87166",
+  "epochs_completed": 20,
+  "tracking_mode": "online",
+  "tracking_error": null,
+  "wandb_run_id": "nsztvfrx",
+  "wandb_run_url": "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/nsztvfrx",
+  "test_loss": 0.30991462824920957,
+  "test_acc": 0.9411764705882353,
+  "test_macro_precision": 0.9364583333333334,
+  "test_macro_recall": 0.9288194444444444,
+  "test_macro_f1": 0.9298295454545455,
+  "per_class": {
+    "san_phraphrom": {
+      "precision": 0.9375,
+      "recall": 0.9375,
+      "f1": 0.9375,
+      "support": 16
+    },
+    "san_phraphum": {
+      "precision": 0.9333333333333333,
+      "recall": 0.7777777777777778,
+      "f1": 0.8484848484848485,
+      "support": 18
+    },
+    "san_tayay": {
+      "precision": 0.875,
+      "recall": 1.0,
+      "f1": 0.9333333333333333,
+      "support": 21
+    },
+    "tee_ju_eia": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 30
+    }
+  },
+  "mode_stats": {
+    "architecture": "resnet50",
+    "mode": "partial",
+    "total_parameters": 23516228,
+    "trainable_parameters": 14972932,
+    "frozen_parameters": 8543296,
+    "trainable_module_names": [
+      "layer4",
+      "fc"
+    ],
+    "bn_buffer_policy": "frozen backbone BN buffers do not update (module in eval mode during training)"
+  },
+  "class_order": [
+    "san_phraphrom",
+    "san_phraphum",
+    "san_tayay",
+    "tee_ju_eia"
+  ],
+  "split_sha256": "3eb9c4f3adda4a64536f809fbad5f8801a27d83265d2c753b8f98c6ae93f837f"
+}

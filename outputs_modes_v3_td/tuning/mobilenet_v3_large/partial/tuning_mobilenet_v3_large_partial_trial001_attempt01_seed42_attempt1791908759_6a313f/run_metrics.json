@@ -1,0 +1,19 @@
+{
+  "architecture": "mobilenet_v3_large",
+  "mode": "partial",
+  "seed": 42,
+  "status": "completed",
+  "trial": 1,
+  "run_identity": "trial001_attempt01",
+  "best_epoch": 6,
+  "best_val_acc": 0.9058823529411765,
+  "best_val_macro_f1": 0.8937017882187939,
+  "best_val_loss": 0.4354485102240955,
+  "checkpoint": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\tuning\\mobilenet_v3_large\\partial\\tuning_mobilenet_v3_large_partial_trial001_attempt01_seed42_attempt1791908759_6a313f\\best_mobilenet_v3_large_partial_seed42.pt",
+  "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\tuning\\mobilenet_v3_large\\partial\\tuning_mobilenet_v3_large_partial_trial001_attempt01_seed42_attempt1791908759_6a313f",
+  "epochs_completed": 13,
+  "tracking_mode": "online",
+  "tracking_error": null,
+  "wandb_run_id": "30ube45v",
+  "wandb_run_url": "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/30ube45v"
+}

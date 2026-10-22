@@ -1,0 +1,74 @@
+{
+  "checkpoint": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\final\\resnet50\\full\\final_resnet50_full_final_seed42_attempt01_seed42_attempt1791923692_f3aaf4\\best_resnet50_full_seed42.pt",
+  "architecture": "resnet50",
+  "mode": "full",
+  "seed": 42,
+  "status": "completed",
+  "trial": null,
+  "run_identity": "final_seed42_attempt01",
+  "best_epoch": 3,
+  "best_val_acc": 0.9411764705882353,
+  "best_val_macro_f1": 0.9316993464052288,
+  "best_val_loss": 0.17676080693216883,
+  "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\final\\resnet50\\full\\final_resnet50_full_final_seed42_attempt01_seed42_attempt1791923692_f3aaf4",
+  "epochs_completed": 10,
+  "tracking_mode": "online",
+  "tracking_error": null,
+  "wandb_run_id": "2t5nkm79",
+  "wandb_run_url": "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/2t5nkm79",
+  "test_loss": 0.2163934738649165,
+  "test_acc": 0.9411764705882353,
+  "test_macro_precision": 0.9319548872180451,
+  "test_macro_recall": 0.9325396825396826,
+  "test_macro_f1": 0.9287878787878787,
+  "per_class": {
+    "san_phraphrom": {
+      "precision": 0.8421052631578947,
+      "recall": 1.0,
+      "f1": 0.9142857142857143,
+      "support": 16
+    },
+    "san_phraphum": {
+      "precision": 0.9333333333333333,
+      "recall": 0.7777777777777778,
+      "f1": 0.8484848484848485,
+      "support": 18
+    },
+    "san_tayay": {
+      "precision": 0.9523809523809523,
+      "recall": 0.9523809523809523,
+      "f1": 0.9523809523809523,
+      "support": 21
+    },
+    "tee_ju_eia": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 30
+    }
+  },
+  "mode_stats": {
+    "architecture": "resnet50",
+    "mode": "full",
+    "total_parameters": 23516228,
+    "trainable_parameters": 23516228,
+    "frozen_parameters": 0,
+    "trainable_module_names": [
+      "conv1",
+      "bn1",
+      "layer1",
+      "layer2",
+      "layer3",
+      "layer4",
+      "fc"
+    ],
+    "bn_buffer_policy": "all BN buffers update normally (full fine-tuning)"
+  },
+  "class_order": [
+    "san_phraphrom",
+    "san_phraphum",
+    "san_tayay",
+    "tee_ju_eia"
+  ],
+  "split_sha256": "3eb9c4f3adda4a64536f809fbad5f8801a27d83265d2c753b8f98c6ae93f837f"
+}

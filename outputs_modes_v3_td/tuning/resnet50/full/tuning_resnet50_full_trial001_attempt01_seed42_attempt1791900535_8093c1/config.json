@@ -1,0 +1,70 @@
+{
+  "learning_rate": 0.00035311169138214097,
+  "weight_decay": 5.695262671673527e-05,
+  "optimizer": "adam",
+  "batch_size": 32,
+  "architecture": "resnet50",
+  "mode": "full",
+  "seed": 42,
+  "trial": 1,
+  "epochs": 30,
+  "patience": 7,
+  "min_delta": 0.0001,
+  "input_size": 224,
+  "augmentation": true,
+  "use_class_weights": true,
+  "optimizer_defaults": {
+    "sgd_momentum": 0.9,
+    "sgd_nesterov": true,
+    "adam_betas": [
+      0.9,
+      0.999
+    ],
+    "epsilon": 1e-08,
+    "weight_decay_mode": "optimizer default"
+  },
+  "protocol_fingerprint": "3a6107dd427e01f1e9d3dd3519b411450a5019505601805c1c1ebe606bf678db",
+  "dataset_fingerprint": "e854495869473ea313b2c455781479f1d619ac0f67c28318e8c3c01f391bd47b",
+  "split_assignment_fingerprint": "2080b705f420a4c0dc10d18315468788385cca46fa248fa189579f84dc00bdc5",
+  "code_fingerprint": "6f5f6441fb23c82fb7352342963ecfe6f18655671afb081275be40a965d7b9db",
+  "amp": false,
+  "weights": "ResNet50_Weights.DEFAULT",
+  "cam_layer": "layer4[-1]",
+  "num_classes": 4,
+  "pretrained": true,
+  "stage": "tuning",
+  "mode_stats": {
+    "architecture": "resnet50",
+    "mode": "full",
+    "total_parameters": 23516228,
+    "trainable_parameters": 23516228,
+    "frozen_parameters": 0,
+    "trainable_module_names": [
+      "conv1",
+      "bn1",
+      "layer1",
+      "layer2",
+      "layer3",
+      "layer4",
+      "fc"
+    ],
+    "bn_buffer_policy": "all BN buffers update normally (full fine-tuning)"
+  },
+  "run_identity": "trial001_attempt01",
+  "early_stopping_patience": 7,
+  "scheduler": "ReduceLROnPlateau(mode=max,factor=0.5,patience=3)",
+  "device": "cuda",
+  "class_weights": [
+    1.3928571939468384,
+    1.0955055952072144,
+    1.0714285373687744,
+    0.6964285969734192
+  ],
+  "split_csv": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\splits.csv",
+  "split_sha256": "3eb9c4f3adda4a64536f809fbad5f8801a27d83265d2c753b8f98c6ae93f837f",
+  "black_threshold": 10,
+  "padding_policy": "neutral ImageNet mean; cleaned source",
+  "class_weight_policy": "inverse train frequency",
+  "augmentation_policy": "mild train-only",
+  "trainable_parameters": 23516228
+}

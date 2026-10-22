@@ -1,0 +1,14 @@
+{
+  "architecture": "convnext_tiny",
+  "seed": 42,
+  "status": "completed",
+  "best_epoch": 29,
+  "best_val_acc": 0.8705882352941177,
+  "best_val_macro_f1": 0.8508047286711294,
+  "best_val_loss": 0.45055328817928536,
+  "checkpoint": "C:\\Users\\User\\Desktop\\deep\\outputs\\tuning\\convnext_tiny_seed42_1791312823_6921d3\\best_convnext_tiny_seed42.pt",
+  "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs\\tuning\\convnext_tiny_seed42_1791312823_6921d3",
+  "epochs_completed": 30,
+  "tracking_mode": "online",
+  "tracking_error": null
+}

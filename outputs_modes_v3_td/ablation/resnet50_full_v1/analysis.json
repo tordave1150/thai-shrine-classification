@@ -1,0 +1,18 @@
+{
+  "study_fingerprint": "e83947f7b3ab4e481342d08fe3ead78f0620908e498e2f77301317b8527451ff",
+  "completed_new_runs": 10,
+  "baseline_reused": 5,
+  "exploratory": true,
+  "figures": [
+    "ablation_summary.png"
+  ],
+  "registry_sha256": "da9e721794297934e1bb0c20963a3b438abedc6d5b1c4e717d81fe305b62e4db",
+  "artifact_sha256": {
+    "condition_summary.csv": "91e0d80d641efaea9e9766927f3762a54ee78cc291c09d7d80316f30b4343a39",
+    "per_class_summary.csv": "d8fa466eeaff29c73fb8ab4ae92c17a59b42ccd0244a1e10cbb0baa7e76a48ba",
+    "matched_deltas.csv": "99121c045fdb9e54d9105c8d756c0dd9a907a682213fa2fa269bd74556db3a5a",
+    "statistical_tests.csv": "7d3ba8382f684cbe82a8ad9e0abc54938a979a425877909efc73c68627ced552",
+    "ablation_summary.png": "fd6eb8c759184cc57aa391a7ab27a0a1c18433a7ceb0e574d48a73b0ab9a01de"
+  },
+  "note": "Seed variation on a previously examined split, not independent external confirmation. Weighted/unweighted loss values are not directly comparable."
+}

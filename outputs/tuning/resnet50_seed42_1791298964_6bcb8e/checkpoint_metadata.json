@@ -1,0 +1,21 @@
+{
+  "checkpoint": "C:\\Users\\User\\Desktop\\deep\\outputs\\tuning\\resnet50_seed42_1791298964_6bcb8e\\best_resnet50_seed42.pt",
+  "architecture": "resnet50",
+  "seed": 42,
+  "status": "completed",
+  "best_epoch": 12,
+  "best_val_acc": 0.9411764705882353,
+  "best_val_macro_f1": 0.9333964646464646,
+  "best_val_loss": 0.2377196301432217,
+  "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs\\tuning\\resnet50_seed42_1791298964_6bcb8e",
+  "epochs_completed": 19,
+  "tracking_mode": "online",
+  "tracking_error": null,
+  "class_order": [
+    "san_phraphrom",
+    "san_phraphum",
+    "san_tayay",
+    "tee_ju_eia"
+  ],
+  "split_sha256": "3eb9c4f3adda4a64536f809fbad5f8801a27d83265d2c753b8f98c6ae93f837f"
+}

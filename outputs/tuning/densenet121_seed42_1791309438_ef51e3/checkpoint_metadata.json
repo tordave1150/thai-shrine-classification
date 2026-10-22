@@ -1,0 +1,21 @@
+{
+  "checkpoint": "C:\\Users\\User\\Desktop\\deep\\outputs\\tuning\\densenet121_seed42_1791309438_ef51e3\\best_densenet121_seed42.pt",
+  "architecture": "densenet121",
+  "seed": 42,
+  "status": "completed",
+  "best_epoch": 20,
+  "best_val_acc": 0.9529411764705882,
+  "best_val_macro_f1": 0.9445075757575758,
+  "best_val_loss": 0.23023057238144032,
+  "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs\\tuning\\densenet121_seed42_1791309438_ef51e3",
+  "epochs_completed": 27,
+  "tracking_mode": "online",
+  "tracking_error": null,
+  "class_order": [
+    "san_phraphrom",
+    "san_phraphum",
+    "san_tayay",
+    "tee_ju_eia"
+  ],
+  "split_sha256": "3eb9c4f3adda4a64536f809fbad5f8801a27d83265d2c753b8f98c6ae93f837f"
+}

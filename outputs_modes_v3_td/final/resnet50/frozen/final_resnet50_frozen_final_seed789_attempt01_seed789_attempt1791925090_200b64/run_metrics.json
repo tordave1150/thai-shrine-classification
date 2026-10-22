@@ -1,0 +1,50 @@
+{
+  "architecture": "resnet50",
+  "mode": "frozen",
+  "seed": 789,
+  "status": "completed",
+  "trial": null,
+  "run_identity": "final_seed789_attempt01",
+  "best_epoch": 15,
+  "best_val_acc": 0.9058823529411765,
+  "best_val_macro_f1": 0.8917082211729404,
+  "best_val_loss": 0.5171484631650588,
+  "checkpoint": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\final\\resnet50\\frozen\\final_resnet50_frozen_final_seed789_attempt01_seed789_attempt1791925090_200b64\\best_resnet50_frozen_seed789.pt",
+  "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\final\\resnet50\\frozen\\final_resnet50_frozen_final_seed789_attempt01_seed789_attempt1791925090_200b64",
+  "epochs_completed": 19,
+  "tracking_mode": "online",
+  "tracking_error": null,
+  "wandb_run_id": "94knsklt",
+  "wandb_run_url": "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/94knsklt",
+  "test_loss": 0.5212033871342154,
+  "test_acc": 0.8705882352941177,
+  "test_macro_precision": 0.8711194214922614,
+  "test_macro_recall": 0.861061507936508,
+  "test_macro_f1": 0.8615767534793992,
+  "per_class": {
+    "san_phraphrom": {
+      "precision": 0.9285714285714286,
+      "recall": 0.8125,
+      "f1": 0.8666666666666667,
+      "support": 16
+    },
+    "san_phraphum": {
+      "precision": 0.6956521739130435,
+      "recall": 0.8888888888888888,
+      "f1": 0.7804878048780488,
+      "support": 18
+    },
+    "san_tayay": {
+      "precision": 0.8947368421052632,
+      "recall": 0.8095238095238095,
+      "f1": 0.85,
+      "support": 21
+    },
+    "tee_ju_eia": {
+      "precision": 0.9655172413793104,
+      "recall": 0.9333333333333333,
+      "f1": 0.9491525423728814,
+      "support": 30
+    }
+  }
+}

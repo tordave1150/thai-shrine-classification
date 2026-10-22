@@ -1,0 +1,14 @@
+{
+  "architecture": "efficientnet_b0",
+  "seed": 42,
+  "status": "completed",
+  "best_epoch": 7,
+  "best_val_acc": 0.9411764705882353,
+  "best_val_macro_f1": 0.9317460317460318,
+  "best_val_loss": 0.2640577239148757,
+  "checkpoint": "C:\\Users\\User\\Desktop\\deep\\outputs\\screen\\efficientnet_b0_seed42_1791296496_aefdcf\\best_efficientnet_b0_seed42.pt",
+  "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs\\screen\\efficientnet_b0_seed42_1791296496_aefdcf",
+  "epochs_completed": 14,
+  "tracking_mode": "online",
+  "tracking_error": null
+}

@@ -1,0 +1,22 @@
+{
+  "created_utc": "2026-10-06T19:19:10.657126+00:00",
+  "selection_metric": "best tuned validation macro F1",
+  "reference_architecture": "resnet50",
+  "representative_seed": 42,
+  "architectures": [
+    "resnet50",
+    "efficientnet_b0",
+    "mobilenet_v3_large",
+    "densenet121",
+    "convnext_tiny"
+  ],
+  "seeds": [
+    42,
+    123,
+    456,
+    789,
+    1024
+  ],
+  "split_sha256": "2080b705f420a4c0dc10d18315468788385cca46fa248fa189579f84dc00bdc5",
+  "test_metrics_read": false
+}

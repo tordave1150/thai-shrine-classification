@@ -1,0 +1,51 @@
+{
+  "checkpoint": "C:\\Users\\User\\Desktop\\deep\\outputs\\final\\resnet50_seed42_1791375290_77a0c1\\best_resnet50_seed42.pt",
+  "architecture": "resnet50",
+  "seed": 42,
+  "status": "completed",
+  "best_epoch": 7,
+  "best_val_acc": 0.9647058823529412,
+  "best_val_macro_f1": 0.959830866807611,
+  "best_val_loss": 0.26391670528580163,
+  "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs\\final\\resnet50_seed42_1791375290_77a0c1",
+  "epochs_completed": 14,
+  "tracking_mode": "online",
+  "tracking_error": null,
+  "test_acc": 0.9294117647058824,
+  "test_macro_precision": 0.9239885265700483,
+  "test_macro_recall": 0.9297619047619048,
+  "test_macro_f1": 0.9245343905587313,
+  "per_class": {
+    "san_phraphrom": {
+      "precision": 0.8888888888888888,
+      "recall": 1.0,
+      "f1": 0.9411764705882353,
+      "support": 16
+    },
+    "san_phraphum": {
+      "precision": 0.9375,
+      "recall": 0.8333333333333334,
+      "f1": 0.8823529411764706,
+      "support": 18
+    },
+    "san_tayay": {
+      "precision": 0.8695652173913043,
+      "recall": 0.9523809523809523,
+      "f1": 0.9090909090909091,
+      "support": 21
+    },
+    "tee_ju_eia": {
+      "precision": 1.0,
+      "recall": 0.9333333333333333,
+      "f1": 0.9655172413793104,
+      "support": 30
+    }
+  },
+  "class_order": [
+    "san_phraphrom",
+    "san_phraphum",
+    "san_tayay",
+    "tee_ju_eia"
+  ],
+  "split_sha256": "3eb9c4f3adda4a64536f809fbad5f8801a27d83265d2c753b8f98c6ae93f837f"
+}

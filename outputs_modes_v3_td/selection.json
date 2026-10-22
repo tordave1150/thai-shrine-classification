@@ -1,0 +1,49 @@
+{
+  "protocol_fingerprint": "3a6107dd427e01f1e9d3dd3519b411450a5019505601805c1c1ebe606bf678db",
+  "source_fingerprint": "e854495869473ea313b2c455781479f1d619ac0f67c28318e8c3c01f391bd47b",
+  "split_file_sha256": "3eb9c4f3adda4a64536f809fbad5f8801a27d83265d2c753b8f98c6ae93f837f",
+  "split_assignment_fingerprint": "2080b705f420a4c0dc10d18315468788385cca46fa248fa189579f84dc00bdc5",
+  "architectures": [
+    "resnet50",
+    "efficientnet_b0",
+    "mobilenet_v3_large",
+    "densenet121",
+    "convnext_tiny"
+  ],
+  "modes": [
+    "full",
+    "frozen",
+    "partial"
+  ],
+  "seeds": [
+    42,
+    123,
+    456,
+    789,
+    1024
+  ],
+  "representative_seed": 42,
+  "epochs": 30,
+  "trials_per_pair": 5,
+  "tuned_pair_count": 15,
+  "reference_pair": {
+    "architecture": "mobilenet_v3_large",
+    "mode": "partial"
+  },
+  "reference_validation": {
+    "best_val_macro_f1": 0.9733766233766235,
+    "best_val_acc": 0.9764705882352941,
+    "best_val_loss": 0.17178240784389132
+  },
+  "primary_holm_family": {
+    "family_id": "reference_vs_other_pairs_accuracy_macro_f1",
+    "planned_size": 28
+  },
+  "secondary_holm_family": {
+    "family_id": "within_architecture_mode_pairs_accuracy_macro_f1",
+    "planned_size": 30
+  },
+  "test_metrics_read": false,
+  "locked_utc": "2026-10-13T20:34:08.672276+00:00",
+  "selection_fingerprint": "7a8d9b146331e5d9b8d645c9baf05272ee8e19f0bf3c7542b3218ead70c76ecd"
+}

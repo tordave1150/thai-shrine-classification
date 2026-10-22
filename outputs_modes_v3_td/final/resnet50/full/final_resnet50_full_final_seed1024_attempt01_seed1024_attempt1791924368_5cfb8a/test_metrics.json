@@ -1,0 +1,97 @@
+{
+  "accuracy": 0.9294117647058824,
+  "macro_precision": 0.9173715538847118,
+  "macro_recall": 0.9242063492063493,
+  "macro_f1": 0.91831173147225,
+  "per_class": {
+    "san_phraphrom": {
+      "precision": 0.8421052631578947,
+      "recall": 1.0,
+      "f1": 0.9142857142857143,
+      "support": 16
+    },
+    "san_phraphum": {
+      "precision": 0.875,
+      "recall": 0.7777777777777778,
+      "f1": 0.8235294117647058,
+      "support": 18
+    },
+    "san_tayay": {
+      "precision": 0.9523809523809523,
+      "recall": 0.9523809523809523,
+      "f1": 0.9523809523809523,
+      "support": 21
+    },
+    "tee_ju_eia": {
+      "precision": 1.0,
+      "recall": 0.9666666666666667,
+      "f1": 0.9830508474576272,
+      "support": 30
+    }
+  },
+  "confusion_matrix": [
+    [
+      16,
+      0,
+      0,
+      0
+    ],
+    [
+      3,
+      14,
+      1,
+      0
+    ],
+    [
+      0,
+      1,
+      20,
+      0
+    ],
+    [
+      0,
+      1,
+      0,
+      29
+    ]
+  ],
+  "classification_report": {
+    "san_phraphrom": {
+      "precision": 0.8421052631578947,
+      "recall": 1.0,
+      "f1-score": 0.9142857142857143,
+      "support": 16.0
+    },
+    "san_phraphum": {
+      "precision": 0.875,
+      "recall": 0.7777777777777778,
+      "f1-score": 0.8235294117647058,
+      "support": 18.0
+    },
+    "san_tayay": {
+      "precision": 0.9523809523809523,
+      "recall": 0.9523809523809523,
+      "f1-score": 0.9523809523809523,
+      "support": 21.0
+    },
+    "tee_ju_eia": {
+      "precision": 1.0,
+      "recall": 0.9666666666666667,
+      "f1-score": 0.9830508474576272,
+      "support": 30.0
+    },
+    "accuracy": 0.9294117647058824,
+    "macro avg": {
+      "precision": 0.9173715538847118,
+      "recall": 0.9242063492063493,
+      "f1-score": 0.91831173147225,
+      "support": 85.0
+    },
+    "weighted avg": {
+      "precision": 0.9320433436532508,
+      "recall": 0.9294117647058824,
+      "f1-score": 0.928748544283117,
+      "support": 85.0
+    }
+  }
+}

@@ -1,0 +1,79 @@
+[
+  {
+    "image_id": "san_phraphrom/san_phraphrom_0004",
+    "true_label": "san_phraphrom",
+    "predicted_label": "san_phraphrom",
+    "target_class": "san_phraphrom",
+    "confidence": 0.50821852684021,
+    "selection_reason": "lowest_confidence_correct_test_example",
+    "original": "san_phraphrom__san_phraphrom_0004_original.jpg",
+    "heatmap": "san_phraphrom__san_phraphrom_0004_heatmap.png",
+    "overlay": "san_phraphrom__san_phraphrom_0004_overlay.jpg"
+  },
+  {
+    "image_id": "san_phraphum/san_phraphum_0076",
+    "true_label": "san_phraphum",
+    "predicted_label": "san_phraphrom",
+    "target_class": "san_phraphrom",
+    "confidence": 0.8860746026039124,
+    "selection_reason": "misclassified_test_example",
+    "original": "san_phraphum__san_phraphum_0076_original.jpg",
+    "heatmap": "san_phraphum__san_phraphum_0076_heatmap.png",
+    "overlay": "san_phraphum__san_phraphum_0076_overlay.jpg"
+  },
+  {
+    "image_id": "san_phraphum/san_phraphum_0113",
+    "true_label": "san_phraphum",
+    "predicted_label": "san_phraphum",
+    "target_class": "san_phraphum",
+    "confidence": 0.49243947863578796,
+    "selection_reason": "lowest_confidence_correct_test_example",
+    "original": "san_phraphum__san_phraphum_0113_original.jpg",
+    "heatmap": "san_phraphum__san_phraphum_0113_heatmap.png",
+    "overlay": "san_phraphum__san_phraphum_0113_overlay.jpg"
+  },
+  {
+    "image_id": "san_tayay/san_tayay_0093",
+    "true_label": "san_tayay",
+    "predicted_label": "san_phraphum",
+    "target_class": "san_phraphum",
+    "confidence": 0.3825616240501404,
+    "selection_reason": "misclassified_test_example",
+    "original": "san_tayay__san_tayay_0093_original.jpg",
+    "heatmap": "san_tayay__san_tayay_0093_heatmap.png",
+    "overlay": "san_tayay__san_tayay_0093_overlay.jpg"
+  },
+  {
+    "image_id": "san_tayay/san_tayay_0046",
+    "true_label": "san_tayay",
+    "predicted_label": "san_tayay",
+    "target_class": "san_tayay",
+    "confidence": 0.4539850056171417,
+    "selection_reason": "lowest_confidence_correct_test_example",
+    "original": "san_tayay__san_tayay_0046_original.jpg",
+    "heatmap": "san_tayay__san_tayay_0046_heatmap.png",
+    "overlay": "san_tayay__san_tayay_0046_overlay.jpg"
+  },
+  {
+    "image_id": "tee_ju_eia/tee_ju_eia_0061",
+    "true_label": "tee_ju_eia",
+    "predicted_label": "san_tayay",
+    "target_class": "san_tayay",
+    "confidence": 0.3517332673072815,
+    "selection_reason": "misclassified_test_example",
+    "original": "tee_ju_eia__tee_ju_eia_0061_original.jpg",
+    "heatmap": "tee_ju_eia__tee_ju_eia_0061_heatmap.png",
+    "overlay": "tee_ju_eia__tee_ju_eia_0061_overlay.jpg"
+  },
+  {
+    "image_id": "tee_ju_eia/tee_ju_eia_0025",
+    "true_label": "tee_ju_eia",
+    "predicted_label": "tee_ju_eia",
+    "target_class": "tee_ju_eia",
+    "confidence": 0.5841538310050964,
+    "selection_reason": "lowest_confidence_correct_test_example",
+    "original": "tee_ju_eia__tee_ju_eia_0025_original.jpg",
+    "heatmap": "tee_ju_eia__tee_ju_eia_0025_heatmap.png",
+    "overlay": "tee_ju_eia__tee_ju_eia_0025_overlay.jpg"
+  }
+]

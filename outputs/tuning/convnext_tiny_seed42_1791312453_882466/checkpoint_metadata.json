@@ -1,0 +1,21 @@
+{
+  "checkpoint": "C:\\Users\\User\\Desktop\\deep\\outputs\\tuning\\convnext_tiny_seed42_1791312453_882466\\best_convnext_tiny_seed42.pt",
+  "architecture": "convnext_tiny",
+  "seed": 42,
+  "status": "completed",
+  "best_epoch": 30,
+  "best_val_acc": 0.9058823529411765,
+  "best_val_macro_f1": 0.8863588446131141,
+  "best_val_loss": 0.3754519168068381,
+  "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs\\tuning\\convnext_tiny_seed42_1791312453_882466",
+  "epochs_completed": 30,
+  "tracking_mode": "online",
+  "tracking_error": null,
+  "class_order": [
+    "san_phraphrom",
+    "san_phraphum",
+    "san_tayay",
+    "tee_ju_eia"
+  ],
+  "split_sha256": "3eb9c4f3adda4a64536f809fbad5f8801a27d83265d2c753b8f98c6ae93f837f"
+}

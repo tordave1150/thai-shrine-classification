@@ -1,0 +1,935 @@
+{
+  "study_fingerprint": "e83947f7b3ab4e481342d08fe3ead78f0620908e498e2f77301317b8527451ff",
+  "attempts": [
+    {
+      "architecture": "resnet50",
+      "mode": "full",
+      "identity": "no_augmentation::seed42",
+      "seed": 42,
+      "condition": "no_augmentation",
+      "attempt": 1,
+      "config": {
+        "learning_rate": 0.00019396806804067654,
+        "weight_decay": 0.001954548507358632,
+        "optimizer": "adam",
+        "batch_size": 16,
+        "epochs": 30,
+        "patience": 7,
+        "min_delta": 0.0001,
+        "input_size": 224,
+        "augmentation": false,
+        "use_class_weights": true,
+        "optimizer_defaults": {
+          "sgd_momentum": 0.9,
+          "sgd_nesterov": true,
+          "adam_betas": [
+            0.9,
+            0.999
+          ],
+          "epsilon": 1e-08
+        },
+        "selection_fingerprint": "7a8d9b146331e5d9b8d645c9baf05272ee8e19f0bf3c7542b3218ead70c76ecd",
+        "protocol_fingerprint": "3a6107dd427e01f1e9d3dd3519b411450a5019505601805c1c1ebe606bf678db",
+        "dataset_fingerprint": "e854495869473ea313b2c455781479f1d619ac0f67c28318e8c3c01f391bd47b",
+        "split_assignment_fingerprint": "2080b705f420a4c0dc10d18315468788385cca46fa248fa189579f84dc00bdc5",
+        "code_fingerprint": "189029c7caa210c48d1deea69f3fc106e45bee56410ce4b8e4661a24c8a6d326",
+        "amp": false,
+        "ablation_condition": "no_augmentation",
+        "ablation_study_fingerprint": "e83947f7b3ab4e481342d08fe3ead78f0620908e498e2f77301317b8527451ff"
+      },
+      "config_fingerprint": "e1ace5e2800703febb9f37edaf7a7e36264f66a4b5fa6ca0bb3a34934d16f7a1",
+      "status": "completed",
+      "started_utc": "2026-10-20T13:36:21.001690+00:00",
+      "trial": null,
+      "run_identity": "no_augmentation_seed42_attempt01",
+      "best_epoch": 5,
+      "best_val_acc": 0.9411764705882353,
+      "best_val_macro_f1": 0.931218853820598,
+      "best_val_loss": 0.3332859935512876,
+      "checkpoint": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\ablation\\resnet50_full_v1\\ablation_no_augmentation\\resnet50\\full\\ablation_no_augmentation_resnet50_full_no_augmentation_seed42_attempt01_seed42_attempt1792503381_801905\\best_resnet50_full_seed42.pt",
+      "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\ablation\\resnet50_full_v1\\ablation_no_augmentation\\resnet50\\full\\ablation_no_augmentation_resnet50_full_no_augmentation_seed42_attempt01_seed42_attempt1792503381_801905",
+      "epochs_completed": 12,
+      "tracking_mode": "online",
+      "tracking_error": null,
+      "wandb_run_id": "a60616z0",
+      "wandb_run_url": "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/a60616z0",
+      "test_loss": 0.26660419237964295,
+      "test_acc": 0.9058823529411765,
+      "test_macro_precision": 0.8969025825433148,
+      "test_macro_recall": 0.8912202380952381,
+      "test_macro_f1": 0.8924048085065035,
+      "per_class": {
+        "san_phraphrom": {
+          "precision": 0.9285714285714286,
+          "recall": 0.8125,
+          "f1": 0.8666666666666667,
+          "support": 16
+        },
+        "san_phraphum": {
+          "precision": 0.7894736842105263,
+          "recall": 0.8333333333333334,
+          "f1": 0.8108108108108109,
+          "support": 18
+        },
+        "san_tayay": {
+          "precision": 0.8695652173913043,
+          "recall": 0.9523809523809523,
+          "f1": 0.9090909090909091,
+          "support": 21
+        },
+        "tee_ju_eia": {
+          "precision": 1.0,
+          "recall": 0.9666666666666667,
+          "f1": 0.9830508474576272,
+          "support": 30
+        }
+      },
+      "artifact_sha256": {
+        "ablation_no_augmentation/resnet50/full/ablation_no_augmentation_resnet50_full_no_augmentation_seed42_attempt01_seed42_attempt1792503381_801905/best_resnet50_full_seed42.pt": "b9448b69272a7b6c4e86e5ce150d0acec49fe1c42c7b7b099e0f2aa4902754bf",
+        "ablation_no_augmentation/resnet50/full/ablation_no_augmentation_resnet50_full_no_augmentation_seed42_attempt01_seed42_attempt1792503381_801905/config.json": "2ad969d92ed5d7df04f78408eb4ab3a6c01f618bdc06086a72176fe7e02c2b25",
+        "ablation_no_augmentation/resnet50/full/ablation_no_augmentation_resnet50_full_no_augmentation_seed42_attempt01_seed42_attempt1792503381_801905/checkpoint_metadata.json": "f2865c2fd11ce0521a220928f07fad7f8dc42e5dbe51ca4bb7e7c11d36f43a9f",
+        "ablation_no_augmentation/resnet50/full/ablation_no_augmentation_resnet50_full_no_augmentation_seed42_attempt01_seed42_attempt1792503381_801905/run_metrics.json": "27a6183a4652858ab17cf52b651386630090dd582eed856ca9978e65307809ee",
+        "ablation_no_augmentation/resnet50/full/ablation_no_augmentation_resnet50_full_no_augmentation_seed42_attempt01_seed42_attempt1792503381_801905/test_metrics.json": "2ee111967cf44bf9951d4aaa0c12bbba3038b6d772b81916d8d339c0264bc639",
+        "ablation_no_augmentation/resnet50/full/ablation_no_augmentation_resnet50_full_no_augmentation_seed42_attempt01_seed42_attempt1792503381_801905/test_predictions.csv": "814fd1f4120ba4f39547d51b4023958d0ac970b7590e447290dd4a50991e250a"
+      },
+      "finished_utc": "2026-10-20T13:39:36.622481+00:00"
+    },
+    {
+      "architecture": "resnet50",
+      "mode": "full",
+      "identity": "no_augmentation::seed123",
+      "seed": 123,
+      "condition": "no_augmentation",
+      "attempt": 1,
+      "config": {
+        "learning_rate": 0.00019396806804067654,
+        "weight_decay": 0.001954548507358632,
+        "optimizer": "adam",
+        "batch_size": 16,
+        "epochs": 30,
+        "patience": 7,
+        "min_delta": 0.0001,
+        "input_size": 224,
+        "augmentation": false,
+        "use_class_weights": true,
+        "optimizer_defaults": {
+          "sgd_momentum": 0.9,
+          "sgd_nesterov": true,
+          "adam_betas": [
+            0.9,
+            0.999
+          ],
+          "epsilon": 1e-08
+        },
+        "selection_fingerprint": "7a8d9b146331e5d9b8d645c9baf05272ee8e19f0bf3c7542b3218ead70c76ecd",
+        "protocol_fingerprint": "3a6107dd427e01f1e9d3dd3519b411450a5019505601805c1c1ebe606bf678db",
+        "dataset_fingerprint": "e854495869473ea313b2c455781479f1d619ac0f67c28318e8c3c01f391bd47b",
+        "split_assignment_fingerprint": "2080b705f420a4c0dc10d18315468788385cca46fa248fa189579f84dc00bdc5",
+        "code_fingerprint": "189029c7caa210c48d1deea69f3fc106e45bee56410ce4b8e4661a24c8a6d326",
+        "amp": false,
+        "ablation_condition": "no_augmentation",
+        "ablation_study_fingerprint": "e83947f7b3ab4e481342d08fe3ead78f0620908e498e2f77301317b8527451ff"
+      },
+      "config_fingerprint": "eafba62526383398d473c6e6706dd26760d3725eb78813bbfa02073f8df2933a",
+      "status": "completed",
+      "started_utc": "2026-10-20T13:39:36.626297+00:00",
+      "trial": null,
+      "run_identity": "no_augmentation_seed123_attempt01",
+      "best_epoch": 4,
+      "best_val_acc": 0.9411764705882353,
+      "best_val_macro_f1": 0.9337979094076655,
+      "best_val_loss": 0.20586837889517054,
+      "checkpoint": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\ablation\\resnet50_full_v1\\ablation_no_augmentation\\resnet50\\full\\ablation_no_augmentation_resnet50_full_no_augmentation_seed123_attempt01_seed123_attempt1792503577_586a47\\best_resnet50_full_seed123.pt",
+      "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\ablation\\resnet50_full_v1\\ablation_no_augmentation\\resnet50\\full\\ablation_no_augmentation_resnet50_full_no_augmentation_seed123_attempt01_seed123_attempt1792503577_586a47",
+      "epochs_completed": 11,
+      "tracking_mode": "online",
+      "tracking_error": null,
+      "wandb_run_id": "32z9eq4v",
+      "wandb_run_url": "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/32z9eq4v",
+      "test_loss": 0.23557481597013333,
+      "test_acc": 0.9529411764705882,
+      "test_macro_precision": 0.9469418449197861,
+      "test_macro_recall": 0.9464285714285714,
+      "test_macro_f1": 0.9455706172532438,
+      "per_class": {
+        "san_phraphrom": {
+          "precision": 0.9411764705882353,
+          "recall": 1.0,
+          "f1": 0.9696969696969697,
+          "support": 16
+        },
+        "san_phraphum": {
+          "precision": 0.9375,
+          "recall": 0.8333333333333334,
+          "f1": 0.8823529411764706,
+          "support": 18
+        },
+        "san_tayay": {
+          "precision": 0.9090909090909091,
+          "recall": 0.9523809523809523,
+          "f1": 0.9302325581395349,
+          "support": 21
+        },
+        "tee_ju_eia": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 30
+        }
+      },
+      "artifact_sha256": {
+        "ablation_no_augmentation/resnet50/full/ablation_no_augmentation_resnet50_full_no_augmentation_seed123_attempt01_seed123_attempt1792503577_586a47/best_resnet50_full_seed123.pt": "adffc9a28a8acfb3e490a2425e9ab148d5bc6af0f4f122e3d08263d8053676bc",
+        "ablation_no_augmentation/resnet50/full/ablation_no_augmentation_resnet50_full_no_augmentation_seed123_attempt01_seed123_attempt1792503577_586a47/config.json": "ba9b4c5787cec85eaada4801a1a45032461200e0276a3c82f9bfd0b6eec7d89a",
+        "ablation_no_augmentation/resnet50/full/ablation_no_augmentation_resnet50_full_no_augmentation_seed123_attempt01_seed123_attempt1792503577_586a47/checkpoint_metadata.json": "7ef7c0e208aef5b39086b84caf2e927d46bea0933300f61d2be4126fe34e7cf3",
+        "ablation_no_augmentation/resnet50/full/ablation_no_augmentation_resnet50_full_no_augmentation_seed123_attempt01_seed123_attempt1792503577_586a47/run_metrics.json": "bb9efaa30b9f9573b66687248720b7aa4cbe189f064a600aa61f71a7ff7d7e1c",
+        "ablation_no_augmentation/resnet50/full/ablation_no_augmentation_resnet50_full_no_augmentation_seed123_attempt01_seed123_attempt1792503577_586a47/test_metrics.json": "01e0662782368bf92a282bd4c91a6451ec7f311f253b48e515674965cf6c87aa",
+        "ablation_no_augmentation/resnet50/full/ablation_no_augmentation_resnet50_full_no_augmentation_seed123_attempt01_seed123_attempt1792503577_586a47/test_predictions.csv": "408fac9c71cdf2dc0e92cb66165254a74d55979c8a11d7097348ede778fde2e8"
+      },
+      "finished_utc": "2026-10-20T13:42:31.382438+00:00"
+    },
+    {
+      "architecture": "resnet50",
+      "mode": "full",
+      "identity": "no_augmentation::seed456",
+      "seed": 456,
+      "condition": "no_augmentation",
+      "attempt": 1,
+      "config": {
+        "learning_rate": 0.00019396806804067654,
+        "weight_decay": 0.001954548507358632,
+        "optimizer": "adam",
+        "batch_size": 16,
+        "epochs": 30,
+        "patience": 7,
+        "min_delta": 0.0001,
+        "input_size": 224,
+        "augmentation": false,
+        "use_class_weights": true,
+        "optimizer_defaults": {
+          "sgd_momentum": 0.9,
+          "sgd_nesterov": true,
+          "adam_betas": [
+            0.9,
+            0.999
+          ],
+          "epsilon": 1e-08
+        },
+        "selection_fingerprint": "7a8d9b146331e5d9b8d645c9baf05272ee8e19f0bf3c7542b3218ead70c76ecd",
+        "protocol_fingerprint": "3a6107dd427e01f1e9d3dd3519b411450a5019505601805c1c1ebe606bf678db",
+        "dataset_fingerprint": "e854495869473ea313b2c455781479f1d619ac0f67c28318e8c3c01f391bd47b",
+        "split_assignment_fingerprint": "2080b705f420a4c0dc10d18315468788385cca46fa248fa189579f84dc00bdc5",
+        "code_fingerprint": "189029c7caa210c48d1deea69f3fc106e45bee56410ce4b8e4661a24c8a6d326",
+        "amp": false,
+        "ablation_condition": "no_augmentation",
+        "ablation_study_fingerprint": "e83947f7b3ab4e481342d08fe3ead78f0620908e498e2f77301317b8527451ff"
+      },
+      "config_fingerprint": "5af07ccc584032e79ad9a7aa8bf644a8359648cf425cc25ea72d209413d2cbb3",
+      "status": "completed",
+      "started_utc": "2026-10-20T13:42:31.385352+00:00",
+      "trial": null,
+      "run_identity": "no_augmentation_seed456_attempt01",
+      "best_epoch": 3,
+      "best_val_acc": 0.9176470588235294,
+      "best_val_macro_f1": 0.9053052325581395,
+      "best_val_loss": 0.42675562698174924,
+      "checkpoint": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\ablation\\resnet50_full_v1\\ablation_no_augmentation\\resnet50\\full\\ablation_no_augmentation_resnet50_full_no_augmentation_seed456_attempt01_seed456_attempt1792503751_cdb3d9\\best_resnet50_full_seed456.pt",
+      "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\ablation\\resnet50_full_v1\\ablation_no_augmentation\\resnet50\\full\\ablation_no_augmentation_resnet50_full_no_augmentation_seed456_attempt01_seed456_attempt1792503751_cdb3d9",
+      "epochs_completed": 10,
+      "tracking_mode": "online",
+      "tracking_error": null,
+      "wandb_run_id": "7mx38970",
+      "wandb_run_url": "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/7mx38970",
+      "test_loss": 0.38010490317555035,
+      "test_acc": 0.9176470588235294,
+      "test_macro_precision": 0.9183333333333333,
+      "test_macro_recall": 0.9010416666666666,
+      "test_macro_f1": 0.898849104859335,
+      "per_class": {
+        "san_phraphrom": {
+          "precision": 0.8333333333333334,
+          "recall": 0.9375,
+          "f1": 0.8823529411764706,
+          "support": 16
+        },
+        "san_phraphum": {
+          "precision": 1.0,
+          "recall": 0.6666666666666666,
+          "f1": 0.8,
+          "support": 18
+        },
+        "san_tayay": {
+          "precision": 0.84,
+          "recall": 1.0,
+          "f1": 0.9130434782608695,
+          "support": 21
+        },
+        "tee_ju_eia": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 30
+        }
+      },
+      "artifact_sha256": {
+        "ablation_no_augmentation/resnet50/full/ablation_no_augmentation_resnet50_full_no_augmentation_seed456_attempt01_seed456_attempt1792503751_cdb3d9/best_resnet50_full_seed456.pt": "5e95466492f1e6aea8b32cac7e617e015750bf073963e6ce0084cb1dc3f301cb",
+        "ablation_no_augmentation/resnet50/full/ablation_no_augmentation_resnet50_full_no_augmentation_seed456_attempt01_seed456_attempt1792503751_cdb3d9/config.json": "4b48fff54def6ee3d7ff9363ecc5b8abf64cd65d2551f7ea65488d92e2ba7e44",
+        "ablation_no_augmentation/resnet50/full/ablation_no_augmentation_resnet50_full_no_augmentation_seed456_attempt01_seed456_attempt1792503751_cdb3d9/checkpoint_metadata.json": "6812f87a5d7596cbf74e527d76288a793a2e512142081727b07ec30582ebb44f",
+        "ablation_no_augmentation/resnet50/full/ablation_no_augmentation_resnet50_full_no_augmentation_seed456_attempt01_seed456_attempt1792503751_cdb3d9/run_metrics.json": "f93cefdd5a0e6beeb49c323193e868f758b89011cb03ca00e19a39ce00dfd074",
+        "ablation_no_augmentation/resnet50/full/ablation_no_augmentation_resnet50_full_no_augmentation_seed456_attempt01_seed456_attempt1792503751_cdb3d9/test_metrics.json": "4495eaa16f5429a740565c010800606f3f3de1775c615f98f686d14cd32a82b7",
+        "ablation_no_augmentation/resnet50/full/ablation_no_augmentation_resnet50_full_no_augmentation_seed456_attempt01_seed456_attempt1792503751_cdb3d9/test_predictions.csv": "feccc120ddf2095134ccba6b5f8ae8c3f84820c084278da0cab745f66851ea2b"
+      },
+      "finished_utc": "2026-10-20T13:45:11.036135+00:00"
+    },
+    {
+      "architecture": "resnet50",
+      "mode": "full",
+      "identity": "no_augmentation::seed789",
+      "seed": 789,
+      "condition": "no_augmentation",
+      "attempt": 1,
+      "config": {
+        "learning_rate": 0.00019396806804067654,
+        "weight_decay": 0.001954548507358632,
+        "optimizer": "adam",
+        "batch_size": 16,
+        "epochs": 30,
+        "patience": 7,
+        "min_delta": 0.0001,
+        "input_size": 224,
+        "augmentation": false,
+        "use_class_weights": true,
+        "optimizer_defaults": {
+          "sgd_momentum": 0.9,
+          "sgd_nesterov": true,
+          "adam_betas": [
+            0.9,
+            0.999
+          ],
+          "epsilon": 1e-08
+        },
+        "selection_fingerprint": "7a8d9b146331e5d9b8d645c9baf05272ee8e19f0bf3c7542b3218ead70c76ecd",
+        "protocol_fingerprint": "3a6107dd427e01f1e9d3dd3519b411450a5019505601805c1c1ebe606bf678db",
+        "dataset_fingerprint": "e854495869473ea313b2c455781479f1d619ac0f67c28318e8c3c01f391bd47b",
+        "split_assignment_fingerprint": "2080b705f420a4c0dc10d18315468788385cca46fa248fa189579f84dc00bdc5",
+        "code_fingerprint": "189029c7caa210c48d1deea69f3fc106e45bee56410ce4b8e4661a24c8a6d326",
+        "amp": false,
+        "ablation_condition": "no_augmentation",
+        "ablation_study_fingerprint": "e83947f7b3ab4e481342d08fe3ead78f0620908e498e2f77301317b8527451ff"
+      },
+      "config_fingerprint": "c3e692e0ede0083726a4bcac9511d2a27e7f944348472d0ceefc59968c62726b",
+      "status": "completed",
+      "started_utc": "2026-10-20T13:45:11.040708+00:00",
+      "trial": null,
+      "run_identity": "no_augmentation_seed789_attempt01",
+      "best_epoch": 13,
+      "best_val_acc": 0.9647058823529412,
+      "best_val_macro_f1": 0.9612696047122278,
+      "best_val_loss": 0.1404617639422855,
+      "checkpoint": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\ablation\\resnet50_full_v1\\ablation_no_augmentation\\resnet50\\full\\ablation_no_augmentation_resnet50_full_no_augmentation_seed789_attempt01_seed789_attempt1792503911_bb3e79\\best_resnet50_full_seed789.pt",
+      "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\ablation\\resnet50_full_v1\\ablation_no_augmentation\\resnet50\\full\\ablation_no_augmentation_resnet50_full_no_augmentation_seed789_attempt01_seed789_attempt1792503911_bb3e79",
+      "epochs_completed": 20,
+      "tracking_mode": "online",
+      "tracking_error": null,
+      "wandb_run_id": "jvx3bb9f",
+      "wandb_run_url": "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/jvx3bb9f",
+      "test_loss": 0.32930854773148893,
+      "test_acc": 0.9176470588235294,
+      "test_macro_precision": 0.91875,
+      "test_macro_recall": 0.9027777777777778,
+      "test_macro_f1": 0.8952107279693486,
+      "per_class": {
+        "san_phraphrom": {
+          "precision": 0.8,
+          "recall": 1.0,
+          "f1": 0.8888888888888888,
+          "support": 16
+        },
+        "san_phraphum": {
+          "precision": 1.0,
+          "recall": 0.6111111111111112,
+          "f1": 0.7586206896551724,
+          "support": 18
+        },
+        "san_tayay": {
+          "precision": 0.875,
+          "recall": 1.0,
+          "f1": 0.9333333333333333,
+          "support": 21
+        },
+        "tee_ju_eia": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 30
+        }
+      },
+      "artifact_sha256": {
+        "ablation_no_augmentation/resnet50/full/ablation_no_augmentation_resnet50_full_no_augmentation_seed789_attempt01_seed789_attempt1792503911_bb3e79/best_resnet50_full_seed789.pt": "e618534ded81a673da38c7a29648b8b9b118bd07fcc142bc6349954b6bcf139b",
+        "ablation_no_augmentation/resnet50/full/ablation_no_augmentation_resnet50_full_no_augmentation_seed789_attempt01_seed789_attempt1792503911_bb3e79/config.json": "d80ed8d659d02706e16b3e4898844416d595e9e9b5d3492243f9a59276c6ff30",
+        "ablation_no_augmentation/resnet50/full/ablation_no_augmentation_resnet50_full_no_augmentation_seed789_attempt01_seed789_attempt1792503911_bb3e79/checkpoint_metadata.json": "98a8b3dcfafd9dfabee17d39c4bf17bdecaf579ab1247cf4abe4cb0ce1e21d21",
+        "ablation_no_augmentation/resnet50/full/ablation_no_augmentation_resnet50_full_no_augmentation_seed789_attempt01_seed789_attempt1792503911_bb3e79/run_metrics.json": "af0d040868c040c773b30e9e49710b17db9c74dfdea8e516fda3ccc7c243ab7a",
+        "ablation_no_augmentation/resnet50/full/ablation_no_augmentation_resnet50_full_no_augmentation_seed789_attempt01_seed789_attempt1792503911_bb3e79/test_metrics.json": "4c97e42ae47f3cc60b2da34b63351e4f88dafebb2bb8c14088eb005a11fc65cb",
+        "ablation_no_augmentation/resnet50/full/ablation_no_augmentation_resnet50_full_no_augmentation_seed789_attempt01_seed789_attempt1792503911_bb3e79/test_predictions.csv": "4d6695b84c8523378ff2d2e1dba171b4f98b870f11fe292b5f6fe95b8947da62"
+      },
+      "finished_utc": "2026-10-20T13:49:54.226267+00:00"
+    },
+    {
+      "architecture": "resnet50",
+      "mode": "full",
+      "identity": "no_augmentation::seed1024",
+      "seed": 1024,
+      "condition": "no_augmentation",
+      "attempt": 1,
+      "config": {
+        "learning_rate": 0.00019396806804067654,
+        "weight_decay": 0.001954548507358632,
+        "optimizer": "adam",
+        "batch_size": 16,
+        "epochs": 30,
+        "patience": 7,
+        "min_delta": 0.0001,
+        "input_size": 224,
+        "augmentation": false,
+        "use_class_weights": true,
+        "optimizer_defaults": {
+          "sgd_momentum": 0.9,
+          "sgd_nesterov": true,
+          "adam_betas": [
+            0.9,
+            0.999
+          ],
+          "epsilon": 1e-08
+        },
+        "selection_fingerprint": "7a8d9b146331e5d9b8d645c9baf05272ee8e19f0bf3c7542b3218ead70c76ecd",
+        "protocol_fingerprint": "3a6107dd427e01f1e9d3dd3519b411450a5019505601805c1c1ebe606bf678db",
+        "dataset_fingerprint": "e854495869473ea313b2c455781479f1d619ac0f67c28318e8c3c01f391bd47b",
+        "split_assignment_fingerprint": "2080b705f420a4c0dc10d18315468788385cca46fa248fa189579f84dc00bdc5",
+        "code_fingerprint": "189029c7caa210c48d1deea69f3fc106e45bee56410ce4b8e4661a24c8a6d326",
+        "amp": false,
+        "ablation_condition": "no_augmentation",
+        "ablation_study_fingerprint": "e83947f7b3ab4e481342d08fe3ead78f0620908e498e2f77301317b8527451ff"
+      },
+      "config_fingerprint": "87447ad20392c1813d59d36f2eda7e379170269a50907c957259969d2f8a03c2",
+      "status": "completed",
+      "started_utc": "2026-10-20T13:49:54.229867+00:00",
+      "trial": null,
+      "run_identity": "no_augmentation_seed1024_attempt01",
+      "best_epoch": 11,
+      "best_val_acc": 0.9411764705882353,
+      "best_val_macro_f1": 0.9303625313442986,
+      "best_val_loss": 0.3143217217451071,
+      "checkpoint": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\ablation\\resnet50_full_v1\\ablation_no_augmentation\\resnet50\\full\\ablation_no_augmentation_resnet50_full_no_augmentation_seed1024_attempt01_seed1024_attempt1792504194_9ff2bb\\best_resnet50_full_seed1024.pt",
+      "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\ablation\\resnet50_full_v1\\ablation_no_augmentation\\resnet50\\full\\ablation_no_augmentation_resnet50_full_no_augmentation_seed1024_attempt01_seed1024_attempt1792504194_9ff2bb",
+      "epochs_completed": 13,
+      "tracking_mode": "online",
+      "tracking_error": null,
+      "wandb_run_id": "qtt8qep0",
+      "wandb_run_url": "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/qtt8qep0",
+      "test_loss": 0.2642513949204894,
+      "test_acc": 0.9411764705882353,
+      "test_macro_precision": 0.9364583333333334,
+      "test_macro_recall": 0.9288194444444444,
+      "test_macro_f1": 0.9298295454545455,
+      "per_class": {
+        "san_phraphrom": {
+          "precision": 0.9375,
+          "recall": 0.9375,
+          "f1": 0.9375,
+          "support": 16
+        },
+        "san_phraphum": {
+          "precision": 0.9333333333333333,
+          "recall": 0.7777777777777778,
+          "f1": 0.8484848484848485,
+          "support": 18
+        },
+        "san_tayay": {
+          "precision": 0.875,
+          "recall": 1.0,
+          "f1": 0.9333333333333333,
+          "support": 21
+        },
+        "tee_ju_eia": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 30
+        }
+      },
+      "artifact_sha256": {
+        "ablation_no_augmentation/resnet50/full/ablation_no_augmentation_resnet50_full_no_augmentation_seed1024_attempt01_seed1024_attempt1792504194_9ff2bb/best_resnet50_full_seed1024.pt": "1f0dccc7cec171f94aaf8d7b828be60e3a28888c6ed2e3332f084629fa9c223b",
+        "ablation_no_augmentation/resnet50/full/ablation_no_augmentation_resnet50_full_no_augmentation_seed1024_attempt01_seed1024_attempt1792504194_9ff2bb/config.json": "38e059d89a6f328b2bc08e2e06d291ae66a965ce821b62a9202549a5cc884def",
+        "ablation_no_augmentation/resnet50/full/ablation_no_augmentation_resnet50_full_no_augmentation_seed1024_attempt01_seed1024_attempt1792504194_9ff2bb/checkpoint_metadata.json": "c359ceadb449969b0fce372b121d062c7bf9d2b2a0f9e547356afe586bd89796",
+        "ablation_no_augmentation/resnet50/full/ablation_no_augmentation_resnet50_full_no_augmentation_seed1024_attempt01_seed1024_attempt1792504194_9ff2bb/run_metrics.json": "f80ea3cc46a0934c3fb2ddd5c2d082e4a1b42c038ea9acb956de0a86ba3afed4",
+        "ablation_no_augmentation/resnet50/full/ablation_no_augmentation_resnet50_full_no_augmentation_seed1024_attempt01_seed1024_attempt1792504194_9ff2bb/test_metrics.json": "141e4c77642da6e7b090ab6110ab532f1c149caee7fd05bda762b284f817e23e",
+        "ablation_no_augmentation/resnet50/full/ablation_no_augmentation_resnet50_full_no_augmentation_seed1024_attempt01_seed1024_attempt1792504194_9ff2bb/test_predictions.csv": "1ea02790106b63e6fe98c56139a60b71e84cbb5b8a4be298e7737206d19f3ec2"
+      },
+      "finished_utc": "2026-10-20T13:52:56.174568+00:00"
+    },
+    {
+      "architecture": "resnet50",
+      "mode": "full",
+      "identity": "no_class_weights::seed42",
+      "seed": 42,
+      "condition": "no_class_weights",
+      "attempt": 1,
+      "config": {
+        "learning_rate": 0.00019396806804067654,
+        "weight_decay": 0.001954548507358632,
+        "optimizer": "adam",
+        "batch_size": 16,
+        "epochs": 30,
+        "patience": 7,
+        "min_delta": 0.0001,
+        "input_size": 224,
+        "augmentation": true,
+        "use_class_weights": false,
+        "optimizer_defaults": {
+          "sgd_momentum": 0.9,
+          "sgd_nesterov": true,
+          "adam_betas": [
+            0.9,
+            0.999
+          ],
+          "epsilon": 1e-08
+        },
+        "selection_fingerprint": "7a8d9b146331e5d9b8d645c9baf05272ee8e19f0bf3c7542b3218ead70c76ecd",
+        "protocol_fingerprint": "3a6107dd427e01f1e9d3dd3519b411450a5019505601805c1c1ebe606bf678db",
+        "dataset_fingerprint": "e854495869473ea313b2c455781479f1d619ac0f67c28318e8c3c01f391bd47b",
+        "split_assignment_fingerprint": "2080b705f420a4c0dc10d18315468788385cca46fa248fa189579f84dc00bdc5",
+        "code_fingerprint": "189029c7caa210c48d1deea69f3fc106e45bee56410ce4b8e4661a24c8a6d326",
+        "amp": false,
+        "ablation_condition": "no_class_weights",
+        "ablation_study_fingerprint": "e83947f7b3ab4e481342d08fe3ead78f0620908e498e2f77301317b8527451ff"
+      },
+      "config_fingerprint": "392721606292b59440d95d14ccd13097f1637c619188ef349e65af7e5392732b",
+      "status": "completed",
+      "started_utc": "2026-10-20T13:52:56.177962+00:00",
+      "trial": null,
+      "run_identity": "no_class_weights_seed42_attempt01",
+      "best_epoch": 2,
+      "best_val_acc": 0.9411764705882353,
+      "best_val_macro_f1": 0.9322985332893869,
+      "best_val_loss": 0.20453714702059242,
+      "checkpoint": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\ablation\\resnet50_full_v1\\ablation_no_class_weights\\resnet50\\full\\ablation_no_class_weights_resnet50_full_no_class_weights_seed42_attempt01_seed42_attempt1792504376_41cf83\\best_resnet50_full_seed42.pt",
+      "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\ablation\\resnet50_full_v1\\ablation_no_class_weights\\resnet50\\full\\ablation_no_class_weights_resnet50_full_no_class_weights_seed42_attempt01_seed42_attempt1792504376_41cf83",
+      "epochs_completed": 9,
+      "tracking_mode": "online",
+      "tracking_error": null,
+      "wandb_run_id": "9c5d0195",
+      "wandb_run_url": "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/9c5d0195",
+      "test_loss": 0.17820970714092255,
+      "test_acc": 0.9058823529411765,
+      "test_macro_precision": 0.8886513157894737,
+      "test_macro_recall": 0.8948412698412699,
+      "test_macro_f1": 0.889260094281615,
+      "per_class": {
+        "san_phraphrom": {
+          "precision": 0.8421052631578947,
+          "recall": 1.0,
+          "f1": 0.9142857142857143,
+          "support": 16
+        },
+        "san_phraphum": {
+          "precision": 0.8125,
+          "recall": 0.7222222222222222,
+          "f1": 0.7647058823529411,
+          "support": 18
+        },
+        "san_tayay": {
+          "precision": 0.9,
+          "recall": 0.8571428571428571,
+          "f1": 0.8780487804878049,
+          "support": 21
+        },
+        "tee_ju_eia": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 30
+        }
+      },
+      "artifact_sha256": {
+        "ablation_no_class_weights/resnet50/full/ablation_no_class_weights_resnet50_full_no_class_weights_seed42_attempt01_seed42_attempt1792504376_41cf83/best_resnet50_full_seed42.pt": "78bb3d8a4cc408508a30fbfe7a2ef18fc874a2745f1ce7ce2460d9c1a1e2c324",
+        "ablation_no_class_weights/resnet50/full/ablation_no_class_weights_resnet50_full_no_class_weights_seed42_attempt01_seed42_attempt1792504376_41cf83/config.json": "42d11c84c3eb9b5b30b921b75ca033ee820de1453ca4f0b2b729aba2eab961b3",
+        "ablation_no_class_weights/resnet50/full/ablation_no_class_weights_resnet50_full_no_class_weights_seed42_attempt01_seed42_attempt1792504376_41cf83/checkpoint_metadata.json": "4aef53ee0ea30550e0a7be30606fa1e32cfd0a89cbf670a45683399b57085814",
+        "ablation_no_class_weights/resnet50/full/ablation_no_class_weights_resnet50_full_no_class_weights_seed42_attempt01_seed42_attempt1792504376_41cf83/run_metrics.json": "8830bf6430430060abce16e60dead8277c7de9907905d2f9763f823d1d29baf5",
+        "ablation_no_class_weights/resnet50/full/ablation_no_class_weights_resnet50_full_no_class_weights_seed42_attempt01_seed42_attempt1792504376_41cf83/test_metrics.json": "3ccf233d04c6e6db2fcf8099d7f6bdcf50fcf7a793ebab283b4eea2524c546d6",
+        "ablation_no_class_weights/resnet50/full/ablation_no_class_weights_resnet50_full_no_class_weights_seed42_attempt01_seed42_attempt1792504376_41cf83/test_predictions.csv": "c8b1c042bf388478a5b7a024bc1ed47d7b68d4dc17c0ae3aab9094a4afed724f"
+      },
+      "finished_utc": "2026-10-20T13:55:29.105155+00:00"
+    },
+    {
+      "architecture": "resnet50",
+      "mode": "full",
+      "identity": "no_class_weights::seed123",
+      "seed": 123,
+      "condition": "no_class_weights",
+      "attempt": 1,
+      "config": {
+        "learning_rate": 0.00019396806804067654,
+        "weight_decay": 0.001954548507358632,
+        "optimizer": "adam",
+        "batch_size": 16,
+        "epochs": 30,
+        "patience": 7,
+        "min_delta": 0.0001,
+        "input_size": 224,
+        "augmentation": true,
+        "use_class_weights": false,
+        "optimizer_defaults": {
+          "sgd_momentum": 0.9,
+          "sgd_nesterov": true,
+          "adam_betas": [
+            0.9,
+            0.999
+          ],
+          "epsilon": 1e-08
+        },
+        "selection_fingerprint": "7a8d9b146331e5d9b8d645c9baf05272ee8e19f0bf3c7542b3218ead70c76ecd",
+        "protocol_fingerprint": "3a6107dd427e01f1e9d3dd3519b411450a5019505601805c1c1ebe606bf678db",
+        "dataset_fingerprint": "e854495869473ea313b2c455781479f1d619ac0f67c28318e8c3c01f391bd47b",
+        "split_assignment_fingerprint": "2080b705f420a4c0dc10d18315468788385cca46fa248fa189579f84dc00bdc5",
+        "code_fingerprint": "189029c7caa210c48d1deea69f3fc106e45bee56410ce4b8e4661a24c8a6d326",
+        "amp": false,
+        "ablation_condition": "no_class_weights",
+        "ablation_study_fingerprint": "e83947f7b3ab4e481342d08fe3ead78f0620908e498e2f77301317b8527451ff"
+      },
+      "config_fingerprint": "fb9319ecd556ed0c366e90bb226b8d2e9685a971851b88195926b72df941c7c1",
+      "status": "completed",
+      "started_utc": "2026-10-20T13:55:29.108933+00:00",
+      "trial": null,
+      "run_identity": "no_class_weights_seed123_attempt01",
+      "best_epoch": 21,
+      "best_val_acc": 0.9411764705882353,
+      "best_val_macro_f1": 0.931899641577061,
+      "best_val_loss": 0.21361979041522478,
+      "checkpoint": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\ablation\\resnet50_full_v1\\ablation_no_class_weights\\resnet50\\full\\ablation_no_class_weights_resnet50_full_no_class_weights_seed123_attempt01_seed123_attempt1792504529_b59c7e\\best_resnet50_full_seed123.pt",
+      "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\ablation\\resnet50_full_v1\\ablation_no_class_weights\\resnet50\\full\\ablation_no_class_weights_resnet50_full_no_class_weights_seed123_attempt01_seed123_attempt1792504529_b59c7e",
+      "epochs_completed": 22,
+      "tracking_mode": "online",
+      "tracking_error": null,
+      "wandb_run_id": "7kz87b7k",
+      "wandb_run_url": "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/7kz87b7k",
+      "test_loss": 0.32721698772066327,
+      "test_acc": 0.9294117647058824,
+      "test_macro_precision": 0.9292763157894737,
+      "test_macro_recall": 0.9166666666666666,
+      "test_macro_f1": 0.911904761904762,
+      "per_class": {
+        "san_phraphrom": {
+          "precision": 0.8421052631578947,
+          "recall": 1.0,
+          "f1": 0.9142857142857143,
+          "support": 16
+        },
+        "san_phraphum": {
+          "precision": 1.0,
+          "recall": 0.6666666666666666,
+          "f1": 0.8,
+          "support": 18
+        },
+        "san_tayay": {
+          "precision": 0.875,
+          "recall": 1.0,
+          "f1": 0.9333333333333333,
+          "support": 21
+        },
+        "tee_ju_eia": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 30
+        }
+      },
+      "artifact_sha256": {
+        "ablation_no_class_weights/resnet50/full/ablation_no_class_weights_resnet50_full_no_class_weights_seed123_attempt01_seed123_attempt1792504529_b59c7e/best_resnet50_full_seed123.pt": "b54308eaba4d3595ebeb89100b090fc60cf374b2e258a9246835e65d2a1822be",
+        "ablation_no_class_weights/resnet50/full/ablation_no_class_weights_resnet50_full_no_class_weights_seed123_attempt01_seed123_attempt1792504529_b59c7e/config.json": "534dacd81535b04ec6e14ef46dbc642d017d948666cf29b50e69f3ed9bb5fbe9",
+        "ablation_no_class_weights/resnet50/full/ablation_no_class_weights_resnet50_full_no_class_weights_seed123_attempt01_seed123_attempt1792504529_b59c7e/checkpoint_metadata.json": "44f30629e09d284ac414bdae95ac48d14128fad59159ea175c1e8f742885e3d0",
+        "ablation_no_class_weights/resnet50/full/ablation_no_class_weights_resnet50_full_no_class_weights_seed123_attempt01_seed123_attempt1792504529_b59c7e/run_metrics.json": "f9e4b717ec6ee180a7d335e2f2baffec6e53c017d0559ab851f0fc34e99a4a64",
+        "ablation_no_class_weights/resnet50/full/ablation_no_class_weights_resnet50_full_no_class_weights_seed123_attempt01_seed123_attempt1792504529_b59c7e/test_metrics.json": "bd3dd2c4aeb2be36020acf90c118dc71d8cdb28ff0daf704760c24863d41d9ba",
+        "ablation_no_class_weights/resnet50/full/ablation_no_class_weights_resnet50_full_no_class_weights_seed123_attempt01_seed123_attempt1792504529_b59c7e/test_predictions.csv": "183b1fe7264672bbc89c34d134cf5bc828d48bc3fefa042f45077218c8d617b5"
+      },
+      "finished_utc": "2026-10-20T14:01:11.101896+00:00"
+    },
+    {
+      "architecture": "resnet50",
+      "mode": "full",
+      "identity": "no_class_weights::seed456",
+      "seed": 456,
+      "condition": "no_class_weights",
+      "attempt": 1,
+      "config": {
+        "learning_rate": 0.00019396806804067654,
+        "weight_decay": 0.001954548507358632,
+        "optimizer": "adam",
+        "batch_size": 16,
+        "epochs": 30,
+        "patience": 7,
+        "min_delta": 0.0001,
+        "input_size": 224,
+        "augmentation": true,
+        "use_class_weights": false,
+        "optimizer_defaults": {
+          "sgd_momentum": 0.9,
+          "sgd_nesterov": true,
+          "adam_betas": [
+            0.9,
+            0.999
+          ],
+          "epsilon": 1e-08
+        },
+        "selection_fingerprint": "7a8d9b146331e5d9b8d645c9baf05272ee8e19f0bf3c7542b3218ead70c76ecd",
+        "protocol_fingerprint": "3a6107dd427e01f1e9d3dd3519b411450a5019505601805c1c1ebe606bf678db",
+        "dataset_fingerprint": "e854495869473ea313b2c455781479f1d619ac0f67c28318e8c3c01f391bd47b",
+        "split_assignment_fingerprint": "2080b705f420a4c0dc10d18315468788385cca46fa248fa189579f84dc00bdc5",
+        "code_fingerprint": "189029c7caa210c48d1deea69f3fc106e45bee56410ce4b8e4661a24c8a6d326",
+        "amp": false,
+        "ablation_condition": "no_class_weights",
+        "ablation_study_fingerprint": "e83947f7b3ab4e481342d08fe3ead78f0620908e498e2f77301317b8527451ff"
+      },
+      "config_fingerprint": "6670ce006b4c376d62c66573052efd0100fcf843a084e4cc59b6ca50051bbfb0",
+      "status": "completed",
+      "started_utc": "2026-10-20T14:01:11.106430+00:00",
+      "trial": null,
+      "run_identity": "no_class_weights_seed456_attempt01",
+      "best_epoch": 15,
+      "best_val_acc": 0.9529411764705882,
+      "best_val_macro_f1": 0.9460227272727273,
+      "best_val_loss": 0.2621737046057687,
+      "checkpoint": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\ablation\\resnet50_full_v1\\ablation_no_class_weights\\resnet50\\full\\ablation_no_class_weights_resnet50_full_no_class_weights_seed456_attempt01_seed456_attempt1792504871_a49738\\best_resnet50_full_seed456.pt",
+      "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\ablation\\resnet50_full_v1\\ablation_no_class_weights\\resnet50\\full\\ablation_no_class_weights_resnet50_full_no_class_weights_seed456_attempt01_seed456_attempt1792504871_a49738",
+      "epochs_completed": 20,
+      "tracking_mode": "online",
+      "tracking_error": null,
+      "wandb_run_id": "kvm6qygr",
+      "wandb_run_url": "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/kvm6qygr",
+      "test_loss": 0.3996422755696318,
+      "test_acc": 0.9176470588235294,
+      "test_macro_precision": 0.9205263157894736,
+      "test_macro_recall": 0.9083333333333333,
+      "test_macro_f1": 0.9025950100010528,
+      "per_class": {
+        "san_phraphrom": {
+          "precision": 0.8421052631578947,
+          "recall": 1.0,
+          "f1": 0.9142857142857143,
+          "support": 16
+        },
+        "san_phraphum": {
+          "precision": 1.0,
+          "recall": 0.6666666666666666,
+          "f1": 0.8,
+          "support": 18
+        },
+        "san_tayay": {
+          "precision": 0.84,
+          "recall": 1.0,
+          "f1": 0.9130434782608695,
+          "support": 21
+        },
+        "tee_ju_eia": {
+          "precision": 1.0,
+          "recall": 0.9666666666666667,
+          "f1": 0.9830508474576272,
+          "support": 30
+        }
+      },
+      "artifact_sha256": {
+        "ablation_no_class_weights/resnet50/full/ablation_no_class_weights_resnet50_full_no_class_weights_seed456_attempt01_seed456_attempt1792504871_a49738/best_resnet50_full_seed456.pt": "5752d113506586f76a83480ff04c510bca910c1f1f3d69886ee58f574e6d09bb",
+        "ablation_no_class_weights/resnet50/full/ablation_no_class_weights_resnet50_full_no_class_weights_seed456_attempt01_seed456_attempt1792504871_a49738/config.json": "0e6dd80868cd627846a422068432977b8d99fb3ab8cac85b33842953a8a7d1fd",
+        "ablation_no_class_weights/resnet50/full/ablation_no_class_weights_resnet50_full_no_class_weights_seed456_attempt01_seed456_attempt1792504871_a49738/checkpoint_metadata.json": "0226c142dc16ad5fe144de8efd0c7035e2938a3cbb9fe166f8efb428479d829f",
+        "ablation_no_class_weights/resnet50/full/ablation_no_class_weights_resnet50_full_no_class_weights_seed456_attempt01_seed456_attempt1792504871_a49738/run_metrics.json": "322641746334cdad364e90ae3855a37b51ea4e93017ecab4a7099342b123c3cd",
+        "ablation_no_class_weights/resnet50/full/ablation_no_class_weights_resnet50_full_no_class_weights_seed456_attempt01_seed456_attempt1792504871_a49738/test_metrics.json": "d31d5ad672fb9cdc227947734b49d49579dc4ba707d6305a60261be70be0c960",
+        "ablation_no_class_weights/resnet50/full/ablation_no_class_weights_resnet50_full_no_class_weights_seed456_attempt01_seed456_attempt1792504871_a49738/test_predictions.csv": "200774efaba021314bec3c87fb93c396a422074da2944e154ab7ded9f63eb9d3"
+      },
+      "finished_utc": "2026-10-20T14:07:02.499815+00:00"
+    },
+    {
+      "architecture": "resnet50",
+      "mode": "full",
+      "identity": "no_class_weights::seed789",
+      "seed": 789,
+      "condition": "no_class_weights",
+      "attempt": 1,
+      "config": {
+        "learning_rate": 0.00019396806804067654,
+        "weight_decay": 0.001954548507358632,
+        "optimizer": "adam",
+        "batch_size": 16,
+        "epochs": 30,
+        "patience": 7,
+        "min_delta": 0.0001,
+        "input_size": 224,
+        "augmentation": true,
+        "use_class_weights": false,
+        "optimizer_defaults": {
+          "sgd_momentum": 0.9,
+          "sgd_nesterov": true,
+          "adam_betas": [
+            0.9,
+            0.999
+          ],
+          "epsilon": 1e-08
+        },
+        "selection_fingerprint": "7a8d9b146331e5d9b8d645c9baf05272ee8e19f0bf3c7542b3218ead70c76ecd",
+        "protocol_fingerprint": "3a6107dd427e01f1e9d3dd3519b411450a5019505601805c1c1ebe606bf678db",
+        "dataset_fingerprint": "e854495869473ea313b2c455781479f1d619ac0f67c28318e8c3c01f391bd47b",
+        "split_assignment_fingerprint": "2080b705f420a4c0dc10d18315468788385cca46fa248fa189579f84dc00bdc5",
+        "code_fingerprint": "189029c7caa210c48d1deea69f3fc106e45bee56410ce4b8e4661a24c8a6d326",
+        "amp": false,
+        "ablation_condition": "no_class_weights",
+        "ablation_study_fingerprint": "e83947f7b3ab4e481342d08fe3ead78f0620908e498e2f77301317b8527451ff"
+      },
+      "config_fingerprint": "8faa54fddad650a917e560a3446a22e2685d1e25dbbe0006f15dae7230e6445f",
+      "status": "completed",
+      "started_utc": "2026-10-20T14:07:02.503364+00:00",
+      "trial": null,
+      "run_identity": "no_class_weights_seed789_attempt01",
+      "best_epoch": 4,
+      "best_val_acc": 0.9529411764705882,
+      "best_val_macro_f1": 0.9455706172532438,
+      "best_val_loss": 0.17982962184092577,
+      "checkpoint": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\ablation\\resnet50_full_v1\\ablation_no_class_weights\\resnet50\\full\\ablation_no_class_weights_resnet50_full_no_class_weights_seed789_attempt01_seed789_attempt1792505222_49c771\\best_resnet50_full_seed789.pt",
+      "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\ablation\\resnet50_full_v1\\ablation_no_class_weights\\resnet50\\full\\ablation_no_class_weights_resnet50_full_no_class_weights_seed789_attempt01_seed789_attempt1792505222_49c771",
+      "epochs_completed": 11,
+      "tracking_mode": "online",
+      "tracking_error": null,
+      "wandb_run_id": "ag1vl78s",
+      "wandb_run_url": "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/ag1vl78s",
+      "test_loss": 0.2213967865004259,
+      "test_acc": 0.9529411764705882,
+      "test_macro_precision": 0.9469418449197861,
+      "test_macro_recall": 0.9464285714285714,
+      "test_macro_f1": 0.9455706172532438,
+      "per_class": {
+        "san_phraphrom": {
+          "precision": 0.9411764705882353,
+          "recall": 1.0,
+          "f1": 0.9696969696969697,
+          "support": 16
+        },
+        "san_phraphum": {
+          "precision": 0.9375,
+          "recall": 0.8333333333333334,
+          "f1": 0.8823529411764706,
+          "support": 18
+        },
+        "san_tayay": {
+          "precision": 0.9090909090909091,
+          "recall": 0.9523809523809523,
+          "f1": 0.9302325581395349,
+          "support": 21
+        },
+        "tee_ju_eia": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 30
+        }
+      },
+      "artifact_sha256": {
+        "ablation_no_class_weights/resnet50/full/ablation_no_class_weights_resnet50_full_no_class_weights_seed789_attempt01_seed789_attempt1792505222_49c771/best_resnet50_full_seed789.pt": "5516f86819c4ff768edf2d8bd95003a5155e1712caa7b2b27226fef574a42c56",
+        "ablation_no_class_weights/resnet50/full/ablation_no_class_weights_resnet50_full_no_class_weights_seed789_attempt01_seed789_attempt1792505222_49c771/config.json": "a38ae37d71160624facf8ed954619f2df364f239b621f365665a9bdcdb8d777e",
+        "ablation_no_class_weights/resnet50/full/ablation_no_class_weights_resnet50_full_no_class_weights_seed789_attempt01_seed789_attempt1792505222_49c771/checkpoint_metadata.json": "e608ac21dbb6ae92c2ad755446f32d81e724193b3315c89a78847be74bc671c8",
+        "ablation_no_class_weights/resnet50/full/ablation_no_class_weights_resnet50_full_no_class_weights_seed789_attempt01_seed789_attempt1792505222_49c771/run_metrics.json": "0ec6b9099fd4ea1fcd964da36d6da12e41c7a5bf4aace1dfe7b6eda9a4a0e7e9",
+        "ablation_no_class_weights/resnet50/full/ablation_no_class_weights_resnet50_full_no_class_weights_seed789_attempt01_seed789_attempt1792505222_49c771/test_metrics.json": "01e0662782368bf92a282bd4c91a6451ec7f311f253b48e515674965cf6c87aa",
+        "ablation_no_class_weights/resnet50/full/ablation_no_class_weights_resnet50_full_no_class_weights_seed789_attempt01_seed789_attempt1792505222_49c771/test_predictions.csv": "1fa45923646e22eb5bc5b5a24f236f4ac69e30d08cadd8aadf2b7bc3acdc14ff"
+      },
+      "finished_utc": "2026-10-20T14:10:08.317641+00:00"
+    },
+    {
+      "architecture": "resnet50",
+      "mode": "full",
+      "identity": "no_class_weights::seed1024",
+      "seed": 1024,
+      "condition": "no_class_weights",
+      "attempt": 1,
+      "config": {
+        "learning_rate": 0.00019396806804067654,
+        "weight_decay": 0.001954548507358632,
+        "optimizer": "adam",
+        "batch_size": 16,
+        "epochs": 30,
+        "patience": 7,
+        "min_delta": 0.0001,
+        "input_size": 224,
+        "augmentation": true,
+        "use_class_weights": false,
+        "optimizer_defaults": {
+          "sgd_momentum": 0.9,
+          "sgd_nesterov": true,
+          "adam_betas": [
+            0.9,
+            0.999
+          ],
+          "epsilon": 1e-08
+        },
+        "selection_fingerprint": "7a8d9b146331e5d9b8d645c9baf05272ee8e19f0bf3c7542b3218ead70c76ecd",
+        "protocol_fingerprint": "3a6107dd427e01f1e9d3dd3519b411450a5019505601805c1c1ebe606bf678db",
+        "dataset_fingerprint": "e854495869473ea313b2c455781479f1d619ac0f67c28318e8c3c01f391bd47b",
+        "split_assignment_fingerprint": "2080b705f420a4c0dc10d18315468788385cca46fa248fa189579f84dc00bdc5",
+        "code_fingerprint": "189029c7caa210c48d1deea69f3fc106e45bee56410ce4b8e4661a24c8a6d326",
+        "amp": false,
+        "ablation_condition": "no_class_weights",
+        "ablation_study_fingerprint": "e83947f7b3ab4e481342d08fe3ead78f0620908e498e2f77301317b8527451ff"
+      },
+      "config_fingerprint": "6fad2ec2beb14d0258cf250ed83c0f9282d862cb903347e36b8ee3ed3dec2114",
+      "status": "completed",
+      "started_utc": "2026-10-20T14:10:08.321715+00:00",
+      "trial": null,
+      "run_identity": "no_class_weights_seed1024_attempt01",
+      "best_epoch": 10,
+      "best_val_acc": 0.9294117647058824,
+      "best_val_macro_f1": 0.9156918449197861,
+      "best_val_loss": 0.3592504711712108,
+      "checkpoint": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\ablation\\resnet50_full_v1\\ablation_no_class_weights\\resnet50\\full\\ablation_no_class_weights_resnet50_full_no_class_weights_seed1024_attempt01_seed1024_attempt1792505408_7d02d9\\best_resnet50_full_seed1024.pt",
+      "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\ablation\\resnet50_full_v1\\ablation_no_class_weights\\resnet50\\full\\ablation_no_class_weights_resnet50_full_no_class_weights_seed1024_attempt01_seed1024_attempt1792505408_7d02d9",
+      "epochs_completed": 17,
+      "tracking_mode": "online",
+      "tracking_error": null,
+      "wandb_run_id": "be4kkrdc",
+      "wandb_run_url": "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/be4kkrdc",
+      "test_loss": 0.2769247576156083,
+      "test_acc": 0.9529411764705882,
+      "test_macro_precision": 0.953125,
+      "test_macro_recall": 0.9427083333333334,
+      "test_macro_f1": 0.9449810606060607,
+      "per_class": {
+        "san_phraphrom": {
+          "precision": 0.9375,
+          "recall": 0.9375,
+          "f1": 0.9375,
+          "support": 16
+        },
+        "san_phraphum": {
+          "precision": 1.0,
+          "recall": 0.8333333333333334,
+          "f1": 0.9090909090909091,
+          "support": 18
+        },
+        "san_tayay": {
+          "precision": 0.875,
+          "recall": 1.0,
+          "f1": 0.9333333333333333,
+          "support": 21
+        },
+        "tee_ju_eia": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 30
+        }
+      },
+      "artifact_sha256": {
+        "ablation_no_class_weights/resnet50/full/ablation_no_class_weights_resnet50_full_no_class_weights_seed1024_attempt01_seed1024_attempt1792505408_7d02d9/best_resnet50_full_seed1024.pt": "bfa1fd1726d1a0f7c55888ade967f95d04c442d7249b14ef26b8407ac11ff97b",
+        "ablation_no_class_weights/resnet50/full/ablation_no_class_weights_resnet50_full_no_class_weights_seed1024_attempt01_seed1024_attempt1792505408_7d02d9/config.json": "098f94ea19ae2734cad0f97f7dadaec953f58ba44efbcbf9d916b2e38c7178a4",
+        "ablation_no_class_weights/resnet50/full/ablation_no_class_weights_resnet50_full_no_class_weights_seed1024_attempt01_seed1024_attempt1792505408_7d02d9/checkpoint_metadata.json": "63a730bfe627388dfb1ea4340e88bb1db31b4fdebbf2b526ad8727c82b55629e",
+        "ablation_no_class_weights/resnet50/full/ablation_no_class_weights_resnet50_full_no_class_weights_seed1024_attempt01_seed1024_attempt1792505408_7d02d9/run_metrics.json": "820ca2ee403e4592698443d9ab3be527e4a504bf9450c3fa7a0ec8680d0d08f3",
+        "ablation_no_class_weights/resnet50/full/ablation_no_class_weights_resnet50_full_no_class_weights_seed1024_attempt01_seed1024_attempt1792505408_7d02d9/test_metrics.json": "759b3167e230136655d5953a58cf7d5e7deaa3e9dfa131760739abc21a03f14c",
+        "ablation_no_class_weights/resnet50/full/ablation_no_class_weights_resnet50_full_no_class_weights_seed1024_attempt01_seed1024_attempt1792505408_7d02d9/test_predictions.csv": "6d3fe7d950fb2f00a7012ce1e781766f7a6c27a60e1ac45fa7ed1881728cbb50"
+      },
+      "finished_utc": "2026-10-20T14:14:32.275748+00:00"
+    }
+  ]
+}

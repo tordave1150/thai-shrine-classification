@@ -1,0 +1,38 @@
+{
+  "checkpoint": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\tuning\\densenet121\\full\\tuning_densenet121_full_trial004_attempt01_seed42_attempt1791910042_4dd032\\best_densenet121_full_seed42.pt",
+  "architecture": "densenet121",
+  "mode": "full",
+  "seed": 42,
+  "status": "completed",
+  "trial": 4,
+  "run_identity": "trial004_attempt01",
+  "best_epoch": 16,
+  "best_val_acc": 0.9176470588235294,
+  "best_val_macro_f1": 0.9053052325581395,
+  "best_val_loss": 0.3231726127512315,
+  "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\tuning\\densenet121\\full\\tuning_densenet121_full_trial004_attempt01_seed42_attempt1791910042_4dd032",
+  "epochs_completed": 23,
+  "tracking_mode": "online",
+  "tracking_error": null,
+  "wandb_run_id": "dz9vaonc",
+  "wandb_run_url": "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/dz9vaonc",
+  "mode_stats": {
+    "architecture": "densenet121",
+    "mode": "full",
+    "total_parameters": 6957956,
+    "trainable_parameters": 6957956,
+    "frozen_parameters": 0,
+    "trainable_module_names": [
+      "features",
+      "classifier"
+    ],
+    "bn_buffer_policy": "all BN buffers update normally (full fine-tuning)"
+  },
+  "class_order": [
+    "san_phraphrom",
+    "san_phraphum",
+    "san_tayay",
+    "tee_ju_eia"
+  ],
+  "split_sha256": "3eb9c4f3adda4a64536f809fbad5f8801a27d83265d2c753b8f98c6ae93f837f"
+}

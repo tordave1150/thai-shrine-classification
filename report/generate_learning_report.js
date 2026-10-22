@@ -131,6 +131,7 @@ function learningFigures(records) {
     for(let e=1;e<=Math.max(...runs.map(r=>r.rows.length));e++){const available=runs.filter(r=>r.rows.some(h=>h.epoch===e));for(const key of keys){const values=available.map(r=>r.rows.find(h=>h.epoch===e)[key]);aggregates.push({architecture:a,mode:m,epoch:e,metric:key,n:values.length,seeds:available.map(r=>r.seed).join(';'),mean:mean(values),sample_sd:values.length>1?sd(values):'',unit:key.includes('loss')?'weighted_cross_entropy':'fraction'});}}
   }
   writeCsv('report/learning_curve_summary.csv',aggregates);writeCsv('report/final_checkpoint_summary.csv',checkpoints);
+  writeCsv('report/mean_selected_epochs.csv', A.flatMap(a=>M.map(m=>({architecture:a,mode:m,n:5,mean_selected_epoch:mean(checkpoints.filter(r=>r.architecture===a&&r.mode===m).map(r=>Number(r.selected_epoch))),seed_ids:'42;123;456;789;1024'}))));
   const losses=aggregates.filter(r=>r.metric.includes('loss'));const lossMin=Math.min(0,...losses.filter(r=>r.sample_sd!=='').map(r=>r.mean-r.sample_sd));const lossMax=Math.max(...losses.map(r=>r.mean+(r.sample_sd===''?0:r.sample_sd)));
   const lossLo=Math.floor(lossMin*2)/2,lossHi=Math.ceil(lossMax*2)/2;
   const fractions=aggregates.filter(r=>!r.metric.includes('loss'));
@@ -147,6 +148,7 @@ function learningFigures(records) {
           s+='<path d="M '+data.map(r=>p.x(r.epoch)+' '+p.y(r.mean*spec.scale)).join(' L ')+'" fill="none" stroke="'+T.modeColors[m]+'" stroke-width="3" stroke-dasharray="'+(key.startsWith('val')?'9 5':'')+'"/>';
         });
         if(ri===2)finals.filter(r=>r.architecture===a&&r.mode===m).forEach(r=>{const xx=p.x(r.best_epoch),yy=p.y(r.selected.val_macro_f1*100);s+=line(xx-4,yy-4,xx+4,yy+4,T.ink,'stroke-width="2"')+line(xx-4,yy+4,xx+4,yy-4,T.ink,'stroke-width="2"');});
+        if(ri===2){const selectedMean=mean(finals.filter(r=>r.architecture===a&&r.mode===m).map(r=>Number(r.best_epoch)));s+=line(p.x(selectedMean),b.y,p.x(selectedMean),b.y+b.h,T.ink,'stroke-width="2" stroke-dasharray="3 5"')+text(b.x+b.w-8,b.y+b.h-16,'Mean selected epoch = '+selectedMean.toFixed(1),15,'text-anchor="end" font-weight="600"');}
       });
     });
     s+=text(780,1424,'Observed epochs only; no zero-fill or carry-forward · n = 1: mean only, no sample SD · common axes across architectures',16);save('learning_curves_'+a+'.svg',s);

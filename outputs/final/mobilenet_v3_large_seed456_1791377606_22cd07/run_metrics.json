@@ -1,0 +1,44 @@
+{
+  "architecture": "mobilenet_v3_large",
+  "seed": 456,
+  "status": "completed",
+  "best_epoch": 5,
+  "best_val_acc": 0.9411764705882353,
+  "best_val_macro_f1": 0.9315628815628816,
+  "best_val_loss": 0.23144434669109828,
+  "checkpoint": "C:\\Users\\User\\Desktop\\deep\\outputs\\final\\mobilenet_v3_large_seed456_1791377606_22cd07\\best_mobilenet_v3_large_seed456.pt",
+  "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs\\final\\mobilenet_v3_large_seed456_1791377606_22cd07",
+  "epochs_completed": 12,
+  "tracking_mode": "online",
+  "tracking_error": null,
+  "test_acc": 0.9058823529411765,
+  "test_macro_precision": 0.8951854066985646,
+  "test_macro_recall": 0.9039682539682539,
+  "test_macro_f1": 0.8967633244155722,
+  "per_class": {
+    "san_phraphrom": {
+      "precision": 0.8421052631578947,
+      "recall": 1.0,
+      "f1": 0.9142857142857143,
+      "support": 16
+    },
+    "san_phraphum": {
+      "precision": 0.875,
+      "recall": 0.7777777777777778,
+      "f1": 0.8235294117647058,
+      "support": 18
+    },
+    "san_tayay": {
+      "precision": 0.8636363636363636,
+      "recall": 0.9047619047619048,
+      "f1": 0.8837209302325582,
+      "support": 21
+    },
+    "tee_ju_eia": {
+      "precision": 1.0,
+      "recall": 0.9333333333333333,
+      "f1": 0.9655172413793104,
+      "support": 30
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "completed": 10,
+  "target": 10,
+  "baseline_reused": 5,
+  "next_stage": "analyze"
+}

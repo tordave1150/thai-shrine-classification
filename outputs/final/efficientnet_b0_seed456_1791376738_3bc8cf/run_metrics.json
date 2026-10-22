@@ -1,0 +1,44 @@
+{
+  "architecture": "efficientnet_b0",
+  "seed": 456,
+  "status": "completed",
+  "best_epoch": 10,
+  "best_val_acc": 0.9411764705882353,
+  "best_val_macro_f1": 0.9325373754152824,
+  "best_val_loss": 0.3008334261529586,
+  "checkpoint": "C:\\Users\\User\\Desktop\\deep\\outputs\\final\\efficientnet_b0_seed456_1791376738_3bc8cf\\best_efficientnet_b0_seed456.pt",
+  "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs\\final\\efficientnet_b0_seed456_1791376738_3bc8cf",
+  "epochs_completed": 17,
+  "tracking_mode": "online",
+  "tracking_error": null,
+  "test_acc": 0.8588235294117647,
+  "test_macro_precision": 0.8330399577539166,
+  "test_macro_recall": 0.8338293650793651,
+  "test_macro_f1": 0.8271994134897361,
+  "per_class": {
+    "san_phraphrom": {
+      "precision": 0.7368421052631579,
+      "recall": 0.875,
+      "f1": 0.8,
+      "support": 16
+    },
+    "san_phraphum": {
+      "precision": 0.7692307692307693,
+      "recall": 0.5555555555555556,
+      "f1": 0.6451612903225806,
+      "support": 18
+    },
+    "san_tayay": {
+      "precision": 0.8260869565217391,
+      "recall": 0.9047619047619048,
+      "f1": 0.8636363636363636,
+      "support": 21
+    },
+    "tee_ju_eia": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 30
+    }
+  }
+}

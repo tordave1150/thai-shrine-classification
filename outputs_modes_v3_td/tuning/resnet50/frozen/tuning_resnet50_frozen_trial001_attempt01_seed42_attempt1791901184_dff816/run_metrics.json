@@ -1,0 +1,19 @@
+{
+  "architecture": "resnet50",
+  "mode": "frozen",
+  "seed": 42,
+  "status": "completed",
+  "trial": 1,
+  "run_identity": "trial001_attempt01",
+  "best_epoch": 25,
+  "best_val_acc": 0.8823529411764706,
+  "best_val_macro_f1": 0.8634338982472891,
+  "best_val_loss": 0.5618928236119888,
+  "checkpoint": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\tuning\\resnet50\\frozen\\tuning_resnet50_frozen_trial001_attempt01_seed42_attempt1791901184_dff816\\best_resnet50_frozen_seed42.pt",
+  "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\tuning\\resnet50\\frozen\\tuning_resnet50_frozen_trial001_attempt01_seed42_attempt1791901184_dff816",
+  "epochs_completed": 25,
+  "tracking_mode": "online",
+  "tracking_error": null,
+  "wandb_run_id": "x8hppfl0",
+  "wandb_run_url": "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/x8hppfl0"
+}

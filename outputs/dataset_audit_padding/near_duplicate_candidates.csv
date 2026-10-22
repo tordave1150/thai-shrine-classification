@@ -1,0 +1,16 @@
+﻿path_a,path_b,id_a,id_b,cross_class,hamming_distance,review_status
+san_phraphum/san_phraphum_0002.jpg,san_phraphum/san_phraphum_0046.jpg,san_phraphum/san_phraphum_0002,san_phraphum/san_phraphum_0046,0,0,pending
+san_phraphum/san_phraphum_0008.jpg,san_phraphum/san_phraphum_0083.jpg,san_phraphum/san_phraphum_0008,san_phraphum/san_phraphum_0083,0,0,pending
+san_phraphum/san_phraphum_0009.jpg,san_phraphum/san_phraphum_0016.jpg,san_phraphum/san_phraphum_0009,san_phraphum/san_phraphum_0016,0,0,pending
+san_phraphum/san_phraphum_0019.jpg,san_phraphum/san_phraphum_0037.jpg,san_phraphum/san_phraphum_0019,san_phraphum/san_phraphum_0037,0,0,pending
+san_phraphum/san_phraphum_0073.jpg,san_phraphum/san_phraphum_0077.jpg,san_phraphum/san_phraphum_0073,san_phraphum/san_phraphum_0077,0,0,pending
+san_phraphum/san_phraphum_0084.jpg,san_phraphum/san_phraphum_0088.jpg,san_phraphum/san_phraphum_0084,san_phraphum/san_phraphum_0088,0,0,pending
+san_phraphum/san_phraphum_0085.jpg,san_phraphum/san_phraphum_0090.jpg,san_phraphum/san_phraphum_0085,san_phraphum/san_phraphum_0090,0,0,pending
+san_phraphum/san_phraphum_0086.jpg,san_phraphum/san_phraphum_0087.jpg,san_phraphum/san_phraphum_0086,san_phraphum/san_phraphum_0087,0,0,pending
+tee_ju_eia/tee_ju_eia_0018.jpg,tee_ju_eia/tee_ju_eia_0195.jpg,tee_ju_eia/tee_ju_eia_0018,tee_ju_eia/tee_ju_eia_0195,0,0,pending
+tee_ju_eia/tee_ju_eia_0021.jpg,tee_ju_eia/tee_ju_eia_0199.jpg,tee_ju_eia/tee_ju_eia_0021,tee_ju_eia/tee_ju_eia_0199,0,0,pending
+san_phraphum/san_phraphum_0055.jpg,san_phraphum/san_phraphum_0061.jpg,san_phraphum/san_phraphum_0055,san_phraphum/san_phraphum_0061,0,2,pending
+san_phraphum/san_phraphum_0020.jpg,san_phraphum/san_phraphum_0066.jpg,san_phraphum/san_phraphum_0020,san_phraphum/san_phraphum_0066,0,6,pending
+san_phraphum/san_phraphum_0055.jpg,san_phraphum/san_phraphum_0059.jpg,san_phraphum/san_phraphum_0055,san_phraphum/san_phraphum_0059,0,6,pending
+san_phraphum/san_phraphum_0059.jpg,san_phraphum/san_phraphum_0061.jpg,san_phraphum/san_phraphum_0059,san_phraphum/san_phraphum_0061,0,6,pending
+san_tayay/san_tayay_0084.jpg,san_tayay/san_tayay_0088.jpg,san_tayay/san_tayay_0084,san_tayay/san_tayay_0088,0,6,pending
