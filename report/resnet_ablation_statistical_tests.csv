@@ -1,5 +1,0 @@
-﻿family_id,condition,direction,metric,seed_ids,paired_n,mean_difference,mean_difference_pp,t_statistic,p_value,status,p_holm,significant_holm,alpha,holm_family_size
-resnet50_full_ablation_variant_minus_baseline_accuracy_macro_f1_4,no_augmentation,variant minus baseline,test_acc,"42,123,456,789,1024",5,-0.009411764705882364,-0.9411764705882364,-1.0886621079036367,0.3375018565403638,ok,1.0,False,0.05,4
-resnet50_full_ablation_variant_minus_baseline_accuracy_macro_f1_4,no_augmentation,variant minus baseline,test_macro_f1,"42,123,456,789,1024",5,-0.013215313892991642,-1.3215313892991642,-1.433325707045445,0.22505620317514832,ok,0.9002248127005933,False,0.05,4
-resnet50_full_ablation_variant_minus_baseline_accuracy_macro_f1_4,no_class_weights,variant minus baseline,test_acc,"42,123,456,789,1024",5,-0.004705882352941182,-0.4705882352941182,-0.43133109281375503,0.6884570897760032,ok,1.0,False,0.05,4
-resnet50_full_ablation_variant_minus_baseline_accuracy_macro_f1_4,no_class_weights,variant minus baseline,test_macro_f1,"42,123,456,789,1024",5,-0.006725965892240083,-0.6725965892240082,-0.48116142218101016,0.6555386440499423,ok,1.0,False,0.05,4

@@ -1,6 +1,0 @@
-{
-  "completed": 0,
-  "target": 10,
-  "baseline_reused": 5,
-  "next_stage": "ablation --resume"
-}

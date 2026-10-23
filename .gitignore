@@ -1,64 +1,15 @@
-.venv/
-__pycache__/
-*.py[cod]
-.pytest_cache/
-.env
-.env.*
-!.env.example
+# Published repository: dataset, report figures and README only.
+# Source code, experiment logs, checkpoints and local archives stay on disk.
+/*
+!/.gitignore
+!/.gitattributes
+!/README.md
+!/dataset_cleaned/
+!/outputs/
 
-# Local archives and files excluded from the published project
-/other/
-/EXPERIMENT_SUMMARY_TH.md
-/Thai_Shrine_Classifier_Submission.ipynb
-.DS_Store
-
-# Historical experiment versions; canonical audit/split inputs remain below
-/outputs_modes_v2/
-/outputs_modes_v3/
-/outputs_smoke/
+# Preserve the original local outputs; publish only the curated figure folder.
 /outputs/*
-!/outputs/splits.csv
-!/outputs/split_metadata.json
-!/outputs/dataset_audit/
-!/outputs/baseline/
+!/outputs/figures/
 
-# Model binaries stay local; CSV/JSON evidence remains versioned
-*.pt
-*.pth
-*.ckpt
-*.npy
-
-# Tracking caches are redundant with the retained local experiment evidence
-**/wandb/
-*.wandb
-*.wandb.syncstate
-
-# Debug runs and per-run plots; README uses the aggregate/published figures
-/outputs_modes_v3_td/smoke/
-/outputs_modes_v3_td/**/curves.png
-/outputs_modes_v3_td/**/confusion_matrix.png
-/outputs_modes_v3_td/**/confusion_matrix_normalized.png
-!/outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/**/curves.png
-!/outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/**/confusion_matrix.png
-!/outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/**/confusion_matrix_normalized.png
-/report/qa/*.png
-/report/qa/*.html
-
-# Superseded report exports; keep the README sample grid and nested figures
-/report/report_assets/*.png
-!/report/report_assets/sample_grid.png
-/report/report_assets/*.svg
-/report/report_assets/latest/reference_calibration.svg
-
-# Canonical project code is bundled in thai_shrine_classifier_project.ipynb.
-# Running its source cells restores these modules locally with original bytes.
-/*.py
-/shrine_classifier/
-/shrine_classifier_ext/
-/tests/
-/.notebook_sources.json
-.ipynb_checkpoints/
-/report/generate_misclassified_overlays.py
-
-# Local review previews; the approved README figures are in report_assets/latest.
-/report/previews/
+.DS_Store
+Thumbs.db

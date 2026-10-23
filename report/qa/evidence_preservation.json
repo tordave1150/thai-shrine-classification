@@ -1,9 +1,0 @@
-{
-  "checked_utc": "2026-10-20T15:44:20.908Z",
-  "compared_against_commit": "4dc1349ad854c5234cd93520f229db448553e76c",
-  "saved_artifact_hashes_checked": 86,
-  "mismatches": [],
-  "selection_sha256": "5b72b8108f131df16af0155051952f72134b3e5907109b92627a112181c7988e",
-  "ablation_lock_sha256": "ce12f6c6797f952e068787fed80f17c6c7a63b8402997ebe90ffa158fbd1592c",
-  "note": "Saved evidence hashes match the pre-revision report provenance. Presentation assets changed separately; no experiment outputs were rewritten."
-}
