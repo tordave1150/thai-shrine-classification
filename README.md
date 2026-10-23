@@ -1,6 +1,6 @@
 <a id="top" name="top"></a>
 
-# DADS7202 — Thai shrine image classification using transfer learning
+# DADS7202: Thai shrine image classification using transfer learning
 
 <a id="ข้อมูลสมาชิกในกลุ่ม" name="ข้อมูลสมาชิกในกลุ่ม"></a>
 ## Members
