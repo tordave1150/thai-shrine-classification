@@ -13,7 +13,6 @@
 
 ## สารบัญ (Table of Contents)
 
-- [ข้อมูลสมาชิกในกลุ่ม](#ข้อมูลสมาชิกในกลุ่ม)
 - [Abstract](#abstract)
 - [1. Dataset overview](#1-dataset-overview)
   - [1.1 Study objective and data sources](#11-study-objective-and-data-sources)
