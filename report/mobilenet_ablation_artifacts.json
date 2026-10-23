@@ -1,0 +1,26 @@
+{
+  "study_directory": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/",
+  "artifact_index": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/artifact_index.json",
+  "completed_new_runs": 10,
+  "actual_epochs": 180,
+  "training_curve_images": 10,
+  "confusion_images": 20,
+  "console_logs": [
+    {
+      "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/logs/ablation_console.log",
+      "sha256": "a1e70ab83ee02cfef4a1c865ab936d3c950ab0f2d663a1fc8132de80e6bb4fdc"
+    },
+    {
+      "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/logs/analyze_console.log",
+      "sha256": "571a68cf3e91a1fca7af1e0fbcb9bb5d37fd3e69c7274ad5b7a7c20b5266cc4d"
+    },
+    {
+      "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/logs/report_console.log",
+      "sha256": "c232f4bcd1cba97c42a6dca05d7499721f38e20b2be2c75177e268cfbd4a458c"
+    },
+    {
+      "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/logs/lock_console.json",
+      "sha256": "ce49ec4d82de09de1a7df2412ced21b35280f37087977088f438b9f4c49398a9"
+    }
+  ]
+}

@@ -46,7 +46,7 @@
   - [6.7 Matched-image Grad-CAM comparison](#67-matched-image-grad-cam-comparison)
   - [6.8 Confidence and calibration](#68-confidence-and-calibration)
   - [6.9 Final model selection](#69-final-model-selection)
-  - [6.10 Ablation study of ResNet50/Full](#610-ablation-study-of-resnet50full)
+  - [6.10 Ablation study of MobileNetV3-Large/Partial](#610-ablation-study-of-mobilenetv3-largepartial)
 - [7. Discussion and conclusions](#7-discussion-and-conclusions)
   - [7.1 Limitations](#71-limitations)
 
@@ -58,9 +58,9 @@
 
 ข้อมูลแบ่งโดยจัดภาพซ้ำและภาพใกล้เคียงที่ผ่านการตรวจสอบให้อยู่ในกลุ่มเดียวกัน แล้วแบ่งกลุ่มเป็น train 390 ภาพ validation 85 ภาพ และ test 85 ภาพ โดยเลือกการแบ่งที่รักษาสัดส่วนคลาสให้ใกล้เคียงกัน แต่ละ setup ค้นหา hyperparameters แยกกันจำนวน 5 trials ก่อนฝึกซ้ำด้วย 5 seeds รวม 75 tuning trials และ 75 final runs
 
-**ResNet50/Full ได้รับเลือกเป็นโมเดลสุดท้ายของการศึกษา** เพราะมีค่าเฉลี่ย Accuracy, Macro precision, Macro recall และ Macro F1 บน test สูงสุดจาก 15 setups โดยได้ Accuracy 93.65% ± 1.34 pp และ Macro F1 92.56% ± 1.81 pp นอกจากนี้ยังมี Recall ของศาลพระภูมิสูงกว่า และมี SD ของ Accuracy และ Macro F1 ต่ำกว่า MobileNetV3-Large/Partial ซึ่งเป็นโมเดลอ้างอิงจาก validation ส่วน MobileNet มี ECE ต่ำกว่าเล็กน้อย ความแตกต่างของ Accuracy และ Macro F1 ระหว่างสองโมเดลยังไม่มีนัยสำคัญหลังปรับ Holm การเลือก ResNet จึงเป็นข้อสรุปจากผลที่สังเกตในการศึกษานี้ โดยเปิดเผยว่าเลือกหลังพิจารณา test (post-hoc) บน split ที่เคยตรวจดูแล้ว และผลมีสถานะเชิงสำรวจ (exploratory)
+**MobileNetV3-Large/Partial ได้รับเลือกเป็นโมเดลสุดท้ายของการศึกษา** สอดคล้องกับโมเดลอ้างอิงที่เลือกจาก validation เดิม โดยมี test Accuracy 93.18% ± 2.41 pp และ Macro F1 91.68% ± 3.05 pp แม้ ResNet50/Full มีค่าเฉลี่ยสูงกว่าเล็กน้อย แต่ยังไม่พบความแตกต่างของ Accuracy และ Macro F1 อย่างมีนัยสำคัญหลังปรับ Holm (p = 1.000 ทั้งสอง metrics) งานนี้จึงให้น้ำหนักกับข้อจำกัดทรัพยากร: MobileNet/Partial มี trainable parameters 3,414,668 ตัว เทียบกับ 23,516,228 ตัวของ ResNet/Full น้อยกว่า 85.48% และ Grad-CAM ที่ตรวจแสดงบริเวณตอบสนองใกล้ตัวศาลในหลายภาพ การไม่พบนัยสำคัญไม่ได้ยืนยันว่าโมเดลเท่ากัน จำนวน parameters ไม่ใช่ผลวัดความเร็วจริง และข้อสรุปจาก test split ที่เคยดูแล้วคงมีสถานะเชิงสำรวจ
 
-การศึกษา ablation ใช้ตรวจสอบผลของ augmentation และ class weights โดยนำองค์ประกอบออกจากสูตรเดิมทีละอย่าง การไม่ใช้ augmentation มี Macro F1 เฉลี่ยลดลง 1.32 pp ส่วนการไม่ใช้ class weights ลดลง 0.67 pp แต่ยังไม่พบความแตกต่างอย่างมีนัยสำคัญหลังปรับ Holm ทั้ง 4 comparisons การฝึกเพิ่ม 10 runs ทำให้รวมทั้งงานเป็น 160 runs นอกจากนี้ใช้ Grad-CAM จาก checkpoint เดิมวิเคราะห์บริเวณภาพที่สัมพันธ์กับผลทำนาย รวมถึงตัวอย่างที่ทายผิดด้วยความมั่นใจสูง
+การศึกษา ablation ของ MobileNetV3-Large/Partial เปรียบเทียบ baseline กับการนำ augmentation หรือ class weights ออกทีละอย่าง โดยใช้ matched seeds 5 ค่าและสูตรเดิม ไม่ tune หรือฝึก baseline ซ้ำ การนำ augmentation ออกทำให้ Macro F1 เปลี่ยน -0.40 pp ส่วนการนำ class weights ออกเปลี่ยน -1.18 pp พบ 0/4 comparisons ที่มีนัยสำคัญหลัง Holm การศึกษาใหม่นี้ฝึก 10 runs / 180 epochs และเก็บผล ResNet ablation เดิมไว้เป็นหลักฐานย้อนหลัง รวมงานที่ฝึกจริงทั้งหมด 170 runs / 3,086 epochs
 
 <p align="right"><a href="#top">🔝 กลับสู่ด้านบน</a></p>
 
@@ -194,7 +194,7 @@ Probability คือโอกาสที่การแปลงจะเก�
 | DenseNet121 | Dense blocks | เปลี่ยน `classifier` เป็นชั้นให้คะแนน 4 คลาส |
 | ConvNeXt-Tiny | ConvNeXt feature stages | เปลี่ยนชั้นให้คะแนนสุดท้าย คง normalization และ flatten |
 
-สถาปัตยกรรมทั้งห้าเป็นกลุ่มเปรียบเทียบที่กำหนดไว้ล่วงหน้า เพื่อศึกษาวิธีเชื่อมต่อและขอบเขตการปรับน้ำหนักที่ต่างกัน เหตุผลที่เลือก ResNet50/Full จากผลการทดลองอยู่ในหัวข้อ 6.9 ส่วนจำนวน parameters ของแต่ละ mode บันทึกใน `config.json` ของแต่ละ run ใน [ผล final](outputs_modes_v3_td/final/)
+สถาปัตยกรรมทั้งห้าเป็นกลุ่มเปรียบเทียบที่กำหนดไว้ล่วงหน้า เพื่อศึกษาวิธีเชื่อมต่อและขอบเขตการปรับน้ำหนักที่ต่างกัน เหตุผลที่เลือก MobileNetV3-Large/Partial โดยพิจารณาทั้งผลทดสอบและข้อจำกัดทรัพยากรอยู่ในหัวข้อ 6.9 ส่วนจำนวน parameters ของแต่ละ mode บันทึกใน `config.json` ของแต่ละ run ใน [ผล final](outputs_modes_v3_td/final/)
 
 ### 3.2 Fine-tuning strategies
 
@@ -423,7 +423,7 @@ Confidence คือความน่าจะเป็นสูงสุดท
 
 ### 6.1 Experiment completeness
 
-การทดลองเสร็จครบทั้ง 15 setups โดยแต่ละ setup ผ่านการค้นหา 5 trials และฝึก final ด้วย 5 seeds รวมงานหลัก 150 runs จึงเปรียบเทียบทุก architecture และ mode ได้ภายใต้งบเดียวกัน ผลในหัวข้อต่อไปมาจาก 75 final runs ที่ประเมินบน test 85 ภาพชุดเดียวกัน ส่วน ablation อีก 10 runs แสดงในหัวข้อ 6.10
+งานหลักเสร็จครบทั้ง 15 setups: setup ละ 5 tuning trials และ 5 final seeds รวม 75 tuning + 75 final runs โดยประเมินบน test 85 ภาพชุดเดียวกันเฉพาะ final runs หลังล็อกสูตรแล้ว หัวข้อ 6.10 แสดง MobileNet/Partial ablation ที่ฝึกเพิ่ม 10 runs / 180 epochs โดย reuse baseline เดิม 5 seeds ส่วน ResNet ablation เดิม 10 runs / 145 epochs เก็บไว้เป็นหลักฐานย้อนหลัง รวมงานที่ฝึกจริง 170 runs / 3,086 epochs โดยไม่บวก baseline ซ้ำ
 
 ### 6.2 Learning curves across five seeds
 
@@ -457,7 +457,7 @@ Train วัดระหว่างฝึกด้วย augmentation ส่ว
 
 ### 6.3 Test performance
 
-**ResNet50/Full มีค่าเฉลี่ยสูงสุดทั้ง 4 classification metrics จาก 15 setups** ได้แก่ Accuracy 93.65%, Macro precision 92.92%, Macro recall 92.77% และ Macro F1 92.56% ผลจึงสนับสนุนการเลือกจากหลายด้านร่วมกัน ตารางแสดง mean (%) ± sample SD (pp) จาก 5 seeds เรียงตาม Macro F1
+**ResNet50/Full มีค่าเฉลี่ยสูงสุดทั้ง 4 classification metrics จาก 15 setups** ได้แก่ Accuracy 93.65%, Macro precision 92.92%, Macro recall 92.77% และ Macro F1 92.56% อันดับนี้เป็นผลเชิงพรรณนาบน test ส่วนการเลือก MobileNet/Partial โดยพิจารณาทรัพยากรร่วมด้วยอธิบายในหัวข้อ 6.9 ตารางแสดง mean (%) ± sample SD (pp) จาก 5 seeds เรียงตาม Macro F1
 
 <!-- generated:RESULT_TABLE -->
 
@@ -547,7 +547,7 @@ t = d̄ / (s_d / √n)
 
 ### 6.5 Per-class performance
 
-เปรียบเทียบ ResNet50/Full (โมเดลที่เลือก) กับ MobileNetV3-Large/Partial (โมเดลอ้างอิง) ค่าเป็น mean (%) ± sample SD (pp) จาก 5 seeds Support คือจำนวนภาพ test ต่อ run
+เปรียบเทียบ MobileNetV3-Large/Partial (โมเดลที่เลือกและ validation reference) กับ ResNet50/Full (โมเดลเปรียบเทียบ) ค่าเป็น mean (%) ± sample SD (pp) จาก 5 seeds Support คือจำนวนภาพ test ต่อ run
 
 <!-- generated:PERCLASS_TABLE -->
 
@@ -572,9 +572,9 @@ t = d̄ / (s_d / √n)
 
 คำนวณสัดส่วนภายในแต่ละ true class ของแต่ละ seed ก่อน แล้วเฉลี่ยและหา sample SD ข้าม 5 seeds ช่องแนวทแยงคือ Recall ของคลาสนั้น สเกลสีเป็น 0–100 เท่ากันทุกภาพ
 
-![Confusion matrix ของ ResNet50/Full](report/report_assets/latest/confusion_resnet50_full.svg)
+![Confusion matrix ของ MobileNetV3-Large/Partial](report/report_assets/latest/confusion_mobilenet_v3_large_partial.svg)
 
-*Figure 16 Confusion matrix ของ ResNet50/Full (ค่าเฉลี่ย % และ SD เป็น pp ข้าม 5 seeds) พระภูมิถูกทายถูกเฉลี่ย 77.8% ± 3.9 pp ซึ่งต่ำสุดในสี่คลาส*
+*Figure 16 Confusion matrix ของ MobileNetV3-Large/Partial (ค่าเฉลี่ย % และ SD เป็น pp ข้าม 5 seeds) พระภูมิถูกทายถูกเฉลี่ย 72.2% ± 10.4 pp ซึ่งต่ำสุดในสี่คลาส*
 
 <details>
 <summary>Confusion matrices for all 15 setups (five seeds each)</summary>
@@ -664,69 +664,71 @@ t = d̄ / (s_d / √n)
 
 ### 6.9 Final model selection
 
-**เลือก ResNet50/Full เป็นโมเดลสุดท้ายของการศึกษา** โดยให้น้ำหนักกับความถูกต้องโดยรวม ความสมดุลระหว่างคลาส และความสม่ำเสมอของผลจาก 5 seeds พร้อมพิจารณา calibration ประกอบ ตารางสรุปการเทียบกับ MobileNetV3-Large/Partial ซึ่งเป็นโมเดลอ้างอิงที่เลือกไว้จาก validation ดังนี้
+**เลือก MobileNetV3-Large/Partial เป็นโมเดลสุดท้าย** เพื่อให้ตรงกับโจทย์ด้านทรัพยากร โดยยังใช้สูตร baseline ที่มี augmentation และ class weights และสอดคล้องกับ validation-selected reference ใน selection.json เดิม ไม่เปลี่ยนสูตร checkpoint หรือแผนสถิติหลังเห็น test
 
-| Metric (%) | ResNet50/Full (selected) | MobileNetV3-Large/Partial (reference) |
+| Metric | MobileNetV3-Large/Partial (selected) | ResNet50/Full (comparison) |
 | --- | ---: | ---: |
-| Accuracy ↑ | 93.65 ± 1.34 | 93.18 ± 2.41 |
-| Macro precision ↑ | 92.92 ± 2.07 | 92.71 ± 2.04 |
-| Macro recall ↑ | 92.77 ± 1.69 | 92.17 ± 2.66 |
-| Macro F1 ↑ | 92.56 ± 1.81 | 91.68 ± 3.05 |
-| Phra Phum recall ↑ | 77.78 ± 3.93 | 72.22 ± 10.39 |
-| ECE (10 bins) ↓ | 4.94 ± 1.56 | 4.53 ± 1.67 |
+| Accuracy (%) ↑ | 93.18 ± 2.41 | 93.65 ± 1.34 |
+| Macro precision (%) ↑ | 92.71 ± 2.04 | 92.92 ± 2.07 |
+| Macro recall (%) ↑ | 92.17 ± 2.66 | 92.77 ± 1.69 |
+| Macro F1 (%) ↑ | 91.68 ± 3.05 | 92.56 ± 1.81 |
+| Phra Phum recall (%) ↑ | 72.22 ± 10.39 | 77.78 ± 3.93 |
+| ECE (10 bins, %) ↓ | 4.53 ± 1.67 | 4.94 ± 1.56 |
+| Total parameters (จำนวนตัว) | 4,207,156 | 23,516,228 |
+| Trainable parameters (จำนวนตัว) | 3,414,668 | 23,516,228 |
 
-เหตุผลหลักคือ ResNet50/Full มีค่าเฉลี่ยสูงสุดทั้ง 4 classification metrics จาก 15 setups และตรวจพบพระภูมิซึ่งเป็นคลาสที่ยากที่สุดได้มากกว่าโมเดลอ้างอิง โดย Recall สูงกว่า 5.56 pp นอกจากนี้ SD ของ Accuracy, Macro recall และ Macro F1 ยังต่ำกว่า MobileNet/Partial แสดงถึงผลที่สม่ำเสมอกว่าใน metrics เหล่านี้เมื่อเปลี่ยน seed
+ResNet มีค่าเฉลี่ย Accuracy สูงกว่า 0.47 pp และ Macro F1 สูงกว่า 0.88 pp แต่ paired tests จาก 5 matched seeds ยังไม่พบความแตกต่างหลัง Holm (p = 1.000 ทั้งสอง metrics) การไม่ปฏิเสธสมมติฐานนี้ไม่ใช่หลักฐานว่าคะแนนเท่ากัน จึงใช้เป็นบริบทประกอบการตัดสินใจตามโจทย์ทรัพยากร ไม่ใช่ข้อพิสูจน์ว่า MobileNet ไม่ด้อยกว่า
 
-ข้อแลกเปลี่ยนคือ ECE เฉลี่ยของ ResNet สูงกว่า 0.41 pp และไม่ได้ดีที่สุดทุกคลาส แต่เมื่อพิจารณาผลร่วมกัน งานนี้ให้ความสำคัญกับการจำแนกศาลได้ถูกต้องและผลรายคลาส จึงเลือก **ResNet50/Full พร้อมสูตร baseline ที่มี augmentation และ class weights** เป็นข้อสรุปของการศึกษา
+MobileNet/Partial มี **trainable parameters น้อยกว่า 85.48%** และ total parameters น้อยกว่า 82.11% ภาระการปรับน้ำหนักและการเก็บ gradient/optimizer state จึงมีขนาดเล็กกว่าตามจำนวน parameters แต่ยังไม่มี benchmark ที่ควบคุมเงื่อนไขสำหรับเวลา หน่วยความจำ พลังงาน หรือ inference latency จึงไม่รายงานว่าเร็วขึ้นเป็นกี่เท่า
 
-การเลือกนี้อาศัยผล test หลายด้านร่วมกันหลังการทดลอง (post-hoc) และไม่ได้หมายความว่า ResNet เหนือกว่า MobileNet อย่างมีนัยสำคัญทางสถิติ ส่วน MobileNetV3-Large/Partial ยังคงเป็น statistical reference ตาม `selection.json` และแผนทดสอบ 28/30 รายการเดิม
+Grad-CAM ใน Figure 17 แสดงว่า MobileNet ตอบสนองบริเวณเรือน ฐาน หรือยอดศาลได้ในหลายตัวอย่าง เช่น san_phraphum_0043 และ san_tayay_0093 ที่ MobileNet ทายถูกขณะที่ ResNet ทายผิด อย่างไรก็ตามยังมีภาพที่ MobileNet ผิดแต่ ResNet ถูก และภาพที่ทั้งคู่ผิดด้วย confidence สูง หลักฐานนี้เป็นการตรวจเชิงคุณภาพ ไม่ใช่คะแนนการระบุตำแหน่งหรือหลักฐานเชิงสาเหตุ
 
-### 6.10 Ablation study of ResNet50/Full
+การเลือกสุดท้ายจึงให้น้ำหนักกับขนาดโมเดล/จำนวน weights ที่ต้องปรับร่วมกับผลจำแนกและ CAM ที่ตรวจ ไม่ได้อาศัย p-value เพียงอย่างเดียว โมเดลที่เลือกตรงกับ validation reference เดิม แต่การอธิบายประกอบจาก test และ ablation บน split ที่เคยดูแล้วคงเป็น exploratory และไม่เปลี่ยน selection.json หรือ Holm families 28/30 เดิม
 
-<!-- resnet-followup:ablation:start -->
+ไฟล์ประกอบ: [หลักฐานการเลือกโมเดล](report/final_model_selection.json)
 
-เพื่อดูว่า augmentation และ class weights มีผลต่อสูตรที่เลือกอย่างไร เปรียบเทียบ **baseline ที่มีทั้งสององค์ประกอบ** กับอีก 2 เงื่อนไข: ไม่ใช้ augmentation แต่คง class weights และไม่ใช้ class weights แต่คง augmentation
+### 6.10 Ablation study of MobileNetV3-Large/Partial
 
-ทั้งสองเงื่อนไขใช้ ResNet50/Full, hyperparameters, split และเกณฑ์เลือก checkpoint เดิม โดยล็อกแผนก่อนฝึกเพิ่มจาก ImageNet อย่างละ 5 seeds รวม 10 runs แล้วจับคู่กับ baseline final เดิม 5 seeds จึงไม่มีการ tune ใหม่หรือฝึก baseline ซ้ำ
+<!-- mobilenet-followup:ablation:start -->
+
+ใช้ **MobileNetV3-Large/Partial** และ recipe ของคู่นี้ที่เลือกจาก validation เดิม เปรียบเทียบ baseline ซึ่งมี augmentation และ class weights กับสอง variants: ไม่ใช้ augmentation แต่คง class weights และไม่ใช้ class weights แต่คง augmentation เปลี่ยนทีละปัจจัย โดยคง architecture, Partial modules, optimizer, learning rate, weight decay, batch size, split, seeds และเกณฑ์เลือก checkpoint เดิม
+
+ล็อก variants และ **Holm family แยก 4 comparisons** ก่อนฝึกใหม่จาก ImageNet: variant ละ 5 seeds รวม **10 runs / 180 actual epochs** (งบสูงสุด 300 epochs) แล้วจับคู่กับ baseline final เดิม 5 seeds ไม่มีการ tune ใหม่หรือฝึก baseline ซ้ำ
 
 <!-- generated:ABLATION_TABLE -->
 
 | Condition | Accuracy (%) | Macro precision (%) | Macro recall (%) | Macro F1 (%) |
 | --- | ---: | ---: | ---: | ---: |
-| Baseline | 93.65 ± 1.34 | 92.92 ± 2.07 | 92.77 ± 1.69 | 92.56 ± 1.81 |
-| ไม่ใช้ augmentation | 92.71 ± 1.93 | 92.35 ± 1.92 | 91.41 ± 2.28 | 91.24 ± 2.39 |
-| ไม่ใช้ class weights | 93.18 ± 2.10 | 92.77 ± 2.55 | 92.18 ± 2.22 | 91.89 ± 2.54 |
+| Baseline | 93.18 ± 2.41 | 92.71 ± 2.04 | 92.17 ± 2.66 | 91.68 ± 3.05 |
+| ไม่ใช้ augmentation | 92.94 ± 1.66 | 93.00 ± 1.41 | 91.78 ± 1.88 | 91.28 ± 2.08 |
+| ไม่ใช้ class weights | 92.24 ± 2.44 | 91.98 ± 2.02 | 91.03 ± 2.69 | 90.50 ± 3.12 |
 
 <!-- /generated:ABLATION_TABLE -->
 
-![Ablation ของ ResNet50/Full](report/report_assets/latest/resnet_ablation_summary.svg)
+![Ablation ของ MobileNetV3-Large/Partial](report/report_assets/latest/mobilenet_ablation_comparison.svg)
 
-*Figure 19 Accuracy และ Macro F1 ของ baseline กับสอง variants แสดง mean ± SD และแต่ละ seed ใช้ช่วงแกน 80–100*
+*Figure 19. Test Accuracy และ Macro F1 ของ MobileNetV3-Large/Partial: สี่เหลี่ยมเล็กแทนแต่ละ seed สี่เหลี่ยมใหญ่และเส้นแทน mean ± sample SD จาก 5 matched seeds ทุกเงื่อนไขใช้ Partial mode เดียวกัน*
 
-จุดย่อยแสดงผลแต่ละ seed ส่วนจุดใหญ่และเส้นแสดงค่าเฉลี่ยกับ SD จึงดูได้ทั้งระดับคะแนนและการกระจายของแต่ละเงื่อนไข
-
-<!-- resnet-followup:ablation:end -->
+<!-- mobilenet-followup:ablation:end -->
 
 <!-- generated:ABLATION_DELTAS -->
 
 | Removed component | Δ Accuracy (pp) | Δ Macro F1 (pp) | Holm p: Accuracy | Holm p: Macro F1 |
 | --- | ---: | ---: | ---: | ---: |
-| Augmentation | -0.94 | -1.32 | 1.000 | 0.900 |
-| Class weights | -0.47 | -0.67 | 1.000 | 1.000 |
+| Augmentation | -0.24 | -0.40 | 1.000 | 1.000 |
+| Class weights | -0.94 | -1.18 | 1.000 | 1.000 |
 
 <!-- /generated:ABLATION_DELTAS -->
 
-Δ คือคะแนนของเงื่อนไขที่นำองค์ประกอบออก ลบคะแนน baseline โดยจับคู่ seed เดียวกัน ค่าลบจึงหมายถึงคะแนนลดลงเมื่อเอาองค์ประกอบนั้นออก
+Δ คือคะแนน variant ลบ baseline โดยจับคู่ seed เดียวกัน: ค่าลบหมายถึงคะแนนลดลงเมื่อนำองค์ประกอบออก การไม่ใช้ augmentation ให้ Δ Accuracy -0.24 pp และ Δ Macro F1 -0.40 pp ส่วนการไม่ใช้ class weights ให้ -0.94 pp และ -1.18 pp ตามลำดับ
 
-เมื่อไม่ใช้ augmentation ค่าเฉลี่ย Accuracy ลดลง **0.94 pp** และ Macro F1 ลดลง **1.32 pp** ส่วนการไม่ใช้ class weights ลดลง **0.47 pp** และ **0.67 pp** ตามลำดับ Baseline จึงมีคะแนนเฉลี่ยสูงกว่าทั้งสองเงื่อนไขในรอบนี้
+ทดสอบแบบ paired สองด้านสำหรับ Accuracy และ Macro F1 ของแต่ละ variant เทียบ baseline รวม 4 comparisons แล้วปรับ Holm แยกจากงานหลัก ยังไม่พบ comparisons ที่มีนัยสำคัญหลัง Holm ทั้ง 4 รายการ; Holm-adjusted p ต่ำสุด 1.0000 ผลสะท้อนความแปรผันข้าม training seeds บน test split เดียว ไม่ใช่การยืนยันกับข้อมูลภายนอก และการไม่พบนัยสำคัญไม่ใช่หลักฐานว่าเงื่อนไขต่าง ๆ เท่ากัน
 
-ทดสอบสองเงื่อนไขเทียบ baseline ด้วย Accuracy และ Macro F1 รวม 4 รายการ แล้วปรับ Holm แยกจากการทดสอบงานหลัก ไม่พบรายการที่มีนัยสำคัญที่ระดับ 0.05 (Holm-adjusted p ต่ำสุด 0.9002) ผลจึงบอกทิศทางคะแนนที่สังเกตได้ แต่ยังไม่ยืนยันว่าประโยชน์เกิดจากแต่ละองค์ประกอบอย่างแน่ชัด และไม่ได้ยืนยันว่าเงื่อนไขต่าง ๆ ให้ผลเท่ากัน
+คง baseline ที่ล็อกจาก validation เดิมเป็นสูตรของโมเดลสุดท้าย ไม่เลือก variant หรือ retune จากผล ablation บน test; loss ของเงื่อนไขใช้และไม่ใช้ class weights อยู่คนละสเกลวัตถุประสงค์ การศึกษานี้เป็น exploratory follow-up บน split ที่เคยตรวจดูแล้ว
 
-ผลรายคลาสมีข้อแลกเปลี่ยน: Recall ของพระภูมิลดจาก 77.78% เป็น 74.44% ในทั้งสอง variants แต่ Precision ของคลาสนี้ในกรณีไม่ใช้ class weights เพิ่มจาก 92.17% เป็น 95.00% คงเลือกสูตร baseline (มีทั้ง augmentation และ class weights) และไม่นำผล ablation ไปปรับ hyperparameters
+เก็บ console log, configuration, history ราย epoch, checkpoint, test predictions และภาพ curves/confusion ของแต่ละ run ไว้ใน [โฟลเดอร์การศึกษา](outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/) ผล ResNet ablation เดิมคงเก็บเป็น [หลักฐานย้อนหลัง](report/resnet_ablation_condition_summary.csv) และไม่ได้นำมาแทนผล MobileNet รอบนี้
 
-Ablation นี้เป็นผลเชิงสำรวจ ทำหลังเลือก ResNet50/Full จาก test บน split ที่เคยดูแล้ว และ loss ของกรณีใช้/ไม่ใช้ class weights อยู่คนละสเกลวัตถุประสงค์
-
-ไฟล์ประกอบ: [matched deltas](report/resnet_ablation_matched_deltas.csv) · [statistical tests](report/resnet_ablation_statistical_tests.csv) · [per-class summary](report/resnet_ablation_per_class_summary.csv)
+ไฟล์ประกอบ: [matched deltas](report/mobilenet_ablation_matched_deltas.csv) · [statistical tests](report/mobilenet_ablation_statistical_tests.csv) · [per-class summary](report/mobilenet_ablation_per_class_summary.csv) · [แหล่งผลการทดลอง](report/mobilenet_ablation_sources.json) · [รายการ logs และภาพราย run](report/mobilenet_ablation_artifacts.json) · [การตรวจคำนวณจากผลทำนาย](report/mobilenet_ablation_verification.json)
 
 <p align="right"><a href="#top">🔝 กลับสู่ด้านบน</a></p>
 
@@ -736,13 +738,13 @@ Ablation นี้เป็นผลเชิงสำรวจ ทำหลั�
 
 การปรับ backbone ให้เรียนรู้จากภาพศาลเพิ่มเติมช่วยให้ Full และ Partial มี Macro F1 เฉลี่ยสูงกว่า Frozen ในทุก architecture ของการทดลองนี้ อย่างไรก็ตาม mode ที่ได้คะแนนสูงสุดต่างกันตามโมเดล จึงสนับสนุนการค้นหา hyperparameters แยกแต่ละ setup ภายใต้งบเดียวกัน
 
-จากผลประเมินหลายด้าน **ResNet50/Full เป็นโมเดลที่เลือกสำหรับงานนี้** ด้วยค่าเฉลี่ยสูงสุดทั้ง 4 classification metrics ผลที่สม่ำเสมอกว่าโมเดลอ้างอิงใน Accuracy และ Macro F1 และ Recall ของพระภูมิที่สูงกว่า ขณะที่ MobileNet/Partial มี calibration เฉลี่ยดีกว่าเล็กน้อย ทั้งนี้ความแตกต่างระหว่างสองโมเดลยังไม่มีนัยสำคัญหลังปรับ Holm
+**MobileNetV3-Large/Partial เป็นโมเดลที่เลือกสำหรับงานนี้** โดยคง validation-selected reference เดิมและให้ความสำคัญกับข้อจำกัดทรัพยากร แม้ค่าเฉลี่ย test ของ ResNet50/Full สูงกว่า แต่ Accuracy และ Macro F1 ยังไม่ต่างอย่างมีนัยสำคัญหลัง Holm ขณะที่ MobileNet/Partial มี trainable parameters น้อยกว่า 85.48% และ Grad-CAM ที่ตรวจแสดงบริเวณตอบสนองบนตัวศาลในหลายตัวอย่าง จึงตอบโจทย์การใช้งานที่ให้น้ำหนักกับขนาดโมเดล โดยไม่อ้างว่าความไม่พบนัยสำคัญพิสูจน์ความเท่ากันหรือยืนยันความเร็วจริง
 
-พระภูมิยังเป็นคลาสที่แยกได้ยากที่สุด และการเปรียบเทียบ Grad-CAM บนภาพเดียวกันแสดงให้เห็นว่าทั้งสองโมเดลอาจทายผิดด้วยความมั่นใจสูงแม้บริเวณตอบสนองอยู่ที่ตัวศาล การแปลผลจึงต้องใช้คะแนนรายคลาสและ calibration ร่วมกับภาพอธิบาย ส่วน ablation พบว่าสูตรเดิมมีคะแนนเฉลี่ยสูงกว่าการนำ augmentation หรือ class weights ออก จึงคงสูตร baseline เป็นผลลัพธ์สุดท้าย โดยยังไม่อ้างว่าแต่ละองค์ประกอบเพิ่มคะแนนอย่างมีนัยสำคัญ
+พระภูมิยังเป็นคลาสที่แยกได้ยากที่สุด Grad-CAM ช่วยให้ตรวจตัวอย่างของโมเดลที่เลือกได้ แต่การตอบสนองตรงตัวศาลยังไม่รับประกันการทายถูก ผล MobileNet ablation ใช้อธิบายผลต่างเมื่อเอา augmentation หรือ class weights ออก ไม่ใช้ปรับสูตรจาก test จึงคง baseline เดิมที่ล็อกจาก validation และอ่านผลเชิงคุณภาพร่วมกับคะแนนรายคลาส calibration และความแปรผันระหว่าง seeds
 
 ### 7.1 Limitations
 
-1. **ข้อมูลและการเลือกโมเดล:** Test มี 85 ภาพบน split เดียวที่เคยตรวจดูแล้ว และเลือก ResNet หลังพิจารณา test ผลจึงเป็นเชิงสำรวจ ส่วน SD และ paired tests สะท้อนความแปรผันระหว่าง seeds บนภาพชุดนี้
+1. **ข้อมูลและการเลือกโมเดล:** Test มี 85 ภาพบน split เดียวที่เคยตรวจดูแล้ว แม้โมเดลสุดท้ายตรงกับ MobileNet ที่เลือกจาก validation เดิม เหตุผลประกอบจาก test และ follow-up ยังคงเป็นเชิงสำรวจ ส่วน SD และ paired tests สะท้อนความแปรผันระหว่าง seeds บนภาพชุดนี้
 2. **การค้นหา hyperparameters:** ใช้ 5 configurations ต่อ setup และ tuning seed เดียว โดยไม่มี SGD ในชุดที่สุ่มได้
 3. **บริบทในภาพ:** ภาพจากเว็บมีข้อความ ลายน้ำ และฉากหลังหลากหลาย ซึ่งอาจสัมพันธ์กับคลาส และไม่ทราบ URL ต้นทาง 112 ภาพ
 4. **การวิเคราะห์เพิ่มเติม:** Grad-CAM ใช้ checkpoint seed 42 โดยแสดงตัวอย่างทายถูก 4 ภาพและภาพทายผิดของสองโมเดลครบ 7 ภาพไม่ซ้ำ และ ablation ใช้ 5 seeds ต่อเงื่อนไขหลังเลือกโมเดล การไม่พบนัยสำคัญไม่ใช่หลักฐานยืนยันความเท่ากัน อีกทั้งยังไม่มีผลวัด latency ภายใต้เงื่อนไขควบคุม

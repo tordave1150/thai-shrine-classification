@@ -1,0 +1,297 @@
+Reusing 5 baseline runs; at most 10 new runs / 300 epochs; free disk 105.6 GiB
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from C:\Users\User\_netrc.
+wandb: Currently logged in as: wichaidit-m (wichaidit-m-nida) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: WARNING Using a boolean value for 'reinit' is deprecated. Use 'return_previous' or 'finish_previous' instead.
+wandb: setting up run sm4rv8uq
+wandb: Tracking run with wandb version 0.30.0
+wandb: Run data is saved locally in C:\Users\User\Desktop\deep\outputs_modes_v3_td\ablation\mobilenet_v3_large_partial_v2\wandb\runs\wandb\run-20261024_003110-sm4rv8uq
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run ab_na_mobilenet_v3_large_partial_s42a01_seed42_attempt1792776666_2f2a02
+wandb:  View project at https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td
+wandb:  View run at https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/sm4rv8uq
+wandb: updating run metadata
+wandb: uploading history steps 11-13, summary
+wandb: uploading history steps 11-13, summary; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading data
+wandb: 
+wandb: Run summary:
+wandb:              best_epoch 7
+wandb:            best_val_acc 0.91765
+wandb:       best_val_macro_f1 0.90079
+wandb:                   epoch 14
+wandb:        f1_san_phraphrom 0.91429
+wandb:         f1_san_phraphum 0.75862
+wandb:            f1_san_tayay 0.91304
+wandb:           f1_tee_ju_eia 1
+wandb:           learning_rate 0.0001
+wandb: precision_san_phraphrom 0.84211
+wandb:                     +22 ...
+wandb: 
+wandb:  View run ab_na_mobilenet_v3_large_partial_s42a01_seed42_attempt1792776666_2f2a02 at: https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/sm4rv8uq
+wandb:  View project at: https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: .\outputs_modes_v3_td\ablation\mobilenet_v3_large_partial_v2\wandb\runs\wandb\run-20261024_003110-sm4rv8uq\logs
+[ablation] no_augmentation::seed42 attempt 1: completed
+wandb: setting up run wsjluiy5
+wandb: Tracking run with wandb version 0.30.0
+wandb: Run data is saved locally in C:\Users\User\Desktop\deep\outputs_modes_v3_td\ablation\mobilenet_v3_large_partial_v2\wandb\runs\wandb\run-20261024_003259-wsjluiy5
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run ab_na_mobilenet_v3_large_partial_s123a01_seed123_attempt1792776778_f3d5c0
+wandb:  View project at https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td
+wandb:  View run at https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/wsjluiy5
+wandb: updating run metadata
+wandb: uploading history steps 17-19, summary; uploading wandb-summary.json; uploading config.yaml
+wandb: uploading data
+wandb: 
+wandb: Run summary:
+wandb:              best_epoch 14
+wandb:            best_val_acc 0.96471
+wandb:       best_val_macro_f1 0.95868
+wandb:                   epoch 20
+wandb:        f1_san_phraphrom 0.94118
+wandb:         f1_san_phraphum 0.83871
+wandb:            f1_san_tayay 0.93333
+wandb:           f1_tee_ju_eia 1
+wandb:           learning_rate 0.0001
+wandb: precision_san_phraphrom 0.88889
+wandb:                     +22 ...
+wandb: 
+wandb:  View run ab_na_mobilenet_v3_large_partial_s123a01_seed123_attempt1792776778_f3d5c0 at: https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/wsjluiy5
+wandb:  View project at: https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: .\outputs_modes_v3_td\ablation\mobilenet_v3_large_partial_v2\wandb\runs\wandb\run-20261024_003259-wsjluiy5\logs
+[ablation] no_augmentation::seed123 attempt 1: completed
+wandb: setting up run sa9pjf1z
+wandb: Tracking run with wandb version 0.30.0
+wandb: Run data is saved locally in C:\Users\User\Desktop\deep\outputs_modes_v3_td\ablation\mobilenet_v3_large_partial_v2\wandb\runs\wandb\run-20261024_003533-sa9pjf1z
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run ab_na_mobilenet_v3_large_partial_s456a01_seed456_attempt1792776932_78ab98
+wandb:  View project at https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td
+wandb:  View run at https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/sa9pjf1z
+wandb: updating run metadata
+wandb: uploading history steps 17-18, summary
+wandb: 
+wandb: Run summary:
+wandb:              best_epoch 12
+wandb:            best_val_acc 0.97647
+wandb:       best_val_macro_f1 0.97338
+wandb:                   epoch 19
+wandb:        f1_san_phraphrom 0.91429
+wandb:         f1_san_phraphum 0.875
+wandb:            f1_san_tayay 0.97674
+wandb:           f1_tee_ju_eia 1
+wandb:           learning_rate 0.0001
+wandb: precision_san_phraphrom 0.84211
+wandb:                     +22 ...
+wandb: 
+wandb:  View run ab_na_mobilenet_v3_large_partial_s456a01_seed456_attempt1792776932_78ab98 at: https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/sa9pjf1z
+wandb:  View project at: https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: .\outputs_modes_v3_td\ablation\mobilenet_v3_large_partial_v2\wandb\runs\wandb\run-20261024_003533-sa9pjf1z\logs
+[ablation] no_augmentation::seed456 attempt 1: completed
+wandb: setting up run czl3i3z4
+wandb: Tracking run with wandb version 0.30.0
+wandb: Run data is saved locally in C:\Users\User\Desktop\deep\outputs_modes_v3_td\ablation\mobilenet_v3_large_partial_v2\wandb\runs\wandb\run-20261024_003758-czl3i3z4
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run ab_na_mobilenet_v3_large_partial_s789a01_seed789_attempt1792777077_243556
+wandb:  View project at https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td
+wandb:  View run at https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/czl3i3z4
+wandb: updating run metadata
+wandb: uploading history steps 19-20, summary
+wandb: 
+wandb: Run summary:
+wandb:              best_epoch 20
+wandb:            best_val_acc 0.94118
+wandb:       best_val_macro_f1 0.93175
+wandb:                   epoch 21
+wandb:        f1_san_phraphrom 0.91429
+wandb:         f1_san_phraphum 0.75862
+wandb:            f1_san_tayay 0.91304
+wandb:           f1_tee_ju_eia 1
+wandb:           learning_rate 5e-05
+wandb: precision_san_phraphrom 0.84211
+wandb:                     +22 ...
+wandb: 
+wandb:  View run ab_na_mobilenet_v3_large_partial_s789a01_seed789_attempt1792777077_243556 at: https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/czl3i3z4
+wandb:  View project at: https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: .\outputs_modes_v3_td\ablation\mobilenet_v3_large_partial_v2\wandb\runs\wandb\run-20261024_003758-czl3i3z4\logs
+[ablation] no_augmentation::seed789 attempt 1: completed
+wandb: setting up run ao2pdwzo
+wandb: Tracking run with wandb version 0.30.0
+wandb: Run data is saved locally in C:\Users\User\Desktop\deep\outputs_modes_v3_td\ablation\mobilenet_v3_large_partial_v2\wandb\runs\wandb\run-20261024_004038-ao2pdwzo
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run ab_na_mobilenet_v3_large_partial_s1024a01_seed1024_attempt1792777237_20ae80
+wandb:  View project at https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td
+wandb:  View run at https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/ao2pdwzo
+wandb: updating run metadata
+wandb: uploading wandb-summary.json; uploading config.yaml
+wandb: uploading history steps 16-18, summary
+wandb: 
+wandb: Run summary:
+wandb:              best_epoch 19
+wandb:            best_val_acc 0.95294
+wandb:       best_val_macro_f1 0.94594
+wandb:                   epoch 19
+wandb:        f1_san_phraphrom 0.88889
+wandb:         f1_san_phraphum 0.8
+wandb:            f1_san_tayay 0.93333
+wandb:           f1_tee_ju_eia 0.98305
+wandb:           learning_rate 5e-05
+wandb: precision_san_phraphrom 0.8
+wandb:                     +22 ...
+wandb: 
+wandb:  View run ab_na_mobilenet_v3_large_partial_s1024a01_seed1024_attempt1792777237_20ae80 at: https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/ao2pdwzo
+wandb:  View project at: https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: .\outputs_modes_v3_td\ablation\mobilenet_v3_large_partial_v2\wandb\runs\wandb\run-20261024_004038-ao2pdwzo\logs
+[ablation] no_augmentation::seed1024 attempt 1: completed
+wandb: setting up run kfgxwaor
+wandb: Tracking run with wandb version 0.30.0
+wandb: Run data is saved locally in C:\Users\User\Desktop\deep\outputs_modes_v3_td\ablation\mobilenet_v3_large_partial_v2\wandb\runs\wandb\run-20261024_004308-kfgxwaor
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run ab_nw_mobilenet_v3_large_partial_s42a01_seed42_attempt1792777387_dacc81
+wandb:  View project at https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td
+wandb:  View run at https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/kfgxwaor
+wandb: updating run metadata
+wandb: uploading wandb-summary.json; uploading config.yaml
+wandb: uploading history steps 14-15, summary
+wandb: 
+wandb: Run summary:
+wandb:              best_epoch 9
+wandb:            best_val_acc 0.96471
+wandb:       best_val_macro_f1 0.95979
+wandb:                   epoch 16
+wandb:        f1_san_phraphrom 0.88889
+wandb:         f1_san_phraphum 0.75862
+wandb:            f1_san_tayay 0.93333
+wandb:           f1_tee_ju_eia 1
+wandb:           learning_rate 0.0001
+wandb: precision_san_phraphrom 0.8
+wandb:                     +22 ...
+wandb: 
+wandb:  View run ab_nw_mobilenet_v3_large_partial_s42a01_seed42_attempt1792777387_dacc81 at: https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/kfgxwaor
+wandb:  View project at: https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: .\outputs_modes_v3_td\ablation\mobilenet_v3_large_partial_v2\wandb\runs\wandb\run-20261024_004308-kfgxwaor\logs
+[ablation] no_class_weights::seed42 attempt 1: completed
+wandb: setting up run 5mz61bkc
+wandb: Tracking run with wandb version 0.30.0
+wandb: Run data is saved locally in C:\Users\User\Desktop\deep\outputs_modes_v3_td\ablation\mobilenet_v3_large_partial_v2\wandb\runs\wandb\run-20261024_004538-5mz61bkc
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run ab_nw_mobilenet_v3_large_partial_s123a01_seed123_attempt1792777537_045cac
+wandb:  View project at https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td
+wandb:  View run at https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/5mz61bkc
+wandb: updating run metadata
+wandb: uploading config.yaml
+wandb: uploading history steps 8-10, summary
+wandb: 
+wandb: Run summary:
+wandb:              best_epoch 4
+wandb:            best_val_acc 0.92941
+wandb:       best_val_macro_f1 0.91835
+wandb:                   epoch 11
+wandb:        f1_san_phraphrom 0.90909
+wandb:         f1_san_phraphum 0.84848
+wandb:            f1_san_tayay 0.95455
+wandb:           f1_tee_ju_eia 1
+wandb:           learning_rate 0.0001
+wandb: precision_san_phraphrom 0.88235
+wandb:                     +22 ...
+wandb: 
+wandb:  View run ab_nw_mobilenet_v3_large_partial_s123a01_seed123_attempt1792777537_045cac at: https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/5mz61bkc
+wandb:  View project at: https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: .\outputs_modes_v3_td\ablation\mobilenet_v3_large_partial_v2\wandb\runs\wandb\run-20261024_004538-5mz61bkc\logs
+[ablation] no_class_weights::seed123 attempt 1: completed
+wandb: setting up run 331be7hd
+wandb: Tracking run with wandb version 0.30.0
+wandb: Run data is saved locally in C:\Users\User\Desktop\deep\outputs_modes_v3_td\ablation\mobilenet_v3_large_partial_v2\wandb\runs\wandb\run-20261024_004725-331be7hd
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run ab_nw_mobilenet_v3_large_partial_s456a01_seed456_attempt1792777644_5ff094
+wandb:  View project at https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td
+wandb:  View run at https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/331be7hd
+wandb: updating run metadata
+wandb: uploading config.yaml; uploading wandb-summary.json
+wandb: uploading history steps 14-15, summary
+wandb: 
+wandb: Run summary:
+wandb:              best_epoch 9
+wandb:            best_val_acc 0.96471
+wandb:       best_val_macro_f1 0.95891
+wandb:                   epoch 16
+wandb:        f1_san_phraphrom 0.9697
+wandb:         f1_san_phraphum 0.88235
+wandb:            f1_san_tayay 0.93023
+wandb:           f1_tee_ju_eia 1
+wandb:           learning_rate 0.0001
+wandb: precision_san_phraphrom 0.94118
+wandb:                     +22 ...
+wandb: 
+wandb:  View run ab_nw_mobilenet_v3_large_partial_s456a01_seed456_attempt1792777644_5ff094 at: https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/331be7hd
+wandb:  View project at: https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: .\outputs_modes_v3_td\ablation\mobilenet_v3_large_partial_v2\wandb\runs\wandb\run-20261024_004725-331be7hd\logs
+[ablation] no_class_weights::seed456 attempt 1: completed
+wandb: setting up run v4qra9na
+wandb: Tracking run with wandb version 0.30.0
+wandb: Run data is saved locally in C:\Users\User\Desktop\deep\outputs_modes_v3_td\ablation\mobilenet_v3_large_partial_v2\wandb\runs\wandb\run-20261024_004955-v4qra9na
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run ab_nw_mobilenet_v3_large_partial_s789a01_seed789_attempt1792777794_e9f746
+wandb:  View project at https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td
+wandb:  View run at https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/v4qra9na
+wandb: updating run metadata
+wandb: uploading history steps 20-21, summary
+wandb: 
+wandb: Run summary:
+wandb:              best_epoch 15
+wandb:            best_val_acc 0.94118
+wandb:       best_val_macro_f1 0.93175
+wandb:                   epoch 22
+wandb:        f1_san_phraphrom 0.86486
+wandb:         f1_san_phraphum 0.71429
+wandb:            f1_san_tayay 0.91304
+wandb:           f1_tee_ju_eia 0.98305
+wandb:           learning_rate 5e-05
+wandb: precision_san_phraphrom 0.7619
+wandb:                     +22 ...
+wandb: 
+wandb:  View run ab_nw_mobilenet_v3_large_partial_s789a01_seed789_attempt1792777794_e9f746 at: https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/v4qra9na
+wandb:  View project at: https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: .\outputs_modes_v3_td\ablation\mobilenet_v3_large_partial_v2\wandb\runs\wandb\run-20261024_004955-v4qra9na\logs
+[ablation] no_class_weights::seed789 attempt 1: completed
+wandb: setting up run 5y8qxi0v
+wandb: Tracking run with wandb version 0.30.0
+wandb: Run data is saved locally in C:\Users\User\Desktop\deep\outputs_modes_v3_td\ablation\mobilenet_v3_large_partial_v2\wandb\runs\wandb\run-20261024_005320-5y8qxi0v
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run ab_nw_mobilenet_v3_large_partial_s1024a01_seed1024_attempt1792777999_9977f6
+wandb:  View project at https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td
+wandb:  View run at https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/5y8qxi0v
+wandb: updating run metadata
+wandb: uploading config.yaml
+wandb: uploading history steps 21-21, summary
+wandb: 
+wandb: Run summary:
+wandb:              best_epoch 15
+wandb:            best_val_acc 0.96471
+wandb:       best_val_macro_f1 0.95974
+wandb:                   epoch 22
+wandb:        f1_san_phraphrom 0.86486
+wandb:         f1_san_phraphum 0.77419
+wandb:            f1_san_tayay 0.92683
+wandb:           f1_tee_ju_eia 0.98361
+wandb:           learning_rate 0.0001
+wandb: precision_san_phraphrom 0.7619
+wandb:                     +22 ...
+wandb: 
+wandb:  View run ab_nw_mobilenet_v3_large_partial_s1024a01_seed1024_attempt1792777999_9977f6 at: https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/5y8qxi0v
+wandb:  View project at: https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td
+wandb: Synced 4 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: .\outputs_modes_v3_td\ablation\mobilenet_v3_large_partial_v2\wandb\runs\wandb\run-20261024_005320-5y8qxi0v\logs
+[ablation] no_class_weights::seed1024 attempt 1: completed
+{
+  "completed": 10,
+  "baseline_reused": 5,
+  "next_stage": "analyze"
+}

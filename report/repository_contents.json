@@ -128,16 +128,55 @@
     "errors": []
   },
   "notebook_publication": {
-    "date_local": "2026-10-23",
+    "date_local": "2026-10-24",
     "canonical_source": "thai_shrine_classifier_project.ipynb",
-    "source_files": 45,
-    "python_source_files": 27,
+    "source_files": 49,
+    "python_source_files": 28,
     "python_paths_removed_from_tracking": 26,
     "local_python_files_deleted": false,
     "python_file_kept_for_readme_link": "report/generate_matched_mobilenet_cam.py",
-    "notebook_sha256": "12f0676eafe0b755d015cc6c894965d9c60808479220b27396e941e3dd8c0efe",
+    "notebook_sha256": "cbb836ff98df6760c1b5691802ab8626fa0f4153d2fecfe043922952157eceed",
     "static_validation": "report/notebook_validation.json",
     "python_executed": false,
+    "readme_modified": true,
+    "additional_local_python_helpers": [
+      "report/generate_misclassified_overlays.py"
+    ],
+    "execution_scope": "Packaging and static checks only; the authorized MobileNet ablation ran separately outside the notebook."
+  },
+  "supplementary_misclassified_overlays": {
+    "seed": 42,
+    "models": {
+      "resnet50_full": 5,
+      "mobilenet_v3_large_partial": 4
+    },
+    "inference_cases": 9,
+    "training_runs_added": 0,
+    "verification": "report/misclassified_overlays_verification.json",
     "readme_modified": false
+  },
+  "readme_revision": {
+    "date_local": "2026-10-24",
+    "authorized": true,
+    "selected_report_model": "mobilenet_v3_large::partial",
+    "readme_sha256": "f7507d23445ade600af7dea92f2315b54da4418e5e0cbbdbba765aa278696cdc",
+    "verification": "report/mobilenet_ablation_verification.json",
+    "appendix_removed": true,
+    "counterparts_filled": true,
+    "publication_target_branch": "main",
+    "publication_commit_record": "See Git history for the commit containing this revision.",
+    "presentation_verification": "report/mobilenet_readme_verification.json"
+  },
+  "mobile_ablation": {
+    "completed_new_runs": 10,
+    "actual_epochs": 180,
+    "baseline_reused": 5,
+    "study_directory": "ablation/mobilenet_v3_large_partial_v2",
+    "executed_by_agent_under_explicit_user_authorization": true,
+    "execution_outside_notebook": true,
+    "training_during_packaging": false,
+    "main_selection_registry_and_split_preserved": true,
+    "artifact_inventory": "report/mobilenet_ablation_artifacts.json",
+    "verification": "report/mobilenet_ablation_verification.json"
   }
 }

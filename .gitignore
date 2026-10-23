@@ -38,6 +38,9 @@ __pycache__/
 /outputs_modes_v3_td/**/curves.png
 /outputs_modes_v3_td/**/confusion_matrix.png
 /outputs_modes_v3_td/**/confusion_matrix_normalized.png
+!/outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/**/curves.png
+!/outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/**/confusion_matrix.png
+!/outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/**/confusion_matrix_normalized.png
 /report/qa/*.png
 /report/qa/*.html
 
@@ -55,3 +58,7 @@ __pycache__/
 /tests/
 /.notebook_sources.json
 .ipynb_checkpoints/
+/report/generate_misclassified_overlays.py
+
+# Local review previews; the approved README figures are in report_assets/latest.
+/report/previews/

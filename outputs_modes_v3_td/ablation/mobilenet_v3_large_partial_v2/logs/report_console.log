@@ -1,0 +1,115 @@
+{
+  "verified_utc": "2026-10-23T17:56:58.998Z",
+  "method": "Independent Node.js recomputation from canonical predictions, matched-seed differences, df=4 paired t probabilities and fixed-family Holm; no model execution by this verifier.",
+  "architecture": "mobilenet_v3_large",
+  "mode": "partial",
+  "study_directory": "ablation/mobilenet_v3_large_partial_v2",
+  "baseline_reused": 5,
+  "new_completed_runs": 10,
+  "new_completed_epochs": 180,
+  "prediction_rows_checked": 1275,
+  "paired_seeds": [
+    42,
+    123,
+    456,
+    789,
+    1024
+  ],
+  "holm_family_size": 4,
+  "significant_holm_tests": 0,
+  "max_run_metric_error": 2.220446049250313e-16,
+  "max_summary_error": 3.3306690738754696e-14,
+  "max_statistic_error": 7.327471962526033e-15,
+  "source_and_copied_artifact_hashes_match": true,
+  "all_training_curve_and_confusion_images_present": true,
+  "original_main_and_resnet_evidence_unchanged": true,
+  "initial_failed_directory_attempts": 10,
+  "initial_failed_attempt_epochs": 0,
+  "total_completed_training_runs": 170,
+  "total_completed_training_epochs": 3086,
+  "effective_tracking_modes": [
+    "online"
+  ],
+  "wandb_run_urls": [
+    "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/sm4rv8uq",
+    "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/wsjluiy5",
+    "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/sa9pjf1z",
+    "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/czl3i3z4",
+    "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/ao2pdwzo",
+    "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/kfgxwaor",
+    "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/5mz61bkc",
+    "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/331be7hd",
+    "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/v4qra9na",
+    "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/5y8qxi0v"
+  ],
+  "cloud_dashboard_completeness_verified": false,
+  "source_sha256": {
+    "ablation_lock": "f922522fa7c5d784bec7066269590e230f836cb61805b8ab60c0af470eedba84",
+    "ablation_registry": "5266ff4ce71d48a08e7950c257b288d997bdc36fb5e2a5ea9ceff986d435216d",
+    "original_selection": "5b72b8108f131df16af0155051952f72134b3e5907109b92627a112181c7988e",
+    "original_registry": "0b163a52ea585a56565533bcec1d3a2fcfa515cd33d876b8c4fb8e6fd01d9a46"
+  },
+  "errors": []
+}
+Rendered README and report mirror; checked 25 tables and 107 links.
+{"selected_model":"MobileNetV3-Large/Partial","completed_new_runs":10,"actual_epochs":180,"trainable_reduction_pct":85.47952503267105,"significant_ablation_comparisons":0}
+{
+  "updated": "MobileNet ablation and final-selection report",
+  "new_runs": 10,
+  "baseline_reused": 5
+}
+{
+  "verified_utc": "2026-10-23T17:58:42.837Z",
+  "method": "Independent Node.js recomputation from canonical predictions, matched-seed differences, df=4 paired t probabilities and fixed-family Holm; no model execution by this verifier.",
+  "architecture": "mobilenet_v3_large",
+  "mode": "partial",
+  "study_directory": "ablation/mobilenet_v3_large_partial_v2",
+  "baseline_reused": 5,
+  "new_completed_runs": 10,
+  "new_completed_epochs": 180,
+  "prediction_rows_checked": 1275,
+  "paired_seeds": [
+    42,
+    123,
+    456,
+    789,
+    1024
+  ],
+  "holm_family_size": 4,
+  "significant_holm_tests": 0,
+  "max_run_metric_error": 2.220446049250313e-16,
+  "max_summary_error": 3.3306690738754696e-14,
+  "max_statistic_error": 7.327471962526033e-15,
+  "source_and_copied_artifact_hashes_match": true,
+  "all_training_curve_and_confusion_images_present": true,
+  "original_main_and_resnet_evidence_unchanged": true,
+  "initial_failed_directory_attempts": 10,
+  "initial_failed_attempt_epochs": 0,
+  "total_completed_training_runs": 170,
+  "total_completed_training_epochs": 3086,
+  "effective_tracking_modes": [
+    "online"
+  ],
+  "wandb_run_urls": [
+    "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/sm4rv8uq",
+    "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/wsjluiy5",
+    "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/sa9pjf1z",
+    "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/czl3i3z4",
+    "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/ao2pdwzo",
+    "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/kfgxwaor",
+    "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/5mz61bkc",
+    "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/331be7hd",
+    "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/v4qra9na",
+    "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/5y8qxi0v"
+  ],
+  "cloud_dashboard_completeness_verified": false,
+  "source_sha256": {
+    "ablation_lock": "f922522fa7c5d784bec7066269590e230f836cb61805b8ab60c0af470eedba84",
+    "ablation_registry": "5266ff4ce71d48a08e7950c257b288d997bdc36fb5e2a5ea9ceff986d435216d",
+    "original_selection": "5b72b8108f131df16af0155051952f72134b3e5907109b92627a112181c7988e",
+    "original_registry": "0b163a52ea585a56565533bcec1d3a2fcfa515cd33d876b8c4fb8e6fd01d9a46"
+  },
+  "errors": []
+}
+Rendered README and report mirror; checked 25 tables and 108 links.
+{"selected_model":"MobileNetV3-Large/Partial","completed_new_runs":10,"actual_epochs":180,"trainable_reduction_pct":85.47952503267105,"significant_ablation_comparisons":0}

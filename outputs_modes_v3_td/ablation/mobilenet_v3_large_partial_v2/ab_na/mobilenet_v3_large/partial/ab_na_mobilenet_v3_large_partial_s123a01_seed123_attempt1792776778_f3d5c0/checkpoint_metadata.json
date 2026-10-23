@@ -1,0 +1,72 @@
+{
+  "checkpoint": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\ablation\\mobilenet_v3_large_partial_v2\\ab_na\\mobilenet_v3_large\\partial\\ab_na_mobilenet_v3_large_partial_s123a01_seed123_attempt1792776778_f3d5c0\\best_mobilenet_v3_large_partial_seed123.pt",
+  "architecture": "mobilenet_v3_large",
+  "mode": "partial",
+  "seed": 123,
+  "status": "completed",
+  "trial": null,
+  "run_identity": "s123a01",
+  "best_epoch": 14,
+  "best_val_acc": 0.9647058823529412,
+  "best_val_macro_f1": 0.9586834733893557,
+  "best_val_loss": 0.1827325432725689,
+  "run_dir": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\ablation\\mobilenet_v3_large_partial_v2\\ab_na\\mobilenet_v3_large\\partial\\ab_na_mobilenet_v3_large_partial_s123a01_seed123_attempt1792776778_f3d5c0",
+  "epochs_completed": 20,
+  "tracking_mode": "online",
+  "tracking_error": null,
+  "wandb_run_id": "wsjluiy5",
+  "wandb_run_url": "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/wsjluiy5",
+  "test_loss": 0.28914566162754507,
+  "test_acc": 0.9411764705882353,
+  "test_macro_precision": 0.9409722222222222,
+  "test_macro_recall": 0.9305555555555556,
+  "test_macro_f1": 0.9283048703352308,
+  "per_class": {
+    "san_phraphrom": {
+      "precision": 0.8888888888888888,
+      "recall": 1.0,
+      "f1": 0.9411764705882353,
+      "support": 16
+    },
+    "san_phraphum": {
+      "precision": 1.0,
+      "recall": 0.7222222222222222,
+      "f1": 0.8387096774193549,
+      "support": 18
+    },
+    "san_tayay": {
+      "precision": 0.875,
+      "recall": 1.0,
+      "f1": 0.9333333333333333,
+      "support": 21
+    },
+    "tee_ju_eia": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 30
+    }
+  },
+  "mode_stats": {
+    "architecture": "mobilenet_v3_large",
+    "mode": "partial",
+    "total_parameters": 4207156,
+    "trainable_parameters": 3414668,
+    "frozen_parameters": 792488,
+    "trainable_module_names": [
+      "features.13",
+      "features.14",
+      "features.15",
+      "features.16",
+      "classifier"
+    ],
+    "bn_buffer_policy": "frozen backbone BN buffers do not update (module in eval mode during training)"
+  },
+  "class_order": [
+    "san_phraphrom",
+    "san_phraphum",
+    "san_tayay",
+    "tee_ju_eia"
+  ],
+  "split_sha256": "3eb9c4f3adda4a64536f809fbad5f8801a27d83265d2c753b8f98c6ae93f837f"
+}

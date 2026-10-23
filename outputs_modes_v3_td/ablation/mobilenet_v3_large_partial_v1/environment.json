@@ -1,0 +1,33 @@
+{
+  "created_utc": "2026-10-23T17:29:41.174456+00:00",
+  "python": "3.13.5 | packaged by Anaconda, Inc. | (main, Jun 12 2025, 16:37:03) [MSC v.1929 64 bit (AMD64)]",
+  "platform": "Windows-10-10.0.19045-SP0",
+  "torch": "2.13.0+cu130",
+  "torchvision": "0.28.0+cu130",
+  "cuda": "13.0",
+  "gpu": "NVIDIA GeForce RTX 5060",
+  "workers": 0,
+  "amp": false,
+  "disk_free_bytes": 113384407040,
+  "deterministic_algorithms": true,
+  "deterministic_warn_only": true,
+  "cudnn_benchmark": false,
+  "requested_tracking_mode": "online",
+  "code_fingerprint": "887c240140cb35bba0e35a2c52586bca8155947dd10cd81cb58232e30a69934d",
+  "baseline_environment": {
+    "python": "3.13.5 | packaged by Anaconda, Inc. | (main, Jun 12 2025, 16:37:03) [MSC v.1929 64 bit (AMD64)]",
+    "platform": "Windows-10-10.0.19045-SP0",
+    "torch": "2.13.0+cu130",
+    "torchvision": "0.28.0+cu130",
+    "numpy": "2.5.2",
+    "device_requested": "auto",
+    "wandb_mode_requested": "online",
+    "timestamp_utc": "2026-10-13T14:08:50.773081+00:00",
+    "code_fingerprint": "6f5f6441fb23c82fb7352342963ecfe6f18655671afb081275be40a965d7b9db",
+    "cuda_available": true,
+    "cuda_version": "13.0",
+    "gpu": "NVIDIA GeForce RTX 5060",
+    "resolved_device": "cuda",
+    "wandb": "0.30.0"
+  }
+}

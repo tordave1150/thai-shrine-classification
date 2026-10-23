@@ -1,0 +1,14 @@
+{
+  "completed": 10,
+  "target": 10,
+  "baseline_reused": 5,
+  "next_stage": null,
+  "last_completed_stage": "report",
+  "analysis_completed": true,
+  "report_completed": true,
+  "actual_epochs": 180,
+  "updated_utc": "2026-10-23T18:02:32.026Z",
+  "verification": "report/mobilenet_ablation_verification.json",
+  "artifact_inventory": "report/mobilenet_ablation_artifacts.json",
+  "further_training_required": false
+}

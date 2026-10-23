@@ -148,7 +148,7 @@ function learningFigures(records) {
           s+='<path d="M '+data.map(r=>p.x(r.epoch)+' '+p.y(r.mean*spec.scale)).join(' L ')+'" fill="none" stroke="'+T.modeColors[m]+'" stroke-width="3" stroke-dasharray="'+(key.startsWith('val')?'9 5':'')+'"/>';
         });
         if(ri===2)finals.filter(r=>r.architecture===a&&r.mode===m).forEach(r=>{const xx=p.x(r.best_epoch),yy=p.y(r.selected.val_macro_f1*100);s+=line(xx-4,yy-4,xx+4,yy+4,T.ink,'stroke-width="2"')+line(xx-4,yy+4,xx+4,yy-4,T.ink,'stroke-width="2"');});
-        if(ri===2){const selectedMean=mean(finals.filter(r=>r.architecture===a&&r.mode===m).map(r=>Number(r.best_epoch)));s+=line(p.x(selectedMean),b.y,p.x(selectedMean),b.y+b.h,T.ink,'stroke-width="2" stroke-dasharray="3 5"')+text(b.x+b.w-8,b.y+b.h-16,'Mean selected epoch = '+selectedMean.toFixed(1),15,'text-anchor="end" font-weight="600"');}
+        if(ri<=2){const selectedMean=mean(finals.filter(r=>r.architecture===a&&r.mode===m).map(r=>Number(r.best_epoch)));s+=line(p.x(selectedMean),b.y,p.x(selectedMean),b.y+b.h,T.ink,'stroke-width="2" stroke-dasharray="3 5"')+text(b.x+b.w-8,b.y+b.h-16,'Mean selected epoch = '+selectedMean.toFixed(1),15,'text-anchor="end" font-weight="600"');}
       });
     });
     s+=text(780,1424,'Observed epochs only; no zero-fill or carry-forward · n = 1: mean only, no sample SD · common axes across architectures',16);save('learning_curves_'+a+'.svg',s);

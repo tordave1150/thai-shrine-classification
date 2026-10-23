@@ -1,0 +1,613 @@
+{
+  "created_utc": "2026-10-23T17:58:43.509Z",
+  "architecture": "mobilenet_v3_large",
+  "mode": "partial",
+  "completed_new_runs": 10,
+  "actual_epochs": 180,
+  "baseline_reused": 5,
+  "runs": [
+    {
+      "condition": "no_augmentation",
+      "seed": 42,
+      "architecture": "mobilenet_v3_large",
+      "mode": "partial",
+      "epochs": 14,
+      "best_epoch": 7,
+      "run_directory": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s42a01_seed42_attempt1792776666_2f2a02",
+      "checkpoint_local_only": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\ablation\\mobilenet_v3_large_partial_v2\\ab_na\\mobilenet_v3_large\\partial\\ab_na_mobilenet_v3_large_partial_s42a01_seed42_attempt1792776666_2f2a02\\best_mobilenet_v3_large_partial_seed42.pt",
+      "wandb_run_url": "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/sm4rv8uq",
+      "files": {
+        "config.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s42a01_seed42_attempt1792776666_2f2a02/config.json",
+          "sha256": "aa792d0c4e5bde4b59ef92a384d4cbaac6e36918d7f866a14bf1717718daa5cf",
+          "bytes": 2417
+        },
+        "history.csv": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s42a01_seed42_attempt1792776666_2f2a02/history.csv",
+          "sha256": "dc8c15e6cfb5e30d39e49322a72b4ecf9d2661a7582baea95551c6d56996a04d",
+          "bytes": 3255
+        },
+        "run_metrics.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s42a01_seed42_attempt1792776666_2f2a02/run_metrics.json",
+          "sha256": "421937aceb3bb74f0fb0a93a8fc2ef442a99ff5d5ad9daf297186b4973487499",
+          "bytes": 1759
+        },
+        "checkpoint_metadata.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s42a01_seed42_attempt1792776666_2f2a02/checkpoint_metadata.json",
+          "sha256": "120b8b6a3b9711d5ed391aafd0c624de0f707beccc7cfc4cebcff3872781df85",
+          "bytes": 2404
+        },
+        "test_metrics.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s42a01_seed42_attempt1792776666_2f2a02/test_metrics.json",
+          "sha256": "53dd2ea5e3dc37dc0d922341e5533ce0f8e9f781de1a8ad2f960c91d4ca99a16",
+          "bytes": 1948
+        },
+        "test_predictions.csv": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s42a01_seed42_attempt1792776666_2f2a02/test_predictions.csv",
+          "sha256": "e0de136ce1f988bbb3e6c8884f035a26c452f72e3bd1859149098349f7eff479",
+          "bytes": 16501
+        },
+        "curves.png": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s42a01_seed42_attempt1792776666_2f2a02/curves.png",
+          "sha256": "7a336c3d7376e24ad6139a0c24404448f548a5dd28b79d34e96081bf525cd742",
+          "bytes": 98780
+        },
+        "confusion_matrix.png": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s42a01_seed42_attempt1792776666_2f2a02/confusion_matrix.png",
+          "sha256": "9f0c81fe8a69902b45a3dafcaac621d280c3da3f3b7542958a39836c7c06adb6",
+          "bytes": 47860
+        },
+        "confusion_matrix_normalized.png": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s42a01_seed42_attempt1792776666_2f2a02/confusion_matrix_normalized.png",
+          "sha256": "1fdc39652f1cc3c1aa0f5602fc15c2e3440e31bf79f345c6af59ad50e996ad4b",
+          "bytes": 53882
+        }
+      }
+    },
+    {
+      "condition": "no_augmentation",
+      "seed": 123,
+      "architecture": "mobilenet_v3_large",
+      "mode": "partial",
+      "epochs": 20,
+      "best_epoch": 14,
+      "run_directory": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s123a01_seed123_attempt1792776778_f3d5c0",
+      "checkpoint_local_only": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\ablation\\mobilenet_v3_large_partial_v2\\ab_na\\mobilenet_v3_large\\partial\\ab_na_mobilenet_v3_large_partial_s123a01_seed123_attempt1792776778_f3d5c0\\best_mobilenet_v3_large_partial_seed123.pt",
+      "wandb_run_url": "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/wsjluiy5",
+      "files": {
+        "config.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s123a01_seed123_attempt1792776778_f3d5c0/config.json",
+          "sha256": "ddfd02018123eac61b5213dc6d180a70c61f2c3c97a5f462aadf28c221908a16",
+          "bytes": 2419
+        },
+        "history.csv": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s123a01_seed123_attempt1792776778_f3d5c0/history.csv",
+          "sha256": "437e15903a89cbec4f7564bbc982f61e9f42f76af24eb466870bf28b8dc64b75",
+          "bytes": 4026
+        },
+        "run_metrics.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s123a01_seed123_attempt1792776778_f3d5c0/run_metrics.json",
+          "sha256": "879e51bcf658b9fdf164090154177737cffc06552f09bcd56839863c1e0e97e2",
+          "bytes": 1768
+        },
+        "checkpoint_metadata.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s123a01_seed123_attempt1792776778_f3d5c0/checkpoint_metadata.json",
+          "sha256": "7b84b095f5f2280608851df3d326bc5ed1bdc4fc0c57920bf95fd0e8dcf1f164",
+          "bytes": 2413
+        },
+        "test_metrics.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s123a01_seed123_attempt1792776778_f3d5c0/test_metrics.json",
+          "sha256": "7ab5e4b76fcd32970ce537c262d84a1f43b6e9c2ca96f0c493775acbf1b66bb9",
+          "bytes": 1948
+        },
+        "test_predictions.csv": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s123a01_seed123_attempt1792776778_f3d5c0/test_predictions.csv",
+          "sha256": "40022fcf1f5b88fb1d560240f3e66d7e41227a1bed389653f9d25de32cbca8b7",
+          "bytes": 16712
+        },
+        "curves.png": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s123a01_seed123_attempt1792776778_f3d5c0/curves.png",
+          "sha256": "bf757d5f72d79fc019ecbbb525732ac1014a7114cbad04f581490a39f5375b46",
+          "bytes": 92486
+        },
+        "confusion_matrix.png": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s123a01_seed123_attempt1792776778_f3d5c0/confusion_matrix.png",
+          "sha256": "923b71a3a188feb15900fef3411b817803b72c2530c768f4d2aa3667ad5fc75f",
+          "bytes": 48416
+        },
+        "confusion_matrix_normalized.png": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s123a01_seed123_attempt1792776778_f3d5c0/confusion_matrix_normalized.png",
+          "sha256": "0a8d1ee3b71589abb022608a8358dd68d55327e619e221db9fbea2fe21f7353b",
+          "bytes": 53466
+        }
+      }
+    },
+    {
+      "condition": "no_augmentation",
+      "seed": 456,
+      "architecture": "mobilenet_v3_large",
+      "mode": "partial",
+      "epochs": 19,
+      "best_epoch": 12,
+      "run_directory": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s456a01_seed456_attempt1792776932_78ab98",
+      "checkpoint_local_only": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\ablation\\mobilenet_v3_large_partial_v2\\ab_na\\mobilenet_v3_large\\partial\\ab_na_mobilenet_v3_large_partial_s456a01_seed456_attempt1792776932_78ab98\\best_mobilenet_v3_large_partial_seed456.pt",
+      "wandb_run_url": "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/sa9pjf1z",
+      "files": {
+        "config.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s456a01_seed456_attempt1792776932_78ab98/config.json",
+          "sha256": "17db17dad060ff4e99c75ba1b70e6a56faddd194968ec14ceb34d9cbabe7c225",
+          "bytes": 2419
+        },
+        "history.csv": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s456a01_seed456_attempt1792776932_78ab98/history.csv",
+          "sha256": "e2cc03ce7a1ce3f570257af06ea5b857709edd110fceb97acec9f49dc8d82749",
+          "bytes": 4088
+        },
+        "run_metrics.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s456a01_seed456_attempt1792776932_78ab98/run_metrics.json",
+          "sha256": "62bfb32619a7e1526e6de4032dba9ac8254413f36f9f06cb393a61c5625eeb7e",
+          "bytes": 1769
+        },
+        "checkpoint_metadata.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s456a01_seed456_attempt1792776932_78ab98/checkpoint_metadata.json",
+          "sha256": "edb218a9a77f5753db741bbde4b3d17a5fb06d44d255d5e3969f48df8919eb34",
+          "bytes": 2414
+        },
+        "test_metrics.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s456a01_seed456_attempt1792776932_78ab98/test_metrics.json",
+          "sha256": "d1a80be3e9c1e1eac43ce88812d5de6aafd70f391498f7da76c161f13e8a59b5",
+          "bytes": 1950
+        },
+        "test_predictions.csv": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s456a01_seed456_attempt1792776932_78ab98/test_predictions.csv",
+          "sha256": "9f62f4adc289666a2daa78571a6e2368852a046b0f91dcd2feb73235c69c97c3",
+          "bytes": 16667
+        },
+        "curves.png": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s456a01_seed456_attempt1792776932_78ab98/curves.png",
+          "sha256": "ea5858c65942cb44751c6eb07d9d0262ce030374ceac821640078339f45446f4",
+          "bytes": 103252
+        },
+        "confusion_matrix.png": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s456a01_seed456_attempt1792776932_78ab98/confusion_matrix.png",
+          "sha256": "8761ccf8de09dea4f08e2385d241ab9d9b2f0c1082176e50fc6f33f68142182d",
+          "bytes": 48048
+        },
+        "confusion_matrix_normalized.png": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s456a01_seed456_attempt1792776932_78ab98/confusion_matrix_normalized.png",
+          "sha256": "c8deaa408c61711769e9746f37b2a2589b821b0f306b23a6218adedb2d5a5ce7",
+          "bytes": 53984
+        }
+      }
+    },
+    {
+      "condition": "no_augmentation",
+      "seed": 789,
+      "architecture": "mobilenet_v3_large",
+      "mode": "partial",
+      "epochs": 21,
+      "best_epoch": 20,
+      "run_directory": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s789a01_seed789_attempt1792777077_243556",
+      "checkpoint_local_only": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\ablation\\mobilenet_v3_large_partial_v2\\ab_na\\mobilenet_v3_large\\partial\\ab_na_mobilenet_v3_large_partial_s789a01_seed789_attempt1792777077_243556\\best_mobilenet_v3_large_partial_seed789.pt",
+      "wandb_run_url": "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/czl3i3z4",
+      "files": {
+        "config.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s789a01_seed789_attempt1792777077_243556/config.json",
+          "sha256": "af38bdb967fe1bf398acaf983f582e3d4cfe841a1d468a4d1f7c424f5d8be913",
+          "bytes": 2419
+        },
+        "history.csv": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s789a01_seed789_attempt1792777077_243556/history.csv",
+          "sha256": "b1f3387e8468159beea32063a380c82dbeb50882438ed05648dbc98f80c25ff4",
+          "bytes": 4105
+        },
+        "run_metrics.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s789a01_seed789_attempt1792777077_243556/run_metrics.json",
+          "sha256": "57bc5189ff59f6e004dc971f8c2d823c59ab446340f91485e81e7b95e15155d0",
+          "bytes": 1767
+        },
+        "checkpoint_metadata.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s789a01_seed789_attempt1792777077_243556/checkpoint_metadata.json",
+          "sha256": "5f11b9a45377709076b4565eb5214227b42ed87cbcae35de1804796123561b29",
+          "bytes": 2412
+        },
+        "test_metrics.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s789a01_seed789_attempt1792777077_243556/test_metrics.json",
+          "sha256": "53dd2ea5e3dc37dc0d922341e5533ce0f8e9f781de1a8ad2f960c91d4ca99a16",
+          "bytes": 1948
+        },
+        "test_predictions.csv": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s789a01_seed789_attempt1792777077_243556/test_predictions.csv",
+          "sha256": "ef3d4e59ec134f18aeb810f043e5dc422616e4c34629435a3c8cb873692e1485",
+          "bytes": 16683
+        },
+        "curves.png": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s789a01_seed789_attempt1792777077_243556/curves.png",
+          "sha256": "e3799c12e62b3f12ee2c371603a50cfa0c3903fee9e5fa1391ff0b823dd1fc5d",
+          "bytes": 79123
+        },
+        "confusion_matrix.png": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s789a01_seed789_attempt1792777077_243556/confusion_matrix.png",
+          "sha256": "9f0c81fe8a69902b45a3dafcaac621d280c3da3f3b7542958a39836c7c06adb6",
+          "bytes": 47860
+        },
+        "confusion_matrix_normalized.png": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s789a01_seed789_attempt1792777077_243556/confusion_matrix_normalized.png",
+          "sha256": "1fdc39652f1cc3c1aa0f5602fc15c2e3440e31bf79f345c6af59ad50e996ad4b",
+          "bytes": 53882
+        }
+      }
+    },
+    {
+      "condition": "no_augmentation",
+      "seed": 1024,
+      "architecture": "mobilenet_v3_large",
+      "mode": "partial",
+      "epochs": 19,
+      "best_epoch": 19,
+      "run_directory": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s1024a01_seed1024_attempt1792777237_20ae80",
+      "checkpoint_local_only": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\ablation\\mobilenet_v3_large_partial_v2\\ab_na\\mobilenet_v3_large\\partial\\ab_na_mobilenet_v3_large_partial_s1024a01_seed1024_attempt1792777237_20ae80\\best_mobilenet_v3_large_partial_seed1024.pt",
+      "wandb_run_url": "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/ao2pdwzo",
+      "files": {
+        "config.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s1024a01_seed1024_attempt1792777237_20ae80/config.json",
+          "sha256": "4401ddbd30fc00bc48a04658a0991f1d9c5bcaae657bf1ae6e888ce1b0f7c992",
+          "bytes": 2421
+        },
+        "history.csv": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s1024a01_seed1024_attempt1792777237_20ae80/history.csv",
+          "sha256": "5636dd44b73c15b07f4023d45f52cb44cdecb81e625fdf5acf1bd050853caf55",
+          "bytes": 3904
+        },
+        "run_metrics.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s1024a01_seed1024_attempt1792777237_20ae80/run_metrics.json",
+          "sha256": "ac63f2fb5edbcf0d116a24f16831a8232521d72577644401685973486ac67578",
+          "bytes": 1764
+        },
+        "checkpoint_metadata.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s1024a01_seed1024_attempt1792777237_20ae80/checkpoint_metadata.json",
+          "sha256": "25a50c426d631eb278430ab61b84931ec8e7a371db63d34b566438c360e0560a",
+          "bytes": 2409
+        },
+        "test_metrics.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s1024a01_seed1024_attempt1792777237_20ae80/test_metrics.json",
+          "sha256": "508a13cd2cb0e9a3db31389b85a0056cdc65fe3514a6857f2d6dad5a145fe0f7",
+          "bytes": 1927
+        },
+        "test_predictions.csv": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s1024a01_seed1024_attempt1792777237_20ae80/test_predictions.csv",
+          "sha256": "3154d7a18cd42501e8d784f1a805066c925976846100f235e6afb803d19e14de",
+          "bytes": 16901
+        },
+        "curves.png": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s1024a01_seed1024_attempt1792777237_20ae80/curves.png",
+          "sha256": "3b11d1411368695fe77ed877188d701e4ddaf464bd03ea7e1cae92ccef5e8f12",
+          "bytes": 103013
+        },
+        "confusion_matrix.png": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s1024a01_seed1024_attempt1792777237_20ae80/confusion_matrix.png",
+          "sha256": "e79947594ff026d0f90a06d926b0f1e184126f431f0bd23f3d78a207a13a37bf",
+          "bytes": 47394
+        },
+        "confusion_matrix_normalized.png": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_na/mobilenet_v3_large/partial/ab_na_mobilenet_v3_large_partial_s1024a01_seed1024_attempt1792777237_20ae80/confusion_matrix_normalized.png",
+          "sha256": "33726512afa4504bcac102cf942c3a3a4d1d346c323deb996e61fb0ff9814a8c",
+          "bytes": 54588
+        }
+      }
+    },
+    {
+      "condition": "no_class_weights",
+      "seed": 42,
+      "architecture": "mobilenet_v3_large",
+      "mode": "partial",
+      "epochs": 16,
+      "best_epoch": 9,
+      "run_directory": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s42a01_seed42_attempt1792777387_dacc81",
+      "checkpoint_local_only": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\ablation\\mobilenet_v3_large_partial_v2\\ab_nw\\mobilenet_v3_large\\partial\\ab_nw_mobilenet_v3_large_partial_s42a01_seed42_attempt1792777387_dacc81\\best_mobilenet_v3_large_partial_seed42.pt",
+      "wandb_run_url": "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/kfgxwaor",
+      "files": {
+        "config.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s42a01_seed42_attempt1792777387_dacc81/config.json",
+          "sha256": "5977928fc078f0c770c8cea55163a7020621cf9afca52f9771ac0c7175f0222e",
+          "bytes": 2354
+        },
+        "history.csv": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s42a01_seed42_attempt1792777387_dacc81/history.csv",
+          "sha256": "cfd2e29d431e2eb36336848f143d500a077e7b84956c3ab750d7f59092f6301e",
+          "bytes": 3586
+        },
+        "run_metrics.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s42a01_seed42_attempt1792777387_dacc81/run_metrics.json",
+          "sha256": "c6ae38e2d5b4c1b3e9c17b092b27e0b948fca8a41fed081406c315cc500f89cc",
+          "bytes": 1734
+        },
+        "checkpoint_metadata.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s42a01_seed42_attempt1792777387_dacc81/checkpoint_metadata.json",
+          "sha256": "27a84b0cea6a327d08d94e6cd950bb3d70febe5de32b3d6d3830786429a8730e",
+          "bytes": 2379
+        },
+        "test_metrics.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s42a01_seed42_attempt1792777387_dacc81/test_metrics.json",
+          "sha256": "4c97e42ae47f3cc60b2da34b63351e4f88dafebb2bb8c14088eb005a11fc65cb",
+          "bytes": 1897
+        },
+        "test_predictions.csv": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s42a01_seed42_attempt1792777387_dacc81/test_predictions.csv",
+          "sha256": "35403e4bc3a4bf3c6a5aa6c10e8f3af09755a70d98fcc8a799d7f8dd5742763c",
+          "bytes": 16562
+        },
+        "curves.png": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s42a01_seed42_attempt1792777387_dacc81/curves.png",
+          "sha256": "0fb1825b4ab77d5a441c5577a6f13d1882f5823fc1c959eea01e2408098d1d8b",
+          "bytes": 102132
+        },
+        "confusion_matrix.png": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s42a01_seed42_attempt1792777387_dacc81/confusion_matrix.png",
+          "sha256": "23d38fde8e9cf34b24724ef79bfc0ab01f1202770416c13b9a1d79bdfbb4f58e",
+          "bytes": 47863
+        },
+        "confusion_matrix_normalized.png": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s42a01_seed42_attempt1792777387_dacc81/confusion_matrix_normalized.png",
+          "sha256": "2b7b7cefb583e6e7caaf50e2ef1d4318d610e20bb107e6a9509b3b9fce92ebcc",
+          "bytes": 53864
+        }
+      }
+    },
+    {
+      "condition": "no_class_weights",
+      "seed": 123,
+      "architecture": "mobilenet_v3_large",
+      "mode": "partial",
+      "epochs": 11,
+      "best_epoch": 4,
+      "run_directory": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s123a01_seed123_attempt1792777537_045cac",
+      "checkpoint_local_only": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\ablation\\mobilenet_v3_large_partial_v2\\ab_nw\\mobilenet_v3_large\\partial\\ab_nw_mobilenet_v3_large_partial_s123a01_seed123_attempt1792777537_045cac\\best_mobilenet_v3_large_partial_seed123.pt",
+      "wandb_run_url": "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/5mz61bkc",
+      "files": {
+        "config.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s123a01_seed123_attempt1792777537_045cac/config.json",
+          "sha256": "a024d32d31644025dc62bfe63fc2af34987591c4abd4b4d908db98e44babba47",
+          "bytes": 2356
+        },
+        "history.csv": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s123a01_seed123_attempt1792777537_045cac/history.csv",
+          "sha256": "88f345d37424ee2505b20a16147c465e2ebb2ffc3a443b42752898ddf0e7ffba",
+          "bytes": 2805
+        },
+        "run_metrics.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s123a01_seed123_attempt1792777537_045cac/run_metrics.json",
+          "sha256": "02e27d7234d1985c3038ffcc41fdeffc2bfe13d296c8ab56f752ef564166b97c",
+          "bytes": 1797
+        },
+        "checkpoint_metadata.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s123a01_seed123_attempt1792777537_045cac/checkpoint_metadata.json",
+          "sha256": "84539caf3e4a6d88f19a4a17438fe4ed6bf210b0e000c926ec697961cb75fddc",
+          "bytes": 2442
+        },
+        "test_metrics.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s123a01_seed123_attempt1792777537_045cac/test_metrics.json",
+          "sha256": "24d79f2296e9eed63f139aabb1a79322f57174cbe958da8ac7614a5413af7676",
+          "bytes": 2010
+        },
+        "test_predictions.csv": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s123a01_seed123_attempt1792777537_045cac/test_predictions.csv",
+          "sha256": "b5f0d1eba6e60872ee9d8723c04b253925b7cd3e54fb8bb56d3f14ff1d372f05",
+          "bytes": 16633
+        },
+        "curves.png": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s123a01_seed123_attempt1792777537_045cac/curves.png",
+          "sha256": "5a3e6a804bb432fee89621fd4d80de0e364f5f66e05367c1b95d67bc5fc3c851",
+          "bytes": 96399
+        },
+        "confusion_matrix.png": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s123a01_seed123_attempt1792777537_045cac/confusion_matrix.png",
+          "sha256": "32221968dfca9fbe140d0cc11aea65f2479eebab48e1fd6ffe5b98ed60acd4f3",
+          "bytes": 47852
+        },
+        "confusion_matrix_normalized.png": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s123a01_seed123_attempt1792777537_045cac/confusion_matrix_normalized.png",
+          "sha256": "9a804828ddffaa8bb23aa80274c860cff477aa97055fd72d3bf8e0fcdd948214",
+          "bytes": 54390
+        }
+      }
+    },
+    {
+      "condition": "no_class_weights",
+      "seed": 456,
+      "architecture": "mobilenet_v3_large",
+      "mode": "partial",
+      "epochs": 16,
+      "best_epoch": 9,
+      "run_directory": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s456a01_seed456_attempt1792777644_5ff094",
+      "checkpoint_local_only": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\ablation\\mobilenet_v3_large_partial_v2\\ab_nw\\mobilenet_v3_large\\partial\\ab_nw_mobilenet_v3_large_partial_s456a01_seed456_attempt1792777644_5ff094\\best_mobilenet_v3_large_partial_seed456.pt",
+      "wandb_run_url": "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/331be7hd",
+      "files": {
+        "config.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s456a01_seed456_attempt1792777644_5ff094/config.json",
+          "sha256": "0ba55f90715f97a9a71fa685bc96f4df1223bd9ace1b0bc8011d0404b7a68a05",
+          "bytes": 2356
+        },
+        "history.csv": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s456a01_seed456_attempt1792777644_5ff094/history.csv",
+          "sha256": "68325219e4b5abe832c5832d45afbba6061c69e6a38e53c17aee615a5a619b56",
+          "bytes": 3643
+        },
+        "run_metrics.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s456a01_seed456_attempt1792777644_5ff094/run_metrics.json",
+          "sha256": "9c272a9770124eca7c8b6e0780fc7ad8b18e75301001a74f154d83e2cbc50fcc",
+          "bytes": 1797
+        },
+        "checkpoint_metadata.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s456a01_seed456_attempt1792777644_5ff094/checkpoint_metadata.json",
+          "sha256": "8a50aaca2bfde9f2cf71cebb24c2e9e3456ee26cdb0a99af71383556f61ac8b8",
+          "bytes": 2442
+        },
+        "test_metrics.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s456a01_seed456_attempt1792777644_5ff094/test_metrics.json",
+          "sha256": "01e0662782368bf92a282bd4c91a6451ec7f311f253b48e515674965cf6c87aa",
+          "bytes": 2012
+        },
+        "test_predictions.csv": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s456a01_seed456_attempt1792777644_5ff094/test_predictions.csv",
+          "sha256": "ed8119ff6ad1c4b41ce4ccbaddfd72b4a0909428e17c2a23dffd7c7bddf380bb",
+          "bytes": 16732
+        },
+        "curves.png": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s456a01_seed456_attempt1792777644_5ff094/curves.png",
+          "sha256": "806659eada60b49f04d040535573770b1cada66c6a29fe3846e83015e5076666",
+          "bytes": 101483
+        },
+        "confusion_matrix.png": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s456a01_seed456_attempt1792777644_5ff094/confusion_matrix.png",
+          "sha256": "e8c0df40822c2a5a3eb2afadb4f61e2223e2c87f13d132f59d0db0b757f34f7c",
+          "bytes": 48106
+        },
+        "confusion_matrix_normalized.png": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s456a01_seed456_attempt1792777644_5ff094/confusion_matrix_normalized.png",
+          "sha256": "1149d655d30d7dbfa83dc141bc69f218c7348d7c52a01f8f1ad7517543382ab7",
+          "bytes": 54777
+        }
+      }
+    },
+    {
+      "condition": "no_class_weights",
+      "seed": 789,
+      "architecture": "mobilenet_v3_large",
+      "mode": "partial",
+      "epochs": 22,
+      "best_epoch": 15,
+      "run_directory": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s789a01_seed789_attempt1792777794_e9f746",
+      "checkpoint_local_only": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\ablation\\mobilenet_v3_large_partial_v2\\ab_nw\\mobilenet_v3_large\\partial\\ab_nw_mobilenet_v3_large_partial_s789a01_seed789_attempt1792777794_e9f746\\best_mobilenet_v3_large_partial_seed789.pt",
+      "wandb_run_url": "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/v4qra9na",
+      "files": {
+        "config.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s789a01_seed789_attempt1792777794_e9f746/config.json",
+          "sha256": "0aa9e916e396ebfe35a56c7cf6b9026335294d921acc6201bd6b1e67540fb57a",
+          "bytes": 2356
+        },
+        "history.csv": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s789a01_seed789_attempt1792777794_e9f746/history.csv",
+          "sha256": "0167c72a10e1cbf56aec03d4956b40debc53754892e3de1ecfd2b23afa8f7cc9",
+          "bytes": 4588
+        },
+        "run_metrics.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s789a01_seed789_attempt1792777794_e9f746/run_metrics.json",
+          "sha256": "fb6a459462f590928d3f1d0344fe6633d5865c30911e5e747e256389352e7723",
+          "bytes": 1796
+        },
+        "checkpoint_metadata.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s789a01_seed789_attempt1792777794_e9f746/checkpoint_metadata.json",
+          "sha256": "78c31d1de4887d2eebf6767ae895dec557a61ba68568ee18bb96a62cdd4df1de",
+          "bytes": 2441
+        },
+        "test_metrics.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s789a01_seed789_attempt1792777794_e9f746/test_metrics.json",
+          "sha256": "84bcbd6bc172d1171aeaf7ff76e6c473833bcad95e777cb6be2c3f6d895a30f6",
+          "bytes": 2006
+        },
+        "test_predictions.csv": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s789a01_seed789_attempt1792777794_e9f746/test_predictions.csv",
+          "sha256": "9ec8eca8e2891c3733c26d7c89ab5781ba6133cdf9895468368a2d239589d58d",
+          "bytes": 16716
+        },
+        "curves.png": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s789a01_seed789_attempt1792777794_e9f746/curves.png",
+          "sha256": "0166ea87ec0d618638827060ebc35de125d94120200b18a5f418b76993a68270",
+          "bytes": 96048
+        },
+        "confusion_matrix.png": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s789a01_seed789_attempt1792777794_e9f746/confusion_matrix.png",
+          "sha256": "f2d5bbec6804bacd24bf3367f05bfcc12c08f41b63829c760d022b82c278a57d",
+          "bytes": 47275
+        },
+        "confusion_matrix_normalized.png": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s789a01_seed789_attempt1792777794_e9f746/confusion_matrix_normalized.png",
+          "sha256": "ec52d9097d32e864e96957a4f812da44bec428e9baf6dc40f6af77086a4dbee7",
+          "bytes": 54891
+        }
+      }
+    },
+    {
+      "condition": "no_class_weights",
+      "seed": 1024,
+      "architecture": "mobilenet_v3_large",
+      "mode": "partial",
+      "epochs": 22,
+      "best_epoch": 15,
+      "run_directory": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s1024a01_seed1024_attempt1792777999_9977f6",
+      "checkpoint_local_only": "C:\\Users\\User\\Desktop\\deep\\outputs_modes_v3_td\\ablation\\mobilenet_v3_large_partial_v2\\ab_nw\\mobilenet_v3_large\\partial\\ab_nw_mobilenet_v3_large_partial_s1024a01_seed1024_attempt1792777999_9977f6\\best_mobilenet_v3_large_partial_seed1024.pt",
+      "wandb_run_url": "https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td/runs/5y8qxi0v",
+      "files": {
+        "config.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s1024a01_seed1024_attempt1792777999_9977f6/config.json",
+          "sha256": "3eeeb66a43c5b09849588f5fff1b9acaadf33a46b2b33f6af7a1ad6e8c1e8b91",
+          "bytes": 2358
+        },
+        "history.csv": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s1024a01_seed1024_attempt1792777999_9977f6/history.csv",
+          "sha256": "02c318ddf1f3521d607d004dcae2db1e17f58a65101e078045806457edfe663d",
+          "bytes": 4640
+        },
+        "run_metrics.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s1024a01_seed1024_attempt1792777999_9977f6/run_metrics.json",
+          "sha256": "19c8219847a3a149b5b24ed50b151bedfe08a8f4ebb238c51fc78dfd55c7e226",
+          "bytes": 1829
+        },
+        "checkpoint_metadata.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s1024a01_seed1024_attempt1792777999_9977f6/checkpoint_metadata.json",
+          "sha256": "7f06b4b520f61679b114c0b3a11027e8fd652cf3400bae128b2bcbde1bc220c7",
+          "bytes": 2474
+        },
+        "test_metrics.json": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s1024a01_seed1024_attempt1792777999_9977f6/test_metrics.json",
+          "sha256": "79b8c7e2ac7dc87758919fd8ef13325fbecf43750fa7af291650a883d80e4839",
+          "bytes": 2062
+        },
+        "test_predictions.csv": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s1024a01_seed1024_attempt1792777999_9977f6/test_predictions.csv",
+          "sha256": "df8f331d1680bd4e38506b82f6febcf15c93a2f129c3dbd8acc4dae5ed33f7a2",
+          "bytes": 16904
+        },
+        "curves.png": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s1024a01_seed1024_attempt1792777999_9977f6/curves.png",
+          "sha256": "b8d9e9994f68b5a5079a0c65d7cabf9e7ffeea1fceb9724bc4301b85fef365b2",
+          "bytes": 101351
+        },
+        "confusion_matrix.png": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s1024a01_seed1024_attempt1792777999_9977f6/confusion_matrix.png",
+          "sha256": "2b6d5727e4e29f7c94ac09cb5f05b4cc2d56bc583c98ca3af062f4b333e520a4",
+          "bytes": 47747
+        },
+        "confusion_matrix_normalized.png": {
+          "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/ab_nw/mobilenet_v3_large/partial/ab_nw_mobilenet_v3_large_partial_s1024a01_seed1024_attempt1792777999_9977f6/confusion_matrix_normalized.png",
+          "sha256": "788cfb5f1f6eaf480e2b1a9a38c5e3b4fb0b3f1f47822a482080f7186059cdcf",
+          "bytes": 55573
+        }
+      }
+    }
+  ],
+  "console_logs": [
+    {
+      "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/logs/ablation_console.log",
+      "sha256": "a1e70ab83ee02cfef4a1c865ab936d3c950ab0f2d663a1fc8132de80e6bb4fdc"
+    },
+    {
+      "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/logs/analyze_console.log",
+      "sha256": "571a68cf3e91a1fca7af1e0fbcb9bb5d37fd3e69c7274ad5b7a7c20b5266cc4d"
+    },
+    {
+      "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/logs/report_console.log",
+      "sha256": "c232f4bcd1cba97c42a6dca05d7499721f38e20b2be2c75177e268cfbd4a458c"
+    },
+    {
+      "path": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/logs/lock_console.json",
+      "sha256": "ce49ec4d82de09de1a7df2412ced21b35280f37087977088f438b9f4c49398a9"
+    }
+  ],
+  "wandb_directory": "outputs_modes_v3_td/ablation/mobilenet_v3_large_partial_v2/wandb/",
+  "checkpoints_retained_locally": true,
+  "training_curve_images": 10,
+  "confusion_images": 20,
+  "raw_wandb_kept_locally": true
+}

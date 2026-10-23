@@ -11,13 +11,16 @@ const pairName = id => { const [architecture, mode] = id.split('::'); return set
 const f = (n, d=2) => Number(n).toFixed(d);
 const pct = n => f(Number(n) * 100);
 const pm = (r, key) => pct(r[key+'_mean']) + ' ± ' + pct(r[key+'_sample_sd']);
-const pval = n => Number(n) < 0.001 ? '<0.001' : f(n, 3);
+const pval = n => n === '' || n === null || n === undefined || !Number.isFinite(Number(n)) ? 'undefined' : Number(n) < 0.001 ? '<0.001' : f(n, 3);
+const mobileAblation = fs.readFileSync(path.join(__dirname,'readme_template.md'),'utf8').includes('<!-- mobilenet-followup:ablation:start -->');
+const ablationPrefix = mobileAblation ? 'mobilenet' : 'resnet';
 const inputs = ['report/readme_template.md', 'report/verified_pair_summary.csv', 'report/verified_per_class_summary.csv',
   'report/verified_statistics.csv', 'report/verified_training_dynamics.csv', 'report/resnet_gradcam_cases.csv',
-  'report/resnet_ablation_condition_summary.csv', 'report/resnet_ablation_statistical_tests.csv',
+  'report/'+ablationPrefix+'_ablation_condition_summary.csv', 'report/'+ablationPrefix+'_ablation_statistical_tests.csv',
   'outputs_modes_v3_td/tuning/best_params_by_arch_mode.json', 'outputs_modes_v3_td/tuning/search_definition.json',
   'outputs_modes_v3_td/eyeball/eyeball_cases.csv', 'report/error_frequency.csv', 'report/final_checkpoint_summary.csv',
-  'report/readme_revision_evidence.json', 'report/matched_cam_comparison.csv'];
+  'report/readme_revision_evidence.json', 'report/matched_cam_readme_cases.csv',
+  ...(mobileAblation ? ['report/mobilenet_ablation_sources.json','report/mobilenet_ablation_verification.json','report/final_model_selection.json'] : [])];
 const before = Object.fromEntries(inputs.map(p => [p, hash(p)]));
 function table(headers, rows, numericColumns=[]) {
   if (rows.some(r => r.length !== headers.length)) throw Error('Markdown table column mismatch');
@@ -29,7 +32,7 @@ const revision = JSON.parse(fs.readFileSync(path.join(root,'report/readme_revisi
 blocks.HYPOTHESIS_F1_TABLE = table(['Seed','MobileNet/Partial F1 (%)','ResNet/Full F1 (%)','Difference (pp)'],
   revision.paired_f1_example.matched.map(r=>[r.seed,f(r.mobile_f1_pct,4),f(r.resnet_f1_pct,4),f(r.difference_pp,4)]),[0,1,2,3]);
 blocks.MATCHED_CAM_TABLE = table(['Image ID (stem)','True class','ResNet prediction','Confidence (%)','MobileNet prediction','Confidence (%)'],
-  readCsv('report/matched_cam_comparison.csv').map(r=>[r.image_id.split('/')[1],classes[r.true_label],
+  readCsv('report/matched_cam_readme_cases.csv').map(r=>[r.image_id.split('/')[1],classes[r.true_label],
     classes[r.resnet_pred]+' '+(r.resnet_pred===r.true_label?'✓':'✗'),pct(r.resnet_confidence),
     classes[r.mobile_pred]+' '+(r.mobile_pred===r.true_label?'✓':'✗'),pct(r.mobile_confidence)]),[3,5]);
 const summary = readCsv('report/verified_pair_summary.csv');
@@ -57,10 +60,10 @@ const cases = readCsv('report/resnet_gradcam_cases.csv');
 blocks.RESNET_CASE_TABLE = table(['Image ID (stem)','True class','Predicted class','Confidence (%)','Selection reason'], cases.map(r=>[r.image_id.split('/')[1],classes[r.true_label],classes[r.predicted_label]+' '+(r.true_label===r.predicted_label?'✓':'✗'),pct(r.confidence),r.selection_reason==='highest_confidence_correct'?'ถูก มั่นใจสูงสุดในคลาส':r.selection_reason==='highest_confidence_misclassified'?'ผิด มั่นใจสูงสุดในคลาส':'ถูก มั่นใจต่ำสุด; คลาสนี้ไม่มีภาพผิด']), [3]);
 blocks.CASE_TABLE = table(['Image ID (stem)','True class','Fine-tuned prediction','Confidence (%)','ImageNet top-1'],readCsv(inputs[10]).map(r=>[r.image_id.split('/')[1],classes[r.true_label],classes[r.predicted_label]+' '+(r.true_label===r.predicted_label?'✓':'✗'),pct(r.confidence),r.imagenet_label]),[3]);
 blocks.ERROR_TABLE = table(['Image ID (stem)','True class','Errors / 75','Reference errors / 5','ResNet Full errors / 5'],readCsv('report/error_frequency.csv').slice(0,10).map(r=>[r.image_id.split('/')[1],classes[r.true_label],r.wrong_all75,r.wrong_reference5,r.wrong_resnetfull5]),[2,3,4]);
-const ablation = readCsv('report/resnet_ablation_condition_summary.csv');
+const ablation = readCsv('report/'+ablationPrefix+'_ablation_condition_summary.csv');
 const conditionNames = {baseline:'Baseline',no_augmentation:'ไม่ใช้ augmentation',no_class_weights:'ไม่ใช้ class weights'};
 blocks.ABLATION_TABLE = table(['Condition','Accuracy (%)','Macro precision (%)','Macro recall (%)','Macro F1 (%)'],ablation.map(r=>[conditionNames[r.condition],...['test_acc','test_macro_precision','test_macro_recall','test_macro_f1'].map(key=>pm(r,key))]),[1,2,3,4]);
-const ablationTests = readCsv('report/resnet_ablation_statistical_tests.csv');
+const ablationTests = readCsv('report/'+ablationPrefix+'_ablation_statistical_tests.csv');
 blocks.ABLATION_DELTAS = table(['Removed component','Δ Accuracy (pp)','Δ Macro F1 (pp)','Holm p: Accuracy','Holm p: Macro F1'],['no_augmentation','no_class_weights'].map(condition=>{const a=ablationTests.find(r=>r.condition===condition&&r.metric==='test_acc'),b=ablationTests.find(r=>r.condition===condition&&r.metric==='test_macro_f1');return [condition==='no_augmentation'?'Augmentation':'Class weights',f(a.mean_difference_pp),f(b.mean_difference_pp),pval(a.p_holm),pval(b.p_holm)];}),[1,2,3,4]);
 let text = fs.readFileSync(path.join(__dirname,'readme_template.md'),'utf8');
 text = text.replace(/\{\{([A-Z][A-Z0-9_]+)\}\}/g,(_,name)=>{
@@ -81,8 +84,8 @@ fs.writeFileSync(path.join(__dirname,'qa/presentation_validation.json'),JSON.str
   checked_utc:new Date().toISOString(),source_sha256:before,readme_sha256:hash('README.md'),
   table_count:tables,local_and_external_links:links.length,broken_local_links:0,
   original_metric_units:'Saved CSV/JSON remain unchanged; only displayed metrics, differences and CIs are multiplied by 100. p/t/d_z are not rescaled.',
-  model_selection:'ResNet50/Full post hoc; original MobileNetV3-Large/Partial statistical reference preserved.',
-  execution_scope:'This renderer uses saved files only. The user separately authorized MobileNet Grad-CAM inference for eight fixed images; no new training or tuning was performed.',
+  model_selection:mobileAblation ? 'MobileNetV3-Large/Partial: resource-aware final choice, aligned with the unchanged validation reference. Non-significance is not equivalence; parameter counts are not a latency benchmark.' : 'ResNet50/Full post hoc; original MobileNetV3-Large/Partial statistical reference preserved.',
+  execution_scope:mobileAblation ? 'This Node renderer uses saved files only. Ten MobileNet/Partial ablation runs were executed separately under explicit 24 October authorization, reusing five baseline runs. Existing matched CAMs are retained. No model execution is performed by this renderer.' : 'This Node renderer uses saved files only. Four missing correct-model CAMs were computed separately from existing seed-42 checkpoints under explicit authorization; ten error-group CAMs were reused. Both model overlays are shown on all seven error images. No training or tuning is performed by this renderer.',
   renderer_python_inference_training_performed:false
 },null,2)+'\n');
 console.log('Rendered README and report mirror; checked '+tables+' tables and '+links.length+' links.');

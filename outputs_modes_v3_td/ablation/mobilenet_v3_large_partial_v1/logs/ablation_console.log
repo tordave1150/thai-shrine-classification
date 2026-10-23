@@ -1,0 +1,21 @@
+Reusing 5 baseline runs; at most 10 new runs / 300 epochs; free disk 105.6 GiB
+[ablation] no_augmentation::seed42 attempt 1: failed
+[ablation] no_augmentation::seed123 attempt 1: failed
+[ablation] no_augmentation::seed456 attempt 1: failed
+[ablation] no_augmentation::seed789 attempt 1: failed
+[ablation] no_augmentation::seed1024 attempt 1: failed
+[ablation] no_class_weights::seed42 attempt 1: failed
+[ablation] no_class_weights::seed123 attempt 1: failed
+[ablation] no_class_weights::seed456 attempt 1: failed
+[ablation] no_class_weights::seed789 attempt 1: failed
+[ablation] no_class_weights::seed1024 attempt 1: failed
+Traceback (most recent call last):
+  File "C:\Users\User\Desktop\deep\resnet_followup.py", line 641, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "C:\Users\User\Desktop\deep\resnet_followup.py", line 634, in main
+    result = {"gradcam": make_gradcam, "lock": lock_study, "ablation": ablation,
+              "analyze": analyze, "report": export_report}[args.stage](args, ctx)
+  File "C:\Users\User\Desktop\deep\resnet_followup.py", line 318, in ablation
+    raise RuntimeError(f"Only {len(complete)}/10 ablation runs completed; inspect registry then use --resume")
+RuntimeError: Only 0/10 ablation runs completed; inspect registry then use --resume
