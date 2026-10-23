@@ -61,6 +61,7 @@
   - [6.10 Ablation study of MobileNetV3-Large/Partial](#610-ablation-study-of-mobilenetv3-largepartial)
 - [7. Discussion and conclusions](#7-discussion-and-conclusions)
   - [7.1 Limitations](#71-limitations)
+  - [7.2 Limitations](#72-future-work)
  
 
 ## 1. Dataset overview
