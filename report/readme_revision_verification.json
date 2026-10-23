@@ -1,0 +1,126 @@
+{
+  "checked_utc": "2026-10-23T16:23:41.483Z",
+  "authorized_sections": [
+    "### 3.2 Fine-tuning strategies",
+    "### 6.2 Learning curves across five seeds",
+    "### 6.7 Matched-image Grad-CAM comparison",
+    "#### Rendering the report from saved results",
+    "### D. Report files"
+  ],
+  "unrelated_readme_content_byte_identical_after_section_redaction": true,
+  "member_list_and_toc_preserved": true,
+  "readme_sha256": "282b5158ef5fe9a79bf302cbd01a57a222e11ca2317b7a424622d97618aa844f",
+  "template_sha256": "c87bdb3feb5236da77c971034c0c110b88a0f3ac84ac5830d6b762aca67c8743",
+  "learning": [
+    {
+      "path": "report/report_assets/latest/learning_curves_resnet50.svg",
+      "sha256": "cb104c3098b4f867b042219c16f75a875d4db2630e8a3a2b781e845392625007",
+      "mean_selected_epoch_lines": 9
+    },
+    {
+      "path": "report/report_assets/latest/learning_curves_efficientnet_b0.svg",
+      "sha256": "511819466b5a49eef2df988d6b3dd2f426ab26cf5ec0e2d88f01cd4d8eee9ba5",
+      "mean_selected_epoch_lines": 9
+    },
+    {
+      "path": "report/report_assets/latest/learning_curves_mobilenet_v3_large.svg",
+      "sha256": "c4a9acb1415ee76e644494cd7db8a3c6a4e69be85566f2ec28b77ce190fc8710",
+      "mean_selected_epoch_lines": 9
+    },
+    {
+      "path": "report/report_assets/latest/learning_curves_densenet121.svg",
+      "sha256": "b8615768ba02678b349de61f6130a24904033a7db28cc048f772f7e4f86714dd",
+      "mean_selected_epoch_lines": 9
+    },
+    {
+      "path": "report/report_assets/latest/learning_curves_convnext_tiny.svg",
+      "sha256": "21052fda9c6cbea959ad358c89b95bcd4495499f26f1acc9fe3eac42b0f74960",
+      "mean_selected_epoch_lines": 9
+    }
+  ],
+  "gradcam": {
+    "seed": 42,
+    "partition": "test",
+    "correct_rows": 4,
+    "wrong_rows": 7,
+    "resnet_errors": 5,
+    "mobilenet_errors": 4,
+    "shared_errors": 2,
+    "error_overlays": 9,
+    "correct_overlays": 8,
+    "blank_policy_verified": true,
+    "figures_byte_identical_to_approved_previews": true,
+    "prediction_rows_verified_by_generator": 170
+  },
+  "image_sizes": [
+    {
+      "path": "report/report_assets/latest/gradcam_matched_correct_both_models_seed42.png",
+      "width": 1360,
+      "height": 1681,
+      "sha256": "13fc4b90173ccc3cad58e14d2b7e18372e21c0fc184889e13b378cc97088a4dc"
+    },
+    {
+      "path": "report/report_assets/latest/gradcam_matched_all_wrong_both_models_seed42.png",
+      "width": 1360,
+      "height": 2803,
+      "sha256": "ebb09b6027a0d05adba1cfc91573cc15318e8b7c1927c49995f338b6da9a3433"
+    },
+    {
+      "path": "report/report_assets/standalone/resnet_full_mobilenet_partial_loss_five_seeds.png",
+      "width": 1440,
+      "height": 700,
+      "sha256": "4487890ffcf749208ddbf8c41579634725355964c817f48b56d97cf2c62e014c"
+    }
+  ],
+  "standalone_loss_not_embedded_in_readme": true,
+  "partial_layer_counts": [
+    {
+      "architecture": "ResNet50",
+      "total": 107,
+      "trainable": 21,
+      "frozen": 86
+    },
+    {
+      "architecture": "EfficientNet-B0",
+      "total": 131,
+      "trainable": 11,
+      "frozen": 120
+    },
+    {
+      "architecture": "MobileNetV3-Large",
+      "total": 110,
+      "trainable": 28,
+      "frozen": 82
+    },
+    {
+      "architecture": "DenseNet121",
+      "total": 242,
+      "trainable": 66,
+      "frozen": 176
+    },
+    {
+      "architecture": "ConvNeXt-Tiny",
+      "total": 82,
+      "trainable": 14,
+      "frozen": 68
+    }
+  ],
+  "partial_layer_count_method": "Static source decomposition; no model construction or Python execution.",
+  "protected_sha256": {
+    "outputs_modes_v3_td/selection.json": "5b72b8108f131df16af0155051952f72134b3e5907109b92627a112181c7988e",
+    "outputs_modes_v3_td/run_registry.json": "0b163a52ea585a56565533bcec1d3a2fcfa515cd33d876b8c4fb8e6fd01d9a46"
+  },
+  "python_tests_inference_training_run": false,
+  "git_push_performed": false,
+  "appendix_removal": {
+    "authorized": true,
+    "removed_from_readme_and_toc": true,
+    "remaining_references": 0,
+    "body_references_updated": 7,
+    "previous_readme_sha256": "cbc859982f5f7e6ce499214a91c7f3faef7a7adfd24d51de7e404eb859446876",
+    "previous_verification_sha256": "7dfccd24e91491145fb2b2f52b9beb146f9230808d76a12b0bcf95d3f1bca50d",
+    "unrelated_body_content_preserved": true,
+    "supporting_files_deleted": false,
+    "gradcam_limitation_case_count_corrected": true
+  }
+}

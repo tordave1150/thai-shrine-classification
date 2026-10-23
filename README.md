@@ -49,21 +49,6 @@
   - [6.10 Ablation study of ResNet50/Full](#610-ablation-study-of-resnet50full)
 - [7. Discussion and conclusions](#7-discussion-and-conclusions)
   - [7.1 Limitations](#71-limitations)
-- [Appendix](#appendix)
-  - [A. Reproducing the follow-up study](#a-reproducing-the-follow-up-study)
-  - [B. Reference-model diagnostics](#b-reference-model-diagnostics)
-  - [C. Supporting evidence](#c-supporting-evidence)
-    - [Compute budget and environment](#compute-budget-and-environment)
-    - [Numerical verification and figure sources](#numerical-verification-and-figure-sources)
-    - [Additional statistical quantities](#additional-statistical-quantities)
-    - [Source domains](#source-domains)
-    - [Parameter counts](#parameter-counts)
-    - [Checkpoint distributions](#checkpoint-distributions)
-    - [Training dynamics](#training-dynamics)
-    - [Frequent classification errors](#frequent-classification-errors)
-    - [Experiment tracking and CoreWeave](#experiment-tracking-and-coreweave)
-    - [Rendering the report from saved results](#rendering-the-report-from-saved-results)
-  - [D. Report files](#d-report-files)
 
 ---
 
@@ -92,7 +77,7 @@
 | ตายาย | san_tayay | 133 | 23.75 |
 | ตี่จู้เอี๊ยะ | tee_ju_eia | 200 | 35.71 |
 
-รวบรวมภาพด้วย **web scraping** และบันทึกชื่อไฟล์ คลาส และ URL ต้นทางใน `metadata_cleaned.csv` มี URL สำหรับ 448 ภาพ และไม่ทราบ URL 112 ภาพ รายการแหล่งภาพอยู่ใน Appendix C
+รวบรวมภาพด้วย **web scraping** และบันทึกชื่อไฟล์ คลาส และ URL ต้นทางใน `metadata_cleaned.csv` มี URL สำหรับ 448 ภาพ และไม่ทราบ URL 112 ภาพ รายการ URL ต้นทางอยู่ใน [metadata_cleaned.csv](dataset_cleaned/metadata_cleaned.csv)
 
 ### 1.2 Class distribution and loss weighting
 
@@ -209,7 +194,7 @@ Probability คือโอกาสที่การแปลงจะเก�
 | DenseNet121 | Dense blocks | เปลี่ยน `classifier` เป็นชั้นให้คะแนน 4 คลาส |
 | ConvNeXt-Tiny | ConvNeXt feature stages | เปลี่ยนชั้นให้คะแนนสุดท้าย คง normalization และ flatten |
 
-สถาปัตยกรรมทั้งห้าเป็นกลุ่มเปรียบเทียบที่กำหนดไว้ล่วงหน้า เพื่อศึกษาวิธีเชื่อมต่อและขอบเขตการปรับน้ำหนักที่ต่างกัน เหตุผลที่เลือก ResNet50/Full จากผลการทดลองอยู่ในหัวข้อ 6.9 ส่วนจำนวน parameters ของแต่ละ mode อยู่ใน Appendix C
+สถาปัตยกรรมทั้งห้าเป็นกลุ่มเปรียบเทียบที่กำหนดไว้ล่วงหน้า เพื่อศึกษาวิธีเชื่อมต่อและขอบเขตการปรับน้ำหนักที่ต่างกัน เหตุผลที่เลือก ResNet50/Full จากผลการทดลองอยู่ในหัวข้อ 6.9 ส่วนจำนวน parameters ของแต่ละ mode บันทึกใน `config.json` ของแต่ละ run ใน [ผล final](outputs_modes_v3_td/final/)
 
 ### 3.2 Fine-tuning strategies
 
@@ -223,15 +208,31 @@ Probability คือโอกาสที่การแปลงจะเก�
 
 นอกจากเลือกว่าจะปรับน้ำหนักส่วนใดแล้ว ยังต้องกำหนด **train mode** และ **eval mode** ให้เหมาะสมด้วย ใน train mode ชั้น Dropout จะสุ่มปิดค่าบางส่วน และ BatchNorm จะใช้สถิติจาก batch พร้อมปรับสถิติสะสม ส่วน eval mode จะปิดการสุ่มของ Dropout และให้ BatchNorm ใช้สถิติสะสมที่มีอยู่ จึงใช้ eval mode กับ backbone ที่ freeze รวมถึงทั้งโมเดลขณะประเมิน validation/test การตั้ง eval mode เพียงอย่างเดียวไม่ได้ตรึงน้ำหนัก ต้องกำหนดส่วนที่ freeze แยกด้วย
 
-สำหรับ **Partial** ส่วนท้ายของ backbone หมายถึงกลุ่มชั้นสุดท้ายที่สร้างลักษณะภาพก่อนส่งเข้า classifier จึงเปิดให้กลุ่มนี้ปรับเข้ากับภาพศาล ส่วนต้นยังคงน้ำหนักเดิม ขอบเขตของแต่ละ architecture เป็นดังนี้ โดยทุกแถวฝึก classifier head ร่วมด้วย
+สำหรับ **Partial** งานนี้กำหนดล่วงหน้าให้เปิด **final semantic backbone stage ทั้งกลุ่มร่วมกับ classifier head** โดยส่วนก่อนหน้านั้นยังคง pretrained weights และอยู่ใน eval mode หลักคิดคือให้ feature ระดับท้ายปรับเข้ากับภาพศาล พร้อมรักษา feature พื้นฐานที่ถ่ายทอดจาก ImageNet การเลือกใช้ขอบเขต stage/block ของแต่ละสถาปัตยกรรม จึงไม่ได้กำหนดให้ทุกโมเดลเปิดจำนวน layers หรือสัดส่วน parameters เท่ากัน
 
-| Architecture | Trainable backbone stage in Partial |
-| --- | --- |
-| ResNet50 | Residual stage สุดท้าย (`layer4`) |
-| EfficientNet-B0 | MBConv stage สุดท้ายและชั้น projection ที่ตามมา |
-| MobileNetV3-Large | InvertedResidual stage สุดท้ายและ projection (`features.13–16`) |
-| DenseNet121 | Dense block สุดท้ายและ normalization (`denseblock4`, `norm5`) |
-| ConvNeXt-Tiny | ConvNeXt feature stage สุดท้าย |
+แนวคิดที่ feature ชั้นต้นมีลักษณะทั่วไปและ feature ชั้นท้ายเฉพาะกับงานมากขึ้น สอดคล้องกับ [Yosinski et al. (2014), How transferable are features in deep neural networks?](https://proceedings.neurips.cc/paper_files/paper/2014/hash/532a2f85b6977104bc93f8580abbb330-Abstract.html) ส่วนชื่อ module และจำนวน blocks ด้านล่างอ้างอิง implementation ของ **torchvision 0.28.0** ที่ติดตั้งและ policy ของโครงการ การเปิด stage สุดท้ายเป็นนิยามการทดลองของงานนี้ ไม่ใช่ข้อกำหนดโดยตรงจากบทความ และยังไม่ได้พิสูจน์ว่าเป็นขอบเขตที่ดีที่สุดของแต่ละโมเดล
+
+| Architecture | Modules ที่เปิดใน Partial (รวม head) | หลักการเลือกขอบเขต |
+| --- | --- | --- |
+| [ResNet50](https://github.com/pytorch/vision/blob/v0.28.0/torchvision/models/resnet.py) | `layer4` + `fc`: **3 Bottleneck blocks** จากทั้งหมด 16 blocks | ใช้ residual stage ที่ 4 ทั้ง stage ตาม pattern 3, 4, 6, 3 ซึ่งสร้าง feature 2,048 channels ก่อน pooling และ classifier; คง residual branches และ shortcut ภายใน stage ไว้ด้วยกัน |
+| [EfficientNet-B0](https://github.com/pytorch/vision/blob/v0.28.0/torchvision/models/efficientnet.py) | `features.7`, `features.8` + `classifier`: **1 MBConv block + final projection** | ใช้ MBConv stage สุดท้าย (192 → 320 channels) และ projection ที่เชื่อมเข้า head (320 → 1,280); stage นี้มีหนึ่ง block ตามโครงสร้าง B0 ไม่ได้บังคับให้เปิดสาม blocks เท่าโมเดลอื่น |
+| [MobileNetV3-Large](https://github.com/pytorch/vision/blob/v0.28.0/torchvision/models/mobilenetv3.py) | `features.13–15`, `features.16` + `classifier`: **3 InvertedResidual blocks + final projection** | หา InvertedResidual สุดท้าย แล้วย้อนรวม blocks ที่ต่อเนื่องและมี output 160 channels จึงได้กลุ่ม `features.13–15` ซึ่งเริ่มด้วย stride 2; เปิด projection 160 → 960 channels และ classifier ทั้งสอง Linear layers ร่วมด้วย |
+| [DenseNet121](https://github.com/pytorch/vision/blob/v0.28.0/torchvision/models/densenet.py) | `features.denseblock4`, `features.norm5` + `classifier`: **16 DenseLayers** จากทั้งหมด 58 | ใช้ dense block สุดท้ายทั้งกลุ่ม ตาม pattern 6, 12, 24, 16 เพื่อคงการเชื่อมต่อ feature ภายใน block และเปิด normalization หลัง block; stem, สาม dense blocks แรก และ transitions ยัง freeze |
+| [ConvNeXt-Tiny](https://github.com/pytorch/vision/blob/v0.28.0/torchvision/models/convnext.py) | `features.7` + `classifier`: **3 CNBlocks** จากทั้งหมด 18 | ใช้ feature stage สุดท้ายที่มี 768 channels ตาม pattern 3, 3, 9, 3; downsampling ก่อน stage นี้ (`features.6`) ยัง freeze ส่วน normalization และ Linear ใน head ฝึกด้วย |
+
+**เมื่อเทียบเป็นจำนวน layers** ตารางต่อไปนับเฉพาะ module ย่อยที่มี parameters ได้แก่ **Conv2d, Linear และ normalization** รวม shortcut projection, Squeeze-and-Excitation และ classifier head แต่ไม่นับ container, activation, pooling หรือ Dropout จึงเป็นนิยามเดียวกันทั้งห้าโมเดล และไม่ใช่จำนวน layer ตามชื่อ ResNet50/DenseNet121
+
+| Architecture | Layers ทั้งโมเดล | Partial: เปิดให้ฝึก | Partial: freeze |
+| --- | ---: | ---: | ---: |
+| ResNet50 | 107 | 21 | 86 |
+| EfficientNet-B0 | 131 | 11 | 120 |
+| MobileNetV3-Large | 110 | 28 | 82 |
+| DenseNet121 | 242 | 66 | 176 |
+| ConvNeXt-Tiny | 82 | 14 | 68 |
+
+ตัวอย่าง ResNet เปิด **3 Bottleneck blocks** แต่เท่ากับ **21 layers ที่มี parameters** เมื่อรวม head (10 Conv + 10 BatchNorm + 1 Linear) ส่วน MobileNet เปิด **3 InvertedResidual blocks พร้อม projection และ head** รวม **28 layers** (16 Conv + 10 BatchNorm + 2 Linear) จึงไม่ควรเรียกทั้งสองกรณีว่าเปิดเพียง 3 layers สำหรับ ConvNeXt ยังมี `layer_scale` vectors อีก 18 ชุดซึ่งไม่ใช่ layer modules ตามนิยามนี้: Partial เปิด 3 ชุดและ freeze 15 ชุด โดยยังรวม vectors เหล่านี้ในจำนวน parameters
+
+จำนวน layers มาจากการแจกแจงโครงสร้าง source ที่ติดตั้ง ไม่ได้รันโมเดลใหม่ ดู [นิยามการนับและรายละเอียดรายโมเดล](report/partial_layer_counts.json) งานนี้ tune learning rate, weight decay, optimizer และ batch size แยกแต่ละ setup แต่ **ไม่ได้ tune ความลึกของการ unfreeze** หรือเลือกขอบเขตจากคะแนน test
 
 ดังนั้น Frozen ยังฝึก classifier ได้ ส่วน Full และ Partial ต่างกันที่ขอบเขตของ backbone ที่เปิดให้เรียนรู้ การมีหรือไม่มี Dropout เป็นอีกเรื่องหนึ่ง: ทุกโมเดลมีส่วนจำแนกคลาส แต่คง Dropout ใน classifier เฉพาะ EfficientNet-B0 และ MobileNetV3-Large ตามโครงสร้างเดิม โดยไม่ได้ tune ค่า Dropout
 
@@ -374,7 +375,7 @@ MobileNetV3-Large/Partial ได้รับเลือกเป็น **statis
 
 <!-- /generated:CHECKPOINT_SUMMARY_TABLE -->
 
-รายละเอียด checkpoint ราย seed จำนวน epochs ที่ใช้จริง และเครื่องที่ใช้ทดลองอยู่ใน Appendix C
+รายละเอียด checkpoint ราย seed อยู่ใน [final_checkpoint_summary.csv](report/final_checkpoint_summary.csv) จำนวน epochs ที่ใช้จริงอยู่ใน [run_dynamics.csv](outputs_modes_v3_td/diagnostics/run_dynamics.csv) และเครื่องที่ใช้ทดลองบันทึกใน [environment.json](outputs_modes_v3_td/environment.json)
 
 <p align="right"><a href="#top">🔝 กลับสู่ด้านบน</a></p>
 
@@ -408,7 +409,7 @@ MobileNetV3-Large/Partial ได้รับเลือกเป็น **statis
 | Primary | โมเดลอ้างอิง MobileNetV3-Large/Partial ต่างจากอีก 14 setups หรือไม่: 14 คู่ × Accuracy และ Macro F1 | 28 |
 | Secondary | ใน architecture เดียวกัน Full–Frozen, Full–Partial และ Partial–Frozen ต่างกันหรือไม่: 3 คู่ × 5 architectures × 2 metrics | 30 |
 
-ปรับ Holm ภายในแต่ละกลุ่มตามจำนวนการทดสอบข้างต้น และคงทั้ง 28 และ 30 รายการไว้ครบ ผลนี้อธิบายความแปรผันจาก training seeds บน split เดียวกัน ตัวอย่างการตั้งสมมติฐานและคำนวณอยู่ในหัวข้อ 6.4 ส่วนช่วงความเชื่อมั่นและ effect size อธิบายใน Appendix C
+ปรับ Holm ภายในแต่ละกลุ่มตามจำนวนการทดสอบข้างต้น และคงทั้ง 28 และ 30 รายการไว้ครบ ผลนี้อธิบายความแปรผันจาก training seeds บน split เดียวกัน ตัวอย่างการตั้งสมมติฐานและคำนวณอยู่ในหัวข้อ 6.4 ส่วนช่วงความเชื่อมั่น 95% และ effect size (Cohen’s d_z) ดูได้ใน [ผลสถิติรายคู่](report/verified_statistics.csv)
 
 ### 5.3 Confidence calibration
 
@@ -428,7 +429,7 @@ Confidence คือความน่าจะเป็นสูงสุดท
 
 กราฟแสดงพัฒนาการระหว่างฝึกของ 5 seeds แยก Full, Frozen และ Partial เส้นเป็นค่าเฉลี่ยและพื้นที่แรเงาเป็น ±1 sample SD โดยเส้นทึบแทน train และเส้นประแทน validation
 
-บนกราฟ **Validation Macro F1** เครื่องหมาย **×** แสดง selected checkpoint ของแต่ละ seed ส่วนเส้นแนวตั้ง **Mean selected epoch** แสดงค่าเฉลี่ย epoch ที่เลือกจากครบ 5 seeds ของ setup นั้น เส้นนี้ช่วยบอกช่วงที่โมเดลมักได้ checkpoint ที่ดีที่สุด โดยไม่ใช่ค่าเฉลี่ย epoch ที่หยุดฝึก
+เส้นแนวตั้ง **Mean selected epoch** แสดงในกราฟ **loss, accuracy และ Validation Macro F1** ของทุก mode โดยเป็นค่าเฉลี่ย epoch ของ checkpoint ที่เลือกด้วย validation จากครบ 5 seeds ของ setup นั้น ส่วนเครื่องหมาย **×** บนกราฟ Validation Macro F1 แสดง selected checkpoint ของแต่ละ seed เส้นแนวตั้งนี้ไม่ใช่ค่าเฉลี่ย stopping epoch และไม่ได้หมายความว่าทุก run ใช้ checkpoint epoch เดียวกัน
 
 ![ResNet50 learning curves with sample SD](report/report_assets/latest/learning_curves_resnet50.svg)
 
@@ -452,7 +453,7 @@ Confidence คือความน่าจะเป็นสูงสุดท
 
 แถวล่าง **Available runs** คือจำนวน runs ที่ยังมีข้อมูล ณ epoch นั้น เมื่อบาง run หยุดฝึก จำนวนจะลดลงจาก 5 เส้นเฉลี่ยจึงคำนวณจาก runs ที่เหลือจริง โดยไม่เติมค่าหลังหยุด หากเหลือเพียงหนึ่ง run จะไม่มีแถบ SD ช่วงท้ายจึงควรอ่านคู่กับจำนวน runs เสมอ
 
-Train วัดระหว่างฝึกด้วย augmentation ส่วน validation วัดด้วยภาพที่เตรียมแบบคงที่ จึงมีเงื่อนไขต่างกัน แถบ ±SD แสดงการกระจายของคะแนน ไม่ใช่ช่วงความเชื่อมั่น และจุดสูงสุดของเส้นเฉลี่ยไม่ใช่ checkpoint ที่ใช้ร่วมกันทุก seed ตารางค่าราย epoch และ checkpoint ราย seed อยู่ใน Appendix C
+Train วัดระหว่างฝึกด้วย augmentation ส่วน validation วัดด้วยภาพที่เตรียมแบบคงที่ จึงมีเงื่อนไขต่างกัน แถบ ±SD แสดงการกระจายของคะแนน ไม่ใช่ช่วงความเชื่อมั่น และจุดสูงสุดของเส้นเฉลี่ยไม่ใช่ checkpoint ที่ใช้ร่วมกันทุก seed ตารางค่าเฉลี่ย SD และจำนวน runs ราย epoch อยู่ใน [learning_curve_summary.csv](report/learning_curve_summary.csv) ส่วน checkpoint ราย seed อยู่ใน [final_checkpoint_summary.csv](report/final_checkpoint_summary.csv)
 
 ### 6.3 Test performance
 
@@ -593,47 +594,59 @@ t = d̄ / (s_d / √n)
 ### 6.7 Matched-image Grad-CAM comparison
 
 <!-- resnet-followup:gradcam:start -->
+<!-- matched-cam-layout:v1 -->
 
-เปรียบเทียบ ResNet50/Full กับ MobileNetV3-Large/Partial โดยใช้ **ภาพเดียวกัน 8 ภาพ ลำดับเดียวกัน และ checkpoint seed 42** ทั้งสองโมเดล แต่ละกรณีแสดงเฉพาะภาพต้นฉบับและ overlay เพื่อให้เห็นตำแหน่งที่ตอบสนองร่วมกับรายละเอียดภาพได้ชัดเจน
+เปรียบเทียบ **ResNet50/Full** กับ **MobileNetV3-Large/Partial** จาก checkpoint เดิม **seed 42** บน **test partition** โดยจัดทุกแถวเป็น **Original → ResNet50/Full overlay → MobileNetV3-Large/Partial overlay** แต่ละ CAM อธิบายคลาสที่โมเดลนั้นทำนาย และจัดแนวกลับสู่ภาพต้นฉบับหลังตัด canvas padding ไม่มีการฝึกหรือ inference เพิ่มสำหรับการจัดรูปครั้งนี้
 
-ภาพชุดนี้เลือกจากผล ResNet: ในแต่ละคลาสใช้ภาพทายถูกที่มั่นใจสูงสุดและภาพทายผิดที่มั่นใจสูงสุด หากไม่มีภาพทายผิดจึงใช้ภาพทายถูกที่มั่นใจต่ำสุดแทน จากนั้นสร้าง CAM ของ MobileNet บนภาพชุดเดียวกันจาก checkpoint เดิม โดยไม่มีการฝึกเพิ่ม CAM แต่ละภาพอธิบายคลาสที่โมเดลนั้นทำนาย และจัดแนวกลับสู่ภาพต้นฉบับหลังตัด padding
+**ตัวอย่างที่ทั้งสองโมเดลทายถูก — คลาสละ 1 ภาพ**
 
-![Original and overlay of ResNet50/Full on eight cases](report/report_assets/latest/gradcam_resnet50_full_original_overlay.png)
+ใช้ภาพจากชุด matched เดิมใน README โดยเลือกภาพทายถูกที่ ResNet มั่นใจสูงสุดของแต่ละ true class และตรวจว่าทั้งสองโมเดลทายถูกตรงกัน รวม 4 ภาพ
 
-*Figure 17a. ResNet50/Full seed 42: ภาพต้นฉบับและ Grad-CAM overlay ทายถูก 6 ภาพและผิด 2 ภาพในชุดตัวอย่างนี้*
+![Correct predictions: original followed by both model overlays](report/report_assets/latest/gradcam_matched_correct_both_models_seed42.png)
 
-![Original and overlay of MobileNetV3-Large/Partial on the same eight cases](report/report_assets/latest/gradcam_mobilenet_partial_matched_original_overlay.png)
+*Figure 17a. ภาพที่ทั้งสองโมเดลทายถูก 4 ภาพ คลาสละ 1 ภาพ แสดงภาพต้นฉบับและ overlay ของทั้งสองโมเดลในแถวเดียวกัน*
 
-*Figure 17b. MobileNetV3-Large/Partial seed 42: ภาพและลำดับตรงกับ Figure 17a ทายถูก 7 ภาพและผิด 1 ภาพในชุดตัวอย่างนี้*
+**ภาพที่อย่างน้อยหนึ่งโมเดลทายผิด — แสดงครบทุกภาพ**
+
+จาก test 85 ภาพของ seed 42 ResNet ทายผิด 5 ภาพ และ MobileNet ทายผิด 4 ภาพ โดยผิดร่วมกัน 2 ภาพ (`san_phraphum_0076`, `san_phraphum_0121`) จึงมี **7 ภาพไม่ซ้ำ รวม 9 model-image error cases** ด้านล่าง หากโมเดลใดทายถูกจะเว้นช่อง overlay ของโมเดลนั้นและระบุว่า Correct prediction; หากผิดทั้งคู่จะแสดง overlay คู่กัน ช่องว่างจึงหมายถึงโมเดลทายถูก ไม่ใช่ผล CAM ที่ขาดหาย
+
+![All misclassified images: original and overlays only for models that were wrong](report/report_assets/latest/gradcam_matched_all_wrong_both_models_seed42.png)
+
+*Figure 17b. ภาพผิดครบทั้ง 7 ภาพไม่ซ้ำใน test seed 42 เรียงคอลัมน์เหมือน Figure 17a และเว้น overlay ของฝ่ายที่ทายถูก*
 
 <!-- resnet-followup:gradcam:end -->
+
+ตารางต่อไปแสดงคำทำนายจากผล final เดิมสำหรับทั้ง 11 ภาพ เรียงตัวอย่างทายถูก 4 ภาพก่อน ตามด้วยกลุ่มทายผิด 7 ภาพ แม้ช่อง overlay ถูกเว้นว่าง ตารางยังแสดงคำทำนายของทั้งสองโมเดล
 
 <!-- generated:MATCHED_CAM_TABLE -->
 
 | Image ID (stem) | True class | ResNet prediction | Confidence (%) | MobileNet prediction | Confidence (%) |
 | --- | --- | --- | ---: | --- | ---: |
 | san_phraphrom_0051 | พระพรหม | พระพรหม ✓ | 99.98 | พระพรหม ✓ | 99.66 |
-| san_phraphrom_0017 | พระพรหม | พระพรหม ✓ | 83.96 | พระพรหม ✓ | 99.84 |
 | san_phraphum_0065 | พระภูมิ | พระภูมิ ✓ | 99.95 | พระภูมิ ✓ | 86.52 |
-| san_phraphum_0121 | พระภูมิ | พระพรหม ✗ | 96.80 | พระพรหม ✗ | 99.46 |
 | san_tayay_0078 | ตายาย | ตายาย ✓ | 99.89 | ตายาย ✓ | 100.00 |
-| san_tayay_0093 | ตายาย | พระภูมิ ✗ | 94.18 | ตายาย ✓ | 98.98 |
 | tee_ju_eia_0050 | ตี่จู้เอี๊ยะ | ตี่จู้เอี๊ยะ ✓ | 100.00 | ตี่จู้เอี๊ยะ ✓ | 99.99 |
-| tee_ju_eia_0137 | ตี่จู้เอี๊ยะ | ตี่จู้เอี๊ยะ ✓ | 83.11 | ตี่จู้เอี๊ยะ ✓ | 99.46 |
+| san_phraphum_0043 | พระภูมิ | ตายาย ✗ | 60.87 | พระภูมิ ✓ | 94.88 |
+| san_phraphum_0064 | พระภูมิ | พระภูมิ ✓ | 99.80 | พระพรหม ✗ | 86.44 |
+| san_phraphum_0076 | พระภูมิ | พระพรหม ✗ | 72.62 | ตายาย ✗ | 60.01 |
+| san_phraphum_0113 | พระภูมิ | พระพรหม ✗ | 94.37 | พระภูมิ ✓ | 71.91 |
+| san_phraphum_0114 | พระภูมิ | พระภูมิ ✓ | 99.57 | ตายาย ✗ | 66.11 |
+| san_phraphum_0121 | พระภูมิ | พระพรหม ✗ | 96.80 | พระพรหม ✗ | 99.46 |
+| san_tayay_0093 | ตายาย | พระภูมิ ✗ | 94.18 | ตายาย ✓ | 98.98 |
 
 <!-- /generated:MATCHED_CAM_TABLE -->
 
-ทั้งสองโมเดลมีบริเวณตอบสนองใกล้ตัวศาลในหลายภาพ แต่ตำแหน่งเด่นต่างกัน เช่น `san_phraphum_0065` ของ ResNet เด่นบริเวณตัวเรือนและฐานรอง ขณะที่ MobileNet เด่นใกล้ยอดหลังคา ทั้งคู่ทายถูก ส่วน `san_tayay_0078` และภาพตี่จู้เอี๊ยะทั้งสองภาพ มีบริเวณเด่นทับส่วนตัวศาลและให้คำทำนายตรงกัน
+ในกลุ่มทายถูก `san_phraphum_0065` ของ ResNet มีบริเวณเด่นใกล้ตัวเรือนและฐาน ขณะที่ MobileNet เด่นใกล้ยอดหลังคา ทั้งคู่ให้คำทำนายเป็นพระภูมิ ส่วนภาพโฆษณา `san_phraphrom_0051` มีทั้งศาลหลายองค์และข้อความ จึงยังแยกบทบาทของรูปทรงกับบริบทร่วมไม่ได้
 
-ความต่างที่ชัดคือ `san_tayay_0093`: ResNet ทายเป็นพระภูมิด้วย confidence 94.18% และมีบริเวณเด่นใกล้เรือนศาลด้านขวา ส่วน MobileNet ทายเป็นตายายถูกต้องด้วย confidence 98.98% และมีบริเวณตอบสนองครอบคลุมส่วนเรือนและฐานกว้างกว่า กรณีนี้ CAM ของสองโมเดลอธิบายคนละคลาสตามคำทำนาย จึงใช้บอกตำแหน่งที่สัมพันธ์กับผลแต่ละโมเดล โดยยังสรุปไม่ได้ว่าตำแหน่งใดทำให้ทายถูก
+ในกลุ่มทายผิด `san_phraphum_0076` แสดงว่าภาพเดียวกันอาจถูกจัดเป็นคนละคลาสผิด: ResNet ทายพระพรหม (72.62%) ส่วน MobileNet ทายตายาย (60.01%) CAM จึงอธิบายคนละคลาสตามคำทำนาย สำหรับ `san_phraphum_0121` ทั้งคู่ทายเป็นพระพรหมผิดด้วย confidence สูง (96.80% และ 99.46%) แม้บริเวณเด่นอยู่ที่ตัวศาล การตอบสนองตรงวัตถุจึงไม่ได้รับประกันการแยกประเภทที่ถูกต้อง
 
-สำหรับ `san_phraphum_0121` ทั้งคู่ทายเป็นพระพรหมผิดด้วย confidence สูง (ResNet 96.80%, MobileNet 99.46%) แม้บริเวณเด่นอยู่ที่ตัวศาล จึงเห็นว่าการตอบสนองตรงวัตถุไม่ได้รับประกันการแยกประเภทที่ถูกต้อง ขณะที่ภาพโฆษณา `san_phraphrom_0051` มีทั้งศาลหลายองค์และข้อความ จึงยังแยกบทบาทของรูปทรงกับบริบทร่วมไม่ได้
+`san_tayay_0093` เป็นตัวอย่างที่ ResNet ผิดแต่ MobileNet ถูก ส่วน `san_phraphum_0064` เป็นกรณีตรงข้าม การเว้นช่องใน Figure 17b ช่วยให้เห็นว่า error เกิดกับโมเดลใด โดยไม่ใช้บริเวณเด่นของ CAM เป็นข้อพิสูจน์สาเหตุที่ถูกหรือผิด
 
-ชุดนี้คัดเลือกตามผล ResNet เพื่อวิเคราะห์กรณีเฉพาะ สัดส่วนทายถูก 6/8 และ 7/8 จึงไม่ใช้จัดอันดับประสิทธิภาพรวม สีของ CAM ถูกปรับสเกลภายในแต่ละภาพ และ Grad-CAM ไม่ใช่หลักฐานเชิงสาเหตุ ส่วน confidence แสดงจากผล final ที่บันทึกไว้โดยปัดทศนิยม 2 ตำแหน่ง ค่า 100.00% จึงไม่ใช่การรับประกันความถูกต้อง
+ตัวอย่างทายถูกเลือกมาเพื่ออธิบาย ส่วนกลุ่มผิดครอบคลุม errors ทั้งหมดของสอง checkpoints นี้เท่านั้น ไม่ใช่ errors ของทุก seed จึงไม่ใช้จำนวนภาพในกริดจัดอันดับประสิทธิภาพรวม สีของ CAM ถูกปรับสเกลภายในแต่ละภาพ ไม่ใช่ค่าความสำคัญที่เปรียบเทียบข้ามโมเดลโดยตรง และ Grad-CAM ไม่ใช่หลักฐานเชิงสาเหตุ Confidence มาจากผล final ที่บันทึกไว้และปัดทศนิยม 2 ตำแหน่ง ค่า 100.00% ไม่ใช่การรับประกันความถูกต้อง
 
-**ภาพที่ถูกทายผิดบ่อยที่สุด** นับจากทั้ง 75 runs ภาพพระภูมิอยู่ในกลุ่มที่ผิดบ่อยที่สุดซ้ำ ๆ เช่น `san_phraphum_0043` ผิด 69/75 runs และ `san_phraphum_0121` ผิด 66/75 runs ตัวเลขเหล่านี้มาจากภาพชุดเดียวกันและโมเดลที่เกี่ยวข้องกัน จึงไม่ใช่ตัวอย่างอิสระ 75 ชุด ตารางสิบอันดับแรกอยู่ใน Appendix C และมีผลครบ 85 ภาพใน [error_frequency.csv](report/error_frequency.csv)
+**ภาพที่ถูกทายผิดบ่อยที่สุด** นับจากทั้ง 75 runs ภาพพระภูมิอยู่ในกลุ่มที่ผิดบ่อยที่สุดซ้ำ ๆ เช่น `san_phraphum_0043` ผิด 69/75 runs และ `san_phraphum_0121` ผิด 66/75 runs ตัวเลขเหล่านี้มาจากภาพชุดเดียวกันและโมเดลที่เกี่ยวข้องกัน จึงไม่ใช่ตัวอย่างอิสระ 75 ชุด ดูผลครบ 85 ภาพใน [error_frequency.csv](report/error_frequency.csv)
 
-ไฟล์ประกอบ: [ผลเปรียบเทียบภาพเดียวกัน](report/matched_cam_comparison.csv) ส่วน Grad-CAM ชุดเดิมและ eyeball ของ MobileNet อยู่ใน Appendix B
+ไฟล์ประกอบ: [คำทำนายทั้ง 11 ภาพ](report/matched_cam_readme_cases.csv) · [แหล่งภาพและการตรวจสอบ layout](report/matched_cam_layout_sources.json) · [การตรวจสอบ overlay ที่ทายผิดทั้งหมด](report/misclassified_overlays_verification.json) ส่วนหลักฐานประกอบเดิมของ MobileNet ดูได้จาก [Grad-CAM ชุดเดิม](report/report_assets/latest/gradcam_reference_percent.png) และ [eyeball_cases.csv](outputs_modes_v3_td/eyeball/eyeball_cases.csv)
 
 ### 6.8 Confidence and calibration
 
@@ -732,255 +745,7 @@ Ablation นี้เป็นผลเชิงสำรวจ ทำหลั�
 1. **ข้อมูลและการเลือกโมเดล:** Test มี 85 ภาพบน split เดียวที่เคยตรวจดูแล้ว และเลือก ResNet หลังพิจารณา test ผลจึงเป็นเชิงสำรวจ ส่วน SD และ paired tests สะท้อนความแปรผันระหว่าง seeds บนภาพชุดนี้
 2. **การค้นหา hyperparameters:** ใช้ 5 configurations ต่อ setup และ tuning seed เดียว โดยไม่มี SGD ในชุดที่สุ่มได้
 3. **บริบทในภาพ:** ภาพจากเว็บมีข้อความ ลายน้ำ และฉากหลังหลากหลาย ซึ่งอาจสัมพันธ์กับคลาส และไม่ทราบ URL ต้นทาง 112 ภาพ
-4. **การวิเคราะห์เพิ่มเติม:** Grad-CAM ใช้ตัวอย่างที่คัดเลือก 8 ภาพจาก seed 42 และ ablation ใช้ 5 seeds ต่อเงื่อนไขหลังเลือกโมเดล การไม่พบนัยสำคัญไม่ใช่หลักฐานยืนยันความเท่ากัน อีกทั้งยังไม่มีผลวัด latency ภายใต้เงื่อนไขควบคุม
-
-<p align="right"><a href="#top">🔝 กลับสู่ด้านบน</a></p>
-
----
-
-## Appendix
-
-### A. Reproducing the follow-up study
-
-`resnet_followup.py` รันครบแล้ว (Grad-CAM, ablation 10 runs, analysis และการนำผลเข้า README) คำสั่งด้านล่างใช้ทำซ้ำจากโฟลเดอร์โครงการ ใน environment เดิมที่มี PyTorch/torchvision ไม่ต้องฝึกใหม่เพื่ออ่านรายงานนี้
-
-```powershell
-python resnet_followup.py --stage gradcam
-python resnet_followup.py --stage lock
-python resnet_followup.py --stage ablation --resume --wandb-mode online --wandb-project thai-shrine-classifier-td
-python resnet_followup.py --stage analyze
-python resnet_followup.py --stage report
-```
-
-| Stage | Purpose |
-|---|---|
-| `gradcam` | สร้าง Grad-CAM จาก checkpoint เดิม ไม่ฝึกใหม่ |
-| `lock` | ตรวจ baseline, config, split และบันทึกแผน ablation |
-| `ablation` | ฝึกเพิ่ม 10 runs (`--resume` ใช้ซ้ำเฉพาะ run ที่เสร็จและไฟล์ตรงกัน) |
-| `analyze` | สรุป mean/SD ผลรายคลาส ผลต่างจับคู่ และสถิติ |
-| `report` | นำรูปและตารางที่สร้างเสร็จใส่ README ในเครื่อง โดยไม่ push GitHub |
-
-ถ้าหยุดกลางการฝึก run ที่ไม่สมบูรณ์จะเริ่มเป็น attempt ใหม่ ผลใหม่อยู่ใต้ output เดิมในโฟลเดอร์เฉพาะ และไม่แก้ final registry หรือ statistical lock เดิม
-
-### B. Reference-model diagnostics
-
-<details>
-<summary>Supplementary Grad-CAM and eyeball: MobileNetV3-Large/Partial</summary>
-
-ใช้ MobileNetV3-Large/Partial, seed 42 วิเคราะห์ 8 ภาพ โดยเลือกตัวอย่างทายถูกและทายผิดแยกตาม true class หากคลาสนั้นไม่มีภาพผิด ใช้ภาพทายถูกที่ confidence ต่ำแทน ชุดตัวอย่างประกอบด้วยภาพทายถูก 7 ภาพและทายผิด 1 ภาพ
-
-![Grad-CAM ของโมเดลอ้างอิง](report/report_assets/latest/gradcam_reference_percent.png)
-
-*Supplementary figure A1 ภาพต้นฉบับ heatmap และ overlay ของ MobileNetV3-Large/Partial seed 42 จัดวางใหม่จากภาพที่บันทึกไว้*
-
-หลายตัวอย่างมีบริเวณตอบสนองสูงใกล้ส่วนกลางศาล หลังคา หรือฐาน กรณี `san_phraphum_0076` ถูกทายเป็นศาลตายายด้วย confidence 60.01% และมี heatmap กระจุกใกล้ศาลด้านล่างขวา บางภาพมีข้อความและลายน้ำอยู่ใกล้บริเวณตอบสนองสูงด้วย จึงยังแยกไม่ได้ว่าโมเดลใช้รูปทรงหรือข้อความมากน้อยเพียงใด Grad-CAM ช่วยตั้งข้อสังเกต แต่ไม่ได้ยืนยันสาเหตุของการทำนาย
-
-![เปรียบเทียบป้าย ImageNet กับผลหลัง fine-tune](report/report_assets/latest/eyeball_reference_percent.png)
-
-*Supplementary figure A2 ป้ายกำกับจาก ImageNet model และผลหลัง fine-tune ของ MobileNetV3-Large/Partial บนภาพเดียวกัน เช่น stupa, altar และ china cabinet เทียบกับประเภทศาลไทย*
-
-<details>
-<summary>Predictions for selected reference examples</summary>
-
-<!-- generated:CASE_TABLE -->
-
-| Image ID (stem) | True class | Fine-tuned prediction | Confidence (%) | ImageNet top-1 |
-| --- | --- | --- | ---: | --- |
-| san_phraphrom_0057 | พระพรหม | พระพรหม ✓ | 100.00 | stupa |
-| san_phraphrom_0066 | พระพรหม | พระพรหม ✓ | 61.49 | stupa |
-| san_phraphum_0093 | พระภูมิ | พระภูมิ ✓ | 100.00 | altar |
-| san_phraphum_0076 | พระภูมิ | ตายาย ✗ | 60.01 | altar |
-| san_tayay_0068 | ตายาย | ตายาย ✓ | 100.00 | boathouse |
-| san_tayay_0003 | ตายาย | ตายาย ✓ | 72.19 | church |
-| tee_ju_eia_0001 | ตี่จู้เอี๊ยะ | ตี่จู้เอี๊ยะ ✓ | 100.00 | china cabinet |
-| tee_ju_eia_0080 | ตี่จู้เอี๊ยะ | ตี่จู้เอี๊ยะ ✓ | 86.00 | vestment |
-
-<!-- /generated:CASE_TABLE -->
-
-</details>
-
-</details>
-
-ตัวอย่าง MobileNet เดิมใน Appendix B เป็นคนละชุดกับ ResNet จึงเก็บไว้เป็นหลักฐานประกอบแยกต่างหาก ส่วนการเปรียบเทียบทั้งสองโมเดลบนภาพเดียวกันอยู่ในหัวข้อ 6.7
-
-### C. Supporting evidence
-
-#### Compute budget and environment
-
-| Stage | Training runs | Actual epochs | Maximum epochs |
-| --- | ---: | ---: | ---: |
-| Tuning | 75 | 1,350 | 2,250 |
-| Final | 75 | 1,411 | 2,250 |
-| Main study | 150 | 2,761 | 4,500 |
-| Ablation (new runs only) | 10 | 145 | 300 |
-| Total | 160 | 2,906 | 4,800 |
-
-Ablation ใช้ baseline final เดิมอีก 5 seeds เป็นตัวเทียบ จึงไม่นับเป็นการฝึกเพิ่ม Environment ที่บันทึกไว้คือ Windows, Python 3.13.5, PyTorch 2.13.0+cu130, torchvision 0.28.0+cu130, CUDA 13.0 และ RTX 5060 ปิด AMP ใช้ deterministic algorithms แบบ `warn_only` และ DataLoader `num_workers=0`, `drop_last=False` การใช้ seed เดิมช่วยควบคุมการสุ่ม แต่ผลอาจต่างกันตาม hardware และ library version
-
-#### Numerical verification and figure sources
-
-ตรวจผลทำนายงานหลัก 75 runs รวม 6,375 แถว พบ test IDs 85 ภาพเรียงตรงกันทุก run และคำนวณ metrics กับ paired tests ซ้ำได้ตรงกับผลที่บันทึก ส่วน ablation ตรวจ 1,275 แถวจาก baseline 5 runs และ variants 10 runs ภาพ test ยังคงเป็น 85 ภาพเดิม จำนวนแถวเหล่านี้จึงไม่ใช่จำนวนภาพอิสระที่เพิ่มขึ้น ดู [main verification](report/verification.json) และ [ablation verification](report/resnet_followup_verification.json)
-
-ตาราง [learning-curve summary](report/learning_curve_summary.csv) เก็บค่าเฉลี่ย SD และจำนวน runs ของแต่ละ epoch ส่วน [final checkpoints](report/final_checkpoint_summary.csv) ระบุ checkpoint และ selected epoch ของแต่ละ seed ค่าเส้นแนวตั้งในกราฟอยู่ใน [mean selected epochs](report/mean_selected_epochs.csv) และ [enhanced figure sources](report/enhanced_figure_sources.json) เชื่อมกราฟกับไฟล์ต้นทางและ SHA256
-
-การตรวจฉบับปรับปรุงใน [revision evidence](report/readme_revision_evidence.json) ยืนยันอันดับค่าเฉลี่ยทั้ง 4 metrics ค่าที่ใช้ในตัวอย่าง paired t-test และที่มาของภาพเปรียบเทียบ CAM โดยตรวจว่าภาพต้นฉบับทั้งสองโมเดลตรงกันทั้ง 8 ภาพ MobileNet CAM ที่เพิ่มใช้ checkpoint seed 42 เดิม ชั้น `features[-1]` เทียบกับ ResNet `layer4[-1]` ไม่มี training/tuning เพิ่ม
-
-Confidence ในกราฟ CAM และตารางใช้ค่าจาก final predictions เดิม การคำนวณ MobileNet CAM ครั้งนี้ตรวจแล้วว่าคลาสทำนายตรงกันทั้ง 8 ภาพ แต่ค่าความน่าจะเป็นบางช่องต่างจากค่าที่บันทึกเดิมเล็กน้อย โดยต่างสูงสุด 0.001588 (0.1588 pp) จึงเก็บทั้งค่าปัจจุบันและค่าเดิมไว้ใน manifest พร้อม checkpoint hash และผลตรวจ heatmap โดยไม่เขียนทับผล final
-
-#### Additional statistical quantities
-
-ไฟล์สถิติเก็บทั้งผลต่างเฉลี่ย ช่วงความเชื่อมั่น 95% และ Cohen’s d_z เพื่ออธิบายขนาดผลต่างประกอบ p-value โดย `d_z = mean(d) / sample SD(d)` และช่วงความเชื่อมั่นใช้ t-distribution ที่ `df=4` ช่วงดังกล่าวยังไม่ปรับสำหรับการทดสอบหลายคู่ จึงใช้ Holm-adjusted p เพื่อตัดสินนัยสำคัญ ผลต่างและช่วงความเชื่อมั่นของ Accuracy/F1 แสดงเป็น pp ส่วน t, p และ d_z ไม่มีหน่วยเปอร์เซ็นต์
-
-#### Source domains
-
-จำนวนภาพจากสิบโดเมนอันดับแรก รวมรายการที่ไม่ทราบ URL
-
-<!-- generated:DOMAINS -->
-
-| Source domain | Image count |
-| --- | ---: |
-| Unknown | 112 |
-| down-th.img.susercontent.com | 65 |
-| cy.lnwfile.com | 41 |
-| brahmansiam.com | 38 |
-| www.kt-spirithouse.com | 36 |
-| www.korwattana.com | 35 |
-| cf.shopee.co.th | 24 |
-| fw.lnwfile.com | 14 |
-| maneesuk.com | 14 |
-| image.makewebeasy.net | 13 |
-
-<!-- /generated:DOMAINS -->
-
-#### Parameter counts
-
-จำนวนเต็มจาก saved mode configurations
-
-<!-- generated:PARAM_TABLE -->
-
-| Architecture | Total parameters | Trainable Full | Trainable Frozen | Trainable Partial |
-| --- | ---: | ---: | ---: | ---: |
-| ResNet50 | 23,516,228 | 23,516,228 | 8,196 | 14,972,932 |
-| EfficientNet-B0 | 4,012,672 | 4,012,672 | 5,124 | 1,134,516 |
-| MobileNetV3-Large | 4,207,156 | 4,207,156 | 1,235,204 | 3,414,668 |
-| DenseNet121 | 6,957,956 | 6,957,956 | 4,100 | 2,164,228 |
-| ConvNeXt-Tiny | 27,823,204 | 27,823,204 | 4,612 | 14,294,020 |
-
-<!-- /generated:PARAM_TABLE -->
-
-#### Checkpoint distributions
-
-<details>
-<summary>Validation Macro F1 and selected-epoch distributions</summary>
-
-![ResNet50 checkpoint distributions](report/report_assets/latest/checkpoint_boxes_resnet50.svg)
-
-![EfficientNet-B0 checkpoint distributions](report/report_assets/latest/checkpoint_boxes_efficientnet_b0.svg)
-
-![MobileNetV3-Large checkpoint distributions](report/report_assets/latest/checkpoint_boxes_mobilenet_v3_large.svg)
-
-![DenseNet121 checkpoint distributions](report/report_assets/latest/checkpoint_boxes_densenet121.svg)
-
-![ConvNeXt-Tiny checkpoint distributions](report/report_assets/latest/checkpoint_boxes_convnext_tiny.svg)
-
-กล่องแสดง IQR และมัธยฐาน ปลายเส้นคือ min–max ที่สังเกต และจุดคือแต่ละ seed เป็นการกระจาย ณ selected checkpoint ส่วนพัฒนาการราย epoch แสดงในหัวข้อ 6.2
-
-</details>
-
-[Archived curve exports](report/report_assets/learning_curves/all_pairs_grid.png) · [Archived source mapping](report/learning_curve_sources.json)
-
-#### Training dynamics
-
-<!-- generated:DYNAMICS_TABLE -->
-
-| Setup | Mean selected epoch | Mean stop epoch | Training F1 (%) | Validation F1 (%) | Late loss divergence (runs) |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| ResNet50/Full | 8.4 | 15.4 | 97.07 | 94.02 | 5/5 |
-| ResNet50/Frozen | 15.6 | 19.2 | 88.55 | 88.86 | 0/5 |
-| ResNet50/Partial | 12.6 | 19.6 | 98.91 | 94.80 | 4/5 |
-| EfficientNet-B0/Full | 17.6 | 23.6 | 99.41 | 93.76 | 1/5 |
-| EfficientNet-B0/Frozen | 15.8 | 18.6 | 88.53 | 85.93 | 0/5 |
-| EfficientNet-B0/Partial | 7.8 | 14.6 | 97.56 | 88.26 | 5/5 |
-| MobileNetV3-Large/Full | 13.4 | 20.4 | 99.29 | 93.35 | 2/5 |
-| MobileNetV3-Large/Frozen | 17.2 | 23.8 | 95.87 | 91.11 | 1/5 |
-| MobileNetV3-Large/Partial | 11.4 | 17.8 | 98.82 | 94.88 | 3/5 |
-| DenseNet121/Full | 12.4 | 18.8 | 99.95 | 94.42 | 2/5 |
-| DenseNet121/Frozen | 21.4 | 25.0 | 90.49 | 89.63 | 0/5 |
-| DenseNet121/Partial | 9.6 | 16.6 | 98.49 | 93.03 | 4/5 |
-| ConvNeXt-Tiny/Full | 8.4 | 15.4 | 99.82 | 93.38 | 3/5 |
-| ConvNeXt-Tiny/Frozen | 13.2 | 18.2 | 89.13 | 88.26 | 0/5 |
-| ConvNeXt-Tiny/Partial | 9.6 | 15.2 | 99.17 | 93.54 | 4/5 |
-
-<!-- /generated:DYNAMICS_TABLE -->
-
-คอลัมน์สุดท้ายนับ runs ที่ train loss ณ epoch สุดท้ายต่ำกว่าที่ checkpoint แต่ validation loss สูงกว่า เป็นสัญญาณการแยกตัวช่วงท้ายตามนิยามนี้ ยังไม่ใช่การวินิจฉัย overfitting โดยตรง Train metrics มาจากภาพที่ทำ augmentation จึงมีเงื่อนไขต่างจาก validation
-
-#### Frequent classification errors
-
-<!-- generated:ERROR_TABLE -->
-
-| Image ID (stem) | True class | Errors / 75 | Reference errors / 5 | ResNet Full errors / 5 |
-| --- | --- | ---: | ---: | ---: |
-| san_phraphum_0043 | พระภูมิ | 69 | 2 | 5 |
-| san_phraphum_0121 | พระภูมิ | 66 | 5 | 4 |
-| san_phraphum_0114 | พระภูมิ | 60 | 3 | 1 |
-| san_phraphum_0015 | พระภูมิ | 42 | 3 | 4 |
-| san_phraphum_0076 | พระภูมิ | 42 | 3 | 2 |
-| san_phraphum_0113 | พระภูมิ | 35 | 3 | 1 |
-| san_tayay_0046 | ตายาย | 32 | 1 | 0 |
-| san_tayay_0093 | ตายาย | 28 | 0 | 2 |
-| tee_ju_eia_0061 | ตี่จู้เอี๊ยะ | 23 | 1 | 1 |
-| san_phraphum_0064 | พระภูมิ | 20 | 4 | 1 |
-
-<!-- /generated:ERROR_TABLE -->
-
-นับบน test 85 ภาพเดิม ดูผลครบใน [error_frequency.csv](report/error_frequency.csv) จำนวนครั้งจาก 75 runs ไม่ใช่ตัวอย่างอิสระ 75 ชุด
-
-#### Experiment tracking and CoreWeave
-
-บันทึกการทดลองอยู่ใน [W&B: thai-shrine-classifier-td](https://wandb.ai/wichaidit-m-nida/thai-shrine-classifier-td) ส่วนเว็บไซต์ของ CoreWeave คือ [coreweave.com](https://coreweave.com/)
-
-ไฟล์ environment บันทึกเครื่อง Windows/RTX 5060 จึงยังไม่ยืนยันว่ารันบน CoreWeave Registry ระบุ online สำหรับงานหลัก 150 runs และ ablation เพิ่ม 10 runs แต่ยังไม่ได้ตรวจ cloud artifacts ครบทุกชิ้น
-
-#### Rendering the report from saved results
-
-คำสั่งต่อไปนี้ใช้เฉพาะ Node.js เพื่อจัดรูปและตารางจากไฟล์เดิม
-
-```powershell
-node report/generate_latest_figures.js
-node report/generate_selected_model_calibration.js
-node report/generate_followup_figures.js
-node report/generate_context_figures.js
-node report/revise_readme_figures.js
-node report/render_readme.js
-```
-
-หลังใช้คำสั่ง `python resnet_followup.py --stage report` ซึ่ง export รูปแบบเดิม ให้ใช้ `node report/render_readme.js` เพื่อคืนรูปแบบภาษาและหน่วยของรายงานฉบับนี้ โดยอ่านเฉพาะผลที่มีอยู่
-
-สคริปต์ [generate_matched_mobilenet_cam.py](report/generate_matched_mobilenet_cam.py) ใช้สร้าง MobileNet CAM บน 8 ภาพเดียวกับ ResNet จาก checkpoint เดิม ขั้นตอนนี้รันเสร็จแล้วตามการอนุญาตเฉพาะครั้ง จึงใช้ผลที่บันทึกไว้ในการจัดรูปครั้งถัดไปได้
-
-### D. Report files
-
-ผลตรวจฉบับนี้: [revision evidence](report/readme_revision_evidence.json), [numerical and preservation checks](report/qa/readme_revision_checks.json), [table and link validation](report/qa/presentation_validation.json) และ [offline render validation](report/qa/readme_render_validation.json) ส่วน [previous revision validation](report/qa/report_revision_validation.json) เป็นบันทึกตรวจฉบับก่อนหน้า
-
-กราฟเชิงตัวเลขอ่านจากผลที่บันทึกไว้: [enhanced figure sources](report/enhanced_figure_sources.json), [histogram values](report/image_property_histograms.csv), [colour-mode counts](report/colour_mode_counts.csv), [tuning observations](report/tuning_checkpoint_observations.csv), [learning-curve summary](report/learning_curve_summary.csv) และ [final checkpoints](report/final_checkpoint_summary.csv) ตัวสร้างคือ [generate_learning_report.js](report/generate_learning_report.js) ซึ่งถูกเรียกโดย generate_latest_figures.js ส่วน MobileNet CAM บน 8 ภาพที่จับคู่กันเป็น inference เพิ่มจาก checkpoint เดิมตามที่อนุญาต แล้วจัดรูปด้วย [revise_readme_figures.js](report/revise_readme_figures.js)
-
-- ที่มาและการตรวจ: [report_inventory.md](report/report_inventory.md) · [report_validation.md](report/report_validation.md)
-- ผลราย run และสรุป: [verified_run_metrics.csv](report/verified_run_metrics.csv) · [verified_pair_summary.csv](report/verified_pair_summary.csv) · [verified_per_class_summary.csv](report/verified_per_class_summary.csv)
-- สถิติ: [verified_statistics.csv](report/verified_statistics.csv)
-- ResNet50 follow-up: [resnet_followup_sources.json](report/resnet_followup_sources.json) · [resnet_followup_verification.json](report/resnet_followup_verification.json) · [verify_resnet_followup.js](report/verify_resnet_followup.js)
-- โมเดลที่เลือกและ calibration: [selected_model_report_sources.json](report/selected_model_report_sources.json) · [generate_selected_model_calibration.js](report/generate_selected_model_calibration.js)
-- กราฟรอบล่าสุด: [generate_latest_figures.js](report/generate_latest_figures.js) · [latest_figure_sources.json](report/latest_figure_sources.json) · [derived_brightness.csv](report/derived_brightness.csv) · [confusion_mean_sd.csv](report/confusion_mean_sd.csv)
-- Preprocessing: [generate_preprocessing_examples.js](report/generate_preprocessing_examples.js) · [preprocessing_preview_sources.json](report/preprocessing_preview_sources.json)
-- Learning curves: [learning_curve_sources.json](report/learning_curve_sources.json) · [learning_curve_epoch_counts.csv](report/learning_curve_epoch_counts.csv)
-- การตรวจรูปแบบ: [presentation_validation.json](report/qa/presentation_validation.json) · [evidence_preservation.json](report/qa/evidence_preservation.json)
-- รูปแบบรายงาน: [readme_template.md](report/readme_template.md) · [render_readme.js](report/render_readme.js) · [figure_theme.js](report/figure_theme.js)
-- ภาพบริบทที่ปรับหน่วย: [generate_context_figures.js](report/generate_context_figures.js) · [context_figure_sources.json](report/context_figure_sources.json)
-- รูป follow-up ที่จัดใหม่: [generate_followup_figures.js](report/generate_followup_figures.js) · [followup_figure_sources.json](report/followup_figure_sources.json)
-- ตรวจตัวเลข: [build_report.ps1](report/build_report.ps1)
-- ตรวจฉบับปรับปรุง: [verify_readme_revision.js](report/verify_readme_revision.js)
-
-ผลเชิงตัวเลขทั้งหมดมาจากการทดลองรอบ `outputs_modes_v3_td` ส่วน audit, canonical split และ ImageNet baseline บางส่วนเป็นหลักฐานเดิมที่ใช้ข้อมูลชุดเดียวกัน และมีสำเนาใน output ล่าสุด รายละเอียดการคัดผลรอบอื่นออกอยู่ใน inventory
+4. **การวิเคราะห์เพิ่มเติม:** Grad-CAM ใช้ checkpoint seed 42 โดยแสดงตัวอย่างทายถูก 4 ภาพและภาพทายผิดของสองโมเดลครบ 7 ภาพไม่ซ้ำ และ ablation ใช้ 5 seeds ต่อเงื่อนไขหลังเลือกโมเดล การไม่พบนัยสำคัญไม่ใช่หลักฐานยืนยันความเท่ากัน อีกทั้งยังไม่มีผลวัด latency ภายใต้เงื่อนไขควบคุม
 
 <p align="right"><a href="#top">🔝 กลับสู่ด้านบน</a></p>
 
