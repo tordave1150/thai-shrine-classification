@@ -3,7 +3,7 @@
 # DADS7202 — Thai shrine image classification using transfer learning
 
 <a id="ข้อมูลสมาชิกในกลุ่ม" name="ข้อมูลสมาชิกในกลุ่ม"></a>
-## ข้อมูลสมาชิกในกลุ่ม
+## Members
 
 1. นายเจษฎาภรณ์ จินะเสนา 6810422001
 2. นายพิชญะ จันทร์ดอกไม้ 6810422002
@@ -11,7 +11,19 @@
 
 ---
 
-## สารบัญ (Table of Contents)
+## Abstract
+
+การศึกษานี้เปรียบเทียบโมเดลที่ผ่านการฝึกบน ImageNet จำนวน 5 แบบ สำหรับจำแนกภาพศาลไทย 4 ประเภทจากข้อมูล 560 ภาพ แต่ละโมเดลนำมาฝึกด้วย 3 fine-tuning strategies ได้แก่ Full ซึ่งปรับน้ำหนักทั้งโมเดล Frozen ซึ่งตรึงส่วนสกัดลักษณะภาพและฝึกเฉพาะส่วนจำแนกคลาส และ Partial ซึ่งปรับน้ำหนักเฉพาะส่วนท้ายของส่วนสกัดลักษณะภาพร่วมกับส่วนจำแนกคลาส รวมเป็น 15 setups
+
+ข้อมูลแบ่งโดยจัดภาพซ้ำและภาพใกล้เคียงที่ผ่านการตรวจสอบให้อยู่ในกลุ่มเดียวกัน แล้วแบ่งกลุ่มเป็น train 390 ภาพ validation 85 ภาพ และ test 85 ภาพ โดยเลือกการแบ่งที่รักษาสัดส่วนคลาสให้ใกล้เคียงกัน แต่ละ setup ค้นหา hyperparameters แยกกันจำนวน 5 trials ก่อนฝึกซ้ำด้วย 5 seeds รวม 75 tuning trials และ 75 final runs
+
+**MobileNetV3-Large/Partial ได้รับเลือกเป็นโมเดลสุดท้ายของการศึกษา** สอดคล้องกับโมเดลอ้างอิงที่เลือกจาก validation เดิม โดยมี test Accuracy 93.18% ± 2.41 pp และ Macro F1 91.68% ± 3.05 pp แม้ ResNet50/Full มีค่าเฉลี่ยสูงกว่าเล็กน้อย แต่ยังไม่พบความแตกต่างของ Accuracy และ Macro F1 อย่างมีนัยสำคัญหลังปรับ Holm (p = 1.000 ทั้งสอง metrics) งานนี้จึงให้น้ำหนักกับข้อจำกัดทรัพยากร: MobileNet/Partial มี trainable parameters 3,414,668 ตัว เทียบกับ 23,516,228 ตัวของ ResNet/Full น้อยกว่า 85.48% และ Grad-CAM ที่ตรวจแสดงบริเวณตอบสนองใกล้ตัวศาลในหลายภาพ การไม่พบนัยสำคัญไม่ได้ยืนยันว่าโมเดลเท่ากัน จำนวน parameters ไม่ใช่ผลวัดความเร็วจริง และข้อสรุปจาก test split ที่เคยดูแล้วคงมีสถานะเชิงสำรวจ
+
+การศึกษา ablation ของ MobileNetV3-Large/Partial เปรียบเทียบ baseline กับการนำ augmentation หรือ class weights ออกทีละอย่าง โดยใช้ matched seeds 5 ค่าและสูตรเดิม ไม่ tune หรือฝึก baseline ซ้ำ การนำ augmentation ออกทำให้ Macro F1 เปลี่ยน -0.40 pp ส่วนการนำ class weights ออกเปลี่ยน -1.18 pp พบ 0/4 comparisons ที่มีนัยสำคัญหลัง Holm การศึกษาใหม่นี้ฝึก 10 runs / 180 epochs และเก็บผล ResNet ablation เดิมไว้เป็นหลักฐานย้อนหลัง รวมงานที่ฝึกจริงทั้งหมด 170 runs / 3,086 epochs
+
+---
+
+## Table of Contents
 
 - [Abstract](#abstract)
 - [1. Dataset overview](#1-dataset-overview)
@@ -49,20 +61,7 @@
   - [6.10 Ablation study of MobileNetV3-Large/Partial](#610-ablation-study-of-mobilenetv3-largepartial)
 - [7. Discussion and conclusions](#7-discussion-and-conclusions)
   - [7.1 Limitations](#71-limitations)
-
----
-
-## Abstract
-
-การศึกษานี้เปรียบเทียบโมเดลที่ผ่านการฝึกบน ImageNet จำนวน 5 แบบ สำหรับจำแนกภาพศาลไทย 4 ประเภทจากข้อมูล 560 ภาพ แต่ละโมเดลนำมาฝึกด้วย 3 fine-tuning strategies ได้แก่ Full ซึ่งปรับน้ำหนักทั้งโมเดล Frozen ซึ่งตรึงส่วนสกัดลักษณะภาพและฝึกเฉพาะส่วนจำแนกคลาส และ Partial ซึ่งปรับน้ำหนักเฉพาะส่วนท้ายของส่วนสกัดลักษณะภาพร่วมกับส่วนจำแนกคลาส รวมเป็น 15 setups
-
-ข้อมูลแบ่งโดยจัดภาพซ้ำและภาพใกล้เคียงที่ผ่านการตรวจสอบให้อยู่ในกลุ่มเดียวกัน แล้วแบ่งกลุ่มเป็น train 390 ภาพ validation 85 ภาพ และ test 85 ภาพ โดยเลือกการแบ่งที่รักษาสัดส่วนคลาสให้ใกล้เคียงกัน แต่ละ setup ค้นหา hyperparameters แยกกันจำนวน 5 trials ก่อนฝึกซ้ำด้วย 5 seeds รวม 75 tuning trials และ 75 final runs
-
-**MobileNetV3-Large/Partial ได้รับเลือกเป็นโมเดลสุดท้ายของการศึกษา** สอดคล้องกับโมเดลอ้างอิงที่เลือกจาก validation เดิม โดยมี test Accuracy 93.18% ± 2.41 pp และ Macro F1 91.68% ± 3.05 pp แม้ ResNet50/Full มีค่าเฉลี่ยสูงกว่าเล็กน้อย แต่ยังไม่พบความแตกต่างของ Accuracy และ Macro F1 อย่างมีนัยสำคัญหลังปรับ Holm (p = 1.000 ทั้งสอง metrics) งานนี้จึงให้น้ำหนักกับข้อจำกัดทรัพยากร: MobileNet/Partial มี trainable parameters 3,414,668 ตัว เทียบกับ 23,516,228 ตัวของ ResNet/Full น้อยกว่า 85.48% และ Grad-CAM ที่ตรวจแสดงบริเวณตอบสนองใกล้ตัวศาลในหลายภาพ การไม่พบนัยสำคัญไม่ได้ยืนยันว่าโมเดลเท่ากัน จำนวน parameters ไม่ใช่ผลวัดความเร็วจริง และข้อสรุปจาก test split ที่เคยดูแล้วคงมีสถานะเชิงสำรวจ
-
-การศึกษา ablation ของ MobileNetV3-Large/Partial เปรียบเทียบ baseline กับการนำ augmentation หรือ class weights ออกทีละอย่าง โดยใช้ matched seeds 5 ค่าและสูตรเดิม ไม่ tune หรือฝึก baseline ซ้ำ การนำ augmentation ออกทำให้ Macro F1 เปลี่ยน -0.40 pp ส่วนการนำ class weights ออกเปลี่ยน -1.18 pp พบ 0/4 comparisons ที่มีนัยสำคัญหลัง Holm การศึกษาใหม่นี้ฝึก 10 runs / 180 epochs และเก็บผล ResNet ablation เดิมไว้เป็นหลักฐานย้อนหลัง รวมงานที่ฝึกจริงทั้งหมด 170 runs / 3,086 epochs
-
-<p align="right"><a href="#top">🔝 กลับสู่ด้านบน</a></p>
+ 
 
 ## 1. Dataset overview
 
