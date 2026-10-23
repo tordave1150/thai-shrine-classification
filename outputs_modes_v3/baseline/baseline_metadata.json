@@ -1,5 +1,0 @@
-{
-  "model": "resnet50",
-  "weights": "ResNet50_Weights.DEFAULT",
-  "interpretation": "qualitative 1000-class label-space mismatch only; no shrine-class metrics"
-}

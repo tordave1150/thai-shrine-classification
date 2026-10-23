@@ -1,0 +1,129 @@
+{
+  "date_local": "2026-10-23",
+  "purpose": "Publish the current study and the evidence used by README; retain superseded artifacts locally.",
+  "base_commit": "0c10961d3f309b67d953cfa08afc3fd684ee1d0d",
+  "readme": {
+    "modified_by_cleanup": false,
+    "blob": "917e7d9977f611043f554427d1fc7862eaa98177",
+    "sha256": "7053b0ae2fb3d7d45b46929071f85c8b79499266a0abb8256bb26edd2cc67d32",
+    "local_links_checked": 94,
+    "policy": "README is excluded from the cleanup commit; remote contributor edits must be preserved."
+  },
+  "current_experiment": "outputs_modes_v3_td",
+  "preserved_evidence": {
+    "completed_tuning_trials": 75,
+    "completed_final_runs": 75,
+    "completed_ablation_runs": 10,
+    "main_actual_epochs": 2761,
+    "all_run_configs_histories_metrics": true,
+    "all_final_and_ablation_predictions": true,
+    "selection_sha256": "5b72b8108f131df16af0155051952f72134b3e5907109b92627a112181c7988e",
+    "report_dependencies_checked": 1054
+  },
+  "publication_policy": {
+    "keep": [
+      "Original dataset and metadata (excluding OS metadata)",
+      "Canonical outputs/splits.csv, split_metadata.json, dataset_audit and baseline",
+      "Current Python sources, requirements and tests",
+      "outputs_modes_v3_td CSV/JSON run evidence, summaries and published figure inputs",
+      "README-linked assets, source maps and verification records"
+    ],
+    "local_only": [
+      "All model checkpoints (*.pt, *.pth, *.ckpt), retained at current active paths",
+      "Raw CAM arrays (*.npy), retained at current active paths",
+      "Raw W&B directories, historical experiment versions and redundant previews, archived under other"
+    ],
+    "archive_root": "other/cleanup_2026-10-23/archive",
+    "archive_keeps_relative_paths": true,
+    "archive_manifest_local": "other/cleanup_2026-10-23/plan.json",
+    "canonical_inputs_retained_at_original_paths": true,
+    "git_history_rewritten": false,
+    "historical_lfs_objects_purged": false
+  },
+  "cleanup": {
+    "tracked_files_before": 4375,
+    "tracked_bytes_before": 14731734705,
+    "tracked_existing_files_retained": 1742,
+    "tracked_existing_bytes_retained": 313163318,
+    "removed_from_tracking": 2633,
+    "archived_tracked_files": 2457,
+    "active_local_only_files": 176,
+    "archive_operations": 410,
+    "content_hashes_checked": 4097,
+    "retained_groups": {
+      ".gitattributes": {
+        "files": 1,
+        "bytes": 91
+      },
+      ".gitignore": {
+        "files": 1,
+        "bytes": 1164
+      },
+      "AGENTS.md": {
+        "files": 1,
+        "bytes": 32776
+      },
+      "README.md": {
+        "files": 1,
+        "bytes": 110969
+      },
+      "dataset_cleaned": {
+        "files": 561,
+        "bytes": 198017788
+      },
+      "outputs": {
+        "files": 18,
+        "bytes": 2985482
+      },
+      "outputs_modes_v3_td": {
+        "files": 1017,
+        "bytes": 76191183
+      },
+      "pipeline.py": {
+        "files": 1,
+        "bytes": 18533
+      },
+      "pipeline_extensions.py": {
+        "files": 1,
+        "bytes": 29511
+      },
+      "pipeline_modes.py": {
+        "files": 1,
+        "bytes": 70094
+      },
+      "plot_learning_curves.py": {
+        "files": 1,
+        "bytes": 16469
+      },
+      "report": {
+        "files": 115,
+        "bytes": 35423668
+      },
+      "requirements.txt": {
+        "files": 1,
+        "bytes": 83
+      },
+      "resnet_followup.py": {
+        "files": 1,
+        "bytes": 39708
+      },
+      "shrine_classifier": {
+        "files": 9,
+        "bytes": 96302
+      },
+      "shrine_classifier_ext": {
+        "files": 6,
+        "bytes": 92909
+      },
+      "tests": {
+        "files": 6,
+        "bytes": 36588
+      }
+    }
+  },
+  "validation": {
+    "python_tests_inference_training_run": false,
+    "file_contents_deleted": false,
+    "errors": []
+  }
+}

@@ -5,3 +5,44 @@ __pycache__/
 .env
 .env.*
 !.env.example
+
+# Local archives and files excluded from the published project
+/other/
+/EXPERIMENT_SUMMARY_TH.md
+/Thai_Shrine_Classifier_Submission.ipynb
+.DS_Store
+
+# Historical experiment versions; canonical audit/split inputs remain below
+/outputs_modes_v2/
+/outputs_modes_v3/
+/outputs_smoke/
+/outputs/*
+!/outputs/splits.csv
+!/outputs/split_metadata.json
+!/outputs/dataset_audit/
+!/outputs/baseline/
+
+# Model binaries stay local; CSV/JSON evidence remains versioned
+*.pt
+*.pth
+*.ckpt
+*.npy
+
+# Tracking caches are redundant with the retained local experiment evidence
+**/wandb/
+*.wandb
+*.wandb.syncstate
+
+# Debug runs and per-run plots; README uses the aggregate/published figures
+/outputs_modes_v3_td/smoke/
+/outputs_modes_v3_td/**/curves.png
+/outputs_modes_v3_td/**/confusion_matrix.png
+/outputs_modes_v3_td/**/confusion_matrix_normalized.png
+/report/qa/*.png
+/report/qa/*.html
+
+# Superseded report exports; keep the README sample grid and nested figures
+/report/report_assets/*.png
+!/report/report_assets/sample_grid.png
+/report/report_assets/*.svg
+/report/report_assets/latest/reference_calibration.svg
