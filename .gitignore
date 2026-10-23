@@ -46,3 +46,12 @@ __pycache__/
 !/report/report_assets/sample_grid.png
 /report/report_assets/*.svg
 /report/report_assets/latest/reference_calibration.svg
+
+# Canonical project code is bundled in thai_shrine_classifier_project.ipynb.
+# Running its source cells restores these modules locally with original bytes.
+/*.py
+/shrine_classifier/
+/shrine_classifier_ext/
+/tests/
+/.notebook_sources.json
+.ipynb_checkpoints/

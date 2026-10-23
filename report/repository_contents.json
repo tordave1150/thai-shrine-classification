@@ -24,14 +24,15 @@
     "keep": [
       "Original dataset and metadata (excluding OS metadata)",
       "Canonical outputs/splits.csv, split_metadata.json, dataset_audit and baseline",
-      "Current Python sources, requirements and tests",
+      "Canonical thai_shrine_classifier_project.ipynb source bundle, requirements, and README-linked report helpers",
       "outputs_modes_v3_td CSV/JSON run evidence, summaries and published figure inputs",
       "README-linked assets, source maps and verification records"
     ],
     "local_only": [
       "All model checkpoints (*.pt, *.pth, *.ckpt), retained at current active paths",
       "Raw CAM arrays (*.npy), retained at current active paths",
-      "Raw W&B directories, historical experiment versions and redundant previews, archived under other"
+      "Raw W&B directories, historical experiment versions and redundant previews, archived under other",
+      "Python runners, packages and tests restored from the canonical notebook; kept locally and excluded from Git"
     ],
     "archive_root": "other/cleanup_2026-10-23/archive",
     "archive_keeps_relative_paths": true,
@@ -125,5 +126,18 @@
     "python_tests_inference_training_run": false,
     "file_contents_deleted": false,
     "errors": []
+  },
+  "notebook_publication": {
+    "date_local": "2026-10-23",
+    "canonical_source": "thai_shrine_classifier_project.ipynb",
+    "source_files": 45,
+    "python_source_files": 27,
+    "python_paths_removed_from_tracking": 26,
+    "local_python_files_deleted": false,
+    "python_file_kept_for_readme_link": "report/generate_matched_mobilenet_cam.py",
+    "notebook_sha256": "12f0676eafe0b755d015cc6c894965d9c60808479220b27396e941e3dd8c0efe",
+    "static_validation": "report/notebook_validation.json",
+    "python_executed": false,
+    "readme_modified": false
   }
 }
