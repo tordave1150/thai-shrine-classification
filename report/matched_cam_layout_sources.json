@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-10-23T16:07:56.061Z",
+  "created_utc": "2026-10-23T16:44:27.551Z",
   "inputs_sha256": {
     "report/learning_curve_summary.csv": "67fb53645b17ff9819c6be885fddadd34f4b2d20475e4cf3050567d50925b958",
     "report/final_checkpoint_summary.csv": "4c4e01e56cd1d911091bf0dddbc2b05a9d19d3fdb27de5754c7fc40650998c74",
@@ -9,6 +9,8 @@
     "outputs_modes_v3_td/gradcam/mobilenet_v3_large_partial_matched_resnet/seed42/20261022T165535Z_d3d888d3/selected_cases.csv": "8cb02adddab5b523ef5109e29ef9bddcd93bde1cad347c3e96339bce94d90858",
     "outputs_modes_v3_td/gradcam/misclassified_overlays_v1/seed42/latest.json": "007065504a0153e6e5b1287c42b1b6bbad377674e66d8e5f387962da6eb001bf",
     "outputs_modes_v3_td/gradcam/misclassified_overlays_v1/seed42/20261023T152808Z_a4c97a1d/all_misclassified_cases.csv": "06d678d96abf8d4e9d76eec266ab5ecb236c92ce7cb9bc03e6ef35923cd0e062",
+    "outputs_modes_v3_td/gradcam/matched_error_counterparts_v1/seed42/latest.json": "ceadafdaba70bcef4e3567167af6ca80542559a808387337402c767000c1ebf2",
+    "outputs_modes_v3_td/gradcam/matched_error_counterparts_v1/seed42/20261023T164312Z_7b334aea/matched_error_cases.csv": "7aaab1a3b2119f30607c362db1af281db55222b173abda9623aea3b67105312a",
     "outputs_modes_v3_td/run_registry.json": "0b163a52ea585a56565533bcec1d3a2fcfa515cd33d876b8c4fb8e6fd01d9a46",
     "outputs_modes_v3_td/final/resnet50/full/final_resnet50_full_final_seed42_attempt01_seed42_attempt1791923692_f3aaf4/test_predictions.csv": "d31d97d57e205613fbd9965bef934381d6776129bad71845bc738a4fe94492a4",
     "outputs_modes_v3_td/final/mobilenet_v3_large/partial/final_mobilenet_v3_large_partial_final_seed42_attempt01_seed42_attempt1791931193_1fcd55/test_predictions.csv": "4cde1cf8ca5c82f8b745f6a5bbafc2dedb963c8b094dc26f91346fa992f9aabd",
@@ -40,28 +42,38 @@
     "outputs_modes_v3_td/gradcam/mobilenet_v3_large_partial_matched_resnet/seed42/20261022T165535Z_d3d888d3/tee_ju_eia__tee_ju_eia_0050/original.png": "673da8ee1b13099fe87e1d38963c8535f7b906f9713b3d4c8f575710dd6fbdce",
     "outputs_modes_v3_td/gradcam/misclassified_overlays_v1/seed42/20261023T152808Z_a4c97a1d/resnet50_full/san_phraphum__san_phraphum_0043/original.png": "f0f9a1baad8b11c55746ef2be394d80b725c2419ac904f9ebfaa7478744b4ffe",
     "outputs_modes_v3_td/gradcam/misclassified_overlays_v1/seed42/20261023T152808Z_a4c97a1d/resnet50_full/san_phraphum__san_phraphum_0043/overlay.png": "1605c7b2537e344f2b13f4415592a0e3b07ef510fe0e353ee0b34b567c490ae2",
-    "outputs_modes_v3_td/gradcam/misclassified_overlays_v1/seed42/20261023T152808Z_a4c97a1d/mobilenet_v3_large_partial/san_phraphum__san_phraphum_0064/original.png": "2ed49458070f1adc713355f60cd6c51a7e62eb91e0c6568ca7a1fdf73b647be6",
+    "outputs_modes_v3_td/gradcam/matched_error_counterparts_v1/seed42/20261023T164312Z_7b334aea/mobilenet_v3_large_partial/san_phraphum__san_phraphum_0043/overlay.png": "4e359a7d647a8b2b1adee43f4e67978a22282ac501593f34b9e6b75f0bd0e53b",
+    "outputs_modes_v3_td/gradcam/matched_error_counterparts_v1/seed42/20261023T164312Z_7b334aea/mobilenet_v3_large_partial/san_phraphum__san_phraphum_0043/original.png": "f0f9a1baad8b11c55746ef2be394d80b725c2419ac904f9ebfaa7478744b4ffe",
+    "outputs_modes_v3_td/gradcam/matched_error_counterparts_v1/seed42/20261023T164312Z_7b334aea/resnet50_full/san_phraphum__san_phraphum_0064/original.png": "2ed49458070f1adc713355f60cd6c51a7e62eb91e0c6568ca7a1fdf73b647be6",
+    "outputs_modes_v3_td/gradcam/matched_error_counterparts_v1/seed42/20261023T164312Z_7b334aea/resnet50_full/san_phraphum__san_phraphum_0064/overlay.png": "38b66bff7db7321a1336c8dd3ae6635452efa73dfc34fb18b8ff6b61572f8ec2",
     "outputs_modes_v3_td/gradcam/misclassified_overlays_v1/seed42/20261023T152808Z_a4c97a1d/mobilenet_v3_large_partial/san_phraphum__san_phraphum_0064/overlay.png": "3261d7d2840804b5b6ff555b9fc8649b1de0309824b6b0ac633762b63ad138a7",
+    "outputs_modes_v3_td/gradcam/misclassified_overlays_v1/seed42/20261023T152808Z_a4c97a1d/mobilenet_v3_large_partial/san_phraphum__san_phraphum_0064/original.png": "2ed49458070f1adc713355f60cd6c51a7e62eb91e0c6568ca7a1fdf73b647be6",
     "outputs_modes_v3_td/gradcam/misclassified_overlays_v1/seed42/20261023T152808Z_a4c97a1d/resnet50_full/san_phraphum__san_phraphum_0076/original.png": "52ece13f411da3579f729ac7f654abca2890474c13d5d37ccf92ecdeda63c4f5",
     "outputs_modes_v3_td/gradcam/misclassified_overlays_v1/seed42/20261023T152808Z_a4c97a1d/resnet50_full/san_phraphum__san_phraphum_0076/overlay.png": "f756430dd3f668b81a6cbe330a272c176140fe809d12ee8cecf16036c5fc065e",
     "outputs_modes_v3_td/gradcam/misclassified_overlays_v1/seed42/20261023T152808Z_a4c97a1d/mobilenet_v3_large_partial/san_phraphum__san_phraphum_0076/overlay.png": "c25d0dbab12f5f9f427e853fa66c1d89661e1a4141502971915a2ac96e02ea33",
     "outputs_modes_v3_td/gradcam/misclassified_overlays_v1/seed42/20261023T152808Z_a4c97a1d/mobilenet_v3_large_partial/san_phraphum__san_phraphum_0076/original.png": "52ece13f411da3579f729ac7f654abca2890474c13d5d37ccf92ecdeda63c4f5",
     "outputs_modes_v3_td/gradcam/misclassified_overlays_v1/seed42/20261023T152808Z_a4c97a1d/resnet50_full/san_phraphum__san_phraphum_0113/original.png": "49dc0545bfb9c01a36ef6e14f48d56b2c5b497de304e55cdc4582ae9417e2569",
     "outputs_modes_v3_td/gradcam/misclassified_overlays_v1/seed42/20261023T152808Z_a4c97a1d/resnet50_full/san_phraphum__san_phraphum_0113/overlay.png": "117a262239379654d87913a1b43ec10670014da6609fc5aec8cc3b5217e4a3e0",
-    "outputs_modes_v3_td/gradcam/misclassified_overlays_v1/seed42/20261023T152808Z_a4c97a1d/mobilenet_v3_large_partial/san_phraphum__san_phraphum_0114/original.png": "69c364ae427bcdfbacf2681554408a6e8eb51e1e251b7fe529c1283158ed294a",
+    "outputs_modes_v3_td/gradcam/matched_error_counterparts_v1/seed42/20261023T164312Z_7b334aea/mobilenet_v3_large_partial/san_phraphum__san_phraphum_0113/overlay.png": "e16b3d5dbfed932ee141a8095f9e2b04fb1ac2d0df25cc6fc5cda4b5c6bc9bc6",
+    "outputs_modes_v3_td/gradcam/matched_error_counterparts_v1/seed42/20261023T164312Z_7b334aea/mobilenet_v3_large_partial/san_phraphum__san_phraphum_0113/original.png": "49dc0545bfb9c01a36ef6e14f48d56b2c5b497de304e55cdc4582ae9417e2569",
+    "outputs_modes_v3_td/gradcam/matched_error_counterparts_v1/seed42/20261023T164312Z_7b334aea/resnet50_full/san_phraphum__san_phraphum_0114/original.png": "69c364ae427bcdfbacf2681554408a6e8eb51e1e251b7fe529c1283158ed294a",
+    "outputs_modes_v3_td/gradcam/matched_error_counterparts_v1/seed42/20261023T164312Z_7b334aea/resnet50_full/san_phraphum__san_phraphum_0114/overlay.png": "2e9aedfe4fc14c8699689a49136f370ca6a5aef5e598096aa0598da2094c2027",
     "outputs_modes_v3_td/gradcam/misclassified_overlays_v1/seed42/20261023T152808Z_a4c97a1d/mobilenet_v3_large_partial/san_phraphum__san_phraphum_0114/overlay.png": "49401f658dce1746159975c4b790976a81009d3e896588761208ef9046d51b8d",
+    "outputs_modes_v3_td/gradcam/misclassified_overlays_v1/seed42/20261023T152808Z_a4c97a1d/mobilenet_v3_large_partial/san_phraphum__san_phraphum_0114/original.png": "69c364ae427bcdfbacf2681554408a6e8eb51e1e251b7fe529c1283158ed294a",
     "outputs_modes_v3_td/gradcam/misclassified_overlays_v1/seed42/20261023T152808Z_a4c97a1d/resnet50_full/san_phraphum__san_phraphum_0121/original.png": "b4e3edd66e5fa52f76e25ceaefc80e69e58d3f261304ede3d73a36befe16dcfc",
     "outputs_modes_v3_td/gradcam/misclassified_overlays_v1/seed42/20261023T152808Z_a4c97a1d/resnet50_full/san_phraphum__san_phraphum_0121/overlay.png": "0f17d5da0c3ff8e802979836fd6cc9f8434aacfa894673781814104561a1e7de",
     "outputs_modes_v3_td/gradcam/misclassified_overlays_v1/seed42/20261023T152808Z_a4c97a1d/mobilenet_v3_large_partial/san_phraphum__san_phraphum_0121/overlay.png": "eaa8afac74a220faeef7941587f832f46d261b83a5fe39a0d8736516f2f91266",
     "outputs_modes_v3_td/gradcam/misclassified_overlays_v1/seed42/20261023T152808Z_a4c97a1d/mobilenet_v3_large_partial/san_phraphum__san_phraphum_0121/original.png": "b4e3edd66e5fa52f76e25ceaefc80e69e58d3f261304ede3d73a36befe16dcfc",
     "outputs_modes_v3_td/gradcam/misclassified_overlays_v1/seed42/20261023T152808Z_a4c97a1d/resnet50_full/san_tayay__san_tayay_0093/original.png": "9dd4c4d8413bff292ca9da2028477d4a22996cc82708a6a7207f970071ac3c07",
-    "outputs_modes_v3_td/gradcam/misclassified_overlays_v1/seed42/20261023T152808Z_a4c97a1d/resnet50_full/san_tayay__san_tayay_0093/overlay.png": "4e236b27dd3428d7da06cef93d48f44fe0d6c7888725c4faca7d5ec2921e9c1a"
+    "outputs_modes_v3_td/gradcam/misclassified_overlays_v1/seed42/20261023T152808Z_a4c97a1d/resnet50_full/san_tayay__san_tayay_0093/overlay.png": "4e236b27dd3428d7da06cef93d48f44fe0d6c7888725c4faca7d5ec2921e9c1a",
+    "outputs_modes_v3_td/gradcam/mobilenet_v3_large_partial_matched_resnet/seed42/20261022T165535Z_d3d888d3/san_tayay__san_tayay_0093/overlay.png": "8444234d4f5d8f03d695f0160c620ed6c014a04dddf4fca3b7ef2c157c228773",
+    "outputs_modes_v3_td/gradcam/mobilenet_v3_large_partial_matched_resnet/seed42/20261022T165535Z_d3d888d3/san_tayay__san_tayay_0093/original.png": "9dd4c4d8413bff292ca9da2028477d4a22996cc82708a6a7207f970071ac3c07"
   },
   "outputs_sha256": {
     "report/report_assets/standalone/resnet_full_mobilenet_partial_loss_five_seeds.svg": "fd84f34038d045b7b8cdabfa42408fe47c5ceda75fe4dc9adb172a38d59674b2",
     "report/report_assets/standalone/resnet_full_mobilenet_partial_loss_five_seeds.png": "4487890ffcf749208ddbf8c41579634725355964c817f48b56d97cf2c62e014c",
     "report/report_assets/latest/gradcam_matched_correct_both_models_seed42.png": "13fc4b90173ccc3cad58e14d2b7e18372e21c0fc184889e13b378cc97088a4dc",
-    "report/report_assets/latest/gradcam_matched_all_wrong_both_models_seed42.png": "ebb09b6027a0d05adba1cfc91573cc15318e8b7c1927c49995f338b6da9a3433"
+    "report/report_assets/latest/gradcam_matched_all_wrong_both_models_seed42.png": "4c8254eb96b5e2fca96f9593f66ae98e27bdc575019283d36aa240a9d575fa76"
   },
   "protected_sha256": {
     "outputs_modes_v3_td/selection.json": "5b72b8108f131df16af0155051952f72134b3e5907109b92627a112181c7988e",
@@ -85,7 +97,15 @@
     "san_tayay/san_tayay_0093"
   ],
   "wrong_model_image_cases": 9,
-  "blank_policy": "Symmetric: correct prediction leaves its overlay blank in the error figure.",
+  "error_group_overlay_count": 14,
+  "correct_counterpart_overlay_count": 5,
+  "display_policy": "Both overlays shown on every image; green labels correct predictions and red labels errors.",
+  "counterpart_diagnostics": {
+    "manifest": "outputs_modes_v3_td/gradcam/matched_error_counterparts_v1/seed42/latest.json",
+    "new_inference_cases": 4,
+    "reused_CAM_cases": 10,
+    "training_runs_added": 0
+  },
   "comparison_csv": "report/matched_cam_readme_cases.csv",
   "comparison": [
     {
@@ -141,7 +161,7 @@
       "mobile_pred": "san_phraphum",
       "mobile_confidence": 0.9488462209701538,
       "resnet_overlay_shown": true,
-      "mobile_overlay_shown": false
+      "mobile_overlay_shown": true
     },
     {
       "group": "either_wrong",
@@ -151,7 +171,7 @@
       "resnet_confidence": 0.9979744553565979,
       "mobile_pred": "san_phraphrom",
       "mobile_confidence": 0.8643667101860046,
-      "resnet_overlay_shown": false,
+      "resnet_overlay_shown": true,
       "mobile_overlay_shown": true
     },
     {
@@ -174,7 +194,7 @@
       "mobile_pred": "san_phraphum",
       "mobile_confidence": 0.7190681099891663,
       "resnet_overlay_shown": true,
-      "mobile_overlay_shown": false
+      "mobile_overlay_shown": true
     },
     {
       "group": "either_wrong",
@@ -184,7 +204,7 @@
       "resnet_confidence": 0.9957333207130432,
       "mobile_pred": "san_tayay",
       "mobile_confidence": 0.6611214876174927,
-      "resnet_overlay_shown": false,
+      "resnet_overlay_shown": true,
       "mobile_overlay_shown": true
     },
     {
@@ -207,7 +227,7 @@
       "mobile_pred": "san_tayay",
       "mobile_confidence": 0.9897539615631104,
       "resnet_overlay_shown": true,
-      "mobile_overlay_shown": false
+      "mobile_overlay_shown": true
     }
   ],
   "placements": [
@@ -276,6 +296,20 @@
     },
     {
       "figure": "report/report_assets/latest/gradcam_matched_all_wrong_both_models_seed42.png",
+      "image_id": "san_phraphum/san_phraphum_0043",
+      "model": "mobilenet_v3_large/partial",
+      "source": "outputs_modes_v3_td/gradcam/matched_error_counterparts_v1/seed42/20261023T164312Z_7b334aea/mobilenet_v3_large_partial/san_phraphum__san_phraphum_0043/overlay.png",
+      "sha256": "4e359a7d647a8b2b1adee43f4e67978a22282ac501593f34b9e6b75f0bd0e53b"
+    },
+    {
+      "figure": "report/report_assets/latest/gradcam_matched_all_wrong_both_models_seed42.png",
+      "image_id": "san_phraphum/san_phraphum_0064",
+      "model": "resnet50/full",
+      "source": "outputs_modes_v3_td/gradcam/matched_error_counterparts_v1/seed42/20261023T164312Z_7b334aea/resnet50_full/san_phraphum__san_phraphum_0064/overlay.png",
+      "sha256": "38b66bff7db7321a1336c8dd3ae6635452efa73dfc34fb18b8ff6b61572f8ec2"
+    },
+    {
+      "figure": "report/report_assets/latest/gradcam_matched_all_wrong_both_models_seed42.png",
       "image_id": "san_phraphum/san_phraphum_0064",
       "model": "mobilenet_v3_large/partial",
       "source": "outputs_modes_v3_td/gradcam/misclassified_overlays_v1/seed42/20261023T152808Z_a4c97a1d/mobilenet_v3_large_partial/san_phraphum__san_phraphum_0064/overlay.png",
@@ -304,6 +338,20 @@
     },
     {
       "figure": "report/report_assets/latest/gradcam_matched_all_wrong_both_models_seed42.png",
+      "image_id": "san_phraphum/san_phraphum_0113",
+      "model": "mobilenet_v3_large/partial",
+      "source": "outputs_modes_v3_td/gradcam/matched_error_counterparts_v1/seed42/20261023T164312Z_7b334aea/mobilenet_v3_large_partial/san_phraphum__san_phraphum_0113/overlay.png",
+      "sha256": "e16b3d5dbfed932ee141a8095f9e2b04fb1ac2d0df25cc6fc5cda4b5c6bc9bc6"
+    },
+    {
+      "figure": "report/report_assets/latest/gradcam_matched_all_wrong_both_models_seed42.png",
+      "image_id": "san_phraphum/san_phraphum_0114",
+      "model": "resnet50/full",
+      "source": "outputs_modes_v3_td/gradcam/matched_error_counterparts_v1/seed42/20261023T164312Z_7b334aea/resnet50_full/san_phraphum__san_phraphum_0114/overlay.png",
+      "sha256": "2e9aedfe4fc14c8699689a49136f370ca6a5aef5e598096aa0598da2094c2027"
+    },
+    {
+      "figure": "report/report_assets/latest/gradcam_matched_all_wrong_both_models_seed42.png",
       "image_id": "san_phraphum/san_phraphum_0114",
       "model": "mobilenet_v3_large/partial",
       "source": "outputs_modes_v3_td/gradcam/misclassified_overlays_v1/seed42/20261023T152808Z_a4c97a1d/mobilenet_v3_large_partial/san_phraphum__san_phraphum_0114/overlay.png",
@@ -329,6 +377,13 @@
       "model": "resnet50/full",
       "source": "outputs_modes_v3_td/gradcam/misclassified_overlays_v1/seed42/20261023T152808Z_a4c97a1d/resnet50_full/san_tayay__san_tayay_0093/overlay.png",
       "sha256": "4e236b27dd3428d7da06cef93d48f44fe0d6c7888725c4faca7d5ec2921e9c1a"
+    },
+    {
+      "figure": "report/report_assets/latest/gradcam_matched_all_wrong_both_models_seed42.png",
+      "image_id": "san_tayay/san_tayay_0093",
+      "model": "mobilenet_v3_large/partial",
+      "source": "outputs_modes_v3_td/gradcam/mobilenet_v3_large_partial_matched_resnet/seed42/20261022T165535Z_d3d888d3/san_tayay__san_tayay_0093/overlay.png",
+      "sha256": "8444234d4f5d8f03d695f0160c620ed6c014a04dddf4fca3b7ef2c157c228773"
     }
   ],
   "python_inference_or_training_performed": false

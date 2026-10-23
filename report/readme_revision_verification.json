@@ -1,5 +1,5 @@
 {
-  "checked_utc": "2026-10-23T16:23:41.483Z",
+  "checked_utc": "2026-10-23T16:47:26.847Z",
   "authorized_sections": [
     "### 3.2 Fine-tuning strategies",
     "### 6.2 Learning curves across five seeds",
@@ -9,8 +9,8 @@
   ],
   "unrelated_readme_content_byte_identical_after_section_redaction": true,
   "member_list_and_toc_preserved": true,
-  "readme_sha256": "282b5158ef5fe9a79bf302cbd01a57a222e11ca2317b7a424622d97618aa844f",
-  "template_sha256": "c87bdb3feb5236da77c971034c0c110b88a0f3ac84ac5830d6b762aca67c8743",
+  "readme_sha256": "d809373429381910efef4678dff9b12d8fabb0db87305a1f87617f00d9942316",
+  "template_sha256": "37a1dee670ebb09cb5dbf2e8d39ed86f576a187c0c5573551c66b4b29f524595",
   "learning": [
     {
       "path": "report/report_assets/latest/learning_curves_resnet50.svg",
@@ -42,15 +42,17 @@
     "seed": 42,
     "partition": "test",
     "correct_rows": 4,
-    "wrong_rows": 7,
-    "resnet_errors": 5,
-    "mobilenet_errors": 4,
-    "shared_errors": 2,
-    "error_overlays": 9,
-    "correct_overlays": 8,
-    "blank_policy_verified": true,
-    "figures_byte_identical_to_approved_previews": true,
-    "prediction_rows_verified_by_generator": 170
+    "error_rows": 7,
+    "wrong_model_image_cases": 9,
+    "correct_counterpart_cases": 5,
+    "error_group_overlays": 14,
+    "correct_group_overlays": 8,
+    "blank_cells": 0,
+    "prediction_rows_verified": 170,
+    "new_inference_cases": 4,
+    "reused_error_group_CAMs": 10,
+    "training_runs_added": 0,
+    "verification": "report/matched_error_counterparts_verification.json"
   },
   "image_sizes": [
     {
@@ -63,7 +65,7 @@
       "path": "report/report_assets/latest/gradcam_matched_all_wrong_both_models_seed42.png",
       "width": 1360,
       "height": 2803,
-      "sha256": "ebb09b6027a0d05adba1cfc91573cc15318e8b7c1927c49995f338b6da9a3433"
+      "sha256": "4c8254eb96b5e2fca96f9593f66ae98e27bdc575019283d36aa240a9d575fa76"
     },
     {
       "path": "report/report_assets/standalone/resnet_full_mobilenet_partial_loss_five_seeds.png",
@@ -110,7 +112,6 @@
     "outputs_modes_v3_td/selection.json": "5b72b8108f131df16af0155051952f72134b3e5907109b92627a112181c7988e",
     "outputs_modes_v3_td/run_registry.json": "0b163a52ea585a56565533bcec1d3a2fcfa515cd33d876b8c4fb8e6fd01d9a46"
   },
-  "python_tests_inference_training_run": false,
   "git_push_performed": false,
   "appendix_removal": {
     "authorized": true,
@@ -122,5 +123,14 @@
     "unrelated_body_content_preserved": true,
     "supporting_files_deleted": false,
     "gradcam_limitation_case_count_corrected": true
+  },
+  "python_tests_run": false,
+  "diagnostic_inference_executed": true,
+  "training_run": false,
+  "counterpart_revision": {
+    "authorized": true,
+    "only_readme_section_6_7_changed": true,
+    "new_max_probability_abs_error": 0.0014745891094207764,
+    "original_predictions_selection_registry_preserved": true
   }
 }

@@ -596,7 +596,7 @@ t = d̄ / (s_d / √n)
 <!-- resnet-followup:gradcam:start -->
 <!-- matched-cam-layout:v1 -->
 
-เปรียบเทียบ **ResNet50/Full** กับ **MobileNetV3-Large/Partial** จาก checkpoint เดิม **seed 42** บน **test partition** โดยจัดทุกแถวเป็น **Original → ResNet50/Full overlay → MobileNetV3-Large/Partial overlay** แต่ละ CAM อธิบายคลาสที่โมเดลนั้นทำนาย และจัดแนวกลับสู่ภาพต้นฉบับหลังตัด canvas padding ไม่มีการฝึกหรือ inference เพิ่มสำหรับการจัดรูปครั้งนี้
+เปรียบเทียบ **ResNet50/Full** กับ **MobileNetV3-Large/Partial** จาก checkpoint เดิม **seed 42** บน **test partition** โดยจัดทุกแถวเป็น **Original → ResNet50/Full overlay → MobileNetV3-Large/Partial overlay** แต่ละ CAM อธิบายคลาสที่โมเดลนั้นทำนาย และจัดแนวกลับสู่ภาพต้นฉบับหลังตัด canvas padding สำหรับกลุ่มภาพทายผิด 7 ภาพ ใช้ CAM เดิม 10 model-image cases และสร้างเพิ่มเฉพาะฝั่งที่ทายถูกซึ่งยังไม่มี CAM อีก 4 cases จาก checkpoint เดิม ไม่มีการฝึกใหม่หรือแก้ผลประเมิน final
 
 **ตัวอย่างที่ทั้งสองโมเดลทายถูก — คลาสละ 1 ภาพ**
 
@@ -608,15 +608,15 @@ t = d̄ / (s_d / √n)
 
 **ภาพที่อย่างน้อยหนึ่งโมเดลทายผิด — แสดงครบทุกภาพ**
 
-จาก test 85 ภาพของ seed 42 ResNet ทายผิด 5 ภาพ และ MobileNet ทายผิด 4 ภาพ โดยผิดร่วมกัน 2 ภาพ (`san_phraphum_0076`, `san_phraphum_0121`) จึงมี **7 ภาพไม่ซ้ำ รวม 9 model-image error cases** ด้านล่าง หากโมเดลใดทายถูกจะเว้นช่อง overlay ของโมเดลนั้นและระบุว่า Correct prediction; หากผิดทั้งคู่จะแสดง overlay คู่กัน ช่องว่างจึงหมายถึงโมเดลทายถูก ไม่ใช่ผล CAM ที่ขาดหาย
+จาก test 85 ภาพของ seed 42 ResNet ทายผิด 5 ภาพ และ MobileNet ทายผิด 4 ภาพ โดยผิดร่วมกัน 2 ภาพ (`san_phraphum_0076`, `san_phraphum_0121`) จึงมี **7 ภาพไม่ซ้ำ รวม 9 model-image error cases** ด้านล่างแสดง overlay ของ **ทั้งสองโมเดลครบทุกภาพ รวม 14 overlays** แม้ฝั่งใดทายถูก เพื่อเปรียบเทียบบริเวณตอบสนองบนภาพเดียวกันโดยตรง แต่ละช่องแสดงคลาสที่ทำนายและ confidence โดยกำกับ **CORRECT เป็นสีเขียว** และ **WRONG เป็นสีแดง** ทั้งนี้ CAM แต่ละฝั่งอธิบายคลาสที่โมเดลนั้นทำนาย ซึ่งอาจเป็นคนละคลาส
 
-![All misclassified images: original and overlays only for models that were wrong](report/report_assets/latest/gradcam_matched_all_wrong_both_models_seed42.png)
+![Images misclassified by either model: original and both model overlays](report/report_assets/latest/gradcam_matched_all_wrong_both_models_seed42.png)
 
-*Figure 17b. ภาพผิดครบทั้ง 7 ภาพไม่ซ้ำใน test seed 42 เรียงคอลัมน์เหมือน Figure 17a และเว้น overlay ของฝ่ายที่ทายถูก*
+*Figure 17b. ภาพผิดครบทั้ง 7 ภาพไม่ซ้ำใน test seed 42 เรียงคอลัมน์เหมือน Figure 17a และแสดง overlay ของทั้งสองโมเดลครบทุกแถว พร้อมกำกับผลถูก/ผิดของแต่ละโมเดล*
 
 <!-- resnet-followup:gradcam:end -->
 
-ตารางต่อไปแสดงคำทำนายจากผล final เดิมสำหรับทั้ง 11 ภาพ เรียงตัวอย่างทายถูก 4 ภาพก่อน ตามด้วยกลุ่มทายผิด 7 ภาพ แม้ช่อง overlay ถูกเว้นว่าง ตารางยังแสดงคำทำนายของทั้งสองโมเดล
+ตารางต่อไปแสดงคำทำนายจากผล final เดิมสำหรับทั้ง 11 ภาพ เรียงตัวอย่างทายถูก 4 ภาพก่อน ตามด้วยกลุ่มทายผิด 7 ภาพ ทั้งกราฟและตารางแสดงคำทำนายของทั้งสองโมเดลครบทุกภาพ
 
 <!-- generated:MATCHED_CAM_TABLE -->
 
@@ -640,13 +640,13 @@ t = d̄ / (s_d / √n)
 
 ในกลุ่มทายผิด `san_phraphum_0076` แสดงว่าภาพเดียวกันอาจถูกจัดเป็นคนละคลาสผิด: ResNet ทายพระพรหม (72.62%) ส่วน MobileNet ทายตายาย (60.01%) CAM จึงอธิบายคนละคลาสตามคำทำนาย สำหรับ `san_phraphum_0121` ทั้งคู่ทายเป็นพระพรหมผิดด้วย confidence สูง (96.80% และ 99.46%) แม้บริเวณเด่นอยู่ที่ตัวศาล การตอบสนองตรงวัตถุจึงไม่ได้รับประกันการแยกประเภทที่ถูกต้อง
 
-`san_tayay_0093` เป็นตัวอย่างที่ ResNet ผิดแต่ MobileNet ถูก ส่วน `san_phraphum_0064` เป็นกรณีตรงข้าม การเว้นช่องใน Figure 17b ช่วยให้เห็นว่า error เกิดกับโมเดลใด โดยไม่ใช้บริเวณเด่นของ CAM เป็นข้อพิสูจน์สาเหตุที่ถูกหรือผิด
+`san_tayay_0093` เป็นตัวอย่างที่ ResNet ผิดแต่ MobileNet ถูก ส่วน `san_phraphum_0064` เป็นกรณีตรงข้าม การแสดง overlay คู่ใน Figure 17b ช่วยให้เทียบบริเวณตอบสนองของโมเดลที่ทายถูกกับโมเดลที่ทายผิดบนภาพเดียวกันได้ โดยไม่ใช้บริเวณเด่นของ CAM เป็นข้อพิสูจน์สาเหตุที่ถูกหรือผิด
 
 ตัวอย่างทายถูกเลือกมาเพื่ออธิบาย ส่วนกลุ่มผิดครอบคลุม errors ทั้งหมดของสอง checkpoints นี้เท่านั้น ไม่ใช่ errors ของทุก seed จึงไม่ใช้จำนวนภาพในกริดจัดอันดับประสิทธิภาพรวม สีของ CAM ถูกปรับสเกลภายในแต่ละภาพ ไม่ใช่ค่าความสำคัญที่เปรียบเทียบข้ามโมเดลโดยตรง และ Grad-CAM ไม่ใช่หลักฐานเชิงสาเหตุ Confidence มาจากผล final ที่บันทึกไว้และปัดทศนิยม 2 ตำแหน่ง ค่า 100.00% ไม่ใช่การรับประกันความถูกต้อง
 
 **ภาพที่ถูกทายผิดบ่อยที่สุด** นับจากทั้ง 75 runs ภาพพระภูมิอยู่ในกลุ่มที่ผิดบ่อยที่สุดซ้ำ ๆ เช่น `san_phraphum_0043` ผิด 69/75 runs และ `san_phraphum_0121` ผิด 66/75 runs ตัวเลขเหล่านี้มาจากภาพชุดเดียวกันและโมเดลที่เกี่ยวข้องกัน จึงไม่ใช่ตัวอย่างอิสระ 75 ชุด ดูผลครบ 85 ภาพใน [error_frequency.csv](report/error_frequency.csv)
 
-ไฟล์ประกอบ: [คำทำนายทั้ง 11 ภาพ](report/matched_cam_readme_cases.csv) · [แหล่งภาพและการตรวจสอบ layout](report/matched_cam_layout_sources.json) · [การตรวจสอบ overlay ที่ทายผิดทั้งหมด](report/misclassified_overlays_verification.json) ส่วนหลักฐานประกอบเดิมของ MobileNet ดูได้จาก [Grad-CAM ชุดเดิม](report/report_assets/latest/gradcam_reference_percent.png) และ [eyeball_cases.csv](outputs_modes_v3_td/eyeball/eyeball_cases.csv)
+ไฟล์ประกอบ: [คำทำนายทั้ง 11 ภาพ](report/matched_cam_readme_cases.csv) · [แหล่งภาพและการตรวจสอบ layout](report/matched_cam_layout_sources.json) · [การตรวจสอบ overlay ที่ทายผิดทั้งหมด](report/misclassified_overlays_verification.json) · [การตรวจสอบ CAM คู่ครบ 14 cases](report/matched_error_counterparts_verification.json) ส่วนหลักฐานประกอบเดิมของ MobileNet ดูได้จาก [Grad-CAM ชุดเดิม](report/report_assets/latest/gradcam_reference_percent.png) และ [eyeball_cases.csv](outputs_modes_v3_td/eyeball/eyeball_cases.csv)
 
 ### 6.8 Confidence and calibration
 
