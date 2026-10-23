@@ -1,4 +1,72 @@
+<a id="top" name="top"></a>
+
 # DADS7202 — Thai shrine image classification using transfer learning
+
+<a id="ข้อมูลสมาชิกในกลุ่ม" name="ข้อมูลสมาชิกในกลุ่ม"></a>
+## ข้อมูลสมาชิกในกลุ่ม
+
+1. นายเจษฎาภรณ์ จินะเสนา 6810422001
+2. นายพิชญะ จันทร์ดอกไม้ 6810422002
+3. นายสิทธิเดช วิชัยดิษฐ 6810422030
+
+---
+
+## สารบัญ (Table of Contents)
+
+- [ข้อมูลสมาชิกในกลุ่ม](#ข้อมูลสมาชิกในกลุ่ม)
+- [Abstract](#abstract)
+- [1. Dataset overview](#1-dataset-overview)
+  - [1.1 Study objective and data sources](#11-study-objective-and-data-sources)
+  - [1.2 Class distribution and loss weighting](#12-class-distribution-and-loss-weighting)
+  - [1.3 Image dimensions, colour modes and brightness](#13-image-dimensions-colour-modes-and-brightness)
+- [2. Data preparation](#2-data-preparation)
+  - [2.1 Group-based data splitting](#21-group-based-data-splitting)
+  - [2.2 Image preprocessing and normalization](#22-image-preprocessing-and-normalization)
+  - [2.3 Training augmentation](#23-training-augmentation)
+  - [2.4 Batch loading](#24-batch-loading)
+- [3. Model architecture](#3-model-architecture)
+  - [3.1 Feature extraction and classification](#31-feature-extraction-and-classification)
+  - [3.2 Fine-tuning strategies](#32-fine-tuning-strategies)
+  - [3.3 Predictions before fine-tuning](#33-predictions-before-fine-tuning)
+- [4. Training method](#4-training-method)
+  - [4.1 Hyperparameter search](#41-hyperparameter-search)
+  - [4.2 Training settings and checkpoint selection](#42-training-settings-and-checkpoint-selection)
+  - [4.3 Selected configurations and final evaluation](#43-selected-configurations-and-final-evaluation)
+- [5. Evaluation metrics](#5-evaluation-metrics)
+  - [5.1 Classification metrics](#51-classification-metrics)
+  - [5.2 Paired statistical comparisons](#52-paired-statistical-comparisons)
+  - [5.3 Confidence calibration](#53-confidence-calibration)
+- [6. Experimental results](#6-experimental-results)
+  - [6.1 Experiment completeness](#61-experiment-completeness)
+  - [6.2 Learning curves across five seeds](#62-learning-curves-across-five-seeds)
+  - [6.3 Test performance](#63-test-performance)
+  - [6.4 Statistical comparisons](#64-statistical-comparisons)
+    - [Worked example: MobileNetV3-Large/Partial vs ResNet50/Full](#worked-example-mobilenetv3-largepartial-vs-resnet50full)
+  - [6.5 Per-class performance](#65-per-class-performance)
+  - [6.6 Confusion matrices](#66-confusion-matrices)
+  - [6.7 Matched-image Grad-CAM comparison](#67-matched-image-grad-cam-comparison)
+  - [6.8 Confidence and calibration](#68-confidence-and-calibration)
+  - [6.9 Final model selection](#69-final-model-selection)
+  - [6.10 Ablation study of ResNet50/Full](#610-ablation-study-of-resnet50full)
+- [7. Discussion and conclusions](#7-discussion-and-conclusions)
+  - [7.1 Limitations](#71-limitations)
+- [Appendix](#appendix)
+  - [A. Reproducing the follow-up study](#a-reproducing-the-follow-up-study)
+  - [B. Reference-model diagnostics](#b-reference-model-diagnostics)
+  - [C. Supporting evidence](#c-supporting-evidence)
+    - [Compute budget and environment](#compute-budget-and-environment)
+    - [Numerical verification and figure sources](#numerical-verification-and-figure-sources)
+    - [Additional statistical quantities](#additional-statistical-quantities)
+    - [Source domains](#source-domains)
+    - [Parameter counts](#parameter-counts)
+    - [Checkpoint distributions](#checkpoint-distributions)
+    - [Training dynamics](#training-dynamics)
+    - [Frequent classification errors](#frequent-classification-errors)
+    - [Experiment tracking and CoreWeave](#experiment-tracking-and-coreweave)
+    - [Rendering the report from saved results](#rendering-the-report-from-saved-results)
+  - [D. Report files](#d-report-files)
+
+---
 
 ## Abstract
 
@@ -9,6 +77,8 @@
 **ResNet50/Full ได้รับเลือกเป็นโมเดลสุดท้ายของการศึกษา** เพราะมีค่าเฉลี่ย Accuracy, Macro precision, Macro recall และ Macro F1 บน test สูงสุดจาก 15 setups โดยได้ Accuracy 93.65% ± 1.34 pp และ Macro F1 92.56% ± 1.81 pp นอกจากนี้ยังมี Recall ของศาลพระภูมิสูงกว่า และมี SD ของ Accuracy และ Macro F1 ต่ำกว่า MobileNetV3-Large/Partial ซึ่งเป็นโมเดลอ้างอิงจาก validation ส่วน MobileNet มี ECE ต่ำกว่าเล็กน้อย ความแตกต่างของ Accuracy และ Macro F1 ระหว่างสองโมเดลยังไม่มีนัยสำคัญหลังปรับ Holm การเลือก ResNet จึงเป็นข้อสรุปจากผลที่สังเกตในการศึกษานี้ โดยเปิดเผยว่าเลือกหลังพิจารณา test (post-hoc) บน split ที่เคยตรวจดูแล้ว และผลมีสถานะเชิงสำรวจ (exploratory)
 
 การศึกษา ablation ใช้ตรวจสอบผลของ augmentation และ class weights โดยนำองค์ประกอบออกจากสูตรเดิมทีละอย่าง การไม่ใช้ augmentation มี Macro F1 เฉลี่ยลดลง 1.32 pp ส่วนการไม่ใช้ class weights ลดลง 0.67 pp แต่ยังไม่พบความแตกต่างอย่างมีนัยสำคัญหลังปรับ Holm ทั้ง 4 comparisons การฝึกเพิ่ม 10 runs ทำให้รวมทั้งงานเป็น 160 runs นอกจากนี้ใช้ Grad-CAM จาก checkpoint เดิมวิเคราะห์บริเวณภาพที่สัมพันธ์กับผลทำนาย รวมถึงตัวอย่างที่ทายผิดด้วยความมั่นใจสูง
+
+<p align="right"><a href="#top">🔝 กลับสู่ด้านบน</a></p>
 
 ## 1. Dataset overview
 
@@ -68,6 +138,8 @@
 
 ความสว่างของภาพกระจายกว้างและทับซ้อนกันระหว่างคลาส ภาพประเภทเดียวกันจึงมีสภาพแสงหลากหลาย การฝึกใช้การปรับแสงและสีเล็กน้อยเพื่อให้โมเดลพบความแปรผันนี้มากขึ้น
 
+<p align="right"><a href="#top">🔝 กลับสู่ด้านบน</a></p>
+
 ## 2. Data preparation
 
 ### 2.1 Group-based data splitting
@@ -120,6 +192,8 @@ Probability คือโอกาสที่การแปลงจะเก�
 
 ใช้ภาพใน batch สุดท้ายด้วยแม้จำนวนไม่ครบ เช่น batch size 32 จะแบ่งได้ 12 batches เต็มและ batch สุดท้ายอีก 6 ภาพ ส่วน validation และ test ใช้ลำดับภาพคงที่และคำนวณผลโดยไม่ปรับน้ำหนัก
 
+<p align="right"><a href="#top">🔝 กลับสู่ด้านบน</a></p>
+
 ## 3. Model architecture
 
 ### 3.1 Feature extraction and classification
@@ -171,6 +245,8 @@ Probability คือโอกาสที่การแปลงจะเก�
 ![ImageNet predictions on fixed training examples](report/report_assets/latest/imagenet_baseline_percent.png)
 
 *Figure 8. ป้าย ImageNet และ confidence (%) จากตัวอย่าง train เดิม ใช้อธิบายความต่างของชุดป้ายกำกับก่อนปรับ classifier*
+
+<p align="right"><a href="#top">🔝 กลับสู่ด้านบน</a></p>
 
 ## 4. Training method
 
@@ -301,6 +377,7 @@ MobileNetV3-Large/Partial ได้รับเลือกเป็น **statis
 
 รายละเอียด checkpoint ราย seed จำนวน epochs ที่ใช้จริง และเครื่องที่ใช้ทดลองอยู่ใน Appendix C
 
+<p align="right"><a href="#top">🔝 กลับสู่ด้านบน</a></p>
 
 ## 5. Evaluation metrics
 
@@ -339,6 +416,8 @@ MobileNetV3-Large/Partial ได้รับเลือกเป็น **statis
 Confidence คือความน่าจะเป็นสูงสุดที่โมเดลให้กับคลาสที่ทำนาย Calibration ตรวจว่าระดับความมั่นใจนั้นสอดคล้องกับความถูกต้องที่สังเกตหรือไม่ Expected Calibration Error (ECE) แบ่งผลทำนายเป็นสิบช่วงความกว้างเท่ากันตั้งแต่ 0–10% ถึง 90–100% ตาม implementation จริง จากนั้นคำนวณขนาดความต่างระหว่าง confidence เฉลี่ยกับ accuracy ของแต่ละช่วง แล้วเฉลี่ยโดยถ่วงน้ำหนักตามจำนวนภาพ ช่วงที่ไม่มีภาพไม่มีส่วนร่วมในผลรวม
 
 **ตัวอย่างเพื่ออธิบาย:** กลุ่มที่มี confidence เฉลี่ย 85% แต่ทายถูก 70% มี calibration gap 15 pp ECE รวมพิจารณาทุกกลุ่ม ค่า ECE ต่ำจึงหมายถึงความมั่นใจกับความถูกต้องสอดคล้องกันมากขึ้นภายใต้วิธีแบ่ง bins นี้ ไม่ได้วัด Accuracy โดยตรง และอาจเปลี่ยนตามวิธีแบ่ง bins กับจำนวนตัวอย่าง ตัวอย่างตัวเลขนี้ไม่ใช่ผลทดลองเพิ่มเติม
+
+<p align="right"><a href="#top">🔝 กลับสู่ด้านบน</a></p>
 
 ## 6. Experimental results
 
@@ -637,6 +716,8 @@ Ablation นี้เป็นผลเชิงสำรวจ ทำหลั�
 
 ไฟล์ประกอบ: [matched deltas](report/resnet_ablation_matched_deltas.csv) · [statistical tests](report/resnet_ablation_statistical_tests.csv) · [per-class summary](report/resnet_ablation_per_class_summary.csv)
 
+<p align="right"><a href="#top">🔝 กลับสู่ด้านบน</a></p>
+
 ---
 
 ## 7. Discussion and conclusions
@@ -653,6 +734,8 @@ Ablation นี้เป็นผลเชิงสำรวจ ทำหลั�
 2. **การค้นหา hyperparameters:** ใช้ 5 configurations ต่อ setup และ tuning seed เดียว โดยไม่มี SGD ในชุดที่สุ่มได้
 3. **บริบทในภาพ:** ภาพจากเว็บมีข้อความ ลายน้ำ และฉากหลังหลากหลาย ซึ่งอาจสัมพันธ์กับคลาส และไม่ทราบ URL ต้นทาง 112 ภาพ
 4. **การวิเคราะห์เพิ่มเติม:** Grad-CAM ใช้ตัวอย่างที่คัดเลือก 8 ภาพจาก seed 42 และ ablation ใช้ 5 seeds ต่อเงื่อนไขหลังเลือกโมเดล การไม่พบนัยสำคัญไม่ใช่หลักฐานยืนยันความเท่ากัน อีกทั้งยังไม่มีผลวัด latency ภายใต้เงื่อนไขควบคุม
+
+<p align="right"><a href="#top">🔝 กลับสู่ด้านบน</a></p>
 
 ---
 
@@ -899,5 +982,7 @@ node report/render_readme.js
 - ตรวจฉบับปรับปรุง: [verify_readme_revision.js](report/verify_readme_revision.js)
 
 ผลเชิงตัวเลขทั้งหมดมาจากการทดลองรอบ `outputs_modes_v3_td` ส่วน audit, canonical split และ ImageNet baseline บางส่วนเป็นหลักฐานเดิมที่ใช้ข้อมูลชุดเดียวกัน และมีสำเนาใน output ล่าสุด รายละเอียดการคัดผลรอบอื่นออกอยู่ใน inventory
+
+<p align="right"><a href="#top">🔝 กลับสู่ด้านบน</a></p>
 
 ---
